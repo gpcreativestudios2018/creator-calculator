@@ -13,22 +13,25 @@
     <div id="root"></div>
     
     <script type="text/babel">
-        const { useState } = React;
-        const Play = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>;
-        const Music = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>;
-        const Camera = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>;
-        const Twitter = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>;
-        const Users = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
-        const Briefcase = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>;
-        const Ghost = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg>;
-        const Image = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>;
-        const Gamepad2 = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>;
-        const Radio = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>;
-        const Mail = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
+      const { useState } = React;
+        
+        // Icon components
+        const Play = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>;
+        const Music = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>;
+        const Camera = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>;
+        const Twitter = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>;
+        const Users = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+        const Briefcase = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>;
+        const Ghost = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg>;
+        const Image = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>;
+        const Gamepad2 = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>;
+        const Radio = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg>;
+        const Mail = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
 
         function UltimateCreatorCalculator() {
           const [activeTab, setActiveTab] = useState('youtube');
 
+          // All state variables
           const [ytSubs, setYtSubs] = useState(10000);
           const [ytViews, setYtViews] = useState(100000);
           const [ytCPM, setYtCPM] = useState(4);
@@ -70,6 +73,7 @@
           const [nlPaidPercent, setNlPaidPercent] = useState(5);
           const [nlPrice, setNlPrice] = useState(10);
 
+          // All calculations
           const ytAdRevenue = (ytViews / 1000) * ytCPM * 0.55;
           const ytYearly = ytAdRevenue * 12;
           const ytSponsor = ytSubs >= 100000 ? ytSubs * 0.1 : ytSubs * 0.05;
@@ -131,7 +135,6 @@
 
           const newsletterPlatform = { id: 'newsletter', name: 'Newsletter', icon: Mail, gradient: 'from-orange-500 to-red-600' };
           const activePlatform = [...platforms, newsletterPlatform].find(p => p.id === activeTab);
-
           return (
             <div className="min-h-screen bg-black p-4">
               <div className="max-w-7xl mx-auto py-8">
@@ -167,7 +170,7 @@
                   <div className="flex justify-center">
                     <button
                       onClick={() => setActiveTab('newsletter')}
-                      className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all w-full max-w-xs ${
+                      className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all w-48 ${
                         activeTab === 'newsletter' 
                           ? `bg-gradient-to-br ${newsletterPlatform.gradient} text-white scale-110 shadow-2xl` 
                           : `bg-gradient-to-br ${newsletterPlatform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
@@ -178,44 +181,197 @@
                     </button>
                   </div>
                 </div>
-
+                {/* YouTube */}
                 {activeTab === 'youtube' && (
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="bg-white rounded-lg shadow-lg p-6">
                       <h2 className="text-2xl font-semibold text-gray-800 mb-4">YouTube Metrics</h2>
                       <div className="space-y-5">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Subscribers</label>
-                          <input type="number" value={ytSubs} onChange={(e) => setYtSubs(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Monthly Views</label>
-                          <input type="number" value={ytViews} onChange={(e) => setYtViews(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">CPM: ${ytCPM}</label>
-                          <input type="range" min="1" max="20" step="0.5" value={ytCPM} onChange={(e) => setYtCPM(Number(e.target.value))} className="w-full" />
-                        </div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Subscribers</label><input type="number" value={ytSubs} onChange={(e) => setYtSubs(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Monthly Views</label><input type="number" value={ytViews} onChange={(e) => setYtViews(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">CPM: ${ytCPM}</label><input type="range" min="1" max="20" step="0.5" value={ytCPM} onChange={(e) => setYtCPM(Number(e.target.value))} className="w-full" /></div>
                       </div>
                     </div>
                     <div className="space-y-6">
-                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}>
-                        <h3 className="text-lg font-semibold mb-2">Monthly Ad Revenue</h3>
-                        <div className="text-5xl font-bold">${ytAdRevenue.toFixed(0)}</div>
-                        <p className="text-sm mt-2">Yearly: ${ytYearly.toFixed(0)}</p>
-                      </div>
-                      <div className="bg-white rounded-lg shadow-lg p-6">
-                        <h3 className="text-lg font-semibold mb-4">Additional Revenue</h3>
-                        <div className="space-y-3">
-                          <div className="flex justify-between"><span>Sponsorship Rate</span><span className="font-bold">${ytSponsor.toFixed(0)}</span></div>
-                          <div className="flex justify-between"><span>Monthly (3 deals)</span><span className="font-bold">${(ytSponsor * 3).toFixed(0)}</span></div>
-                          <div className="flex justify-between border-t pt-3"><span className="font-semibold">Total</span><span className="text-2xl font-bold text-red-600">${(ytAdRevenue + ytSponsor * 3).toFixed(0)}</span></div>
-                        </div>
-                      </div>
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Ad Revenue</h3><div className="text-5xl font-bold">${ytAdRevenue.toFixed(0)}</div><p className="text-sm mt-2">Yearly: ${ytYearly.toFixed(0)}</p></div>
+                      <div className="bg-white rounded-lg shadow-lg p-6"><h3 className="text-lg font-semibold mb-4">Additional Revenue</h3><div className="space-y-3"><div className="flex justify-between"><span>Sponsorship Rate</span><span className="font-bold">${ytSponsor.toFixed(0)}</span></div><div className="flex justify-between"><span>Monthly (3 deals)</span><span className="font-bold">${(ytSponsor * 3).toFixed(0)}</span></div><div className="flex justify-between border-t pt-3"><span className="font-semibold">Total</span><span className="text-2xl font-bold text-red-600">${(ytAdRevenue + ytSponsor * 3).toFixed(0)}</span></div></div></div>
                     </div>
                   </div>
                 )}
 
+                {/* TikTok */}
+                {activeTab === 'tiktok' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">TikTok Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Followers</label><input type="number" value={ttFollowers} onChange={(e) => setTtFollowers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Avg Views</label><input type="number" value={ttViews} onChange={(e) => setTtViews(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Avg Likes</label><input type="number" value={ttLikes} onChange={(e) => setTtLikes(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Avg Comments</label><input type="number" value={ttComments} onChange={(e) => setTtComments(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Engagement Rate</h3><div className="text-5xl font-bold">{ttEngagement.toFixed(2)}%</div><p className="text-sm mt-2">{ttEngagement >= 5 ? 'Excellent!' : ttEngagement >= 3 ? 'Good' : 'Needs work'}</p></div>
+                      <div className="bg-white rounded-lg shadow-lg p-6"><h3 className="text-lg font-semibold mb-4">Monthly Revenue</h3><div className="space-y-3"><div className="flex justify-between"><span>Creator Fund</span><span className="font-bold">${ttCreatorFund.toFixed(0)}</span></div><div className="flex justify-between"><span>Brand Deals</span><span className="font-bold">${(ttBrandDeal * 2.5).toFixed(0)}</span></div><div className="flex justify-between border-t pt-3"><span className="font-semibold">Total</span><span className="text-2xl font-bold text-pink-600">${(ttCreatorFund + ttBrandDeal * 2.5).toFixed(0)}</span></div></div></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Instagram */}
+                {activeTab === 'instagram' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Instagram Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Followers</label><input type="number" value={igFollowers} onChange={(e) => setIgFollowers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Avg Likes</label><input type="number" value={igLikes} onChange={(e) => setIgLikes(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Avg Comments</label><input type="number" value={igComments} onChange={(e) => setIgComments(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Engagement Rate</h3><div className="text-5xl font-bold">{igEngagement.toFixed(2)}%</div></div>
+                      <div className="bg-white rounded-lg shadow-lg p-6"><h3 className="text-lg font-semibold mb-4">Sponsored Posts</h3><div className="space-y-3"><div className="flex justify-between"><span>Per Post</span><span className="font-bold">${igPostPrice.toFixed(0)}</span></div><div className="flex justify-between"><span>Monthly</span><span className="text-2xl font-bold text-purple-600">${(igPostPrice * igMonthlyDeals).toFixed(0)}</span></div></div></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* X/Twitter */}
+                {activeTab === 'twitter' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">X Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Followers</label><input type="number" value={xFollowers} onChange={(e) => setXFollowers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Monthly Impressions</label><input type="number" value={xImpressions} onChange={(e) => setXImpressions(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Paid Subscribers</label><input type="number" value={xSubscribers} onChange={(e) => setXSubscribers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3><div className="text-5xl font-bold">${xTotal.toFixed(0)}</div></div>
+                      <div className="bg-white rounded-lg shadow-lg p-6"><h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3><div className="space-y-3"><div className="flex justify-between"><span>Premium Ads</span><span className="font-bold">${xPremiumRevenue.toFixed(0)}</span></div><div className="flex justify-between"><span>Subscriptions</span><span className="font-bold">${xSubRevenue.toFixed(0)}</span></div></div></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Facebook */}
+                {activeTab === 'facebook' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Facebook Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Followers</label><input type="number" value={fbFollowers} onChange={(e) => setFbFollowers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Watch Minutes</label><input type="number" value={fbWatchMinutes} onChange={(e) => setFbWatchMinutes(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3><div className="text-5xl font-bold">${fbTotal.toFixed(0)}</div></div>
+                      <div className="bg-white rounded-lg shadow-lg p-6"><h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3><div className="space-y-3"><div className="flex justify-between"><span>In-Stream Ads</span><span className="font-bold">${fbAdBreaks.toFixed(0)}</span></div><div className="flex justify-between"><span>Stars</span><span className="font-bold">${fbStars.toFixed(0)}</span></div></div></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* LinkedIn */}
+                {activeTab === 'linkedin' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">LinkedIn Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Followers</label><input type="number" value={liFollowers} onChange={(e) => setLiFollowers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Newsletter Subs</label><input type="number" value={liNewsletterSubs} onChange={(e) => setLiNewsletterSubs(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3><div className="text-5xl font-bold">${liTotal.toFixed(0)}</div></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Snapchat */}
+                {activeTab === 'snapchat' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Snapchat Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Followers</label><input type="number" value={scFollowers} onChange={(e) => setScFollowers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Spotlight Views</label><input type="number" value={scSpotlightViews} onChange={(e) => setScSpotlightViews(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3><div className="text-5xl font-bold">${scTotal.toFixed(0)}</div></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Pinterest */}
+                {activeTab === 'pinterest' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Pinterest Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Followers</label><input type="number" value={pinFollowers} onChange={(e) => setPinFollowers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Monthly Pin Views</label><input type="number" value={pinMonthlyViews} onChange={(e) => setPinMonthlyViews(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Idea Pins/Month</label><input type="number" value={pinIdeaPins} onChange={(e) => setPinIdeaPins(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3><div className="text-5xl font-bold">${pinTotal.toFixed(0)}</div></div>
+                      <div className="bg-white rounded-lg shadow-lg p-6"><h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3><div className="space-y-3"><div className="flex justify-between"><span>Creator Rewards</span><span className="font-bold">${pinCreatorRewards.toFixed(0)}</span></div><div className="flex justify-between"><span>Affiliates</span><span className="font-bold">${pinAffiliateEst.toFixed(0)}</span></div><div className="flex justify-between"><span>Brand Deals</span><span className="font-bold">${pinBrandDeals.toFixed(0)}</span></div></div></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Twitch */}
+                {activeTab === 'twitch' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Twitch Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Subscribers</label><input type="number" value={twSubs} onChange={(e) => setTwSubs(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Avg Viewers</label><input type="number" value={twAvgViewers} onChange={(e) => setTwAvgViewers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Hours Streamed</label><input type="number" value={twHoursStreamed} onChange={(e) => setTwHoursStreamed(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3><div className="text-5xl font-bold">${twTotal.toFixed(0)}</div></div>
+                      <div className="bg-white rounded-lg shadow-lg p-6"><h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3><div className="space-y-3"><div className="flex justify-between"><span>Subscriptions</span><span className="font-bold">${twSubRevenue.toFixed(0)}</span></div><div className="flex justify-between"><span>Ads</span><span className="font-bold">${twAdRevenue.toFixed(0)}</span></div><div className="flex justify-between"><span>Bits</span><span className="font-bold">${twBits.toFixed(0)}</span></div></div></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Kick */}
+                {activeTab === 'kick' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Kick Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Subscribers</label><input type="number" value={kickSubs} onChange={(e) => setKickSubs(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Avg Viewers</label><input type="number" value={kickAvgViewers} onChange={(e) => setKickAvgViewers(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3><div className="text-5xl font-bold">${kickTotal.toFixed(0)}</div><p className="text-sm mt-2">70% creator split</p></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Newsletter */}
+                {activeTab === 'newsletter' && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Newsletter Metrics</h2>
+                      <div className="space-y-5">
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Total Subscribers</label><input type="number" value={nlSubs} onChange={(e) => setNlSubs(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Paid %: {nlPaidPercent}%</label><input type="range" min="1" max="15" step="0.5" value={nlPaidPercent} onChange={(e) => setNlPaidPercent(Number(e.target.value))} className="w-full" /></div>
+                        <div><label className="block text-sm font-medium text-gray-700 mb-2">Monthly Price ($)</label><input type="number" value={nlPrice} onChange={(e) => setNlPrice(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" /></div>
+                      </div>
+                    </div>
+                    <div className="space-y-6">
+                      <div className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}><h3 className="text-lg font-semibold mb-2">Monthly Recurring Revenue</h3><div className="text-5xl font-bold">${nlMRR.toLocaleString()}</div><p className="text-sm mt-2">Annual: ${nlARR.toLocaleString()}</p></div>
+                      <div className="bg-white rounded-lg shadow-lg p-6"><h3 className="text-lg font-semibold mb-4">Subscriber Breakdown</h3><div className="space-y-3"><div className="flex justify-between"><span>Free Subs</span><span className="font-bold">{(nlSubs - nlPaidSubs).toLocaleString()}</span></div><div className="flex justify-between"><span>Paid Subs</span><span className="font-bold text-green-600">{nlPaidSubs.toLocaleString()}</span></div></div></div>
+                    </div>
+                  </div>
+                )}
                 <div className="mt-12 text-center">
                   <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
                     <h3 className="text-xl font-semibold text-gray-800 mb-3">Ready to Grow Your Creator Business?</h3>

@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://creator-calculator.vercel.app/sitemap.xml

@@ -555,35 +555,35 @@
                     <div
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Monthly Ad Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-2">Estimated Ad Revenue (per month)</h3>
                       <div className="text-5xl font-bold">${ytAdRevenue.toFixed(0)}</div>
                       <p className="text-xs mt-1 text-white/80">
-                        Estimate based on CPM and typical YouTube revenue share.
+                        Estimated based on your CPM and a typical YouTube revenue share. Actual earnings will vary.
                       </p>
-                      <p className="text-sm mt-2">Yearly: ${ytYearly.toFixed(0)}</p>
+                      <p className="text-sm mt-2">Estimated yearly: ${ytYearly.toFixed(0)}</p>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6">
                       <h3 className="text-lg font-semibold mb-4">Additional Revenue</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
-                          <span>Sponsorship Rate</span>
+                          <span>Sponsorship Rate (per video)</span>
                           <span className="font-bold">${ytSponsor.toFixed(0)}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Monthly (3 deals)</span>
+                          <span>Monthly Sponsorships (3 deals)</span>
                           <span className="font-bold">
                             ${(ytSponsor * 3).toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between border-t pt-3">
-                          <span className="font-semibold">Total</span>
+                          <span className="font-semibold">Estimated total (ads + sponsors)</span>
                           <span className="text-2xl font-bold text-red-600">
                             ${(ytAdRevenue + ytSponsor * 3).toFixed(0)}
                           </span>
                         </div>
                       </div>
                       <p className="text-xs text-gray-500 mt-3">
-                        Sponsorship rates vary widely by niche, deliverables and brand.
+                        Sponsorship rates vary widely by niche, deliverables and brand — use this as a benchmark, not a guaranteed rate.
                       </p>
                     </div>
                   </div>
@@ -662,22 +662,22 @@
                       </p>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6">
-                      <h3 className="text-lg font-semibold mb-4">Monthly Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-4">Estimated Monthly Revenue</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
-                          <span>Creator Fund</span>
+                          <span>Creator Fund (estimate)</span>
                           <span className="font-bold">
                             ${ttCreatorFund.toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Brand Deals</span>
+                          <span>Brand Deals (estimate)</span>
                           <span className="font-bold">
                             ${(ttBrandDeal * 2.5).toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between border-t pt-3">
-                          <span className="font-semibold">Total</span>
+                          <span className="font-semibold">Total estimated revenue</span>
                           <span className="text-2xl font-bold text-pink-600">
                             ${(ttCreatorFund + ttBrandDeal * 2.5).toFixed(0)}
                           </span>
@@ -685,7 +685,7 @@
                       </div>
                       <p className="text-xs text-gray-500 mt-3">
                         TikTok payouts and brand deals can change based on programs, region and
-                        brand budgets.
+                        brand budgets. These numbers are estimates only, not guaranteed payouts.
                       </p>
                     </div>
                   </div>
@@ -748,16 +748,16 @@
                       </div>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6">
-                      <h3 className="text-lg font-semibold mb-4">Sponsored Posts</h3>
+                      <h3 className="text-lg font-semibold mb-4">Sponsored Posts (estimate)</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
-                          <span>Per Post</span>
+                          <span>Estimated rate per post</span>
                           <span className="font-bold">
                             ${igPostPrice.toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Monthly</span>
+                          <span>Estimated monthly revenue</span>
                           <span className="text-2xl font-bold text-purple-600">
                             ${(igPostPrice * igMonthlyDeals).toFixed(0)}
                           </span>
@@ -765,7 +765,7 @@
                       </div>
                       <p className="text-xs text-gray-500 mt-3">
                         Actual rates depend on your niche, deliverables, usage rights and how you
-                        negotiate.
+                        negotiate. Use this as a starting point, not a fixed price sheet.
                       </p>
                     </div>
                   </div>
@@ -824,30 +824,30 @@
                     <div
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
                       <div className="text-5xl font-bold">${xTotal.toFixed(0)}</div>
                       <p className="text-xs mt-1 text-white/80">
-                        Estimate combining X Premium ads and subscriber revenue.
+                        Estimated by combining potential X Premium ad share and subscriber revenue. Policies can change and payouts are not guaranteed.
                       </p>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6">
                       <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
-                          <span>Premium Ads</span>
+                          <span>Premium Ads (estimate)</span>
                           <span className="font-bold">
                             ${xPremiumRevenue.toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Subscriptions</span>
+                          <span>Subscriptions (estimate)</span>
                           <span className="font-bold">
                             ${xSubRevenue.toFixed(0)}
                           </span>
                         </div>
                       </div>
                       <p className="text-xs text-gray-500 mt-3">
-                        X programs and revenue share policies can change over time.
+                        X programs and revenue share policies can change over time, so treat these as directional numbers only.
                       </p>
                     </div>
                   </div>
@@ -895,28 +895,28 @@
                     <div
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
                       <div className="text-5xl font-bold">${fbTotal.toFixed(0)}</div>
                       <p className="text-xs mt-1 text-white/80">
-                        Estimate based on in-stream ad revenue and Stars.
+                        Estimated based on in-stream ad revenue and Stars. Eligibility and ad performance will affect real payouts.
                       </p>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6">
                       <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
-                          <span>In-Stream Ads</span>
+                          <span>In-Stream Ads (estimate)</span>
                           <span className="font-bold">
                             ${fbAdBreaks.toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Stars</span>
+                          <span>Stars (estimate)</span>
                           <span className="font-bold">${fbStars.toFixed(0)}</span>
                         </div>
                       </div>
                       <p className="text-xs text-gray-500 mt-3">
-                        Eligibility, ad load and viewer behavior all impact Facebook payouts.
+                        Eligibility, ad load and viewer behavior all impact Facebook payouts, so use these numbers as rough guidance only.
                       </p>
                     </div>
                   </div>
@@ -966,10 +966,10 @@
                     <div
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
                       <div className="text-5xl font-bold">${liTotal.toFixed(0)}</div>
                       <p className="text-xs mt-1 text-white/80">
-                        Estimate combining sponsored content and newsletter ad placements.
+                        Estimated by combining sponsored content and newsletter ad placements. Real rates vary by industry and offer.
                       </p>
                     </div>
                   </div>
@@ -1019,10 +1019,10 @@
                     <div
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
                       <div className="text-5xl font-bold">${scTotal.toFixed(0)}</div>
                       <p className="text-xs mt-1 text-white/80">
-                        Spotlight bonuses and subscriber revenue are highly program-dependent.
+                        Spotlight bonuses and subscriber revenue are highly program-dependent, so treat these numbers as directional estimates only.
                       </p>
                     </div>
                   </div>
@@ -1085,29 +1085,29 @@
                     <div
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
                       <div className="text-5xl font-bold">${pinTotal.toFixed(0)}</div>
                       <p className="text-xs mt-1 text-white/80">
-                        Estimate combining creator rewards, affiliate income and brand deals.
+                        Estimated by combining creator rewards, affiliate income and brand deals. Actual performance depends heavily on content and product fit.
                       </p>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6">
                       <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
-                          <span>Creator Rewards</span>
+                          <span>Creator Rewards (estimate)</span>
                           <span className="font-bold">
                             ${pinCreatorRewards.toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Affiliates</span>
+                          <span>Affiliates (estimate)</span>
                           <span className="font-bold">
                             ${pinAffiliateEst.toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Brand Deals</span>
+                          <span>Brand Deals (estimate)</span>
                           <span className="font-bold">
                             ${pinBrandDeals.toFixed(0)}
                           </span>
@@ -1115,7 +1115,7 @@
                       </div>
                       <p className="text-xs text-gray-500 mt-3">
                         Performance on Pinterest can vary a lot based on seasonality and product
-                        fit.
+                        fit. Use this as a rough model, not a forecast.
                       </p>
                     </div>
                   </div>
@@ -1176,36 +1176,36 @@
                     <div
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
                       <div className="text-5xl font-bold">${twTotal.toFixed(0)}</div>
                       <p className="text-xs mt-1 text-white/80">
-                        Estimate combining subs, ads and Bits. Partner/affiliate splits may differ.
+                        Estimated by combining subs, ads and Bits. Partner/affiliate splits may differ and viewer behavior can change over time.
                       </p>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6">
                       <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
-                          <span>Subscriptions</span>
+                          <span>Subscriptions (estimate)</span>
                           <span className="font-bold">
                             ${twSubRevenue.toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Ads</span>
+                          <span>Ads (estimate)</span>
                           <span className="font-bold">
                             ${twAdRevenue.toFixed(0)}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Bits</span>
+                          <span>Bits (estimate)</span>
                           <span className="font-bold">
                             ${twBits.toFixed(0)}
                           </span>
                         </div>
                       </div>
                       <p className="text-xs text-gray-500 mt-3">
-                        Viewer generosity and stream frequency make a big difference on Twitch.
+                        Viewer generosity, stream frequency and contract terms all impact real revenue — treat these as directional numbers.
                       </p>
                     </div>
                   </div>
@@ -1255,11 +1255,11 @@
                     <div
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
                       <div className="text-5xl font-bold">${kickTotal.toFixed(0)}</div>
-                      <p className="text-sm mt-2">70% creator split</p>
+                      <p className="text-sm mt-2">70% creator split (estimate)</p>
                       <p className="text-xs mt-1 text-white/80">
-                        Tips, subs and Kick&apos;s revenue share can change over time.
+                        Tips, subs and Kick&apos;s revenue share can change over time. These numbers are estimates, not guaranteed payouts.
                       </p>
                     </div>
                   </div>
@@ -1322,16 +1322,16 @@
                       className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
                     >
                       <h3 className="text-lg font-semibold mb-2">
-                        Monthly Recurring Revenue
+                        Estimated Monthly Recurring Revenue
                       </h3>
                       <div className="text-5xl font-bold">
                         ${nlMRR.toLocaleString()}
                       </div>
                       <p className="text-sm mt-2">
-                        Annual: ${nlARR.toLocaleString()}
+                        Estimated annual run rate: ${nlARR.toLocaleString()}
                       </p>
                       <p className="text-xs mt-1 text-white/80">
-                        Assumes a simple paid conversion rate and full price realization each month.
+                        Assumes a simple paid conversion rate and full price realization each month. In reality, churn, discounts and trials will affect your actual MRR.
                       </p>
                     </div>
                     <div className="bg-white rounded-lg shadow-lg p-6">
@@ -1353,7 +1353,7 @@
                         </div>
                       </div>
                       <p className="text-xs text-gray-500 mt-3">
-                        In reality, churn, discounts and trial periods will affect your actual MRR.
+                        Use these estimates to think about pricing, conversion and churn — not as a guaranteed income projection.
                       </p>
                     </div>
                   </div>

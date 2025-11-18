@@ -407,929 +407,1056 @@
               <h1 className="text-5xl md:text-6xl font-black mb-4 tracking-tight bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
                 Ultimate Creator Revenue Calculator
               </h1>
-              <p className="text-gray-400 text-xl">
-                Calculate your potential earnings across 11 creator platforms.
+              <p className="text-gray-300 text-lg md:text-xl">
+                Estimate how much you could earn on YouTube, TikTok, Instagram, X, Twitch, Kick,
+                Facebook, LinkedIn, Snapchat, Pinterest and newsletters.
               </p>
-              <p className="mt-2 text-gray-500 text-sm max-w-2xl mx-auto">
-                Adjust your followers, views and subscribers to get a quick
-                snapshot of what your creator business could earn each month.
+              <p className="mt-3 text-gray-500 text-sm max-w-2xl mx-auto">
+                Use this as a planning tool for your creator business. Adjust followers, views and
+                subscribers to explore monthly and yearly revenue scenarios — numbers are{" "}
+                <span className="font-semibold text-gray-300">estimates, not guarantees.</span>
               </p>
             </header>
 
-            <section className="mb-8" aria-label="Select a creator platform to calculate revenue">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-11 gap-3">
-                {platforms.map((platform) => {
-                  const Icon = platform.icon;
-                  const isActive = activeTab === platform.id;
-                  return (
-                    <button
-                      key={platform.id}
-                      type="button"
-                      onClick={() => setActiveTab(platform.id)}
-                      className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all ${
-                        isActive
-                          ? `bg-gradient-to-br ${platform.gradient} text-white scale-110 shadow-2xl`
-                          : `bg-gradient-to-br ${platform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
-                      }`}
-                      aria-pressed={isActive}
-                    >
-                      <Icon />
-                      <span className="text-xs">{platform.name}</span>
-                    </button>
-                  );
-                })}
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("newsletter")}
-                  className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all ${
-                    activeTab === "newsletter"
-                      ? `bg-gradient-to-br ${newsletterPlatform.gradient} text-white scale-110 shadow-2xl`
-                      : `bg-gradient-to-br ${newsletterPlatform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
-                  }`}
-                  aria-pressed={activeTab === "newsletter"}
+            <main>
+              <section className="mb-6" aria-label="Select a creator platform to calculate revenue">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-11 gap-3">
+                  {platforms.map((platform) => {
+                    const Icon = platform.icon;
+                    const isActive = activeTab === platform.id;
+                    return (
+                      <button
+                        key={platform.id}
+                        type="button"
+                        onClick={() => setActiveTab(platform.id)}
+                        className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all ${
+                          isActive
+                            ? `bg-gradient-to-br ${platform.gradient} text-white scale-110 shadow-2xl`
+                            : `bg-gradient-to-br ${platform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
+                        }`}
+                        aria-pressed={isActive}
+                      >
+                        <Icon />
+                        <span className="text-xs">{platform.name}</span>
+                      </button>
+                    );
+                  })}
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("newsletter")}
+                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all ${
+                      activeTab === "newsletter"
+                        ? `bg-gradient-to-br ${newsletterPlatform.gradient} text-white scale-110 shadow-2xl`
+                        : `bg-gradient-to-br ${newsletterPlatform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
+                    }`}
+                    aria-pressed={activeTab === "newsletter"}
+                  >
+                    <Mail />
+                    <span className="text-xs">Newsletter</span>
+                  </button>
+                </div>
+              </section>
+
+              {/* How to use section */}
+              <section className="mb-8" aria-label="How to use Creator Calculator">
+                <div className="bg-zinc-950/80 border border-zinc-800 rounded-xl p-5 md:p-6">
+                  <h2 className="text-base md:text-lg font-semibold text-gray-100 mb-3">
+                    How to use this creator revenue calculator
+                  </h2>
+                  <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-300">
+                    <div className="bg-zinc-900/60 rounded-lg p-4">
+                      <p className="font-semibold mb-1">1. Pick a platform</p>
+                      <p>
+                        Tap YouTube, TikTok, Instagram, X, Facebook, LinkedIn, Snapchat, Pinterest,
+                        Twitch, Kick or Newsletter above.
+                      </p>
+                    </div>
+                    <div className="bg-zinc-900/60 rounded-lg p-4">
+                      <p className="font-semibold mb-1">2. Enter your metrics</p>
+                      <p>
+                        Adjust followers, views, subscribers and other inputs to match your current
+                        or target numbers.
+                      </p>
+                    </div>
+                    <div className="bg-zinc-900/60 rounded-lg p-4">
+                      <p className="font-semibold mb-1">3. Explore the estimates</p>
+                      <p>
+                        Review monthly and yearly revenue estimates, then use them to plan pricing,
+                        goals and monetization strategy.
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-3 text-xs text-gray-500">
+                    All results are rough industry-based estimates and can swing a lot based on
+                    niche, geo, brand deals and consistency.
+                  </p>
+                </div>
+              </section>
+
+              {/* YouTube */}
+              {activeTab === "youtube" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="YouTube revenue calculator"
                 >
-                  <Mail />
-                  <span className="text-xs">Newsletter</span>
-                </button>
-              </div>
-            </section>
-
-            {/* YouTube */}
-            {activeTab === "youtube" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="YouTube revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">YouTube Metrics</h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Subscribers
-                      </label>
-                      <input
-                        type="number"
-                        value={ytSubs}
-                        onChange={(e) => setYtSubs(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Monthly Views
-                      </label>
-                      <input
-                        type="number"
-                        value={ytViews}
-                        onChange={(e) => setYtViews(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        CPM: ${ytCPM}
-                      </label>
-                      <input
-                        type="range"
-                        min="1"
-                        max="20"
-                        step="0.5"
-                        value={ytCPM}
-                        onChange={(e) => setYtCPM(Number(e.target.value))}
-                        className="w-full"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Monthly Ad Revenue</h3>
-                    <div className="text-5xl font-bold">${ytAdRevenue.toFixed(0)}</div>
-                    <p className="text-sm mt-2">Yearly: ${ytYearly.toFixed(0)}</p>
-                  </div>
                   <div className="bg-white rounded-lg shadow-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">Additional Revenue</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span>Sponsorship Rate</span>
-                        <span className="font-bold">${ytSponsor.toFixed(0)}</span>
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">YouTube Metrics</h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Subscribers
+                        </label>
+                        <input
+                          type="number"
+                          value={ytSubs}
+                          onChange={(e) => setYtSubs(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
                       </div>
-                      <div className="flex justify-between">
-                        <span>Monthly (3 deals)</span>
-                        <span className="font-bold">
-                          ${(ytSponsor * 3).toFixed(0)}
-                        </span>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Monthly Views
+                        </label>
+                        <input
+                          type="number"
+                          value={ytViews}
+                          onChange={(e) => setYtViews(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
                       </div>
-                      <div className="flex justify-between border-t pt-3">
-                        <span className="font-semibold">Total</span>
-                        <span className="text-2xl font-bold text-red-600">
-                          ${(ytAdRevenue + ytSponsor * 3).toFixed(0)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* TikTok */}
-            {activeTab === "tiktok" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="TikTok revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">TikTok Metrics</h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Followers
-                      </label>
-                      <input
-                        type="number"
-                        value={ttFollowers}
-                        onChange={(e) => setTtFollowers(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Avg Views
-                      </label>
-                      <input
-                        type="number"
-                        value={ttViews}
-                        onChange={(e) => setTtViews(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Avg Likes
-                      </label>
-                      <input
-                        type="number"
-                        value={ttLikes}
-                        onChange={(e) => setTtLikes(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Avg Comments
-                      </label>
-                      <input
-                        type="number"
-                        value={ttComments}
-                        onChange={(e) => setTtComments(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Engagement Rate</h3>
-                    <div className="text-5xl font-bold">
-                      {ttEngagement.toFixed(2)}%
-                    </div>
-                    <p className="text-sm mt-2">
-                      {ttEngagement >= 5
-                        ? "Excellent!"
-                        : ttEngagement >= 3
-                        ? "Good"
-                        : "Needs work"}
-                    </p>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">Monthly Revenue</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span>Creator Fund</span>
-                        <span className="font-bold">
-                          ${ttCreatorFund.toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Brand Deals</span>
-                        <span className="font-bold">
-                          ${(ttBrandDeal * 2.5).toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-t pt-3">
-                        <span className="font-semibold">Total</span>
-                        <span className="text-2xl font-bold text-pink-600">
-                          ${(ttCreatorFund + ttBrandDeal * 2.5).toFixed(0)}
-                        </span>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          CPM: ${ytCPM}
+                        </label>
+                        <input
+                          type="range"
+                          min="1"
+                          max="20"
+                          step="0.5"
+                          value={ytCPM}
+                          onChange={(e) => setYtCPM(Number(e.target.value))}
+                          className="w-full"
+                        />
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
-            )}
-
-            {/* Instagram */}
-            {activeTab === "instagram" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="Instagram revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Instagram Metrics
-                  </h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Followers
-                      </label>
-                      <input
-                        type="number"
-                        value={igFollowers}
-                        onChange={(e) => setIgFollowers(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Avg Likes
-                      </label>
-                      <input
-                        type="number"
-                        value={igLikes}
-                        onChange={(e) => setIgLikes(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Avg Comments
-                      </label>
-                      <input
-                        type="number"
-                        value={igComments}
-                        onChange={(e) => setIgComments(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Engagement Rate</h3>
-                    <div className="text-5xl font-bold">
-                      {igEngagement.toFixed(2)}%
-                    </div>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">Sponsored Posts</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span>Per Post</span>
-                        <span className="font-bold">
-                          ${igPostPrice.toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Monthly</span>
-                        <span className="text-2xl font-bold text-purple-600">
-                          ${(igPostPrice * igMonthlyDeals).toFixed(0)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* X / Twitter */}
-            {activeTab === "twitter" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="X (Twitter) revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">X Metrics</h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Followers
-                      </label>
-                      <input
-                        type="number"
-                        value={xFollowers}
-                        onChange={(e) => setXFollowers(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Monthly Impressions
-                      </label>
-                      <input
-                        type="number"
-                        value={xImpressions}
-                        onChange={(e) =>
-                          setXImpressions(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Paid Subscribers
-                      </label>
-                      <input
-                        type="number"
-                        value={xSubscribers}
-                        onChange={(e) =>
-                          setXSubscribers(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
-                    <div className="text-5xl font-bold">${xTotal.toFixed(0)}</div>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span>Premium Ads</span>
-                        <span className="font-bold">
-                          ${xPremiumRevenue.toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Subscriptions</span>
-                        <span className="font-bold">
-                          ${xSubRevenue.toFixed(0)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Facebook */}
-            {activeTab === "facebook" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="Facebook revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Facebook Metrics
-                  </h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Followers
-                      </label>
-                      <input
-                        type="number"
-                        value={fbFollowers}
-                        onChange={(e) => setFbFollowers(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Watch Minutes
-                      </label>
-                      <input
-                        type="number"
-                        value={fbWatchMinutes}
-                        onChange={(e) =>
-                          setFbWatchMinutes(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
-                    <div className="text-5xl font-bold">${fbTotal.toFixed(0)}</div>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span>In-Stream Ads</span>
-                        <span className="font-bold">
-                          ${fbAdBreaks.toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Stars</span>
-                        <span className="font-bold">${fbStars.toFixed(0)}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* LinkedIn */}
-            {activeTab === "linkedin" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="LinkedIn revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    LinkedIn Metrics
-                  </h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Followers
-                      </label>
-                      <input
-                        type="number"
-                        value={liFollowers}
-                        onChange={(e) =>
-                          setLiFollowers(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Newsletter Subs
-                      </label>
-                      <input
-                        type="number"
-                        value={liNewsletterSubs}
-                        onChange={(e) =>
-                          setLiNewsletterSubs(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
-                    <div className="text-5xl font-bold">${liTotal.toFixed(0)}</div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Snapchat */}
-            {activeTab === "snapchat" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="Snapchat revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Snapchat Metrics
-                  </h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Followers
-                      </label>
-                      <input
-                        type="number"
-                        value={scFollowers}
-                        onChange={(e) =>
-                          setScFollowers(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Spotlight Views
-                      </label>
-                      <input
-                        type="number"
-                        value={scSpotlightViews}
-                        onChange={(e) =>
-                          setScSpotlightViews(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
-                    <div className="text-5xl font-bold">${scTotal.toFixed(0)}</div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Pinterest */}
-            {activeTab === "pinterest" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="Pinterest revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Pinterest Metrics
-                  </h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Followers
-                      </label>
-                      <input
-                        type="number"
-                        value={pinFollowers}
-                        onChange={(e) =>
-                          setPinFollowers(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Monthly Pin Views
-                      </label>
-                      <input
-                        type="number"
-                        value={pinMonthlyViews}
-                        onChange={(e) =>
-                          setPinMonthlyViews(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Idea Pins/Month
-                      </label>
-                      <input
-                        type="number"
-                        value={pinIdeaPins}
-                        onChange={(e) =>
-                          setPinIdeaPins(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
-                    <div className="text-5xl font-bold">${pinTotal.toFixed(0)}</div>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span>Creator Rewards</span>
-                        <span className="font-bold">
-                          ${pinCreatorRewards.toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Affiliates</span>
-                        <span className="font-bold">
-                          ${pinAffiliateEst.toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Brand Deals</span>
-                        <span className="font-bold">
-                          ${pinBrandDeals.toFixed(0)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Twitch */}
-            {activeTab === "twitch" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="Twitch revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Twitch Metrics
-                  </h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Subscribers
-                      </label>
-                      <input
-                        type="number"
-                        value={twSubs}
-                        onChange={(e) => setTwSubs(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Avg Viewers
-                      </label>
-                      <input
-                        type="number"
-                        value={twAvgViewers}
-                        onChange={(e) =>
-                          setTwAvgViewers(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Hours Streamed
-                      </label>
-                      <input
-                        type="number"
-                        value={twHoursStreamed}
-                        onChange={(e) =>
-                          setTwHoursStreamed(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
-                    <div className="text-5xl font-bold">${twTotal.toFixed(0)}</div>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span>Subscriptions</span>
-                        <span className="font-bold">
-                          ${twSubRevenue.toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Ads</span>
-                        <span className="font-bold">
-                          ${twAdRevenue.toFixed(0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Bits</span>
-                        <span className="font-bold">
-                          ${twBits.toFixed(0)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Kick */}
-            {activeTab === "kick" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="Kick revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Kick Metrics
-                  </h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Subscribers
-                      </label>
-                      <input
-                        type="number"
-                        value={kickSubs}
-                        onChange={(e) =>
-                          setKickSubs(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Avg Viewers
-                      </label>
-                      <input
-                        type="number"
-                        value={kickAvgViewers}
-                        onChange={(e) =>
-                          setKickAvgViewers(Number(e.target.value))
-                        }
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
-                    <div className="text-5xl font-bold">${kickTotal.toFixed(0)}</div>
-                    <p className="text-sm mt-2">70% creator split</p>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Newsletter */}
-            {activeTab === "newsletter" && (
-              <section className="grid md:grid-cols-2 gap-6" aria-label="Newsletter revenue calculator">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                    Newsletter Metrics
-                  </h2>
-                  <div className="space-y-5">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Total Subscribers
-                      </label>
-                      <input
-                        type="number"
-                        value={nlSubs}
-                        onChange={(e) => setNlSubs(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Paid %: {nlPaidPercent}%
-                      </label>
-                      <input
-                        type="range"
-                        min="1"
-                        max="15"
-                        step="0.5"
-                        value={nlPaidPercent}
-                        onChange={(e) =>
-                          setNlPaidPercent(Number(e.target.value))
-                        }
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Monthly Price ($)
-                      </label>
-                      <input
-                        type="number"
-                        value={nlPrice}
-                        onChange={(e) => setNlPrice(Number(e.target.value))}
-                        className="w-full px-4 py-2 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div
-                    className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
-                  >
-                    <h3 className="text-lg font-semibold mb-2">
-                      Monthly Recurring Revenue
-                    </h3>
-                    <div className="text-5xl font-bold">
-                      ${nlMRR.toLocaleString()}
-                    </div>
-                    <p className="text-sm mt-2">
-                      Annual: ${nlARR.toLocaleString()}
-                    </p>
-                  </div>
-                  <div className="bg-white rounded-lg shadow-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">
-                      Subscriber Breakdown
-                    </h3>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span>Free Subs</span>
-                        <span className="font-bold">
-                          {(nlSubs - nlPaidSubs).toLocaleString()}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Paid Subs</span>
-                        <span className="font-bold text-green-600">
-                          {nlPaidSubs.toLocaleString()}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* Affiliate section */}
-            <section className="mt-8 mb-8" aria-label="Recommended creator equipment">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
-                <h3 className="text-2xl font-bold text-white mb-4 text-center">
-                  🎙️ Recommended Creator Equipment
-                </h3>
-                <p className="text-sm text-blue-100 text-center mb-4">
-                  Level up your setup with gear many creators rely on. These are
-                  affiliate links, which may earn us a small commission at no
-                  extra cost to you.
-                </p>
-                <div className="grid md:grid-cols-3 gap-4">
-                  <a
-                    href="https://amzn.to/4r3UtcD"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
-                  >
-                    <div className="text-center">
-                      <p className="font-semibold text-gray-800 mb-2">
-                        Blue Yeti Microphone
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Monthly Ad Revenue</h3>
+                      <div className="text-5xl font-bold">${ytAdRevenue.toFixed(0)}</div>
+                      <p className="text-xs mt-1 text-white/80">
+                        Estimate based on CPM and typical YouTube revenue share.
                       </p>
-                      <p className="text-sm text-gray-600 mb-3">
-                        Professional USB mic for podcasts, streaming &amp; videos
-                      </p>
-                      <span className="text-blue-600 font-bold">
-                        View on Amazon →
-                      </span>
+                      <p className="text-sm mt-2">Yearly: ${ytYearly.toFixed(0)}</p>
                     </div>
-                  </a>
-                  <a
-                    href="https://amzn.to/4ovruN0"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
-                  >
-                    <div className="text-center">
-                      <p className="font-semibold text-gray-800 mb-2">
-                        Logitech C922x Webcam
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">Additional Revenue</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span>Sponsorship Rate</span>
+                          <span className="font-bold">${ytSponsor.toFixed(0)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Monthly (3 deals)</span>
+                          <span className="font-bold">
+                            ${(ytSponsor * 3).toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between border-t pt-3">
+                          <span className="font-semibold">Total</span>
+                          <span className="text-2xl font-bold text-red-600">
+                            ${(ytAdRevenue + ytSponsor * 3).toFixed(0)}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        Sponsorship rates vary widely by niche, deliverables and brand.
                       </p>
-                      <p className="text-sm text-gray-600 mb-3">
-                        Full HD 1080p streaming webcam with light correction
-                      </p>
-                      <span className="text-blue-600 font-bold">
-                        View on Amazon →
-                      </span>
                     </div>
-                  </a>
-                  <a
-                    href="https://amzn.to/4prtQNd"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
-                  >
-                    <div className="text-center">
-                      <p className="font-semibold text-gray-800 mb-2">
-                        UBeesize Ring Light
-                      </p>
-                      <p className="text-sm text-gray-600 mb-3">
-                        12&quot; ring light with 62&quot; tripod for professional lighting
-                      </p>
-                      <span className="text-blue-600 font-bold">
-                        View on Amazon →
-                      </span>
+                  </div>
+                </section>
+              )}
+
+              {/* TikTok */}
+              {activeTab === "tiktok" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="TikTok revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">TikTok Metrics</h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Followers
+                        </label>
+                        <input
+                          type="number"
+                          value={ttFollowers}
+                          onChange={(e) => setTtFollowers(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Avg Views
+                        </label>
+                        <input
+                          type="number"
+                          value={ttViews}
+                          onChange={(e) => setTtViews(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Avg Likes
+                        </label>
+                        <input
+                          type="number"
+                          value={ttLikes}
+                          onChange={(e) => setTtLikes(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Avg Comments
+                        </label>
+                        <input
+                          type="number"
+                          value={ttComments}
+                          onChange={(e) => setTtComments(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
                     </div>
-                  </a>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Engagement Rate</h3>
+                      <div className="text-5xl font-bold">
+                        {ttEngagement.toFixed(2)}%
+                      </div>
+                      <p className="text-sm mt-2">
+                        {ttEngagement >= 5
+                          ? "Excellent!"
+                          : ttEngagement >= 3
+                          ? "Good"
+                          : "Needs work"}
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">Monthly Revenue</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span>Creator Fund</span>
+                          <span className="font-bold">
+                            ${ttCreatorFund.toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Brand Deals</span>
+                          <span className="font-bold">
+                            ${(ttBrandDeal * 2.5).toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between border-t pt-3">
+                          <span className="font-semibold">Total</span>
+                          <span className="text-2xl font-bold text-pink-600">
+                            ${(ttCreatorFund + ttBrandDeal * 2.5).toFixed(0)}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        TikTok payouts and brand deals can change based on programs, region and
+                        brand budgets.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Instagram */}
+              {activeTab === "instagram" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="Instagram revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      Instagram Metrics
+                    </h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Followers
+                        </label>
+                        <input
+                          type="number"
+                          value={igFollowers}
+                          onChange={(e) => setIgFollowers(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Avg Likes
+                        </label>
+                        <input
+                          type="number"
+                          value={igLikes}
+                          onChange={(e) => setIgLikes(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Avg Comments
+                        </label>
+                        <input
+                          type="number"
+                          value={igComments}
+                          onChange={(e) => setIgComments(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Engagement Rate</h3>
+                      <div className="text-5xl font-bold">
+                        {igEngagement.toFixed(2)}%
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">Sponsored Posts</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span>Per Post</span>
+                          <span className="font-bold">
+                            ${igPostPrice.toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Monthly</span>
+                          <span className="text-2xl font-bold text-purple-600">
+                            ${(igPostPrice * igMonthlyDeals).toFixed(0)}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        Actual rates depend on your niche, deliverables, usage rights and how you
+                        negotiate.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* X / Twitter */}
+              {activeTab === "twitter" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="X (Twitter) revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">X Metrics</h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Followers
+                        </label>
+                        <input
+                          type="number"
+                          value={xFollowers}
+                          onChange={(e) => setXFollowers(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Monthly Impressions
+                        </label>
+                        <input
+                          type="number"
+                          value={xImpressions}
+                          onChange={(e) =>
+                            setXImpressions(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Paid Subscribers
+                        </label>
+                        <input
+                          type="number"
+                          value={xSubscribers}
+                          onChange={(e) =>
+                            setXSubscribers(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <div className="text-5xl font-bold">${xTotal.toFixed(0)}</div>
+                      <p className="text-xs mt-1 text-white/80">
+                        Estimate combining X Premium ads and subscriber revenue.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span>Premium Ads</span>
+                          <span className="font-bold">
+                            ${xPremiumRevenue.toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Subscriptions</span>
+                          <span className="font-bold">
+                            ${xSubRevenue.toFixed(0)}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        X programs and revenue share policies can change over time.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Facebook */}
+              {activeTab === "facebook" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="Facebook revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      Facebook Metrics
+                    </h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Followers
+                        </label>
+                        <input
+                          type="number"
+                          value={fbFollowers}
+                          onChange={(e) => setFbFollowers(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Watch Minutes
+                        </label>
+                        <input
+                          type="number"
+                          value={fbWatchMinutes}
+                          onChange={(e) =>
+                            setFbWatchMinutes(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <div className="text-5xl font-bold">${fbTotal.toFixed(0)}</div>
+                      <p className="text-xs mt-1 text-white/80">
+                        Estimate based on in-stream ad revenue and Stars.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span>In-Stream Ads</span>
+                          <span className="font-bold">
+                            ${fbAdBreaks.toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Stars</span>
+                          <span className="font-bold">${fbStars.toFixed(0)}</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        Eligibility, ad load and viewer behavior all impact Facebook payouts.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* LinkedIn */}
+              {activeTab === "linkedin" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="LinkedIn revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      LinkedIn Metrics
+                    </h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Followers
+                        </label>
+                        <input
+                          type="number"
+                          value={liFollowers}
+                          onChange={(e) =>
+                            setLiFollowers(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Newsletter Subs
+                        </label>
+                        <input
+                          type="number"
+                          value={liNewsletterSubs}
+                          onChange={(e) =>
+                            setLiNewsletterSubs(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <div className="text-5xl font-bold">${liTotal.toFixed(0)}</div>
+                      <p className="text-xs mt-1 text-white/80">
+                        Estimate combining sponsored content and newsletter ad placements.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Snapchat */}
+              {activeTab === "snapchat" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="Snapchat revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      Snapchat Metrics
+                    </h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Followers
+                        </label>
+                        <input
+                          type="number"
+                          value={scFollowers}
+                          onChange={(e) =>
+                            setScFollowers(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Spotlight Views
+                        </label>
+                        <input
+                          type="number"
+                          value={scSpotlightViews}
+                          onChange={(e) =>
+                            setScSpotlightViews(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <div className="text-5xl font-bold">${scTotal.toFixed(0)}</div>
+                      <p className="text-xs mt-1 text-white/80">
+                        Spotlight bonuses and subscriber revenue are highly program-dependent.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Pinterest */}
+              {activeTab === "pinterest" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="Pinterest revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      Pinterest Metrics
+                    </h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Followers
+                        </label>
+                        <input
+                          type="number"
+                          value={pinFollowers}
+                          onChange={(e) =>
+                            setPinFollowers(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Monthly Pin Views
+                        </label>
+                        <input
+                          type="number"
+                          value={pinMonthlyViews}
+                          onChange={(e) =>
+                            setPinMonthlyViews(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Idea Pins/Month
+                        </label>
+                        <input
+                          type="number"
+                          value={pinIdeaPins}
+                          onChange={(e) =>
+                            setPinIdeaPins(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <div className="text-5xl font-bold">${pinTotal.toFixed(0)}</div>
+                      <p className="text-xs mt-1 text-white/80">
+                        Estimate combining creator rewards, affiliate income and brand deals.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span>Creator Rewards</span>
+                          <span className="font-bold">
+                            ${pinCreatorRewards.toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Affiliates</span>
+                          <span className="font-bold">
+                            ${pinAffiliateEst.toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Brand Deals</span>
+                          <span className="font-bold">
+                            ${pinBrandDeals.toFixed(0)}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        Performance on Pinterest can vary a lot based on seasonality and product
+                        fit.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Twitch */}
+              {activeTab === "twitch" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="Twitch revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      Twitch Metrics
+                    </h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Subscribers
+                        </label>
+                        <input
+                          type="number"
+                          value={twSubs}
+                          onChange={(e) => setTwSubs(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Avg Viewers
+                        </label>
+                        <input
+                          type="number"
+                          value={twAvgViewers}
+                          onChange={(e) =>
+                            setTwAvgViewers(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Hours Streamed
+                        </label>
+                        <input
+                          type="number"
+                          value={twHoursStreamed}
+                          onChange={(e) =>
+                            setTwHoursStreamed(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <div className="text-5xl font-bold">${twTotal.toFixed(0)}</div>
+                      <p className="text-xs mt-1 text-white/80">
+                        Estimate combining subs, ads and Bits. Partner/affiliate splits may differ.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span>Subscriptions</span>
+                          <span className="font-bold">
+                            ${twSubRevenue.toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Ads</span>
+                          <span className="font-bold">
+                            ${twAdRevenue.toFixed(0)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Bits</span>
+                          <span className="font-bold">
+                            ${twBits.toFixed(0)}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        Viewer generosity and stream frequency make a big difference on Twitch.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Kick */}
+              {activeTab === "kick" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="Kick revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      Kick Metrics
+                    </h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Subscribers
+                        </label>
+                        <input
+                          type="number"
+                          value={kickSubs}
+                          onChange={(e) =>
+                            setKickSubs(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Avg Viewers
+                        </label>
+                        <input
+                          type="number"
+                          value={kickAvgViewers}
+                          onChange={(e) =>
+                            setKickAvgViewers(Number(e.target.value))
+                          }
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">Monthly Revenue</h3>
+                      <div className="text-5xl font-bold">${kickTotal.toFixed(0)}</div>
+                      <p className="text-sm mt-2">70% creator split</p>
+                      <p className="text-xs mt-1 text-white/80">
+                        Tips, subs and Kick&apos;s revenue share can change over time.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Newsletter */}
+              {activeTab === "newsletter" && (
+                <section
+                  className="grid md:grid-cols-2 gap-6 mt-6"
+                  aria-label="Newsletter revenue calculator"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      Newsletter Metrics
+                    </h2>
+                    <div className="space-y-5">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Total Subscribers
+                        </label>
+                        <input
+                          type="number"
+                          value={nlSubs}
+                          onChange={(e) => setNlSubs(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Paid %: {nlPaidPercent}%
+                        </label>
+                        <input
+                          type="range"
+                          min="1"
+                          max="15"
+                          step="0.5"
+                          value={nlPaidPercent}
+                          onChange={(e) =>
+                            setNlPaidPercent(Number(e.target.value))
+                          }
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Monthly Price ($)
+                        </label>
+                        <input
+                          type="number"
+                          value={nlPrice}
+                          onChange={(e) => setNlPrice(Number(e.target.value))}
+                          className="w-full px-4 py-2 border rounded-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div
+                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                    >
+                      <h3 className="text-lg font-semibold mb-2">
+                        Monthly Recurring Revenue
+                      </h3>
+                      <div className="text-5xl font-bold">
+                        ${nlMRR.toLocaleString()}
+                      </div>
+                      <p className="text-sm mt-2">
+                        Annual: ${nlARR.toLocaleString()}
+                      </p>
+                      <p className="text-xs mt-1 text-white/80">
+                        Assumes a simple paid conversion rate and full price realization each month.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">
+                        Subscriber Breakdown
+                      </h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between">
+                          <span>Free Subs</span>
+                          <span className="font-bold">
+                            {(nlSubs - nlPaidSubs).toLocaleString()}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Paid Subs</span>
+                          <span className="font-bold text-green-600">
+                            {nlPaidSubs.toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-3">
+                        In reality, churn, discounts and trial periods will affect your actual MRR.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Affiliate section */}
+              <section className="mt-8 mb-8" aria-label="Recommended creator equipment">
+                <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
+                  <h3 className="text-2xl font-bold text-white mb-4 text-center">
+                    🎙️ Recommended Creator Equipment
+                  </h3>
+                  <p className="text-sm text-blue-100 text-center mb-4">
+                    Level up your setup with gear many creators rely on. These are
+                    affiliate links, which may earn us a small commission at no
+                    extra cost to you.
+                  </p>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <a
+                      href="https://amzn.to/4r3UtcD"
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
+                    >
+                      <div className="text-center">
+                        <p className="font-semibold text-gray-800 mb-2">
+                          Blue Yeti Microphone
+                        </p>
+                        <p className="text-sm text-gray-600 mb-3">
+                          Professional USB mic for podcasts, streaming &amp; videos
+                        </p>
+                        <span className="text-blue-600 font-bold">
+                          View on Amazon →
+                        </span>
+                      </div>
+                    </a>
+                    <a
+                      href="https://amzn.to/4ovruN0"
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
+                    >
+                      <div className="text-center">
+                        <p className="font-semibold text-gray-800 mb-2">
+                          Logitech C922x Webcam
+                        </p>
+                        <p className="text-sm text-gray-600 mb-3">
+                          Full HD 1080p streaming webcam with light correction
+                        </p>
+                        <span className="text-blue-600 font-bold">
+                          View on Amazon →
+                        </span>
+                      </div>
+                    </a>
+                    <a
+                      href="https://amzn.to/4prtQNd"
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
+                    >
+                      <div className="text-center">
+                        <p className="font-semibold text-gray-800 mb-2">
+                          UBeesize Ring Light
+                        </p>
+                        <p className="text-sm text-gray-600 mb-3">
+                          12&quot; ring light with 62&quot; tripod for professional lighting
+                        </p>
+                        <span className="text-blue-600 font-bold">
+                          View on Amazon →
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                  <p className="text-xs text-white mt-4 text-center opacity-75">
+                    As an Amazon Associate, we earn from qualifying purchases.
+                  </p>
                 </div>
-                <p className="text-xs text-white mt-4 text-center opacity-75">
-                  As an Amazon Associate, we earn from qualifying purchases.
-                </p>
-              </div>
-            </section>
+              </section>
 
-            {/* Footer / disclaimer */}
-            <footer className="mt-12 text-center">
-              <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">
-                  Ready to Grow Your Creator Business?
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  These calculations are based on industry averages. Your actual
-                  earnings will vary based on niche, content quality, audience
-                  location and consistency.
-                </p>
-                <p className="text-sm text-gray-500 mt-4">
-                  <strong>Disclaimer:</strong> All calculations are estimates
-                  for informational purposes only and do not guarantee any
-                  specific results.
-                </p>
-              </div>
+              {/* Footer / disclaimer */}
+              <footer className="mt-12 text-center">
+                <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                    Ready to Grow Your Creator Business?
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    These calculations are based on industry averages. Your actual
+                    earnings will vary based on niche, content quality, audience
+                    location and consistency.
+                  </p>
+                  <p className="text-sm text-gray-500 mt-4">
+                    <strong>Disclaimer:</strong> All calculations are estimates
+                    for informational purposes only and do not guarantee any
+                    specific results.
+                  </p>
+                </div>
 
-              <div className="mt-8 text-gray-400 text-sm">
-                <p>
-                  Created by{" "}
-                  <span className="font-semibold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-                    GP Creative Studios
-                  </span>{" "}
-                  ·{" "}
-                  <a
-                    href="mailto:gpcreativestudios2018@gmail.com"
-                    className="text-blue-400 hover:text-blue-300 underline transition-colors"
-                  >
-                    Contact
-                  </a>
-                </p>
-              </div>
-            </footer>
+                <div className="mt-8 text-gray-400 text-sm">
+                  <p>
+                    Created by{" "}
+                    <span className="font-semibold bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+                      GP Creative Studios
+                    </span>{" "}
+                    ·{" "}
+                    <a
+                      href="mailto:gpcreativestudios2018@gmail.com"
+                      className="text-blue-400 hover:text-blue-300 underline transition-colors"
+                    >
+                      Contact
+                    </a>
+                  </p>
+                </div>
+              </footer>
+            </main>
           </div>
         </div>
       );

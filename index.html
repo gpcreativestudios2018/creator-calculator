@@ -339,6 +339,18 @@
       const [nlPaidPercent, setNlPaidPercent] = useState(5);
       const [nlPrice, setNlPrice] = useState(10);
 
+      // Handle active tab changes and send a GA4 event
+      const handleTabChange = (tabId) => {
+        setActiveTab(tabId);
+
+        if (typeof window !== "undefined" && window.gtag) {
+          window.gtag("event", "select_content", {
+            content_type: "platform_tab",
+            item_id: tabId,
+          });
+        }
+      };
+
       // All calculations
       const ytAdRevenue = (ytViews / 1000) * ytCPM * 0.55;
       const ytYearly = ytAdRevenue * 12;
@@ -439,7 +451,7 @@
                       <button
                         key={platform.id}
                         type="button"
-                        onClick={() => setActiveTab(platform.id)}
+                        onClick={() => handleTabChange(platform.id)}
                         className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all ${
                           isActive
                             ? `bg-gradient-to-br ${platform.gradient} text-white scale-110 shadow-2xl`
@@ -454,7 +466,7 @@
                   })}
                   <button
                     type="button"
-                    onClick={() => setActiveTab("newsletter")}
+                    onClick={() => handleTabChange("newsletter")}
                     className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all ${
                       activeTab === "newsletter"
                         ? `bg-gradient-to-br ${newsletterPlatform.gradient} text-white scale-110 shadow-2xl`

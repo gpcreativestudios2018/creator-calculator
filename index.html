@@ -354,7 +354,7 @@
         }
       };
 
-      // All calculations
+      // All calculations (formulas unchanged)
       const ytAdRevenue = (ytViews / 1000) * ytCPM * 0.55;
       const ytYearly = ytAdRevenue * 12;
       const ytSponsor = ytSubs >= 100000 ? ytSubs * 0.1 : ytSubs * 0.05;
@@ -449,7 +449,7 @@
               aria-label="Creator Calculator overview"
             >
               <h2 className="text-xl md:text-2xl font-semibold text-gray-100">
-                Free creator revenue &amp; YouTube money calculator
+                Multi-platform creator income calculator
               </h2>
               <p className="mt-2 text-sm md:text-base text-gray-400">
                 Creator Calculator is a simple creator income estimator that models YouTube ad
@@ -460,9 +460,6 @@
 
             <main>
               <section className="mb-6" aria-label="Select a creator platform to calculate revenue">
-                <h2 className="text-base md:text-lg font-semibold text-gray-100 mb-3 text-center">
-                  Multi-platform creator income calculator
-                </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-11 gap-3">
                   {platforms.map((platform) => {
                     const Icon = platform.icon;

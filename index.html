@@ -430,9 +430,15 @@
         icon: Mail,
         gradient: "from-orange-500 to-red-600"
       };
+
       const activePlatform = [...platforms, newsletterPlatform].find(
         (p) => p.id === activeTab
       );
+
+      const newsletterAriaLabel =
+        activeTab === "newsletter"
+          ? "Newsletter revenue calculator tab (selected)"
+          : "Newsletter revenue calculator tab";
 
       return (
         <div className="min-h-screen bg-black p-4">
@@ -472,6 +478,10 @@
                   {platforms.map((platform) => {
                     const Icon = platform.icon;
                     const isActive = activeTab === platform.id;
+                    const ariaLabel = isActive
+                      ? `${platform.name} revenue calculator tab (selected)`
+                      : `${platform.name} revenue calculator tab`;
+
                     return (
                       <button
                         key={platform.id}
@@ -483,6 +493,8 @@
                             : `bg-gradient-to-br ${platform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
                         }`}
                         aria-pressed={isActive}
+                        aria-label={ariaLabel}
+                        aria-current={isActive ? "page" : undefined}
                       >
                         <Icon />
                         <span className="text-xs">{platform.name}</span>
@@ -498,6 +510,8 @@
                         : `bg-gradient-to-br ${newsletterPlatform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
                     }`}
                     aria-pressed={activeTab === "newsletter"}
+                    aria-label={newsletterAriaLabel}
+                    aria-current={activeTab === "newsletter" ? "page" : undefined}
                   >
                     <Mail />
                     <span className="text-xs">Newsletter</span>

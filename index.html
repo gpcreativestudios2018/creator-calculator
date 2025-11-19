@@ -127,6 +127,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black">
+  <!-- Accessibility: Skip link for keyboard and screen reader users -->
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-md focus:bg-white focus:text-black focus:shadow-lg"
+  >
+    Skip to main content
+  </a>
+
   <div id="root"></div>
 
   <script type="text/babel">
@@ -458,7 +466,7 @@
               </p>
             </section>
 
-            <main>
+            <main id="main-content" tabIndex="-1">
               <section className="mb-6" aria-label="Select a creator platform to calculate revenue">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-11 gap-3">
                   {platforms.map((platform) => {

@@ -478,7 +478,7 @@
                         key={platform.id}
                         type="button"
                         onClick={() => handleTabChange(platform.id)}
-                        className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all ${
+                        className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-black ${
                           isActive
                             ? `bg-gradient-to-br ${platform.gradient} text-white scale-110 shadow-2xl`
                             : `bg-gradient-to-br ${platform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
@@ -495,7 +495,7 @@
                   <button
                     type="button"
                     onClick={() => handleTabChange("newsletter")}
-                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all ${
+                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-black ${
                       activeTab === "newsletter"
                         ? `bg-gradient-to-br ${newsletterPlatform.gradient} text-white scale-110 shadow-2xl`
                         : `bg-gradient-to-br ${newsletterPlatform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
@@ -1725,7 +1725,7 @@
                       href="https://amzn.to/4r3UtcD"
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
+                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     >
                       <div className="text-center">
                         <p className="font-semibold text-gray-800 mb-2">
@@ -1743,7 +1743,7 @@
                       href="https://amzn.to/4ovruN0"
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
+                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     >
                       <div className="text-center">
                         <p className="font-semibold text-gray-800 mb-2">
@@ -1761,7 +1761,7 @@
                       href="https://amzn.to/4prtQNd"
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow"
+                      className="bg-white rounded-lg p-4 hover:shadow-xl transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     >
                       <div className="text-center">
                         <p className="font-semibold text-gray-800 mb-2">

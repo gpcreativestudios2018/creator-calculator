@@ -311,6 +311,10 @@
     function UltimateCreatorCalculator() {
       const [activeTab, setActiveTab] = useState("youtube");
 
+      // Compare feature state
+      const [compareEnabled, setCompareEnabled] = useState(false);
+      const [compareTab, setCompareTab] = useState("tiktok");
+
       // All state variables
       const [ytSubs, setYtSubs] = useState(10000);
       const [ytViews, setYtViews] = useState(100000);
@@ -434,7 +438,9 @@
         gradient: "from-orange-500 to-red-600"
       };
 
-      const activePlatform = [...platforms, newsletterPlatform].find(
+      const allPlatforms = [...platforms, newsletterPlatform];
+
+      const activePlatform = allPlatforms.find(
         (p) => p.id === activeTab
       );
 
@@ -449,56 +455,69 @@
         return `$${Math.round(safe).toLocaleString()}`;
       };
 
-      // Quick summary values based on existing calculations
-      let summaryValue = 0;
-      let summaryLabel = "";
-      let summaryCaption = "";
+      // Reusable summary function (uses existing calculations only)
+      const getSummaryForTab = (tabId) => {
+        const platform = allPlatforms.find((p) => p.id === tabId);
+        let value = 0;
+        let label = "";
+        let caption = "";
 
-      if (activeTab === "youtube") {
-        summaryValue = ytAdRevenue + ytSponsor * 3;
-        summaryLabel = "YouTube estimated monthly total";
-        summaryCaption = "Ads + 3 sponsored videos (estimate)";
-      } else if (activeTab === "tiktok") {
-        summaryValue = ttCreatorFund + ttBrandDeal * 2.5;
-        summaryLabel = "TikTok estimated monthly revenue";
-        summaryCaption = "Creator Fund + brand deals (estimate)";
-      } else if (activeTab === "instagram") {
-        summaryValue = igPostPrice * igMonthlyDeals;
-        summaryLabel = "Instagram estimated monthly brand deals";
-        summaryCaption = "Sponsored posts based on your follower count";
-      } else if (activeTab === "twitter") {
-        summaryValue = xTotal;
-        summaryLabel = "X estimated monthly revenue";
-        summaryCaption = "Premium ad share + subscriptions (estimate)";
-      } else if (activeTab === "facebook") {
-        summaryValue = fbTotal;
-        summaryLabel = "Facebook estimated monthly revenue";
-        summaryCaption = "In-stream ads + Stars (estimate)";
-      } else if (activeTab === "linkedin") {
-        summaryValue = liTotal;
-        summaryLabel = "LinkedIn estimated monthly revenue";
-        summaryCaption = "Sponsored posts + newsletter ads (estimate)";
-      } else if (activeTab === "snapchat") {
-        summaryValue = scTotal;
-        summaryLabel = "Snapchat estimated monthly revenue";
-        summaryCaption = "Spotlight + subscriber-style revenue (estimate)";
-      } else if (activeTab === "pinterest") {
-        summaryValue = pinTotal;
-        summaryLabel = "Pinterest estimated monthly revenue";
-        summaryCaption = "Creator rewards + affiliates + brand deals";
-      } else if (activeTab === "twitch") {
-        summaryValue = twTotal;
-        summaryLabel = "Twitch estimated monthly revenue";
-        summaryCaption = "Subs + ads + Bits (estimate)";
-      } else if (activeTab === "kick") {
-        summaryValue = kickTotal;
-        summaryLabel = "Kick estimated monthly revenue";
-        summaryCaption = "Subs + tips (estimate)";
-      } else if (activeTab === "newsletter") {
-        summaryValue = nlMRR;
-        summaryLabel = "Newsletter estimated monthly recurring revenue";
-        summaryCaption = "Paid subscribers × monthly price (estimate)";
-      }
+        if (tabId === "youtube") {
+          value = ytAdRevenue + ytSponsor * 3;
+          label = "YouTube estimated monthly total";
+          caption = "Ads + 3 sponsored videos (estimate)";
+        } else if (tabId === "tiktok") {
+          value = ttCreatorFund + ttBrandDeal * 2.5;
+          label = "TikTok estimated monthly revenue";
+          caption = "Creator Fund + brand deals (estimate)";
+        } else if (tabId === "instagram") {
+          value = igPostPrice * igMonthlyDeals;
+          label = "Instagram estimated monthly brand deals";
+          caption = "Sponsored posts based on your follower count";
+        } else if (tabId === "twitter") {
+          value = xTotal;
+          label = "X estimated monthly revenue";
+          caption = "Premium ad share + subscriptions (estimate)";
+        } else if (tabId === "facebook") {
+          value = fbTotal;
+          label = "Facebook estimated monthly revenue";
+          caption = "In-stream ads + Stars (estimate)";
+        } else if (tabId === "linkedin") {
+          value = liTotal;
+          label = "LinkedIn estimated monthly revenue";
+          caption = "Sponsored posts + newsletter ads (estimate)";
+        } else if (tabId === "snapchat") {
+          value = scTotal;
+          label = "Snapchat estimated monthly revenue";
+          caption = "Spotlight + subscriber-style revenue (estimate)";
+        } else if (tabId === "pinterest") {
+          value = pinTotal;
+          label = "Pinterest estimated monthly revenue";
+          caption = "Creator rewards + affiliates + brand deals";
+        } else if (tabId === "twitch") {
+          value = twTotal;
+          label = "Twitch estimated monthly revenue";
+          caption = "Subs + ads + Bits (estimate)";
+        } else if (tabId === "kick") {
+          value = kickTotal;
+          label = "Kick estimated monthly revenue";
+          caption = "Subs + tips (estimate)";
+        } else if (tabId === "newsletter") {
+          value = nlMRR;
+          label = "Newsletter estimated monthly recurring revenue";
+          caption = "Paid subscribers × monthly price (estimate)";
+        }
+
+        return {
+          value,
+          label,
+          caption,
+          platformName: platform?.name || ""
+        };
+      };
+
+      const activeSummary = getSummaryForTab(activeTab);
+      const compareSummary = compareEnabled ? getSummaryForTab(compareTab) : null;
 
       return (
         <div className="min-h-screen bg-black p-4">
@@ -602,7 +621,7 @@
                 </div>
               </section>
 
-              {/* Quick summary strip */}
+              {/* Quick summary + compare */}
               <section
                 className="mb-6"
                 aria-label="Quick revenue summary for current platform"
@@ -610,7 +629,8 @@
                 <div className="bg-zinc-900/80 border border-zinc-800 rounded-xl px-4 py-3 md:px-6 md:py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                   <div className="text-sm">
                     <p className="font-semibold text-gray-100">
-                      {summaryLabel || `Quick estimate for your ${activePlatform?.name || "channel"}`}
+                      {activeSummary.label ||
+                        `Quick estimate for your ${activePlatform?.name || "channel"}`}
                     </p>
                     <p className="text-xs text-gray-500 mt-0.5">
                       At these inputs on {activePlatform?.name || "this platform"}, this is a{" "}
@@ -622,13 +642,82 @@
                     aria-live="polite"
                   >
                     <p className="text-2xl md:text-3xl font-extrabold text-emerald-400">
-                      {formatCurrency(summaryValue)}
+                      {formatCurrency(activeSummary.value)}
                     </p>
                     <p className="text-[11px] text-gray-400 mt-0.5">
-                      {summaryCaption || "Approximate monthly revenue based on your current inputs"}
+                      {activeSummary.caption ||
+                        "Approximate monthly revenue based on your current inputs"}
                     </p>
                   </div>
                 </div>
+
+                <div className="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-gray-400">
+                  <div className="flex items-center gap-2">
+                    <input
+                      id="compare-toggle"
+                      type="checkbox"
+                      checked={compareEnabled}
+                      onChange={(e) => setCompareEnabled(e.target.checked)}
+                      className="h-3.5 w-3.5 rounded border-zinc-600 bg-zinc-900 text-emerald-500 focus:ring-emerald-500/60"
+                    />
+                    <label htmlFor="compare-toggle" className="cursor-pointer">
+                      Compare with another platform
+                    </label>
+                  </div>
+                  {compareEnabled && (
+                    <div className="flex items-center gap-2">
+                      <span className="hidden sm:inline">Compare with:</span>
+                      <select
+                        value={compareTab}
+                        onChange={(e) => setCompareTab(e.target.value)}
+                        className="bg-black/60 border border-zinc-700 text-gray-100 text-xs rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500/60 focus:border-emerald-500/60"
+                      >
+                        {allPlatforms.map((platform) => (
+                          <option key={platform.id} value={platform.id}>
+                            {platform.name}
+                            {platform.id === activeTab ? " (current)" : ""}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+
+                {compareEnabled && compareSummary && (
+                  <div
+                    className="mt-3 grid md:grid-cols-2 gap-3"
+                    aria-label="Side-by-side comparison of estimated monthly revenue"
+                  >
+                    <div className="bg-zinc-950/80 border border-emerald-500/30 rounded-lg px-4 py-3">
+                      <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-300 mb-1">
+                        Primary · {activePlatform?.name || "Current"}
+                      </p>
+                      <p className="text-sm font-semibold text-gray-100">
+                        {activeSummary.label ||
+                          `Estimated monthly for ${activePlatform?.name || "this platform"}`}
+                      </p>
+                      <p className="mt-1 text-xl font-extrabold text-emerald-400">
+                        {formatCurrency(activeSummary.value)}
+                      </p>
+                    </div>
+                    <div className="bg-zinc-950/80 border border-zinc-700 rounded-lg px-4 py-3">
+                      <p className="text-[11px] uppercase tracking-[0.16em] text-gray-400 mb-1">
+                        Comparison · {compareSummary.platformName || "Other"}
+                      </p>
+                      <p className="text-sm font-semibold text-gray-100">
+                        {compareSummary.label ||
+                          `Estimated monthly for ${compareSummary.platformName || "this platform"}`}
+                      </p>
+                      <p className="mt-1 text-xl font-extrabold text-gray-100">
+                        {formatCurrency(compareSummary.value)}
+                      </p>
+                      <p className="mt-1 text-[11px] text-gray-500">
+                        Uses the same simple assumptions as the main calculator — results are still
+                        estimates, not guarantees.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </section>
 
               {/* YouTube */}
@@ -1022,7 +1111,7 @@
                         <div className="flex justify-between">
                           <span>Estimated monthly revenue</span>
                           <span className="text-2xl font-bold text-purple-400">
-                            ${(igPostPrice * igMonthlyDeals).toFixed(0)}
+                            {(igPostPrice * igMonthlyDeals).toFixed(0)}
                           </span>
                         </div>
                       </div>

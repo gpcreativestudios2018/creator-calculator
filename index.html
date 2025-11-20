@@ -617,7 +617,7 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-xl shadow-xl p-6 text-white`}
+                      className="bg-gradient-to-br from-red-500 via-rose-500 to-red-700 rounded-xl shadow-xl p-6 text-white"
                       aria-live="polite"
                     >
                       <div className="flex items-center justify-between mb-4">
@@ -647,33 +647,49 @@
                           Sponsorship &amp; brand deals
                         </p>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mt-4 mb-2">
+                      <h3 className="text-lg font-semibold text-gray-900 mt-4">
                         Additional Revenue (estimate)
                       </h3>
-                      <div className="space-y-3 text-sm divide-y divide-zinc-100">
-                        <div className="flex justify-between items-center py-1.5">
-                          <span className="text-gray-600">Suggested rate per sponsored video</span>
-                          <span className="font-semibold text-gray-900">
+                      <p className="text-xs text-gray-500 mt-1">
+                        Rough guide for pricing sponsorships alongside your ad revenue.
+                      </p>
+
+                      <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                        <div className="rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3">
+                          <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-zinc-500">
+                            Rate per sponsored video
+                          </p>
+                          <p className="mt-1 text-2xl font-bold text-gray-900">
                             ${ytSponsor.toFixed(0)}
-                          </span>
+                          </p>
                         </div>
-                        <div className="flex justify-between items-center py-1.5">
-                          <span className="text-gray-600">
-                            Estimated monthly sponsorships (3 deals)
-                          </span>
-                          <span className="font-semibold text-gray-900">
+                        <div className="rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3">
+                          <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-zinc-500">
+                            3 sponsored videos / month
+                          </p>
+                          <p className="mt-1 text-2xl font-bold text-gray-900">
                             ${(ytSponsor * 3).toFixed(0)}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-5 space-y-2 text-sm">
+                        <div className="flex items-center justify-between text-gray-600">
+                          <span>Ad revenue (from estimate above)</span>
+                          <span className="font-semibold text-gray-900">
+                            ${ytAdRevenue.toFixed(0)}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center pt-3">
+                        <div className="flex items-center justify-between rounded-lg bg-red-50 px-4 py-2">
                           <span className="font-semibold text-gray-800">
-                            Ads + sponsorship total (per month)
+                            Ads + sponsorships total (per month)
                           </span>
-                          <span className="text-xl font-bold text-red-600">
+                          <span className="text-xl font-extrabold text-red-600">
                             ${(ytAdRevenue + ytSponsor * 3).toFixed(0)}
                           </span>
                         </div>
                       </div>
+
                       <p className="text-[11px] text-gray-500 mt-4">
                         Sponsorship rates vary widely by niche, deliverables and usage rights. Use this as a ballpark benchmark when planning packages or media kits — not a guaranteed rate.
                       </p>

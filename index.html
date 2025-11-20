@@ -34,7 +34,6 @@
     content="Free creator income calculator to estimate YouTube ad revenue, TikTok earnings, Instagram brand deals, Twitch & Kick streaming income, and newsletter MRR — all in one place."
   />
   <meta property="og:site_name" content="Creator Calculator" />
-  <!-- Replace this with a real social image later -->
   <meta property="og:image" content="https://creator-calculator.vercel.app/og-image.png" />
 
   <!-- Twitter -->
@@ -444,6 +443,63 @@
           ? "Newsletter revenue calculator tab (selected)"
           : "Newsletter revenue calculator tab";
 
+      // Helper for summary strip
+      const formatCurrency = (value) => {
+        const safe = Number.isFinite(value) ? value : 0;
+        return `$${Math.round(safe).toLocaleString()}`;
+      };
+
+      // Quick summary values based on existing calculations
+      let summaryValue = 0;
+      let summaryLabel = "";
+      let summaryCaption = "";
+
+      if (activeTab === "youtube") {
+        summaryValue = ytAdRevenue + ytSponsor * 3;
+        summaryLabel = "YouTube estimated monthly total";
+        summaryCaption = "Ads + 3 sponsored videos (estimate)";
+      } else if (activeTab === "tiktok") {
+        summaryValue = ttCreatorFund + ttBrandDeal * 2.5;
+        summaryLabel = "TikTok estimated monthly revenue";
+        summaryCaption = "Creator Fund + brand deals (estimate)";
+      } else if (activeTab === "instagram") {
+        summaryValue = igPostPrice * igMonthlyDeals;
+        summaryLabel = "Instagram estimated monthly brand deals";
+        summaryCaption = "Sponsored posts based on your follower count";
+      } else if (activeTab === "twitter") {
+        summaryValue = xTotal;
+        summaryLabel = "X estimated monthly revenue";
+        summaryCaption = "Premium ad share + subscriptions (estimate)";
+      } else if (activeTab === "facebook") {
+        summaryValue = fbTotal;
+        summaryLabel = "Facebook estimated monthly revenue";
+        summaryCaption = "In-stream ads + Stars (estimate)";
+      } else if (activeTab === "linkedin") {
+        summaryValue = liTotal;
+        summaryLabel = "LinkedIn estimated monthly revenue";
+        summaryCaption = "Sponsored posts + newsletter ads (estimate)";
+      } else if (activeTab === "snapchat") {
+        summaryValue = scTotal;
+        summaryLabel = "Snapchat estimated monthly revenue";
+        summaryCaption = "Spotlight + subscriber-style revenue (estimate)";
+      } else if (activeTab === "pinterest") {
+        summaryValue = pinTotal;
+        summaryLabel = "Pinterest estimated monthly revenue";
+        summaryCaption = "Creator rewards + affiliates + brand deals";
+      } else if (activeTab === "twitch") {
+        summaryValue = twTotal;
+        summaryLabel = "Twitch estimated monthly revenue";
+        summaryCaption = "Subs + ads + Bits (estimate)";
+      } else if (activeTab === "kick") {
+        summaryValue = kickTotal;
+        summaryLabel = "Kick estimated monthly revenue";
+        summaryCaption = "Subs + tips (estimate)";
+      } else if (activeTab === "newsletter") {
+        summaryValue = nlMRR;
+        summaryLabel = "Newsletter estimated monthly recurring revenue";
+        summaryCaption = "Paid subscribers × monthly price (estimate)";
+      }
+
       return (
         <div className="min-h-screen bg-black p-4">
           <div className="max-w-7xl mx-auto py-8">
@@ -511,7 +567,7 @@
               </section>
 
               {/* How to use section */}
-              <section className="mb-8" aria-label="How to use Creator Calculator">
+              <section className="mb-4" aria-label="How to use Creator Calculator">
                 <div className="bg-zinc-950/80 border border-zinc-800 rounded-xl p-5 md:p-6">
                   <h2 className="text-base md:text-lg font-semibold text-gray-100 mb-3">
                     How to use this creator revenue calculator
@@ -543,6 +599,35 @@
                     All results are rough industry-based estimates and can swing a lot based on
                     niche, geo, brand deals and consistency.
                   </p>
+                </div>
+              </section>
+
+              {/* Quick summary strip */}
+              <section
+                className="mb-6"
+                aria-label="Quick revenue summary for current platform"
+              >
+                <div className="bg-zinc-900/80 border border-zinc-800 rounded-xl px-4 py-3 md:px-6 md:py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                  <div className="text-sm">
+                    <p className="font-semibold text-gray-100">
+                      {summaryLabel || `Quick estimate for your ${activePlatform?.name || "channel"}`}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      At these inputs on {activePlatform?.name || "this platform"}, this is a{" "}
+                      <span className="font-medium text-gray-300">rough monthly estimate</span>, not a guarantee.
+                    </p>
+                  </div>
+                  <div
+                    className="text-right md:text-right"
+                    aria-live="polite"
+                  >
+                    <p className="text-2xl md:text-3xl font-extrabold text-emerald-400">
+                      {formatCurrency(summaryValue)}
+                    </p>
+                    <p className="text-[11px] text-gray-400 mt-0.5">
+                      {summaryCaption || "Approximate monthly revenue based on your current inputs"}
+                    </p>
+                  </div>
                 </div>
               </section>
 

@@ -449,6 +449,113 @@
           ? "Newsletter revenue calculator tab (selected)"
           : "Newsletter revenue calculator tab";
 
+      // Preset scenarios (inputs only, formulas unchanged)
+      const presets = {
+        youtube: {
+          small: { ytSubs: 1000, ytViews: 10000, ytCPM: 4 },
+          mid: { ytSubs: 50000, ytViews: 300000, ytCPM: 6 },
+          big: { ytSubs: 250000, ytViews: 1000000, ytCPM: 8 }
+        },
+        tiktok: {
+          small: { ttFollowers: 10000, ttViews: 5000, ttLikes: 500, ttComments: 50 },
+          mid: { ttFollowers: 100000, ttViews: 50000, ttLikes: 5000, ttComments: 500 },
+          big: { ttFollowers: 500000, ttViews: 250000, ttLikes: 25000, ttComments: 2500 }
+        },
+        instagram: {
+          small: { igFollowers: 10000, igLikes: 800, igComments: 40 },
+          mid: { igFollowers: 50000, igLikes: 3500, igComments: 200 },
+          big: { igFollowers: 250000, igLikes: 15000, igComments: 800 }
+        },
+        twitter: {
+          small: { xFollowers: 5000, xImpressions: 100000, xSubscribers: 25 },
+          mid: { xFollowers: 50000, xImpressions: 1000000, xSubscribers: 150 },
+          big: { xFollowers: 200000, xImpressions: 5000000, xSubscribers: 750 }
+        },
+        facebook: {
+          small: { fbFollowers: 10000, fbWatchMinutes: 5000 },
+          mid: { fbFollowers: 50000, fbWatchMinutes: 40000 },
+          big: { fbFollowers: 200000, fbWatchMinutes: 150000 }
+        },
+        linkedin: {
+          small: { liFollowers: 5000, liNewsletterSubs: 1500 },
+          mid: { liFollowers: 20000, liNewsletterSubs: 8000 },
+          big: { liFollowers: 80000, liNewsletterSubs: 25000 }
+        },
+        snapchat: {
+          small: { scFollowers: 8000, scSpotlightViews: 300000 },
+          mid: { scFollowers: 30000, scSpotlightViews: 1500000 },
+          big: { scFollowers: 100000, scSpotlightViews: 5000000 }
+        },
+        pinterest: {
+          small: { pinFollowers: 8000, pinMonthlyViews: 150000, pinIdeaPins: 8 },
+          mid: { pinFollowers: 25000, pinMonthlyViews: 600000, pinIdeaPins: 18 },
+          big: { pinFollowers: 80000, pinMonthlyViews: 2000000, pinIdeaPins: 30 }
+        },
+        twitch: {
+          small: { twSubs: 50, twAvgViewers: 30, twHoursStreamed: 40 },
+          mid: { twSubs: 250, twAvgViewers: 120, twHoursStreamed: 80 },
+          big: { twSubs: 1000, twAvgViewers: 500, twHoursStreamed: 120 }
+        },
+        kick: {
+          small: { kickSubs: 40, kickAvgViewers: 25 },
+          mid: { kickSubs: 200, kickAvgViewers: 110 },
+          big: { kickSubs: 800, kickAvgViewers: 400 }
+        },
+        newsletter: {
+          small: { nlSubs: 1000, nlPaidPercent: 3, nlPrice: 8 },
+          mid: { nlSubs: 5000, nlPaidPercent: 6, nlPrice: 10 },
+          big: { nlSubs: 20000, nlPaidPercent: 10, nlPrice: 15 }
+        }
+      };
+
+      const applyPreset = (platformId, tier) => {
+        const preset = presets[platformId]?.[tier];
+        if (!preset) return;
+
+        if (platformId === "youtube") {
+          if (typeof preset.ytSubs === "number") setYtSubs(preset.ytSubs);
+          if (typeof preset.ytViews === "number") setYtViews(preset.ytViews);
+          if (typeof preset.ytCPM === "number") setYtCPM(preset.ytCPM);
+        } else if (platformId === "tiktok") {
+          if (typeof preset.ttFollowers === "number") setTtFollowers(preset.ttFollowers);
+          if (typeof preset.ttViews === "number") setTtViews(preset.ttViews);
+          if (typeof preset.ttLikes === "number") setTtLikes(preset.ttLikes);
+          if (typeof preset.ttComments === "number") setTtComments(preset.ttComments);
+        } else if (platformId === "instagram") {
+          if (typeof preset.igFollowers === "number") setIgFollowers(preset.igFollowers);
+          if (typeof preset.igLikes === "number") setIgLikes(preset.igLikes);
+          if (typeof preset.igComments === "number") setIgComments(preset.igComments);
+        } else if (platformId === "twitter") {
+          if (typeof preset.xFollowers === "number") setXFollowers(preset.xFollowers);
+          if (typeof preset.xImpressions === "number") setXImpressions(preset.xImpressions);
+          if (typeof preset.xSubscribers === "number") setXSubscribers(preset.xSubscribers);
+        } else if (platformId === "facebook") {
+          if (typeof preset.fbFollowers === "number") setFbFollowers(preset.fbFollowers);
+          if (typeof preset.fbWatchMinutes === "number") setFbWatchMinutes(preset.fbWatchMinutes);
+        } else if (platformId === "linkedin") {
+          if (typeof preset.liFollowers === "number") setLiFollowers(preset.liFollowers);
+          if (typeof preset.liNewsletterSubs === "number") setLiNewsletterSubs(preset.liNewsletterSubs);
+        } else if (platformId === "snapchat") {
+          if (typeof preset.scFollowers === "number") setScFollowers(preset.scFollowers);
+          if (typeof preset.scSpotlightViews === "number") setScSpotlightViews(preset.scSpotlightViews);
+        } else if (platformId === "pinterest") {
+          if (typeof preset.pinFollowers === "number") setPinFollowers(preset.pinFollowers);
+          if (typeof preset.pinMonthlyViews === "number") setPinMonthlyViews(preset.pinMonthlyViews);
+          if (typeof preset.pinIdeaPins === "number") setPinIdeaPins(preset.pinIdeaPins);
+        } else if (platformId === "twitch") {
+          if (typeof preset.twSubs === "number") setTwSubs(preset.twSubs);
+          if (typeof preset.twAvgViewers === "number") setTwAvgViewers(preset.twAvgViewers);
+          if (typeof preset.twHoursStreamed === "number") setTwHoursStreamed(preset.twHoursStreamed);
+        } else if (platformId === "kick") {
+          if (typeof preset.kickSubs === "number") setKickSubs(preset.kickSubs);
+          if (typeof preset.kickAvgViewers === "number") setKickAvgViewers(preset.kickAvgViewers);
+        } else if (platformId === "newsletter") {
+          if (typeof preset.nlSubs === "number") setNlSubs(preset.nlSubs);
+          if (typeof preset.nlPaidPercent === "number") setNlPaidPercent(preset.nlPaidPercent);
+          if (typeof preset.nlPrice === "number") setNlPrice(preset.nlPrice);
+        }
+      };
+
       // Helper for summary strip
       const formatCurrency = (value) => {
         const safe = Number.isFinite(value) ? value : 0;
@@ -621,7 +728,7 @@
                 </div>
               </section>
 
-              {/* Quick summary + compare */}
+              {/* Quick summary + scenarios + compare */}
               <section
                 className="mb-6"
                 aria-label="Quick revenue summary for current platform"
@@ -652,35 +759,64 @@
                 </div>
 
                 <div className="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-gray-400">
-                  <div className="flex items-center gap-2">
-                    <input
-                      id="compare-toggle"
-                      type="checkbox"
-                      checked={compareEnabled}
-                      onChange={(e) => setCompareEnabled(e.target.checked)}
-                      className="h-3.5 w-3.5 rounded border-zinc-600 bg-zinc-900 text-emerald-500 focus:ring-emerald-500/60"
-                    />
-                    <label htmlFor="compare-toggle" className="cursor-pointer">
-                      Compare with another platform
-                    </label>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[11px] uppercase tracking-[0.16em] text-gray-500">
+                      Scenario
+                    </span>
+                    <select
+                      id="scenario-select"
+                      key={activeTab}
+                      defaultValue="custom"
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === "custom") return;
+                        applyPreset(activeTab, value);
+                      }}
+                      className="bg-black/60 border border-zinc-700 text-gray-100 text-xs rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500/60 focus:border-emerald-500/60"
+                      aria-label="Load a preset scenario for this platform"
+                    >
+                      <option value="custom">Custom (use your own numbers)</option>
+                      <option value="small">Small creator</option>
+                      <option value="mid">Mid-tier</option>
+                      <option value="big">Big channel / account</option>
+                    </select>
+                    <span className="hidden sm:inline text-[11px] text-gray-500">
+                      Quickly test how small, mid-tier or big assumptions affect the estimate.
+                    </span>
                   </div>
-                  {compareEnabled && (
+
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="hidden sm:inline">Compare with:</span>
-                      <select
-                        value={compareTab}
-                        onChange={(e) => setCompareTab(e.target.value)}
-                        className="bg-black/60 border border-zinc-700 text-gray-100 text-xs rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500/60 focus:border-emerald-500/60"
-                      >
-                        {allPlatforms.map((platform) => (
-                          <option key={platform.id} value={platform.id}>
-                            {platform.name}
-                            {platform.id === activeTab ? " (current)" : ""}
-                          </option>
-                        ))}
-                      </select>
+                      <input
+                        id="compare-toggle"
+                        type="checkbox"
+                        checked={compareEnabled}
+                        onChange={(e) => setCompareEnabled(e.target.checked)}
+                        className="h-3.5 w-3.5 rounded border-zinc-600 bg-zinc-900 text-emerald-500 focus:ring-emerald-500/60"
+                      />
+                      <label htmlFor="compare-toggle" className="cursor-pointer">
+                        Compare with another platform
+                      </label>
                     </div>
-                  )}
+                    {compareEnabled && (
+                      <div className="flex items-center gap-2">
+                        <span className="hidden sm:inline">Compare with:</span>
+                        <select
+                          value={compareTab}
+                          onChange={(e) => setCompareTab(e.target.value)}
+                          className="bg-black/60 border border-zinc-700 text-gray-100 text-xs rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500/60 focus:border-emerald-500/60"
+                          aria-label="Choose a platform to compare against"
+                        >
+                          {allPlatforms.map((platform) => (
+                            <option key={platform.id} value={platform.id}>
+                              {platform.name}
+                              {platform.id === activeTab ? " (current)" : ""}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {compareEnabled && compareSummary && (

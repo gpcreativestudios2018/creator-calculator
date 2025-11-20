@@ -593,7 +593,10 @@
                       </div>
                       <div>
                         <div className="flex items-center justify-between mb-1.5">
-                          <label className="block text-xs font-medium text-gray-400">
+                          <label
+                            className="block text-xs font-medium text-gray-400"
+                            title="CPM is the amount advertisers pay per 1,000 ad impressions."
+                          >
                             Estimated CPM
                           </label>
                           <span className="text-xs text-gray-300 font-semibold">
@@ -609,6 +612,10 @@
                           onChange={(e) => setYtCPM(Number(e.target.value))}
                           className="w-full"
                         />
+                        <p className="mt-1 text-[11px] text-gray-500">
+                          CPM = cost per 1,000 monetized views. Try adjusting this for higher-value
+                          niches or premium audiences.
+                        </p>
                       </div>
                     </div>
                     <p className="mt-4 text-[11px] text-gray-500">
@@ -732,7 +739,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Average views per TikTok video you want to model."
+                        >
                           Avg Views
                         </label>
                         <input
@@ -743,7 +753,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Average likes per video over the same period."
+                        >
                           Avg Likes
                         </label>
                         <input
@@ -754,7 +767,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Average comments per video over the same period."
+                        >
                           Avg Comments
                         </label>
                         <input
@@ -765,6 +781,13 @@
                         />
                       </div>
                     </div>
+                    <p className="mt-4 text-[11px] text-gray-500">
+                      Engagement rate shown on the right uses{" "}
+                      <span className="font-semibold text-pink-200">
+                        (likes + comments) ÷ views
+                      </span>{" "}
+                      for a quick health check on your content.
+                    </p>
                   </div>
                   <div className="space-y-6">
                     <div
@@ -780,6 +803,9 @@
                           : ttEngagement >= 3
                           ? "Good"
                           : "Needs work"}
+                      </p>
+                      <p className="mt-2 text-[11px] text-white/70">
+                        High engagement can help with brand deals even if your follower count is still growing.
                       </p>
                     </div>
                     <div
@@ -851,7 +877,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Average likes across your recent feed posts or Reels."
+                        >
                           Avg Likes
                         </label>
                         <input
@@ -862,7 +891,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Average comments across your recent posts."
+                        >
                           Avg Comments
                         </label>
                         <input
@@ -873,6 +905,13 @@
                         />
                       </div>
                     </div>
+                    <p className="mt-4 text-[11px] text-gray-500">
+                      Engagement rate here uses{" "}
+                      <span className="font-semibold text-fuchsia-200">
+                        (likes + comments) ÷ followers
+                      </span>{" "}
+                      — a common benchmark brands look at when evaluating Instagram creators.
+                    </p>
                   </div>
                   <div className="space-y-6">
                     <div
@@ -944,7 +983,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Total post impressions in a typical month."
+                        >
                           Monthly Impressions
                         </label>
                         <input
@@ -957,7 +999,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Number of paying followers subscribed to your X Premium content."
+                        >
                           Paid Subscribers
                         </label>
                         <input
@@ -970,6 +1015,10 @@
                         />
                       </div>
                     </div>
+                    <p className="mt-4 text-[11px] text-gray-500">
+                      X revenue share programs and subscriber cuts can change, so treat these inputs
+                      as a simple model — not a replication of X&apos;s internal math.
+                    </p>
                   </div>
                   <div className="space-y-6">
                     <div
@@ -1041,7 +1090,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Total minutes of watch time on your monetized videos in a month."
+                        >
                           Watch Minutes
                         </label>
                         <input
@@ -1054,6 +1106,9 @@
                         />
                       </div>
                     </div>
+                    <p className="mt-4 text-[11px] text-gray-500">
+                      Longer watch time and eligible content can unlock higher in-stream ad revenue, but exact payouts depend on Facebook&apos;s current programs.
+                    </p>
                   </div>
                   <div className="space-y-6">
                     <div
@@ -1112,7 +1167,10 @@
                     </h2>
                     <div className="space-y-5 mt-3">
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Followers on your personal profile or company page."
+                        >
                           Followers
                         </label>
                         <input
@@ -1125,7 +1183,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Subscribers to your native LinkedIn newsletter."
+                        >
                           Newsletter Subs
                         </label>
                         <input
@@ -1191,7 +1252,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Views on Snapchat Spotlight content during the period you want to model."
+                        >
                           Spotlight Views
                         </label>
                         <input
@@ -1257,7 +1321,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Total monthly impressions across your Pins."
+                        >
                           Monthly Pin Views
                         </label>
                         <input
@@ -1270,7 +1337,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Number of Idea Pins you publish per month."
+                        >
                           Idea Pins/Month
                         </label>
                         <input
@@ -1283,6 +1353,10 @@
                         />
                       </div>
                     </div>
+                    <p className="mt-4 text-[11px] text-gray-500">
+                      Creator Rewards and affiliate income can be spiky month to month — this is a
+                      smoothed-out estimate based on your inputs.
+                    </p>
                   </div>
                   <div className="space-y-6">
                     <div
@@ -1350,7 +1424,10 @@
                     </h2>
                     <div className="space-y-5 mt-3">
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Number of active paid channel subscribers."
+                        >
                           Subscribers
                         </label>
                         <input
@@ -1361,7 +1438,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Average concurrent viewers while you are live."
+                        >
                           Avg Viewers
                         </label>
                         <input
@@ -1374,7 +1454,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Total hours you stream per month."
+                        >
                           Hours Streamed
                         </label>
                         <input
@@ -1387,6 +1470,10 @@
                         />
                       </div>
                     </div>
+                    <p className="mt-4 text-[11px] text-gray-500">
+                      This model combines subs, ads and Bits into a simple blended estimate — real
+                      splits depend on your Twitch status and audience behavior.
+                    </p>
                   </div>
                   <div className="space-y-6">
                     <div
@@ -1453,7 +1540,10 @@
                     </h2>
                     <div className="space-y-5 mt-3">
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Active paid subscribers on Kick."
+                        >
                           Subscribers
                         </label>
                         <input
@@ -1466,7 +1556,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Average concurrent viewers while you are live."
+                        >
                           Avg Viewers
                         </label>
                         <input
@@ -1479,6 +1572,10 @@
                         />
                       </div>
                     </div>
+                    <p className="mt-4 text-[11px] text-gray-500">
+                      Kick&apos;s creator split and tip culture can be generous for some streams,
+                      but this is still just a simple snapshot — not a guaranteed payout.
+                    </p>
                   </div>
                   <div className="space-y-6">
                     <div
@@ -1531,7 +1628,10 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Rough percentage of your list that pays for a premium tier."
+                        >
                           Paid %: {nlPaidPercent}%
                         </label>
                         <input
@@ -1545,9 +1645,15 @@
                           }
                           className="w-full"
                         />
+                        <p className="mt-1 text-[11px] text-gray-500">
+                          Many newsletters see 3–10% paid conversion, but it can be higher in tight B2B or niche communities.
+                        </p>
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-400 mb-1.5">
+                        <label
+                          className="block text-xs font-medium text-gray-400 mb-1.5"
+                          title="Monthly price for your paid tier in US dollars."
+                        >
                           Monthly Price ($)
                         </label>
                         <input

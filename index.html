@@ -641,50 +641,51 @@
                         <span className="font-semibold">${ytYearly.toFixed(0)}</span>
                       </div>
                     </div>
-                    <div className="bg-white rounded-xl shadow-md p-6">
-                      <div className="-mx-6 -mt-6 px-6 py-2 bg-zinc-50 border-b border-zinc-200 rounded-t-xl">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-500">
+                    {/* Dark themed sponsorship card */}
+                    <div className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100">
+                      <div className="-mx-6 -mt-6 px-6 py-2 bg-zinc-900/80 border-b border-zinc-800 rounded-t-xl">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-300">
                           Sponsorship &amp; brand deals
                         </p>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mt-4">
+                      <h3 className="text-lg font-semibold text-white mt-4">
                         Additional Revenue (estimate)
                       </h3>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-400 mt-1">
                         Rough guide for pricing sponsorships alongside your ad revenue.
                       </p>
 
                       <div className="grid sm:grid-cols-2 gap-4 mt-4">
-                        <div className="rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3">
-                          <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-zinc-500">
+                        <div className="rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3">
+                          <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-zinc-400">
                             Rate per sponsored video
                           </p>
-                          <p className="mt-1 text-2xl font-bold text-gray-900">
+                          <p className="mt-1 text-2xl font-bold text-white">
                             ${ytSponsor.toFixed(0)}
                           </p>
                         </div>
-                        <div className="rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3">
-                          <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-zinc-500">
+                        <div className="rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3">
+                          <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-zinc-400">
                             3 sponsored videos / month
                           </p>
-                          <p className="mt-1 text-2xl font-bold text-gray-900">
+                          <p className="mt-1 text-2xl font-bold text-white">
                             ${(ytSponsor * 3).toFixed(0)}
                           </p>
                         </div>
                       </div>
 
                       <div className="mt-5 space-y-2 text-sm">
-                        <div className="flex items-center justify-between text-gray-600">
+                        <div className="flex items-center justify-between text-gray-300">
                           <span>Ad revenue (from estimate above)</span>
-                          <span className="font-semibold text-gray-900">
+                          <span className="font-semibold text-white">
                             ${ytAdRevenue.toFixed(0)}
                           </span>
                         </div>
-                        <div className="flex items-center justify-between rounded-lg bg-red-50 px-4 py-2">
-                          <span className="font-semibold text-gray-800">
+                        <div className="flex items-center justify-between rounded-lg bg-red-600/20 px-4 py-2">
+                          <span className="font-semibold text-red-100">
                             Ads + sponsorships total (per month)
                           </span>
-                          <span className="text-xl font-extrabold text-red-600">
+                          <span className="text-xl font-extrabold text-red-300">
                             ${(ytAdRevenue + ytSponsor * 3).toFixed(0)}
                           </span>
                         </div>

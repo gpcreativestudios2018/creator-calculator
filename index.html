@@ -552,11 +552,11 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="YouTube revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
+                  <div className="bg-zinc-900/95 border border-red-500/30 rounded-xl shadow-md shadow-red-500/20 p-6 text-gray-100">
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center rounded-full bg-zinc-800 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-gray-300">
+                      <span className="inline-flex items-center rounded-full bg-red-500/10 border border-red-500/40 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-red-100">
                         <span
-                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400"
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-red-400"
                           aria-hidden="true"
                         ></span>
                         Metrics · Inputs
@@ -577,7 +577,7 @@
                           type="number"
                           value={ytSubs}
                           onChange={(e) => setYtSubs(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500/60 focus:border-red-500/60"
                         />
                       </div>
                       <div>
@@ -588,7 +588,7 @@
                           type="number"
                           value={ytViews}
                           onChange={(e) => setYtViews(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500/60 focus:border-red-500/60"
                         />
                       </div>
                       <div>
@@ -705,9 +705,21 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="TikTok revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">TikTok Metrics</h2>
-                    <div className="space-y-5">
+                  <div className="bg-zinc-900/95 border border-pink-500/40 rounded-xl shadow-md shadow-pink-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-pink-500/50 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-pink-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-tr from-pink-500 to-teal-400"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your TikTok account.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">TikTok Metrics</h2>
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Followers
@@ -716,7 +728,7 @@
                           type="number"
                           value={ttFollowers}
                           onChange={(e) => setTtFollowers(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/60 focus:border-pink-500/60"
                         />
                       </div>
                       <div>
@@ -727,7 +739,7 @@
                           type="number"
                           value={ttViews}
                           onChange={(e) => setTtViews(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/60 focus:border-pink-500/60"
                         />
                       </div>
                       <div>
@@ -738,7 +750,7 @@
                           type="number"
                           value={ttLikes}
                           onChange={(e) => setTtLikes(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/60 focus:border-pink-500/60"
                         />
                       </div>
                       <div>
@@ -749,7 +761,7 @@
                           type="number"
                           value={ttComments}
                           onChange={(e) => setTtComments(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/60 focus:border-pink-500/60"
                         />
                       </div>
                     </div>
@@ -810,11 +822,23 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="Instagram revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">
+                  <div className="bg-zinc-900/95 border border-fuchsia-500/40 rounded-xl shadow-md shadow-fuchsia-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-fuchsia-500/50 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-fuchsia-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-tr from-pink-500 to-purple-500"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your Instagram account.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">
                       Instagram Metrics
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Followers
@@ -823,7 +847,7 @@
                           type="number"
                           value={igFollowers}
                           onChange={(e) => setIgFollowers(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-fuchsia-500/60 focus:border-fuchsia-500/60"
                         />
                       </div>
                       <div>
@@ -834,7 +858,7 @@
                           type="number"
                           value={igLikes}
                           onChange={(e) => setIgLikes(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-fuchsia-500/60 focus:border-fuchsia-500/60"
                         />
                       </div>
                       <div>
@@ -845,7 +869,7 @@
                           type="number"
                           value={igComments}
                           onChange={(e) => setIgComments(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-fuchsia-500/60 focus:border-fuchsia-500/60"
                         />
                       </div>
                     </div>
@@ -893,9 +917,21 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="X (Twitter) revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">X Metrics</h2>
-                    <div className="space-y-5">
+                  <div className="bg-zinc-900/95 border border-slate-500/40 rounded-xl shadow-md shadow-slate-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-slate-500/60 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-slate-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-slate-300"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your X profile.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">X Metrics</h2>
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Followers
@@ -904,7 +940,7 @@
                           type="number"
                           value={xFollowers}
                           onChange={(e) => setXFollowers(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-slate-500/60 focus:border-slate-500/60"
                         />
                       </div>
                       <div>
@@ -917,7 +953,7 @@
                           onChange={(e) =>
                             setXImpressions(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-slate-500/60 focus:border-slate-500/60"
                         />
                       </div>
                       <div>
@@ -930,7 +966,7 @@
                           onChange={(e) =>
                             setXSubscribers(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-slate-500/60 focus:border-slate-500/60"
                         />
                       </div>
                     </div>
@@ -976,11 +1012,23 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="Facebook revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">
+                  <div className="bg-zinc-900/95 border border-blue-500/40 rounded-xl shadow-md shadow-blue-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-blue-500/50 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-blue-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-blue-400"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your Facebook page.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">
                       Facebook Metrics
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Followers
@@ -1046,11 +1094,23 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="LinkedIn revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">
+                  <div className="bg-zinc-900/95 border border-sky-500/40 rounded-xl shadow-md shadow-sky-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-sky-500/50 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-sky-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-sky-400"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your LinkedIn presence.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">
                       LinkedIn Metrics
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Followers
@@ -1061,7 +1121,7 @@
                           onChange={(e) =>
                             setLiFollowers(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500/60 focus:border-sky-500/60"
                         />
                       </div>
                       <div>
@@ -1074,7 +1134,7 @@
                           onChange={(e) =>
                             setLiNewsletterSubs(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500/60 focus:border-sky-500/60"
                         />
                       </div>
                     </div>
@@ -1100,11 +1160,23 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="Snapchat revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">
+                  <div className="bg-zinc-900/95 border border-yellow-400/40 rounded-xl shadow-md shadow-yellow-400/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-yellow-400/60 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-yellow-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-yellow-300"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your Snapchat account.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">
                       Snapchat Metrics
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Followers
@@ -1115,7 +1187,7 @@
                           onChange={(e) =>
                             setScFollowers(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400/60 focus:border-yellow-400/60"
                         />
                       </div>
                       <div>
@@ -1128,7 +1200,7 @@
                           onChange={(e) =>
                             setScSpotlightViews(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400/60 focus:border-yellow-400/60"
                         />
                       </div>
                     </div>
@@ -1154,11 +1226,23 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="Pinterest revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">
+                  <div className="bg-zinc-900/95 border border-red-500/40 rounded-xl shadow-md shadow-red-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-red-500/60 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-red-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-red-400"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your Pinterest account.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">
                       Pinterest Metrics
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Followers
@@ -1169,7 +1253,7 @@
                           onChange={(e) =>
                             setPinFollowers(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500/60 focus:border-red-500/60"
                         />
                       </div>
                       <div>
@@ -1182,7 +1266,7 @@
                           onChange={(e) =>
                             setPinMonthlyViews(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500/60 focus:border-red-500/60"
                         />
                       </div>
                       <div>
@@ -1195,7 +1279,7 @@
                           onChange={(e) =>
                             setPinIdeaPins(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500/60 focus:border-red-500/60"
                         />
                       </div>
                     </div>
@@ -1248,11 +1332,23 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="Twitch revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">
+                  <div className="bg-zinc-900/95 border border-purple-500/40 rounded-xl shadow-md shadow-purple-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-purple-500/60 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-purple-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-purple-400"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your Twitch channel.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">
                       Twitch Metrics
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Subscribers
@@ -1261,7 +1357,7 @@
                           type="number"
                           value={twSubs}
                           onChange={(e) => setTwSubs(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/60 focus:border-purple-500/60"
                         />
                       </div>
                       <div>
@@ -1274,7 +1370,7 @@
                           onChange={(e) =>
                             setTwAvgViewers(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/60 focus:border-purple-500/60"
                         />
                       </div>
                       <div>
@@ -1287,7 +1383,7 @@
                           onChange={(e) =>
                             setTwHoursStreamed(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/60 focus:border-purple-500/60"
                         />
                       </div>
                     </div>
@@ -1339,11 +1435,23 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="Kick revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">
+                  <div className="bg-zinc-900/95 border border-emerald-500/40 rounded-xl shadow-md shadow-emerald-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-emerald-500/60 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-emerald-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your Kick stream.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">
                       Kick Metrics
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Subscribers
@@ -1354,7 +1462,7 @@
                           onChange={(e) =>
                             setKickSubs(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/60 focus:border-emerald-500/60"
                         />
                       </div>
                       <div>
@@ -1367,7 +1475,7 @@
                           onChange={(e) =>
                             setKickAvgViewers(Number(e.target.value))
                           }
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/60 focus:border-emerald-500/60"
                         />
                       </div>
                     </div>
@@ -1394,11 +1502,23 @@
                   className="grid md:grid-cols-2 gap-6 mt-6"
                   aria-label="Newsletter revenue calculator"
                 >
-                  <div className="bg-zinc-900 rounded-xl shadow-md p-6 text-gray-100">
-                    <h2 className="text-2xl font-semibold text-white mb-4">
+                  <div className="bg-zinc-900/95 border border-orange-500/40 rounded-xl shadow-md shadow-orange-500/20 p-6 text-gray-100">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-flex items-center rounded-full bg-black/40 border border-orange-500/60 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-orange-100">
+                        <span
+                          className="mr-1.5 h-1.5 w-1.5 rounded-full bg-orange-400"
+                          aria-hidden="true"
+                        ></span>
+                        Metrics · Inputs
+                      </span>
+                      <span className="hidden sm:block text-[11px] text-zinc-500">
+                        Update these to match your newsletter.
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold text-white mb-2">
                       Newsletter Metrics
                     </h2>
-                    <div className="space-y-5">
+                    <div className="space-y-5 mt-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-400 mb-1.5">
                           Total Subscribers
@@ -1407,7 +1527,7 @@
                           type="number"
                           value={nlSubs}
                           onChange={(e) => setNlSubs(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500/60 focus:border-orange-500/60"
                         />
                       </div>
                       <div>
@@ -1434,7 +1554,7 @@
                           type="number"
                           value={nlPrice}
                           onChange={(e) => setNlPrice(Number(e.target.value))}
-                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60"
+                          className="w-full px-3 py-2 rounded-lg bg-black/40 border border-zinc-700 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500/60 focus:border-orange-500/60"
                         />
                       </div>
                     </div>

@@ -150,7 +150,7 @@ export function Calculator() {
                   : 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white'
               }`}
             >
-              <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${platform.gradient}`}></span>
+              <platform.icon className={`w-4 h-4`} />
               {platform.name}
             </button>
           ))}

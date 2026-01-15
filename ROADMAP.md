@@ -11,7 +11,7 @@
 | Phase | Items | Completed | Progress |
 |-------|-------|-----------|----------|
 | Phase 1: UI Overhaul | 15 | 15 | 🟩🟩🟩🟩🟩 100% |
-| Phase 2: Core Architecture | 13 | 3 | 🟩⬜⬜⬜⬜ 23% |
+| Phase 2: Core Architecture | 13 | 8 | 🟩🟩🟩⬜⬜ 62% |
 | Phase 3: UX Polish | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 4: Calculations & Accuracy | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 5: Transparency & Trust | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -57,12 +57,12 @@
 - [x] 2.2 — Set up Vite or Next.js build system
 - [x] 2.3 — Remove in-browser Babel (compile JSX)
 - [x] 2.4 — Add TypeScript for type safety
-- [ ] 2.5 — Create /components directory
-- [ ] 2.6 — Create /platforms directory (per-platform config)
-- [ ] 2.7 — Create /engine directory (centralized formula engine)
-- [ ] 2.8 — Create /ui directory (shared UI components)
+- [x] 2.5 — Create /components directory
+- [x] 2.6 — Create /platforms directory (per-platform config)
+- [x] 2.7 — Create /engine directory (centralized formula engine)
+- [x] 2.8 — Create /ui directory (shared UI components)
 - [ ] 2.9 — Install and configure shadcn/ui component library
-- [ ] 2.10 — Create /utils directory (formatting, validation)
+- [x] 2.10 — Create /utils directory (formatting, validation)
 - [ ] 2.11 — Build platform registry (JSON/TS config per platform)
 - [ ] 2.12 — Add input validation throughout
 - [ ] 2.13 — Add error boundaries for crash protection

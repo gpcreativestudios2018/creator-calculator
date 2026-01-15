@@ -51,4 +51,88 @@ export const platforms: Platform[] = [
       { id: 'postsPerMonth', label: 'Posts per Month', type: 'slider', min: 1, max: 60, step: 1, defaultValue: 12, tooltip: 'How often you post' },
     ],
   },
+  {
+    id: 'twitter',
+    name: 'X (Twitter)',
+    gradient: 'from-zinc-600 to-zinc-800',
+    description: 'Creator subscriptions and ads revenue share',
+    inputs: [
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers' },
+      { id: 'impressions', label: 'Monthly Impressions', type: 'number', min: 0, max: 1000000000, defaultValue: 500000, tooltip: 'Total monthly impressions' },
+      { id: 'subscribers', label: 'Paid Subscribers', type: 'number', min: 0, max: 1000000, defaultValue: 0, tooltip: 'X Premium subscribers' },
+    ],
+  },
+  {
+    id: 'facebook',
+    name: 'Facebook',
+    gradient: 'from-blue-600 to-blue-800',
+    description: 'In-stream ads and stars',
+    inputs: [
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 50000, tooltip: 'Page followers' },
+      { id: 'watchMinutes', label: 'Monthly Watch Minutes', type: 'number', min: 0, max: 100000000, defaultValue: 100000, tooltip: 'Total watch time per month' },
+    ],
+  },
+  {
+    id: 'linkedin',
+    name: 'LinkedIn',
+    gradient: 'from-blue-700 to-blue-900',
+    description: 'Newsletter and consulting revenue',
+    inputs: [
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 10000000, defaultValue: 5000, tooltip: 'Total followers' },
+      { id: 'newsletterSubs', label: 'Newsletter Subscribers', type: 'number', min: 0, max: 1000000, defaultValue: 1000, tooltip: 'Newsletter subscribers' },
+    ],
+  },
+  {
+    id: 'snapchat',
+    name: 'Snapchat',
+    gradient: 'from-yellow-400 to-yellow-500',
+    description: 'Spotlight and creator programs',
+    inputs: [
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers' },
+      { id: 'spotlightViews', label: 'Spotlight Views', type: 'number', min: 0, max: 100000000, defaultValue: 50000, tooltip: 'Monthly Spotlight views' },
+    ],
+  },
+  {
+    id: 'pinterest',
+    name: 'Pinterest',
+    gradient: 'from-red-600 to-red-700',
+    description: 'Creator rewards and affiliate income',
+    inputs: [
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers' },
+      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 1000000000, defaultValue: 100000, tooltip: 'Monthly pin views' },
+      { id: 'ideaPins', label: 'Idea Pins / Month', type: 'slider', min: 1, max: 100, step: 1, defaultValue: 20, tooltip: 'Idea pins published per month' },
+    ],
+  },
+  {
+    id: 'twitch',
+    name: 'Twitch',
+    gradient: 'from-purple-600 to-purple-800',
+    description: 'Subscriptions, bits, and ads',
+    inputs: [
+      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 100, tooltip: 'Paid subscribers' },
+      { id: 'avgViewers', label: 'Average Viewers', type: 'number', min: 0, max: 100000, defaultValue: 50, tooltip: 'Concurrent viewers' },
+      { id: 'hoursStreamed', label: 'Hours Streamed / Month', type: 'slider', min: 1, max: 200, step: 1, defaultValue: 40, tooltip: 'Monthly streaming hours' },
+    ],
+  },
+  {
+    id: 'kick',
+    name: 'Kick',
+    gradient: 'from-green-500 to-green-700',
+    description: 'Subscriptions and platform bonuses',
+    inputs: [
+      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 50, tooltip: 'Paid subscribers' },
+      { id: 'avgViewers', label: 'Average Viewers', type: 'number', min: 0, max: 100000, defaultValue: 30, tooltip: 'Concurrent viewers' },
+    ],
+  },
+  {
+    id: 'newsletter',
+    name: 'Newsletter',
+    gradient: 'from-emerald-500 to-emerald-700',
+    description: 'Paid subscriptions and sponsorships',
+    inputs: [
+      { id: 'subscribers', label: 'Total Subscribers', type: 'number', min: 0, max: 10000000, defaultValue: 5000, tooltip: 'Total email subscribers' },
+      { id: 'paidPercent', label: 'Paid Subscriber %', type: 'slider', min: 0, max: 20, step: 0.5, defaultValue: 5, tooltip: 'Percentage who pay' },
+      { id: 'monthlyPrice', label: 'Monthly Price ($)', type: 'slider', min: 1, max: 50, step: 1, defaultValue: 10, tooltip: 'Subscription price' },
+    ],
+  },
 ]

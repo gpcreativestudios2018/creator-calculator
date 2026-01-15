@@ -10,7 +10,7 @@
 
 | Phase | Items | Completed | Progress |
 |-------|-------|-----------|----------|
-| Phase 1: UI Overhaul | 15 | 4 | 🟩⬜⬜⬜⬜ 27% |
+| Phase 1: UI Overhaul | 15 | 7 | 🟩🟩⬜⬜⬜ 47% |
 | Phase 2: Core Architecture | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 3: UX Polish | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 4: Calculations & Accuracy | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -25,7 +25,7 @@
 | Phase 13: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 14: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 15: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| **TOTAL** | **104** | **4** | **4%** |
+| **TOTAL** | **104** | **7** | **7%** |
 
 ---
 
@@ -37,9 +37,9 @@
 - [x] 1.3 — New color system and design tokens
 - [x] 1.4 — Typography overhaul (font pairing, hierarchy)
 - [x] 1.5 — Platform card redesign (icons, gradients, hover states)
-- [ ] 1.6 — Input component redesign (sliders, number inputs, steppers)
-- [ ] 1.7 — Results card redesign (revenue displays, breakdowns)
-- [ ] 1.8 — Summary strip/dashboard redesign
+- [x] 1.6 — Input component redesign (sliders, number inputs, steppers)
+- [x] 1.7 — Results card redesign (revenue displays, breakdowns)
+- [x] 1.8 — Summary strip/dashboard redesign
 - [ ] 1.9 — Comparison panel redesign
 - [ ] 1.10 — Mobile-first responsive redesign
 - [ ] 1.11 — Micro-interactions and animations

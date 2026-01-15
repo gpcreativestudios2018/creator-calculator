@@ -173,7 +173,7 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">{formatCurrency(results.monthlyRevenue)}</p>
+                  <p className="text-2xl font-bold text-white">{formatCurrency(results.monthlyRevenue)}</p>
                   <p className="text-xs text-zinc-500 mt-1">Estimated earnings</p>
                 </CardContent>
               </Card>
@@ -183,7 +183,7 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">{formatCurrency(results.yearlyRevenue)}</p>
+                  <p className="text-2xl font-bold text-white">{formatCurrency(results.yearlyRevenue)}</p>
                   <p className="text-xs text-zinc-500 mt-1">At current rate</p>
                 </CardContent>
               </Card>
@@ -193,7 +193,7 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Engagement Rate</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">{(results.engagementRate ?? 0).toFixed(1)}%</p>
+                  <p className="text-2xl font-bold text-white">{(results.engagementRate ?? 0).toFixed(1)}%</p>
                   <p className="text-xs text-zinc-500 mt-1">Platform metric</p>
                 </CardContent>
               </Card>

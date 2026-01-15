@@ -1,11 +1,7 @@
-import { Button } from "@/components/ui/button"
+import { Calculator } from '@/components/Calculator'
 
 function App() {
-  return (
-    <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-      <Button>Creator Calculator</Button>
-    </div>
-  )
+  return <Calculator />
 }
 
 export default App

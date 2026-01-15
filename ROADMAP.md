@@ -10,7 +10,7 @@
 
 | Phase | Items | Completed | Progress |
 |-------|-------|-----------|----------|
-| Phase 1: UI Overhaul | 15 | 1 | 🟩⬜⬜⬜⬜ 7% |
+| Phase 1: UI Overhaul | 15 | 3 | 🟩⬜⬜⬜⬜ 20% |
 | Phase 2: Core Architecture | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 3: UX Polish | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 4: Calculations & Accuracy | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -25,7 +25,7 @@
 | Phase 13: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 14: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 15: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| **TOTAL** | **104** | **1** | **1%** |
+| **TOTAL** | **104** | **3** | **3%** |
 
 ---
 
@@ -34,8 +34,8 @@
 
 - [x] 1.1 — New landing page design (based on screenshot vision)
 - [ ] 1.2 — Modern component library (shadcn/ui integration)
-- [ ] 1.3 — New color system and design tokens
-- [ ] 1.4 — Typography overhaul (font pairing, hierarchy)
+- [x] 1.3 — New color system and design tokens
+- [x] 1.4 — Typography overhaul (font pairing, hierarchy)
 - [ ] 1.5 — Platform card redesign (icons, gradients, hover states)
 - [ ] 1.6 — Input component redesign (sliders, number inputs, steppers)
 - [ ] 1.7 — Results card redesign (revenue displays, breakdowns)

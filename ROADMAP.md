@@ -11,7 +11,7 @@
 | Phase | Items | Completed | Progress |
 |-------|-------|-----------|----------|
 | Phase 1: UI Overhaul | 15 | 15 | 🟩🟩🟩🟩🟩 100% |
-| Phase 2: Core Architecture | 13 | 11 | 🟩🟩🟩🟩⬜ 85% |
+| Phase 2: Core Architecture | 13 | 13 | 🟩🟩🟩🟩🟩 100% |
 | Phase 3: UX Polish | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 4: Calculations & Accuracy | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 5: Transparency & Trust | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -64,8 +64,8 @@
 - [x] 2.9 — Install and configure shadcn/ui component library
 - [x] 2.10 — Create /utils directory (formatting, validation)
 - [x] 2.11 — Build platform registry (JSON/TS config per platform)
-- [ ] 2.12 — Add input validation throughout
-- [ ] 2.13 — Add error boundaries for crash protection
+- [x] 2.12 — Add input validation throughout
+- [x] 2.13 — Add error boundaries for crash protection
 
 ---
 

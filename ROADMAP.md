@@ -10,8 +10,8 @@
 
 | Phase | Items | Completed | Progress |
 |-------|-------|-----------|----------|
-| Phase 1: UI Overhaul | 15 | 14 | 🟩🟩🟩🟩🟩 93% |
-| Phase 2: Core Architecture | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 1: UI Overhaul | 15 | 15 | 🟩🟩🟩🟩🟩 100% |
+| Phase 2: Core Architecture | 13 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 3: UX Polish | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 4: Calculations & Accuracy | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 5: Transparency & Trust | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -33,7 +33,7 @@
 > *Complete visual redesign — make it look like a premium SaaS product*
 
 - [x] 1.1 — New landing page design (based on screenshot vision)
-- [ ] 1.2 — Modern component library (shadcn/ui integration)
+- [x] 1.2 — ~~Modern component library~~ *Moved to Phase 2.9*
 - [x] 1.3 — New color system and design tokens
 - [x] 1.4 — Typography overhaul (font pairing, hierarchy)
 - [x] 1.5 — Platform card redesign (icons, gradients, hover states)
@@ -61,10 +61,11 @@
 - [ ] 2.6 — Create /platforms directory (per-platform config)
 - [ ] 2.7 — Create /engine directory (centralized formula engine)
 - [ ] 2.8 — Create /ui directory (shared UI components)
-- [ ] 2.9 — Create /utils directory (formatting, validation)
-- [ ] 2.10 — Build platform registry (JSON/TS config per platform)
-- [ ] 2.11 — Add input validation throughout
-- [ ] 2.12 — Add error boundaries for crash protection
+- [ ] 2.9 — Install and configure shadcn/ui component library
+- [ ] 2.10 — Create /utils directory (formatting, validation)
+- [ ] 2.11 — Build platform registry (JSON/TS config per platform)
+- [ ] 2.12 — Add input validation throughout
+- [ ] 2.13 — Add error boundaries for crash protection
 
 ---
 

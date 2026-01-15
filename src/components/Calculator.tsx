@@ -40,11 +40,14 @@ export function Calculator() {
   const currentValues = inputValues[activeTab] || {}
 
   const updateValue = (inputId: string, value: number) => {
+    // Validate: ensure value is a number and not negative
+    const validValue = isNaN(value) ? 0 : Math.max(0, value)
+
     setInputValues(prev => ({
       ...prev,
       [activeTab]: {
         ...prev[activeTab],
-        [inputId]: value,
+        [inputId]: validValue,
       },
     }))
   }

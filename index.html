@@ -123,13 +123,45 @@
     gtag("config", "G-58T3ZLSLYP");
   </script>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
   <!-- React / Babel / Tailwind -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    display: ['Space Grotesk', 'sans-serif'],
+                },
+                colors: {
+                    dark: {
+                        900: '#0a0b0f',
+                        800: '#12141c',
+                        700: '#1a1d2a',
+                        600: '#242838',
+                    },
+                    neon: {
+                        cyan: '#00f0ff',
+                        pink: '#ff00aa',
+                        purple: '#a855f7',
+                        gold: '#fbbf24',
+                        green: '#22c55e',
+                    }
+                },
+            }
+        }
+    }
+  </script>
 </head>
-<body class="bg-black">
+<body class="bg-dark-900 min-h-screen text-white font-sans antialiased">
   <!-- Accessibility: Skip link for keyboard and screen reader users -->
   <a
     href="#main-content"

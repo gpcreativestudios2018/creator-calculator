@@ -11,7 +11,7 @@
 | Phase | Items | Completed | Progress |
 |-------|-------|-----------|----------|
 | Phase 1: UI Overhaul | 15 | 15 | 🟩🟩🟩🟩🟩 100% |
-| Phase 2: Core Architecture | 13 | 10 | 🟩🟩🟩🟩⬜ 77% |
+| Phase 2: Core Architecture | 13 | 11 | 🟩🟩🟩🟩⬜ 85% |
 | Phase 3: UX Polish | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 4: Calculations & Accuracy | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 5: Transparency & Trust | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -53,7 +53,7 @@
 ## ✅ PHASE 2: CORE ARCHITECTURE UPGRADE
 > *Rebuild the foundation for scale and maintainability*
 
-- [ ] 2.1 — Migrate from single-file to modular structure
+- [x] 2.1 — Migrate from single-file to modular structure
 - [x] 2.2 — Set up Vite or Next.js build system
 - [x] 2.3 — Remove in-browser Babel (compile JSX)
 - [x] 2.4 — Add TypeScript for type safety

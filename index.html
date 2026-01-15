@@ -990,33 +990,36 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className="bg-gradient-to-br from-red-500 via-rose-500 to-red-700 rounded-xl shadow-xl p-6 text-white"
+                      className="relative bg-gradient-to-br from-red-500 via-rose-500 to-red-600 rounded-2xl shadow-2xl shadow-red-500/25 p-6 text-white overflow-hidden"
                       aria-live="polite"
                     >
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em]">
-                          Estimated ad revenue · per month
-                        </span>
-                        <span className="text-[10px] text-white/60">
-                          Estimates only
-                        </span>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="text-4xl md:text-5xl font-black">
-                          ${ytAdRevenue.toFixed(0)}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em]">
+                            Estimated ad revenue · per month
+                          </span>
+                          <span className="text-[10px] text-white/60">
+                            Estimates only
+                          </span>
                         </div>
-                        <p className="text-xs text-white/80">
-                          Approximate YouTube ad revenue based on your views, CPM and a typical creator revenue share.
-                        </p>
-                      </div>
-                      <div className="mt-4 border-t border-white/10 pt-3 flex items-center justify-between text-sm">
-                        <span className="text-white/80">Yearly equivalent (ads only)</span>
-                        <span className="font-semibold">${ytYearly.toFixed(0)}</span>
+                        <div className="space-y-2">
+                          <div className="text-4xl md:text-5xl font-black">
+                            ${ytAdRevenue.toFixed(0)}
+                          </div>
+                          <p className="text-xs text-white/80">
+                            Approximate YouTube ad revenue based on your views, CPM and a typical creator revenue share.
+                          </p>
+                        </div>
+                        <div className="mt-4 border-t border-white/10 pt-3 flex items-center justify-between text-sm">
+                          <span className="text-white/80">Yearly equivalent (ads only)</span>
+                          <span className="font-semibold">${ytYearly.toFixed(0)}</span>
+                        </div>
                       </div>
                     </div>
                     {/* Dark themed sponsorship card */}
-                    <div className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100">
-                      <div className="-mx-6 -mt-6 px-6 py-2 bg-zinc-900/80 border-b border-zinc-800 rounded-t-xl">
+                    <div className="relative bg-dark-800/80 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg p-6 text-gray-100 hover:border-white/20 transition-all duration-300">
+                      <div className="-mx-6 -mt-6 px-6 py-2 bg-dark-700/50 border-b border-white/5 rounded-t-2xl">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-300">
                           Sponsorship &amp; brand deals
                         </p>
@@ -1172,52 +1175,58 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl ${activePlatform.shadow} p-6 text-white overflow-hidden`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Engagement Rate</h3>
-                      <div className="text-5xl font-bold">
-                        {ttEngagement.toFixed(2)}%
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Engagement Rate</h3>
+                        <div className="text-5xl font-bold">
+                          {ttEngagement.toFixed(2)}%
+                        </div>
+                        <p className="text-sm mt-2">
+                          {ttEngagement >= 5
+                            ? "Excellent!"
+                            : ttEngagement >= 3
+                            ? "Good"
+                            : "Needs work"}
+                        </p>
+                        <p className="mt-2 text-[11px] text-white/70">
+                          High engagement can help with brand deals even if your follower count is still growing.
+                        </p>
                       </div>
-                      <p className="text-sm mt-2">
-                        {ttEngagement >= 5
-                          ? "Excellent!"
-                          : ttEngagement >= 3
-                          ? "Good"
-                          : "Needs work"}
-                      </p>
-                      <p className="mt-2 text-[11px] text-white/70">
-                        High engagement can help with brand deals even if your follower count is still growing.
-                      </p>
                     </div>
                     <div
-                      className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100"
+                      className="relative bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-400 rounded-2xl shadow-2xl shadow-pink-500/25 p-6 text-white overflow-hidden"
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-4">Estimated Monthly Revenue</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between">
-                          <span>Creator Fund (estimate)</span>
-                          <span className="font-bold">
-                            ${ttCreatorFund.toFixed(0)}
-                          </span>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-4">Estimated Monthly Revenue</h3>
+                        <div className="space-y-3">
+                          <div className="flex justify-between">
+                            <span>Creator Fund (estimate)</span>
+                            <span className="font-bold">
+                              ${ttCreatorFund.toFixed(0)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Brand Deals (estimate)</span>
+                            <span className="font-bold">
+                              ${(ttBrandDeal * 2.5).toFixed(0)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between border-t border-white/20 pt-3 mt-1">
+                            <span className="font-semibold">Total estimated revenue</span>
+                            <span className="text-2xl font-bold">
+                              ${(ttCreatorFund + ttBrandDeal * 2.5).toFixed(0)}
+                            </span>
+                          </div>
                         </div>
-                        <div className="flex justify-between">
-                          <span>Brand Deals (estimate)</span>
-                          <span className="font-bold">
-                            ${(ttBrandDeal * 2.5).toFixed(0)}
-                          </span>
-                        </div>
-                        <div className="flex justify-between border-t border-zinc-700 pt-3 mt-1">
-                          <span className="font-semibold">Total estimated revenue</span>
-                          <span className="text-2xl font-bold text-pink-400">
-                            ${(ttCreatorFund + ttBrandDeal * 2.5).toFixed(0)}
-                          </span>
-                        </div>
+                        <p className="text-xs text-white/70 mt-3">
+                          TikTok payouts and brand deals can change based on programs, region and
+                          brand budgets. These numbers are estimates only, not guaranteed payouts.
+                        </p>
                       </div>
-                      <p className="text-xs text-gray-400 mt-3">
-                        TikTok payouts and brand deals can change based on programs, region and
-                        brand budgets. These numbers are estimates only, not guaranteed payouts.
-                      </p>
                     </div>
                   </div>
                 </section>
@@ -1311,36 +1320,42 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl ${activePlatform.shadow} p-6 text-white overflow-hidden`}
                     >
-                      <h3 className="text-lg font-semibold mb-2">Engagement Rate</h3>
-                      <div className="text-5xl font-bold">
-                        {igEngagement.toFixed(2)}%
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Engagement Rate</h3>
+                        <div className="text-5xl font-bold">
+                          {igEngagement.toFixed(2)}%
+                        </div>
                       </div>
                     </div>
                     <div
-                      className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100"
+                      className="relative bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 rounded-2xl shadow-2xl shadow-pink-500/25 p-6 text-white overflow-hidden"
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-4">Sponsored Posts (estimate)</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between">
-                          <span>Estimated rate per post</span>
-                          <span className="font-bold">
-                            ${igPostPrice.toFixed(0)}
-                          </span>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-4">Sponsored Posts (estimate)</h3>
+                        <div className="space-y-3">
+                          <div className="flex justify-between">
+                            <span>Estimated rate per post</span>
+                            <span className="font-bold">
+                              ${igPostPrice.toFixed(0)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Estimated monthly revenue</span>
+                            <span className="text-2xl font-bold">
+                              {(igPostPrice * igMonthlyDeals).toFixed(0)}
+                            </span>
+                          </div>
                         </div>
-                        <div className="flex justify-between">
-                          <span>Estimated monthly revenue</span>
-                          <span className="text-2xl font-bold text-purple-400">
-                            {(igPostPrice * igMonthlyDeals).toFixed(0)}
-                          </span>
-                        </div>
+                        <p className="text-xs text-white/70 mt-3">
+                          Actual rates depend on your niche, deliverables, usage rights and how you
+                          negotiate. Use this as a starting point, not a fixed price sheet.
+                        </p>
                       </div>
-                      <p className="text-xs text-gray-400 mt-3">
-                        Actual rates depend on your niche, deliverables, usage rights and how you
-                        negotiate. Use this as a starting point, not a fixed price sheet.
-                      </p>
                     </div>
                   </div>
                 </section>
@@ -1433,16 +1448,19 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl shadow-gray-500/25 p-6 text-white overflow-hidden`}
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
-                      <div className="text-5xl font-bold">${xTotal.toFixed(0)}</div>
-                      <p className="text-xs mt-1 text-white/80">
-                        Estimated by combining potential X Premium ad share and subscriber revenue. Policies can change and payouts are not guaranteed.
-                      </p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
+                        <div className="text-5xl font-bold">${xTotal.toFixed(0)}</div>
+                        <p className="text-xs mt-1 text-white/80">
+                          Estimated by combining potential X Premium ad share and subscriber revenue. Policies can change and payouts are not guaranteed.
+                        </p>
+                      </div>
                     </div>
-                    <div className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100">
+                    <div className="relative bg-dark-800/80 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg p-6 text-gray-100 hover:border-white/20 transition-all duration-300">
                       <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
@@ -1538,16 +1556,19 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl shadow-blue-500/25 p-6 text-white overflow-hidden`}
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
-                      <div className="text-5xl font-bold">${fbTotal.toFixed(0)}</div>
-                      <p className="text-xs mt-1 text-white/80">
-                        Estimated based on in-stream ad revenue and Stars. Eligibility and ad performance will affect real payouts.
-                      </p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
+                        <div className="text-5xl font-bold">${fbTotal.toFixed(0)}</div>
+                        <p className="text-xs mt-1 text-white/80">
+                          Estimated based on in-stream ad revenue and Stars. Eligibility and ad performance will affect real payouts.
+                        </p>
+                      </div>
                     </div>
-                    <div className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100">
+                    <div className="relative bg-dark-800/80 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg p-6 text-gray-100 hover:border-white/20 transition-all duration-300">
                       <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
@@ -1647,14 +1668,17 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl shadow-blue-500/25 p-6 text-white overflow-hidden`}
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
-                      <div className="text-5xl font-bold">${liTotal.toFixed(0)}</div>
-                      <p className="text-xs mt-1 text-white/80">
-                        Estimated by combining sponsored content and newsletter ad placements. Real rates vary by industry and offer.
-                      </p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
+                        <div className="text-5xl font-bold">${liTotal.toFixed(0)}</div>
+                        <p className="text-xs mt-1 text-white/80">
+                          Estimated by combining sponsored content and newsletter ad placements. Real rates vary by industry and offer.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -1734,14 +1758,17 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl shadow-yellow-400/25 p-6 text-white overflow-hidden`}
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
-                      <div className="text-5xl font-bold">${scTotal.toFixed(0)}</div>
-                      <p className="text-xs mt-1 text-white/80">
-                        Spotlight bonuses and subscriber revenue are highly program-dependent, so treat these numbers as directional estimates only.
-                      </p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
+                        <div className="text-5xl font-bold">${scTotal.toFixed(0)}</div>
+                        <p className="text-xs mt-1 text-white/80">
+                          Spotlight bonuses and subscriber revenue are highly program-dependent, so treat these numbers as directional estimates only.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -1838,16 +1865,19 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl shadow-red-500/25 p-6 text-white overflow-hidden`}
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
-                      <div className="text-5xl font-bold">${pinTotal.toFixed(0)}</div>
-                      <p className="text-xs mt-1 text-white/80">
-                        Estimated by combining creator rewards, affiliate income and brand deals. Actual performance depends heavily on content and product fit.
-                      </p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
+                        <div className="text-5xl font-bold">${pinTotal.toFixed(0)}</div>
+                        <p className="text-xs mt-1 text-white/80">
+                          Estimated by combining creator rewards, affiliate income and brand deals. Actual performance depends heavily on content and product fit.
+                        </p>
+                      </div>
                     </div>
-                    <div className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100">
+                    <div className="relative bg-dark-800/80 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg p-6 text-gray-100 hover:border-white/20 transition-all duration-300">
                       <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
@@ -1970,16 +2000,19 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl shadow-purple-500/25 p-6 text-white overflow-hidden`}
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
-                      <div className="text-5xl font-bold">${twTotal.toFixed(0)}</div>
-                      <p className="text-xs mt-1 text-white/80">
-                        Estimated by combining subs, ads and Bits. Partner/affiliate splits may differ and viewer behavior can change over time.
-                      </p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
+                        <div className="text-5xl font-bold">${twTotal.toFixed(0)}</div>
+                        <p className="text-xs mt-1 text-white/80">
+                          Estimated by combining subs, ads and Bits. Partner/affiliate splits may differ and viewer behavior can change over time.
+                        </p>
+                      </div>
                     </div>
-                    <div className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100">
+                    <div className="relative bg-dark-800/80 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg p-6 text-gray-100 hover:border-white/20 transition-all duration-300">
                       <h3 className="text-lg font-semibold mb-4">Revenue Breakdown</h3>
                       <div className="space-y-3">
                         <div className="flex justify-between">
@@ -2087,15 +2120,18 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl shadow-green-500/25 p-6 text-white overflow-hidden`}
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
-                      <div className="text-5xl font-bold">${kickTotal.toFixed(0)}</div>
-                      <p className="text-sm mt-2">70% creator split (estimate)</p>
-                      <p className="text-xs mt-1 text-white/80">
-                        Tips, subs and Kick&apos;s revenue share can change over time. These numbers are estimates, not guaranteed payouts.
-                      </p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">Estimated Monthly Revenue</h3>
+                        <div className="text-5xl font-bold">${kickTotal.toFixed(0)}</div>
+                        <p className="text-sm mt-2">70% creator split (estimate)</p>
+                        <p className="text-xs mt-1 text-white/80">
+                          Tips, subs and Kick&apos;s revenue share can change over time. These numbers are estimates, not guaranteed payouts.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -2184,23 +2220,26 @@
                   </div>
                   <div className="space-y-6">
                     <div
-                      className={`bg-gradient-to-br ${activePlatform.gradient} rounded-lg shadow-lg p-6 text-white`}
+                      className={`relative bg-gradient-to-br ${activePlatform.gradient} rounded-2xl shadow-2xl shadow-orange-500/25 p-6 text-white overflow-hidden`}
                       aria-live="polite"
                     >
-                      <h3 className="text-lg font-semibold mb-2">
-                        Estimated Monthly Recurring Revenue
-                      </h3>
-                      <div className="text-5xl font-bold">
-                        ${nlMRR.toLocaleString()}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-lg font-semibold mb-2">
+                          Estimated Monthly Recurring Revenue
+                        </h3>
+                        <div className="text-5xl font-bold">
+                          ${nlMRR.toLocaleString()}
+                        </div>
+                        <p className="text-sm mt-2">
+                          Estimated annual run rate: ${nlARR.toLocaleString()}
+                        </p>
+                        <p className="text-xs mt-1 text-white/80">
+                          Assumes a simple paid conversion rate and full price realization each month. In reality, churn, discounts and trials will affect your actual MRR.
+                        </p>
                       </div>
-                      <p className="text-sm mt-2">
-                        Estimated annual run rate: ${nlARR.toLocaleString()}
-                      </p>
-                      <p className="text-xs mt-1 text-white/80">
-                        Assumes a simple paid conversion rate and full price realization each month. In reality, churn, discounts and trials will affect your actual MRR.
-                      </p>
                     </div>
-                    <div className="bg-zinc-900/95 border border-zinc-800 rounded-xl shadow-md p-6 text-gray-100">
+                    <div className="relative bg-dark-800/80 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg p-6 text-gray-100 hover:border-white/20 transition-all duration-300">
                       <h3 className="text-lg font-semibold mb-4">
                         Subscriber Breakdown
                       </h3>
@@ -2213,7 +2252,7 @@
                         </div>
                         <div className="flex justify-between">
                           <span>Paid Subs</span>
-                          <span className="font-bold text-emerald-400">
+                          <span className="font-bold text-neon-green">
                             {nlPaidSubs.toLocaleString()}
                           </span>
                         </div>

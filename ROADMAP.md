@@ -11,7 +11,7 @@
 | Phase | Items | Completed | Progress |
 |-------|-------|-----------|----------|
 | Phase 1: UI Overhaul | 15 | 15 | 🟩🟩🟩🟩🟩 100% |
-| Phase 2: Core Architecture | 13 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 2: Core Architecture | 13 | 3 | 🟩⬜⬜⬜⬜ 23% |
 | Phase 3: UX Polish | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 4: Calculations & Accuracy | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 5: Transparency & Trust | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -54,9 +54,9 @@
 > *Rebuild the foundation for scale and maintainability*
 
 - [ ] 2.1 — Migrate from single-file to modular structure
-- [ ] 2.2 — Set up Vite or Next.js build system
-- [ ] 2.3 — Remove in-browser Babel (compile JSX)
-- [ ] 2.4 — Add TypeScript for type safety
+- [x] 2.2 — Set up Vite or Next.js build system
+- [x] 2.3 — Remove in-browser Babel (compile JSX)
+- [x] 2.4 — Add TypeScript for type safety
 - [ ] 2.5 — Create /components directory
 - [ ] 2.6 — Create /platforms directory (per-platform config)
 - [ ] 2.7 — Create /engine directory (centralized formula engine)

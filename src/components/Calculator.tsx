@@ -4,6 +4,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
+import {
+  calculateYouTube,
+  calculateTikTok,
+  calculateInstagram,
+  calculateTwitter,
+  calculateFacebook,
+  calculateLinkedIn,
+  calculateSnapchat,
+  calculatePinterest,
+  calculateTwitch,
+  calculateKick,
+  calculateNewsletter,
+  type CalculationResult,
+} from '@/engine/calculations'
 
 type InputValues = Record<string, Record<string, number>>
 
@@ -16,10 +30,6 @@ function getInitialValues(): InputValues {
     }
   }
   return values
-}
-
-function formatNumber(value: number): string {
-  return new Intl.NumberFormat('en-US').format(value)
 }
 
 export function Calculator() {
@@ -39,66 +49,40 @@ export function Calculator() {
     }))
   }
 
-  const monthlyRevenue = useMemo(() => {
-    if (!activePlatform) return 0
-    const values = currentValues
-
+  // Calculate results using the calculation engine
+  const results: CalculationResult = useMemo(() => {
+    const v = currentValues
     switch (activeTab) {
-      case 'youtube': {
-        const views = values.monthlyViews || 0
-        const cpm = values.cpm || 4
-        return (views / 1000) * cpm
-      }
-      case 'tiktok': {
-        const views = values.monthlyViews || 0
-        return views * 0.00002 + views * 0.00003
-      }
-      case 'instagram': {
-        const followers = values.followers || 0
-        const posts = values.postsPerMonth || 0
-        return (followers / 10000) * posts * 15
-      }
-      case 'twitter': {
-        const impressions = values.impressions || 0
-        const subscribers = values.subscribers || 0
-        return (impressions / 1000000) * 5 + subscribers * 3
-      }
-      case 'facebook': {
-        const watchMinutes = values.watchMinutes || 0
-        return (watchMinutes / 1000) * 0.5
-      }
-      case 'linkedin': {
-        const newsletterSubs = values.newsletterSubs || 0
-        return newsletterSubs * 0.1
-      }
-      case 'snapchat': {
-        const spotlightViews = values.spotlightViews || 0
-        return spotlightViews * 0.00005
-      }
-      case 'pinterest': {
-        const monthlyViews = values.monthlyViews || 0
-        return monthlyViews * 0.00001
-      }
-      case 'twitch': {
-        const subscribers = values.subscribers || 0
-        const avgViewers = values.avgViewers || 0
-        const hours = values.hoursStreamed || 0
-        return subscribers * 2.5 + avgViewers * hours * 0.02
-      }
-      case 'kick': {
-        const subscribers = values.subscribers || 0
-        return subscribers * 4.5
-      }
-      case 'newsletter': {
-        const totalSubs = values.subscribers || 0
-        const paidPercent = values.paidPercent || 0
-        const price = values.monthlyPrice || 0
-        return (totalSubs * (paidPercent / 100)) * price
-      }
+      case 'youtube':
+        return calculateYouTube(v.subscribers || 0, v.monthlyViews || 0, v.cpm || 4)
+      case 'tiktok':
+        return calculateTikTok(v.followers || 0, v.monthlyViews || 0, v.engagementRate || 6)
+      case 'instagram':
+        return calculateInstagram(v.followers || 0, v.avgLikes || 0, v.postsPerMonth || 12)
+      case 'twitter':
+        return calculateTwitter(v.followers || 0, v.impressions || 0, v.subscribers || 0)
+      case 'facebook':
+        return calculateFacebook(v.followers || 0, v.watchMinutes || 0)
+      case 'linkedin':
+        return calculateLinkedIn(v.followers || 0, v.newsletterSubs || 0)
+      case 'snapchat':
+        return calculateSnapchat(v.followers || 0, v.spotlightViews || 0)
+      case 'pinterest':
+        return calculatePinterest(v.followers || 0, v.monthlyViews || 0, v.ideaPins || 20)
+      case 'twitch':
+        return calculateTwitch(v.subscribers || 0, v.avgViewers || 0, v.hoursStreamed || 40)
+      case 'kick':
+        return calculateKick(v.subscribers || 0, v.avgViewers || 0)
+      case 'newsletter':
+        return calculateNewsletter(v.subscribers || 0, v.paidPercent || 5, v.monthlyPrice || 10)
       default:
-        return 0
+        return { monthlyRevenue: 0, yearlyRevenue: 0 }
     }
-  }, [activeTab, currentValues, activePlatform])
+  }, [activeTab, currentValues])
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+  }
 
   const renderInput = (input: PlatformInput) => {
     const value = currentValues[input.id] ?? input.defaultValue
@@ -189,7 +173,7 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">${formatNumber(Math.round(monthlyRevenue * 100) / 100)}</p>
+                  <p className="text-2xl font-bold">{formatCurrency(results.monthlyRevenue)}</p>
                   <p className="text-xs text-zinc-500 mt-1">Estimated earnings</p>
                 </CardContent>
               </Card>
@@ -199,32 +183,28 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">${formatNumber(Math.round(monthlyRevenue * 12))}</p>
+                  <p className="text-2xl font-bold">{formatCurrency(results.yearlyRevenue)}</p>
                   <p className="text-xs text-zinc-500 mt-1">At current rate</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-zinc-900 border-zinc-800">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-zinc-400">Daily Average</CardTitle>
+                  <CardTitle className="text-sm font-medium text-zinc-400">Engagement Rate</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">${formatNumber(Math.round((monthlyRevenue / 30) * 100) / 100)}</p>
-                  <p className="text-xs text-zinc-500 mt-1">Per day estimate</p>
+                  <p className="text-2xl font-bold">{(results.engagementRate ?? 0).toFixed(1)}%</p>
+                  <p className="text-xs text-zinc-500 mt-1">Platform metric</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-zinc-900 border-zinc-800">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-zinc-400">RPM</CardTitle>
+                  <CardTitle className="text-sm font-medium text-zinc-400">Growth Rate</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">
-                    ${currentValues.monthlyViews
-                      ? formatNumber(Math.round((monthlyRevenue / currentValues.monthlyViews) * 1000 * 100) / 100)
-                      : '0'}
-                  </p>
-                  <p className="text-xs text-zinc-500 mt-1">Revenue per 1K views</p>
+                  <p className="text-2xl font-bold text-emerald-500">+{(results.growthRate ?? 0).toFixed(1)}%</p>
+                  <p className="text-xs text-zinc-500 mt-1">Monthly average</p>
                 </CardContent>
               </Card>
             </div>

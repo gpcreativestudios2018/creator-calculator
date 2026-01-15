@@ -1,6 +1,22 @@
+import {
+  Youtube,
+  Music2,
+  Instagram,
+  Twitter,
+  Facebook,
+  Linkedin,
+  Ghost,
+  Pin,
+  Twitch,
+  Gamepad2,
+  Mail,
+  type LucideIcon
+} from 'lucide-react'
+
 export interface Platform {
   id: string
   name: string
+  icon: LucideIcon
   gradient: string
   description: string
   inputs: PlatformInput[]
@@ -21,6 +37,7 @@ export const platforms: Platform[] = [
   {
     id: 'youtube',
     name: 'YouTube',
+    icon: Youtube,
     gradient: 'from-red-500 to-red-700',
     description: 'Ad revenue, memberships, and sponsorships',
     inputs: [
@@ -32,6 +49,7 @@ export const platforms: Platform[] = [
   {
     id: 'tiktok',
     name: 'TikTok',
+    icon: Music2,
     gradient: 'from-pink-500 to-cyan-500',
     description: 'Creator fund and brand partnerships',
     inputs: [
@@ -43,6 +61,7 @@ export const platforms: Platform[] = [
   {
     id: 'instagram',
     name: 'Instagram',
+    icon: Instagram,
     gradient: 'from-purple-500 via-pink-500 to-orange-500',
     description: 'Reels, posts, and brand deals',
     inputs: [
@@ -54,6 +73,7 @@ export const platforms: Platform[] = [
   {
     id: 'twitter',
     name: 'X (Twitter)',
+    icon: Twitter,
     gradient: 'from-zinc-600 to-zinc-800',
     description: 'Creator subscriptions and ads revenue share',
     inputs: [
@@ -65,6 +85,7 @@ export const platforms: Platform[] = [
   {
     id: 'facebook',
     name: 'Facebook',
+    icon: Facebook,
     gradient: 'from-blue-600 to-blue-800',
     description: 'In-stream ads and stars',
     inputs: [
@@ -75,6 +96,7 @@ export const platforms: Platform[] = [
   {
     id: 'linkedin',
     name: 'LinkedIn',
+    icon: Linkedin,
     gradient: 'from-blue-700 to-blue-900',
     description: 'Newsletter and consulting revenue',
     inputs: [
@@ -85,6 +107,7 @@ export const platforms: Platform[] = [
   {
     id: 'snapchat',
     name: 'Snapchat',
+    icon: Ghost,
     gradient: 'from-yellow-400 to-yellow-500',
     description: 'Spotlight and creator programs',
     inputs: [
@@ -95,6 +118,7 @@ export const platforms: Platform[] = [
   {
     id: 'pinterest',
     name: 'Pinterest',
+    icon: Pin,
     gradient: 'from-red-600 to-red-700',
     description: 'Creator rewards and affiliate income',
     inputs: [
@@ -106,6 +130,7 @@ export const platforms: Platform[] = [
   {
     id: 'twitch',
     name: 'Twitch',
+    icon: Twitch,
     gradient: 'from-purple-600 to-purple-800',
     description: 'Subscriptions, bits, and ads',
     inputs: [
@@ -117,6 +142,7 @@ export const platforms: Platform[] = [
   {
     id: 'kick',
     name: 'Kick',
+    icon: Gamepad2,
     gradient: 'from-green-500 to-green-700',
     description: 'Subscriptions and platform bonuses',
     inputs: [
@@ -127,6 +153,7 @@ export const platforms: Platform[] = [
   {
     id: 'newsletter',
     name: 'Newsletter',
+    icon: Mail,
     gradient: 'from-emerald-500 to-emerald-700',
     description: 'Paid subscriptions and sponsorships',
     inputs: [

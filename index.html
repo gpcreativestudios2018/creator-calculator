@@ -451,23 +451,24 @@
       const nlARR = nlMRR * 12;
 
       const platforms = [
-        { id: "youtube", name: "YouTube", icon: Play, gradient: "from-red-500 to-red-700" },
-        { id: "tiktok", name: "TikTok", icon: Music, gradient: "from-black to-pink-600" },
-        { id: "instagram", name: "Instagram", icon: Camera, gradient: "from-purple-500 to-pink-500" },
-        { id: "twitter", name: "X", icon: Twitter, gradient: "from-black to-gray-800" },
-        { id: "facebook", name: "Facebook", icon: Users, gradient: "from-blue-600 to-blue-800" },
-        { id: "linkedin", name: "LinkedIn", icon: Briefcase, gradient: "from-blue-700 to-blue-900" },
-        { id: "snapchat", name: "Snapchat", icon: Ghost, gradient: "from-yellow-400 to-yellow-600" },
-        { id: "pinterest", name: "Pinterest", icon: Image, gradient: "from-red-600 to-red-800" },
-        { id: "twitch", name: "Twitch", icon: Gamepad2, gradient: "from-purple-600 to-purple-800" },
-        { id: "kick", name: "Kick", icon: Radio, gradient: "from-green-500 to-green-700" }
+        { id: "youtube", name: "YouTube", icon: Play, gradient: "from-red-500 to-red-700", shadow: "shadow-red-500/30" },
+        { id: "tiktok", name: "TikTok", icon: Music, gradient: "from-pink-500 via-purple-500 to-cyan-400", shadow: "shadow-pink-500/30" },
+        { id: "instagram", name: "Instagram", icon: Camera, gradient: "from-purple-500 via-pink-500 to-orange-400", shadow: "shadow-pink-500/30" },
+        { id: "twitter", name: "X", icon: Twitter, gradient: "from-gray-700 to-gray-900", shadow: "shadow-gray-500/30" },
+        { id: "facebook", name: "Facebook", icon: Users, gradient: "from-blue-500 to-blue-700", shadow: "shadow-blue-500/30" },
+        { id: "linkedin", name: "LinkedIn", icon: Briefcase, gradient: "from-blue-600 to-blue-800", shadow: "shadow-blue-500/30" },
+        { id: "snapchat", name: "Snapchat", icon: Ghost, gradient: "from-yellow-400 to-yellow-600", shadow: "shadow-yellow-400/30" },
+        { id: "pinterest", name: "Pinterest", icon: Image, gradient: "from-red-600 to-red-800", shadow: "shadow-red-500/30" },
+        { id: "twitch", name: "Twitch", icon: Gamepad2, gradient: "from-purple-600 to-purple-800", shadow: "shadow-purple-500/30" },
+        { id: "kick", name: "Kick", icon: Radio, gradient: "from-green-500 to-green-700", shadow: "shadow-green-500/30" }
       ];
 
       const newsletterPlatform = {
         id: "newsletter",
         name: "Newsletter",
         icon: Mail,
-        gradient: "from-orange-500 to-red-600"
+        gradient: "from-orange-500 to-amber-600",
+        shadow: "shadow-orange-500/30"
       };
 
       const allPlatforms = [...platforms, newsletterPlatform];
@@ -679,7 +680,7 @@
 
             <main id="main-content" tabIndex="-1" role="main">
               <section className="mb-6" aria-label="Select a creator platform to calculate revenue">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-11 gap-3">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-3">
                   {platforms.map((platform) => {
                     const Icon = platform.icon;
                     const isActive = activeTab === platform.id;
@@ -692,34 +693,38 @@
                         key={platform.id}
                         type="button"
                         onClick={() => handleTabChange(platform.id)}
-                        className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-black ${
+                        className={`group relative flex flex-col items-center justify-center gap-2 p-4 rounded-2xl font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neon-cyan focus-visible:ring-offset-dark-900 ${
                           isActive
-                            ? `bg-gradient-to-br ${platform.gradient} text-white scale-110 shadow-2xl`
-                            : `bg-gradient-to-br ${platform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
+                            ? `bg-gradient-to-br ${platform.gradient} text-white scale-105 ${platform.shadow} shadow-lg`
+                            : `bg-dark-700 border border-white/5 text-gray-400 hover:bg-dark-600 hover:text-white hover:scale-105 hover:border-white/10`
                         }`}
                         aria-pressed={isActive}
                         aria-label={ariaLabel}
                         aria-current={isActive ? "page" : undefined}
                       >
-                        <Icon />
-                        <span className="text-xs">{platform.name}</span>
+                        <div className={`transition-transform duration-300 ${isActive ? '' : 'group-hover:scale-110'}`}>
+                          <Icon />
+                        </div>
+                        <span className="text-xs font-medium">{platform.name}</span>
                       </button>
                     );
                   })}
                   <button
                     type="button"
                     onClick={() => handleTabChange("newsletter")}
-                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-black ${
+                    className={`group relative flex flex-col items-center justify-center gap-2 p-4 rounded-2xl font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neon-cyan focus-visible:ring-offset-dark-900 ${
                       activeTab === "newsletter"
-                        ? `bg-gradient-to-br ${newsletterPlatform.gradient} text-white scale-110 shadow-2xl`
-                        : `bg-gradient-to-br ${newsletterPlatform.gradient} text-white opacity-60 hover:opacity-100 hover:scale-105 shadow-lg`
+                        ? `bg-gradient-to-br ${newsletterPlatform.gradient} text-white scale-105 ${newsletterPlatform.shadow} shadow-lg`
+                        : `bg-dark-700 border border-white/5 text-gray-400 hover:bg-dark-600 hover:text-white hover:scale-105 hover:border-white/10`
                     }`}
                     aria-pressed={activeTab === "newsletter"}
                     aria-label={newsletterAriaLabel}
                     aria-current={activeTab === "newsletter" ? "page" : undefined}
                   >
-                    <Mail />
-                    <span className="text-xs">Newsletter</span>
+                    <div className={`transition-transform duration-300 ${activeTab === "newsletter" ? '' : 'group-hover:scale-110'}`}>
+                      <Mail />
+                    </div>
+                    <span className="text-xs font-medium">Newsletter</span>
                   </button>
                 </div>
               </section>

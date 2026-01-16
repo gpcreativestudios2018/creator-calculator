@@ -1,11 +1,14 @@
 import { Calculator } from '@/components/Calculator'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { ThemeProvider } from '@/components/ThemeProvider'
 
 function App() {
   return (
-    <ErrorBoundary>
-      <Calculator />
-    </ErrorBoundary>
+    <ThemeProvider>
+      <ErrorBoundary>
+        <Calculator />
+      </ErrorBoundary>
+    </ThemeProvider>
   )
 }
 

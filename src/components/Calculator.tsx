@@ -1,13 +1,14 @@
 import { useState, useMemo } from 'react'
-import { TrendingUp, Menu, X, Sun, Moon } from 'lucide-react'
+import { TrendingUp, Menu, X, Sun, Moon, Info } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import {
   calculateYouTube,
   calculateTikTok,
@@ -101,7 +102,19 @@ export function Calculator() {
       return (
         <div key={input.id} className="space-y-3">
           <div className="flex justify-between items-center">
-            <Label className={`${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>{input.label}</Label>
+            <div className="flex items-center gap-1.5">
+              <Label className={`${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>{input.label}</Label>
+              {input.tooltip && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="w-3.5 h-3.5 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent side="right" className="max-w-xs">
+                    <p>{input.tooltip}</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+            </div>
             <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>{value}{input.label.includes('%') || input.label.includes('CPM') ? '' : ''}</span>
           </div>
           <Slider
@@ -112,16 +125,25 @@ export function Calculator() {
             step={input.step}
             className="w-full"
           />
-          {input.tooltip && (
-            <p className="text-xs text-zinc-500">{input.tooltip}</p>
-          )}
         </div>
       )
     }
 
     return (
       <div key={input.id} className="space-y-2">
-        <Label className={`${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>{input.label}</Label>
+        <div className="flex items-center gap-1.5">
+          <Label className={`${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>{input.label}</Label>
+          {input.tooltip && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3.5 h-3.5 text-zinc-500 hover:text-zinc-300 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent side="right" className="max-w-xs">
+                <p>{input.tooltip}</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
+        </div>
         <Input
           type="number"
           value={value}
@@ -130,14 +152,12 @@ export function Calculator() {
           max={input.max}
           className={`${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'}`}
         />
-        {input.tooltip && (
-          <p className="text-xs text-zinc-500">{input.tooltip}</p>
-        )}
       </div>
     )
   }
 
   return (
+    <TooltipProvider>
     <div className={`min-h-screen flex ${theme === 'dark' ? 'bg-zinc-950 text-white' : 'bg-gray-100 text-zinc-900'}`}>
       {/* Mobile Header */}
       <div className={`lg:hidden fixed top-0 left-0 right-0 p-4 flex items-center justify-between z-50 ${theme === 'dark' ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-white border-b border-gray-200'}`}>
@@ -387,7 +407,7 @@ export function Calculator() {
                     ]}>
                       <XAxis dataKey="name" stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} />
                       <YAxis stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} tickFormatter={(v) => `$${v}`} />
-                      <Tooltip
+                      <RechartsTooltip
                         contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a' }}
                         labelStyle={{ color: '#fff' }}
                         formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Revenue']}
@@ -415,5 +435,6 @@ export function Calculator() {
         )}
       </main>
     </div>
+    </TooltipProvider>
   )
 }

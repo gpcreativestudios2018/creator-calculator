@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import { ArrowLeft, Search, X } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -23,6 +23,10 @@ export function Glossary({ onClose, theme }: GlossaryProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all')
   const termRefs = useRef<Record<string, HTMLDivElement | null>>({})
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const filteredTerms = useMemo(() => {
     let terms = glossary

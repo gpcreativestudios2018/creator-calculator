@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { OnboardingModal } from '@/components/OnboardingModal'
+import { regions, DEFAULT_REGION } from '@/data/geography'
 import {
   calculateYouTube,
   calculateTikTok,
@@ -43,9 +44,14 @@ export function Calculator() {
   const [inputValues, setInputValues] = useState<InputValues>(getInitialValues)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [compareMode, setCompareMode] = useState(false)
+  const [selectedRegion, setSelectedRegion] = useState<string>(DEFAULT_REGION)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
+  const currentRegion = useMemo(() =>
+    regions.find(r => r.id === selectedRegion) || regions[0],
+    [selectedRegion]
+  )
   const currentValues = inputValues[activeTab] || {}
 
   // Keyboard shortcuts
@@ -264,6 +270,35 @@ export function Calculator() {
             </div>
             <h1 className="text-xl font-bold">Creator Calculator</h1>
           </div>
+        </div>
+
+        {/* Region Selector */}
+        <div className="mb-6">
+          <div className="flex items-center gap-1.5 mb-2 px-3">
+            <p className="text-xs text-zinc-500 uppercase tracking-wider">Region</p>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3 h-3 text-zinc-500 hover:text-zinc-300 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent side="right" className="max-w-xs">
+                <p>Your region affects estimated earnings. US typically has the highest ad rates.</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <select
+            value={selectedRegion}
+            onChange={(e) => setSelectedRegion(e.target.value)}
+            className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+          >
+            {regions.map((region) => (
+              <option key={region.id} value={region.id}>
+                {region.flag} {region.name}
+              </option>
+            ))}
+          </select>
+          <p className="text-xs text-zinc-500 mt-1 px-1">
+            {currentRegion.revenueMultiplier === 1 ? 'Baseline rates' : `${Math.round(currentRegion.revenueMultiplier * 100)}% of US rates`}
+          </p>
         </div>
 
         <nav className="space-y-1 flex-1">

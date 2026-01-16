@@ -54,6 +54,7 @@ export function Calculator() {
   const [selectedGrowthRate, setSelectedGrowthRate] = useState<string>(DEFAULT_GROWTH_SCENARIO)
   const [selectedTaxBracket, setSelectedTaxBracket] = useState<string>(DEFAULT_TAX_BRACKET)
   const [selectedExpenseProfile, setSelectedExpenseProfile] = useState<string>(DEFAULT_EXPENSE_PROFILE)
+  const [hoursPerWeek, setHoursPerWeek] = useState<number>(10)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -1245,6 +1246,111 @@ export function Calculator() {
                               {((takeHome.netIncome / takeHome.grossRevenue) * 100).toFixed(0)}% of gross revenue
                             </p>
                           </div>
+                        </div>
+                      </div>
+                    )
+                  })()}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Hourly Rate Calculator */}
+            {results.monthlyRevenue > 0 && (
+              <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Your Hourly Rate</CardTitle>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="w-4 h-4 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent side="right" className="max-w-xs">
+                        <p>See what you're effectively earning per hour based on time invested. This helps you compare creator income to traditional jobs.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {/* Hours Input */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <Label className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Hours per week</Label>
+                      <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>{hoursPerWeek} hrs</span>
+                    </div>
+                    <Slider
+                      value={[hoursPerWeek]}
+                      onValueChange={([v]) => setHoursPerWeek(v)}
+                      min={1}
+                      max={80}
+                      step={1}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-zinc-500 mt-1">
+                      <span>1 hr</span>
+                      <span>80 hrs</span>
+                    </div>
+                  </div>
+
+                  {/* Hourly Rate Calculations */}
+                  {(() => {
+                    const monthlyHours = hoursPerWeek * 4.33
+                    const takeHome = calculateTakeHome(
+                      results.monthlyRevenue,
+                      currentTaxBracket.rate,
+                      currentExpenseProfile.rate
+                    )
+                    const hourlyGross = results.monthlyRevenue / monthlyHours
+                    const hourlyNet = takeHome.netIncome / monthlyHours
+
+                    const getHourlyFeedback = (rate: number) => {
+                      if (rate >= 50) return { emoji: '💰', text: 'Excellent! Above senior professional rates' }
+                      if (rate >= 25) return { emoji: '👍', text: 'Good! Comparable to skilled professional' }
+                      if (rate >= 15) return { emoji: '📈', text: 'Building! Above minimum wage, keep growing' }
+                      return { emoji: '🌱', text: 'Early stage — focus on growth or efficiency' }
+                    }
+
+                    const feedback = getHourlyFeedback(hourlyNet)
+
+                    return (
+                      <div className="space-y-4">
+                        {/* Time Summary */}
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                            <p className="text-xs text-zinc-500 mb-1">Weekly hours</p>
+                            <p className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                              {hoursPerWeek} hrs
+                            </p>
+                          </div>
+                          <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                            <p className="text-xs text-zinc-500 mb-1">Monthly hours</p>
+                            <p className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                              {monthlyHours.toFixed(0)} hrs
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Hourly Rates */}
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                            <p className="text-xs text-zinc-500 mb-1">Hourly (gross)</p>
+                            <p className="text-lg font-bold text-emerald-500">
+                              {formatCurrency(hourlyGross)}/hr
+                            </p>
+                          </div>
+                          <div className={`p-3 rounded-lg border-2 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`} style={{ borderColor: activePlatform?.accentColor || '#10b981' }}>
+                            <p className="text-xs text-zinc-500 mb-1">Hourly (net)</p>
+                            <p className="text-lg font-bold" style={{ color: activePlatform?.accentColor || '#10b981' }}>
+                              {formatCurrency(hourlyNet)}/hr
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Feedback */}
+                        <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                          <p className={`text-sm ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                            <span className="mr-2">{feedback.emoji}</span>
+                            {feedback.text}
+                          </p>
                         </div>
                       </div>
                     )

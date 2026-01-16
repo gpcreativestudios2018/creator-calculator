@@ -182,14 +182,15 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
             <div
               ref={previewRef}
               data-media-kit-preview
-              className="bg-zinc-900 rounded-lg p-8 space-y-6"
+              className="space-y-6"
+              style={{ backgroundColor: '#18181b', borderRadius: '8px', padding: '32px' }}
             >
               {/* Header */}
               <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold text-white">
+                <h2 className="text-3xl font-bold" style={{ color: '#ffffff' }}>
                   {name || 'Your Name'}
                 </h2>
-                <p className="text-zinc-400 text-lg">
+                <p className="text-lg" style={{ color: '#a1a1aa' }}>
                   {bio || 'Your tagline goes here'}
                 </p>
               </div>
@@ -212,25 +213,25 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
               {/* Metrics Grid */}
               <div className="grid grid-cols-2 gap-4">
                 {metrics.followers !== undefined && (
-                  <div className="bg-zinc-800 rounded-lg p-4 text-center">
-                    <p className="text-zinc-400 text-sm">Followers</p>
-                    <p className="text-2xl font-bold text-white">{formatNumber(metrics.followers)}</p>
+                  <div className="rounded-lg p-4 text-center" style={{ backgroundColor: '#27272a' }}>
+                    <p className="text-sm" style={{ color: '#a1a1aa' }}>Followers</p>
+                    <p className="text-2xl font-bold" style={{ color: '#ffffff' }}>{formatNumber(metrics.followers)}</p>
                   </div>
                 )}
                 {metrics.views !== undefined && (
-                  <div className="bg-zinc-800 rounded-lg p-4 text-center">
-                    <p className="text-zinc-400 text-sm">Avg. Views</p>
-                    <p className="text-2xl font-bold text-white">{formatNumber(metrics.views)}</p>
+                  <div className="rounded-lg p-4 text-center" style={{ backgroundColor: '#27272a' }}>
+                    <p className="text-sm" style={{ color: '#a1a1aa' }}>Avg. Views</p>
+                    <p className="text-2xl font-bold" style={{ color: '#ffffff' }}>{formatNumber(metrics.views)}</p>
                   </div>
                 )}
                 {metrics.engagement !== undefined && (
-                  <div className="bg-zinc-800 rounded-lg p-4 text-center">
-                    <p className="text-zinc-400 text-sm">Engagement Rate</p>
-                    <p className="text-2xl font-bold text-white">{metrics.engagement.toFixed(1)}%</p>
+                  <div className="rounded-lg p-4 text-center" style={{ backgroundColor: '#27272a' }}>
+                    <p className="text-sm" style={{ color: '#a1a1aa' }}>Engagement Rate</p>
+                    <p className="text-2xl font-bold" style={{ color: '#ffffff' }}>{metrics.engagement.toFixed(1)}%</p>
                   </div>
                 )}
-                <div className="bg-zinc-800 rounded-lg p-4 text-center">
-                  <p className="text-zinc-400 text-sm">Est. Monthly Revenue</p>
+                <div className="rounded-lg p-4 text-center" style={{ backgroundColor: '#27272a' }}>
+                  <p className="text-sm" style={{ color: '#a1a1aa' }}>Est. Monthly Revenue</p>
                   <p className="text-2xl font-bold" style={{ color: platform?.accentColor }}>
                     {formatCurrency(metrics.monthlyRevenue)}
                   </p>
@@ -238,17 +239,17 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
               </div>
 
               {/* Contact Section */}
-              <div className="border-t border-zinc-700 pt-6">
-                <p className="text-zinc-500 text-sm text-center mb-3">Contact for collaborations</p>
+              <div className="pt-6" style={{ borderTop: '1px solid #3f3f46' }}>
+                <p className="text-sm text-center mb-3" style={{ color: '#71717a' }}>Contact for collaborations</p>
                 <div className="flex justify-center gap-6">
                   {email && (
-                    <div className="flex items-center gap-2 text-zinc-300">
+                    <div className="flex items-center gap-2" style={{ color: '#d4d4d8' }}>
                       <Mail className="w-4 h-4" />
                       <span className="text-sm">{email}</span>
                     </div>
                   )}
                   {website && (
-                    <div className="flex items-center gap-2 text-zinc-300">
+                    <div className="flex items-center gap-2" style={{ color: '#d4d4d8' }}>
                       <Globe className="w-4 h-4" />
                       <span className="text-sm">{website}</span>
                     </div>
@@ -257,7 +258,7 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
               </div>
 
               {/* Footer */}
-              <p className="text-zinc-600 text-xs text-center">
+              <p className="text-xs text-center" style={{ color: '#52525b' }}>
                 Generated with Creator Calculator
               </p>
             </div>

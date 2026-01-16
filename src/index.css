@@ -148,3 +148,43 @@ textarea:focus-visible {
   outline: 2px solid #a855f7;
   outline-offset: 0;
 }
+
+/* Enhanced hover states for interactive elements */
+button:not(:disabled):hover,
+a:hover {
+  transition: all 0.2s ease;
+}
+
+/* Card hover effect */
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Input hover */
+input:not(:disabled):hover,
+select:not(:disabled):hover {
+  border-color: #a855f7;
+  transition: border-color 0.2s ease;
+}
+
+/* Slider thumb hover */
+[role="slider"]:hover {
+  cursor: grab;
+}
+
+[role="slider"]:active {
+  cursor: grabbing;
+}
+
+/* Icon button hover effect */
+.icon-btn:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+/* Subtle glow on hover for primary actions */
+.glow-hover:hover {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  transition: box-shadow 0.2s ease;
+}

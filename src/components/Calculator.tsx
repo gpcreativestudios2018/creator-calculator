@@ -205,7 +205,7 @@ export function Calculator() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between w-full">
                   <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
                     <TrendingUp className="w-3 h-3 mr-1" />
@@ -223,7 +223,7 @@ export function Calculator() {
 
               <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between w-full">
                   <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
                     <TrendingUp className="w-3 h-3 mr-1" />
@@ -241,7 +241,7 @@ export function Calculator() {
 
               <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between w-full">
                   <CardTitle className="text-sm font-medium text-zinc-400">Engagement Rate</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
                     <TrendingUp className="w-3 h-3 mr-1" />
@@ -259,7 +259,7 @@ export function Calculator() {
 
               <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between w-full">
                   <CardTitle className="text-sm font-medium text-zinc-400">Growth Rate</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
                     <TrendingUp className="w-3 h-3 mr-1" />
@@ -295,6 +295,7 @@ export function Calculator() {
                         contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a' }}
                         labelStyle={{ color: '#fff' }}
                         formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Revenue']}
+                        cursor={false}
                       />
                       <Bar dataKey="value" fill={activePlatform.accentColor} radius={[4, 4, 0, 0]} style={{ cursor: 'default' }} />
                     </BarChart>

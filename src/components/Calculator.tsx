@@ -185,7 +185,8 @@ export function Calculator() {
   }, [activeTab, currentValues, currentRegion])
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+    const formatted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(value)
+    return `${currentRegion.currencySymbol}${formatted}`
   }
 
   const renderInput = (input: PlatformInput) => {
@@ -443,7 +444,7 @@ export function Calculator() {
                     </CardHeader>
                     <CardContent>
                       <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(revenue)}
+                        {formatCurrency(revenue * currentRegion.revenueMultiplier)}
                       </p>
                       <p className="text-xs text-emerald-500 mt-1">Monthly estimate</p>
                     </CardContent>
@@ -595,11 +596,11 @@ export function Calculator() {
                       { name: 'Yearly', value: results.yearlyRevenue },
                     ]}>
                       <XAxis dataKey="name" stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} />
-                      <YAxis stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} tickFormatter={(v) => `$${v}`} />
+                      <YAxis stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} tickFormatter={(v) => `${currentRegion.currencySymbol}${v}`} />
                       <RechartsTooltip
                         contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a' }}
                         labelStyle={{ color: '#fff' }}
-                        formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Revenue']}
+                        formatter={(value) => [`${currentRegion.currencySymbol}${Number(value).toFixed(2)}`, 'Revenue']}
                         cursor={false}
                       />
                       <Bar dataKey="value" fill={activePlatform.accentColor} radius={[4, 4, 0, 0]} style={{ cursor: 'default' }} animationDuration={500} animationEasing="ease-out" />

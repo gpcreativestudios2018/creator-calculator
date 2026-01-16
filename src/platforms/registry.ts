@@ -18,6 +18,7 @@ export interface Platform {
   name: string
   icon: LucideIcon
   iconColor: string
+  accentColor: string
   gradient: string
   description: string
   inputs: PlatformInput[]
@@ -40,6 +41,7 @@ export const platforms: Platform[] = [
     name: 'YouTube',
     icon: Youtube,
     iconColor: 'text-red-500',
+    accentColor: '#ef4444',
     gradient: 'from-red-500 to-red-700',
     description: 'Ad revenue, memberships, and sponsorships',
     inputs: [
@@ -53,6 +55,7 @@ export const platforms: Platform[] = [
     name: 'TikTok',
     icon: Music2,
     iconColor: 'text-pink-500',
+    accentColor: '#ec4899',
     gradient: 'from-pink-500 to-cyan-500',
     description: 'Creator fund and brand partnerships',
     inputs: [
@@ -66,6 +69,7 @@ export const platforms: Platform[] = [
     name: 'Instagram',
     icon: Instagram,
     iconColor: 'text-pink-500',
+    accentColor: '#ec4899',
     gradient: 'from-purple-500 via-pink-500 to-orange-500',
     description: 'Reels, posts, and brand deals',
     inputs: [
@@ -79,6 +83,7 @@ export const platforms: Platform[] = [
     name: 'X (Twitter)',
     icon: Twitter,
     iconColor: 'text-zinc-400',
+    accentColor: '#a1a1aa',
     gradient: 'from-zinc-600 to-zinc-800',
     description: 'Creator subscriptions and ads revenue share',
     inputs: [
@@ -92,6 +97,7 @@ export const platforms: Platform[] = [
     name: 'Facebook',
     icon: Facebook,
     iconColor: 'text-blue-500',
+    accentColor: '#3b82f6',
     gradient: 'from-blue-600 to-blue-800',
     description: 'In-stream ads and stars',
     inputs: [
@@ -104,6 +110,7 @@ export const platforms: Platform[] = [
     name: 'LinkedIn',
     icon: Linkedin,
     iconColor: 'text-blue-400',
+    accentColor: '#60a5fa',
     gradient: 'from-blue-700 to-blue-900',
     description: 'Newsletter and consulting revenue',
     inputs: [
@@ -116,6 +123,7 @@ export const platforms: Platform[] = [
     name: 'Snapchat',
     icon: Ghost,
     iconColor: 'text-yellow-400',
+    accentColor: '#facc15',
     gradient: 'from-yellow-400 to-yellow-500',
     description: 'Spotlight and creator programs',
     inputs: [
@@ -128,6 +136,7 @@ export const platforms: Platform[] = [
     name: 'Pinterest',
     icon: Pin,
     iconColor: 'text-red-500',
+    accentColor: '#ef4444',
     gradient: 'from-red-600 to-red-700',
     description: 'Creator rewards and affiliate income',
     inputs: [
@@ -141,6 +150,7 @@ export const platforms: Platform[] = [
     name: 'Twitch',
     icon: Twitch,
     iconColor: 'text-purple-500',
+    accentColor: '#a855f7',
     gradient: 'from-purple-600 to-purple-800',
     description: 'Subscriptions, bits, and ads',
     inputs: [
@@ -154,6 +164,7 @@ export const platforms: Platform[] = [
     name: 'Kick',
     icon: Gamepad2,
     iconColor: 'text-green-500',
+    accentColor: '#22c55e',
     gradient: 'from-green-500 to-green-700',
     description: 'Subscriptions and platform bonuses',
     inputs: [
@@ -166,6 +177,7 @@ export const platforms: Platform[] = [
     name: 'Newsletter',
     icon: Mail,
     iconColor: 'text-emerald-500',
+    accentColor: '#10b981',
     gradient: 'from-emerald-500 to-emerald-700',
     description: 'Paid subscriptions and sponsorships',
     inputs: [

@@ -211,8 +211,83 @@ export function Calculator() {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 p-6 pt-20 lg:pt-6">
-        {activePlatform && (
+      <main className="flex-1 p-6 pt-20 lg:pt-6 overflow-y-auto">
+        {compareMode ? (
+          /* Compare Mode View */
+          <div>
+            <div className="mb-6">
+              <h2 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                Platform Comparison
+              </h2>
+              <p className="text-zinc-400">See estimated revenue across all platforms</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {platforms.map((platform) => {
+                const v = inputValues[platform.id] || {}
+                let revenue = 0
+
+                switch (platform.id) {
+                  case 'youtube':
+                    revenue = ((v.monthlyViews || 100000) / 1000) * (v.cpm || 4) * 0.55 + (v.subscribers || 10000) * 0.05
+                    break
+                  case 'tiktok':
+                    revenue = (v.monthlyViews || 500000) * 0.02 + ((v.followers || 50000) >= 10000 ? (v.followers || 50000) * 0.015 : 0)
+                    break
+                  case 'instagram':
+                    revenue = ((v.followers || 25000) >= 10000 ? ((v.followers || 25000) / 1000) * 10 : 0) * ((v.postsPerMonth || 12) / 4)
+                    break
+                  case 'twitter':
+                    revenue = ((v.impressions || 500000) / 1000) * 0.5 + (v.subscribers || 0) * 3
+                    break
+                  case 'facebook':
+                    revenue = ((v.watchMinutes || 100000) / 1000) * 1.5
+                    break
+                  case 'linkedin':
+                    revenue = Math.floor((v.newsletterSubs || 1000) * 0.01) * 500
+                    break
+                  case 'snapchat':
+                    revenue = ((v.spotlightViews || 50000) / 1000) * 0.05
+                    break
+                  case 'pinterest':
+                    revenue = ((v.monthlyViews || 100000) / 1000) * 0.1 + (v.ideaPins || 20) * 2
+                    break
+                  case 'twitch':
+                    revenue = (v.subscribers || 100) * 2.5 + (v.avgViewers || 50) * (v.hoursStreamed || 40) * 0.02 + (v.avgViewers || 50) * 0.5
+                    break
+                  case 'kick':
+                    revenue = (v.subscribers || 50) * 4.5
+                    break
+                  case 'newsletter':
+                    revenue = Math.floor((v.subscribers || 5000) * ((v.paidPercent || 5) / 100)) * (v.monthlyPrice || 10) * 0.9
+                    break
+                }
+
+                return (
+                  <Card
+                    key={platform.id}
+                    className={`border-l-4 cursor-pointer transition-all hover:scale-105 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}
+                    style={{ borderLeftColor: platform.accentColor }}
+                    onClick={() => { setCompareMode(false); setActiveTab(platform.id); }}
+                  >
+                    <CardHeader className="pb-2">
+                      <div className="flex items-center gap-2">
+                        <platform.icon className={`w-5 h-5 ${platform.iconColor}`} />
+                        <CardTitle className={`text-lg ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>{platform.name}</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(revenue)}
+                      </p>
+                      <p className="text-xs text-emerald-500 mt-1">Monthly estimate</p>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+          </div>
+        ) : activePlatform && (
           <>
             {/* Header */}
             <div className="mb-6">

@@ -11,6 +11,7 @@ import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { OnboardingModal } from '@/components/OnboardingModal'
 import { HowItsCalculated } from '@/components/HowItsCalculated'
+import { MethodologyPage } from '@/components/MethodologyPage'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
 import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
@@ -56,6 +57,7 @@ export function Calculator() {
   const [selectedTaxBracket, setSelectedTaxBracket] = useState<string>(DEFAULT_TAX_BRACKET)
   const [selectedExpenseProfile, setSelectedExpenseProfile] = useState<string>(DEFAULT_EXPENSE_PROFILE)
   const [hoursPerWeek, setHoursPerWeek] = useState<number>(10)
+  const [showMethodology, setShowMethodology] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -306,6 +308,14 @@ export function Calculator() {
 
   return (
     <TooltipProvider>
+      {showMethodology && (
+        <MethodologyPage
+          onClose={() => setShowMethodology(false)}
+          theme={theme}
+        />
+      )}
+      {!showMethodology && (
+      <>
       <OnboardingModal onComplete={() => {}} />
     <div className={`min-h-screen flex ${theme === 'dark' ? 'bg-zinc-950 text-white' : 'bg-gray-100 text-zinc-900'}`}>
       {/* Mobile Header */}
@@ -485,6 +495,15 @@ export function Calculator() {
         >
           {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+        </button>
+
+        {/* Methodology Link */}
+        <button
+          onClick={() => setShowMethodology(true)}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          <Info className="w-4 h-4" />
+          How It Works
         </button>
       </aside>
 
@@ -1582,6 +1601,8 @@ export function Calculator() {
         )}
       </main>
     </div>
+    </>
+    )}
     </TooltipProvider>
   )
 }

@@ -35,6 +35,10 @@ import {
   calculateKofi,
   calculateGumroad,
   calculatePodcast,
+  calculateCourses,
+  calculateOnlyFans,
+  calculateEtsy,
+  calculateAmazon,
   type CalculationResult,
 } from '@/engine/calculations'
 
@@ -230,6 +234,18 @@ export function Calculator() {
         break
       case 'podcast':
         baseResult = calculatePodcast(v.downloads || 0, v.episodes || 4, v.cpm || 25)
+        break
+      case 'teachable':
+        baseResult = calculateCourses(v.students || 0, v.coursePrice || 100, v.platformFee || 5)
+        break
+      case 'onlyfans':
+        baseResult = calculateOnlyFans(v.subscribers || 0, v.subPrice || 10, v.tipsPercent || 20)
+        break
+      case 'etsy':
+        baseResult = calculateEtsy(v.orders || 0, v.avgOrder || 25, v.profitMargin || 50)
+        break
+      case 'amazon':
+        baseResult = calculateAmazon(v.pageViews || 0, v.conversionRate || 3, v.avgCommission || 4)
         break
       default:
         baseResult = { monthlyRevenue: 0, yearlyRevenue: 0 }
@@ -633,6 +649,18 @@ export function Calculator() {
                     break
                   case 'podcast':
                     revenue = ((v.downloads || 10000) / 1000) * (v.cpm || 25)
+                    break
+                  case 'teachable':
+                    revenue = ((v.students || 20) * (v.coursePrice || 100)) * (1 - (v.platformFee || 5) / 100)
+                    break
+                  case 'onlyfans':
+                    revenue = (((v.subscribers || 100) * (v.subPrice || 10)) * (1 + (v.tipsPercent || 20) / 100)) * 0.8
+                    break
+                  case 'etsy':
+                    revenue = ((v.orders || 30) * (v.avgOrder || 25)) * ((v.profitMargin || 50) / 100)
+                    break
+                  case 'amazon':
+                    revenue = ((v.pageViews || 5000) * ((v.conversionRate || 3) / 100)) * (v.avgCommission || 4)
                     break
                 }
 

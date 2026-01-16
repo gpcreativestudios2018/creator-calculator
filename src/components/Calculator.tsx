@@ -14,6 +14,7 @@ import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
 import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
 import { growthScenarios, calculateProjectedRevenue, DEFAULT_GROWTH_SCENARIO } from '@/data/growthRates'
+import { taxBrackets, expenseProfiles, calculateTakeHome, DEFAULT_TAX_BRACKET, DEFAULT_EXPENSE_PROFILE } from '@/data/taxes'
 import {
   calculateYouTube,
   calculateTikTok,
@@ -51,6 +52,8 @@ export function Calculator() {
   const [selectedNiche, setSelectedNiche] = useState<string>(DEFAULT_NICHE)
   const [selectedTimePeriod, setSelectedTimePeriod] = useState<string>(DEFAULT_TIME_PERIOD)
   const [selectedGrowthRate, setSelectedGrowthRate] = useState<string>(DEFAULT_GROWTH_SCENARIO)
+  const [selectedTaxBracket, setSelectedTaxBracket] = useState<string>(DEFAULT_TAX_BRACKET)
+  const [selectedExpenseProfile, setSelectedExpenseProfile] = useState<string>(DEFAULT_EXPENSE_PROFILE)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -69,6 +72,14 @@ export function Calculator() {
   const currentGrowthScenario = useMemo(() =>
     growthScenarios.find(g => g.id === selectedGrowthRate) || growthScenarios.find(g => g.id === 'moderate')!,
     [selectedGrowthRate]
+  )
+  const currentTaxBracket = useMemo(() =>
+    taxBrackets.find(t => t.id === selectedTaxBracket) || taxBrackets.find(t => t.id === 'medium')!,
+    [selectedTaxBracket]
+  )
+  const currentExpenseProfile = useMemo(() =>
+    expenseProfiles.find(e => e.id === selectedExpenseProfile) || expenseProfiles.find(e => e.id === 'low')!,
+    [selectedExpenseProfile]
   )
   const currentValues = inputValues[activeTab] || {}
 
@@ -1097,6 +1108,145 @@ export function Calculator() {
                           </div>
                         </div>
                       </>
+                    )
+                  })()}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Take-Home Calculator */}
+            {results.monthlyRevenue > 0 && (
+              <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Take-Home Estimate</CardTitle>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="w-4 h-4 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent side="right" className="max-w-xs">
+                        <p>Estimate what you keep after taxes and business expenses. This is a simplified estimate — consult a tax professional for accurate advice.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {/* Dropdowns */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <Label className={`text-sm mb-2 block ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Tax Bracket</Label>
+                      <select
+                        value={selectedTaxBracket}
+                        onChange={(e) => setSelectedTaxBracket(e.target.value)}
+                        className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                      >
+                        {taxBrackets.map((bracket) => (
+                          <option key={bracket.id} value={bracket.id}>
+                            {bracket.name}
+                          </option>
+                        ))}
+                      </select>
+                      <p className="text-xs text-zinc-500 mt-1">{currentTaxBracket.description}</p>
+                    </div>
+                    <div>
+                      <Label className={`text-sm mb-2 block ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Business Expenses</Label>
+                      <select
+                        value={selectedExpenseProfile}
+                        onChange={(e) => setSelectedExpenseProfile(e.target.value)}
+                        className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                      >
+                        {expenseProfiles.map((profile) => (
+                          <option key={profile.id} value={profile.id}>
+                            {profile.name}
+                          </option>
+                        ))}
+                      </select>
+                      <p className="text-xs text-zinc-500 mt-1">{currentExpenseProfile.description}</p>
+                    </div>
+                  </div>
+
+                  {/* Visual Breakdown */}
+                  {(() => {
+                    const takeHome = calculateTakeHome(
+                      results.monthlyRevenue,
+                      currentTaxBracket.rate,
+                      currentExpenseProfile.rate
+                    )
+                    const maxValue = takeHome.grossRevenue
+
+                    return (
+                      <div className="space-y-3">
+                        {/* Gross Revenue */}
+                        <div>
+                          <div className="flex justify-between items-center mb-1">
+                            <span className={`text-sm ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>Gross Revenue</span>
+                            <span className="text-sm font-semibold text-emerald-500">{formatCurrency(takeHome.grossRevenue)}</span>
+                          </div>
+                          <div className={`h-3 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'}`}>
+                            <div
+                              className="h-full rounded-full bg-emerald-500 transition-all duration-500"
+                              style={{ width: '100%' }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Expenses */}
+                        <div>
+                          <div className="flex justify-between items-center mb-1">
+                            <span className={`text-sm ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                              − Expenses ({(currentExpenseProfile.rate * 100).toFixed(0)}%)
+                            </span>
+                            <span className="text-sm font-semibold text-amber-500">−{formatCurrency(takeHome.expenses)}</span>
+                          </div>
+                          <div className={`h-3 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'}`}>
+                            <div
+                              className="h-full rounded-full bg-amber-500 transition-all duration-500"
+                              style={{ width: `${(takeHome.expenses / maxValue) * 100}%` }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Taxes */}
+                        <div>
+                          <div className="flex justify-between items-center mb-1">
+                            <span className={`text-sm ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                              − Taxes ({(currentTaxBracket.rate * 100).toFixed(0)}%)
+                            </span>
+                            <span className="text-sm font-semibold text-red-500">−{formatCurrency(takeHome.taxes)}</span>
+                          </div>
+                          <div className={`h-3 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'}`}>
+                            <div
+                              className="h-full rounded-full bg-red-500 transition-all duration-500"
+                              style={{ width: `${(takeHome.taxes / maxValue) * 100}%` }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Divider */}
+                        <div className={`border-t pt-3 ${theme === 'dark' ? 'border-zinc-700' : 'border-gray-300'}`}>
+                          {/* Net Income */}
+                          <div>
+                            <div className="flex justify-between items-center mb-1">
+                              <span className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>= Take-Home</span>
+                              <span className="text-lg font-bold" style={{ color: activePlatform?.accentColor || '#10b981' }}>
+                                {formatCurrency(takeHome.netIncome)}
+                              </span>
+                            </div>
+                            <div className={`h-4 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'}`}>
+                              <div
+                                className="h-full rounded-full transition-all duration-500"
+                                style={{
+                                  width: `${(takeHome.netIncome / maxValue) * 100}%`,
+                                  backgroundColor: activePlatform?.accentColor || '#10b981'
+                                }}
+                              />
+                            </div>
+                            <p className="text-xs text-zinc-500 mt-2">
+                              {((takeHome.netIncome / takeHome.grossRevenue) * 100).toFixed(0)}% of gross revenue
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     )
                   })()}
                 </CardContent>

@@ -203,7 +203,7 @@ export function Calculator() {
 
             {/* Metric Cards Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-              <Card className="bg-zinc-900 border-zinc-800 border-l-4" style={{ borderLeftColor: activePlatform.accentColor }}>
+              <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
@@ -212,14 +212,14 @@ export function Calculator() {
                   </span>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-white">
+                  <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                     <AnimatedNumber value={results.monthlyRevenue} formatter={formatCurrency} />
                   </p>
                   <p className="text-xs text-emerald-500 mt-1">Estimated earnings</p>
                 </CardContent>
               </Card>
 
-              <Card className="bg-zinc-900 border-zinc-800 border-l-4" style={{ borderLeftColor: activePlatform.accentColor }}>
+              <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
@@ -228,14 +228,14 @@ export function Calculator() {
                   </span>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-white">
+                  <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                     <AnimatedNumber value={results.yearlyRevenue} formatter={formatCurrency} />
                   </p>
                   <p className="text-xs text-zinc-500 mt-1">Based on current metrics</p>
                 </CardContent>
               </Card>
 
-              <Card className="bg-zinc-900 border-zinc-800 border-l-4" style={{ borderLeftColor: activePlatform.accentColor }}>
+              <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Engagement Rate</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
@@ -244,14 +244,14 @@ export function Calculator() {
                   </span>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-white">
+                  <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                     <AnimatedNumber value={results.engagementRate ?? 0} formatter={(v) => `${v.toFixed(1)}%`} />
                   </p>
                   <p className="text-xs text-emerald-500 mt-1">Audience interaction</p>
                 </CardContent>
               </Card>
 
-              <Card className="bg-zinc-900 border-zinc-800 border-l-4" style={{ borderLeftColor: activePlatform.accentColor }}>
+              <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Growth Rate</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
@@ -269,9 +269,9 @@ export function Calculator() {
             </div>
 
             {/* Revenue Chart */}
-            <Card className="bg-zinc-900 border-zinc-800 mb-6">
+            <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
               <CardHeader>
-                <CardTitle className="text-white">Revenue Breakdown</CardTitle>
+                <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Revenue Breakdown</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
@@ -296,9 +296,9 @@ export function Calculator() {
             </Card>
 
             {/* Input Card */}
-            <Card className="bg-zinc-900 border-zinc-800">
+            <Card className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
               <CardHeader>
-                <CardTitle className="text-white">Your Metrics</CardTitle>
+                <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Your Metrics</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

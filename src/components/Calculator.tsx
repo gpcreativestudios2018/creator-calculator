@@ -14,6 +14,7 @@ import { OnboardingModal } from '@/components/OnboardingModal'
 import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { MethodologyPage } from '@/components/MethodologyPage'
 import { MonetizationProgress } from '@/components/MonetizationProgress'
+import { CreatorBenchmark } from '@/components/CreatorBenchmark'
 import { Glossary } from '@/components/Glossary'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -1098,6 +1099,13 @@ export function Calculator() {
 
             {/* Monetization Progress */}
             <MonetizationProgress
+              platformId={activeTab}
+              currentValues={currentValues}
+              theme={theme}
+            />
+
+            {/* Creator Benchmark */}
+            <CreatorBenchmark
               platformId={activeTab}
               currentValues={currentValues}
               theme={theme}

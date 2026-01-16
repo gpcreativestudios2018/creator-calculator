@@ -48,18 +48,35 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
   }
 
   const handleDownload = async () => {
-    if (!previewRef.current) return
+    if (!previewRef.current) {
+      console.error('Preview ref not found')
+      return
+    }
 
     setIsGenerating(true)
 
     try {
-      const canvas = await html2canvas(previewRef.current, {
+      // Wait a tick for any pending renders
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      const element = previewRef.current
+
+      const canvas = await html2canvas(element, {
         scale: 2,
         backgroundColor: '#18181b',
-        logging: false,
+        logging: true,
+        useCORS: true,
+        allowTaint: true,
+        onclone: (clonedDoc) => {
+          const clonedElement = clonedDoc.querySelector('[data-media-kit-preview]')
+          if (clonedElement) {
+            (clonedElement as HTMLElement).style.display = 'block'
+          }
+        }
       })
 
       const imgData = canvas.toDataURL('image/png')
+
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
@@ -67,14 +84,15 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
       })
 
       const pdfWidth = pdf.internal.pageSize.getWidth()
-      const pdfHeight = pdf.internal.pageSize.getHeight()
-      const imgWidth = canvas.width
-      const imgHeight = canvas.height
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight)
-      const imgX = (pdfWidth - imgWidth * ratio) / 2
-      const imgY = 20
 
-      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio)
+      // Calculate dimensions to fit the image properly
+      const imgWidth = pdfWidth - 20 // 10mm margin on each side
+      const imgHeight = (canvas.height * imgWidth) / canvas.width
+
+      const imgX = 10 // 10mm left margin
+      const imgY = 10 // 10mm top margin
+
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth, imgHeight)
 
       const fileName = name.trim()
         ? `${name.toLowerCase().replace(/\s+/g, '-')}-media-kit.pdf`
@@ -83,6 +101,7 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
       pdf.save(fileName)
     } catch (error) {
       console.error('Error generating PDF:', error)
+      alert('Failed to generate PDF. Please try again.')
     } finally {
       setIsGenerating(false)
     }
@@ -162,6 +181,7 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
           >
             <div
               ref={previewRef}
+              data-media-kit-preview
               className="bg-zinc-900 rounded-lg p-8 space-y-6"
             >
               {/* Header */}

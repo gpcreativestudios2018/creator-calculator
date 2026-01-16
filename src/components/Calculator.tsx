@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { TrendingUp, Menu, X, Sun, Moon, Info, RotateCcw } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
@@ -46,6 +46,49 @@ export function Calculator() {
 
   const activePlatform = platforms.find(p => p.id === activeTab)
   const currentValues = inputValues[activeTab] || {}
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return
+      }
+
+      // Number keys 1-9 and 0 to switch platforms (0 = 10th platform, - = 11th)
+      const platformKeys: Record<string, number> = {
+        '1': 0, '2': 1, '3': 2, '4': 3, '5': 4,
+        '6': 5, '7': 6, '8': 7, '9': 8, '0': 9, '-': 10
+      }
+
+      if (e.key in platformKeys && !compareMode) {
+        const index = platformKeys[e.key]
+        if (index < platforms.length) {
+          setActiveTab(platforms[index].id)
+        }
+      }
+
+      // R to reset current platform
+      if (e.key.toLowerCase() === 'r' && !compareMode && activePlatform) {
+        const defaults: Record<string, number> = {}
+        for (const input of activePlatform.inputs) {
+          defaults[input.id] = input.defaultValue
+        }
+        setInputValues(prev => ({
+          ...prev,
+          [activeTab]: defaults,
+        }))
+      }
+
+      // C to toggle compare mode
+      if (e.key.toLowerCase() === 'c') {
+        setCompareMode(prev => !prev)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [activeTab, activePlatform, compareMode])
 
   const updateValue = (inputId: string, value: number) => {
     // Validate: ensure value is a number and not negative

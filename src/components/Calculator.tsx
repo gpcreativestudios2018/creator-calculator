@@ -39,6 +39,11 @@ import {
   calculateOnlyFans,
   calculateEtsy,
   calculateAmazon,
+  calculateFansly,
+  calculateThreads,
+  calculateDiscord,
+  calculateRumble,
+  calculateSubstack,
   type CalculationResult,
 } from '@/engine/calculations'
 
@@ -246,6 +251,21 @@ export function Calculator() {
         break
       case 'amazon':
         baseResult = calculateAmazon(v.pageViews || 0, v.conversionRate || 3, v.avgCommission || 4)
+        break
+      case 'fansly':
+        baseResult = calculateFansly(v.subscribers || 0, v.subPrice || 10, v.tipsPercent || 20)
+        break
+      case 'threads':
+        baseResult = calculateThreads(v.followers || 0, v.avgLikes || 0, v.postsPerMonth || 20)
+        break
+      case 'discord':
+        baseResult = calculateDiscord(v.members || 0, v.avgPrice || 5)
+        break
+      case 'rumble':
+        baseResult = calculateRumble(v.monthlyViews || 0, v.cpm || 3, v.rants || 0)
+        break
+      case 'substack':
+        baseResult = calculateSubstack(v.freeSubscribers || 0, v.paidPercent || 5, v.monthlyPrice || 10)
         break
       default:
         baseResult = { monthlyRevenue: 0, yearlyRevenue: 0 }
@@ -661,6 +681,21 @@ export function Calculator() {
                     break
                   case 'amazon':
                     revenue = ((v.pageViews || 5000) * ((v.conversionRate || 3) / 100)) * (v.avgCommission || 4)
+                    break
+                  case 'fansly':
+                    revenue = (((v.subscribers || 100) * (v.subPrice || 10)) * (1 + (v.tipsPercent || 20) / 100)) * 0.8
+                    break
+                  case 'threads':
+                    revenue = ((v.followers || 10000) / 10000) * 15 * (((v.avgLikes || 500) / (v.followers || 10000)) * 100 / 5) * Math.max(Math.floor((v.postsPerMonth || 20) * 0.1), 1)
+                    break
+                  case 'discord':
+                    revenue = ((v.members || 50) * (v.avgPrice || 5)) * 0.9
+                    break
+                  case 'rumble':
+                    revenue = (((v.monthlyViews || 50000) / 1000) * (v.cpm || 3)) + ((v.rants || 10) * 5)
+                    break
+                  case 'substack':
+                    revenue = (Math.floor((v.freeSubscribers || 5000) * ((v.paidPercent || 5) / 100)) * (v.monthlyPrice || 10)) * 0.9
                     break
                 }
 

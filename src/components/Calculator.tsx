@@ -137,9 +137,9 @@ export function Calculator() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white flex">
+    <div className={`min-h-screen flex ${theme === 'dark' ? 'bg-zinc-950 text-white' : 'bg-gray-100 text-zinc-900'}`}>
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 bg-zinc-900 border-b border-zinc-800 p-4 flex items-center justify-between z-50">
+      <div className={`lg:hidden fixed top-0 left-0 right-0 p-4 flex items-center justify-between z-50 ${theme === 'dark' ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-white border-b border-gray-200'}`}>
         <h1 className="text-xl font-bold">Creator Calculator</h1>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
           {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -147,7 +147,7 @@ export function Calculator() {
       </div>
 
       {/* Sidebar */}
-      <aside className={`fixed lg:static inset-y-0 left-0 w-64 bg-zinc-900 border-r border-zinc-800 p-4 flex flex-col z-40 transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+      <aside className={`fixed lg:static inset-y-0 left-0 w-64 p-4 flex flex-col z-40 transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${theme === 'dark' ? 'bg-zinc-900 border-r border-zinc-800' : 'bg-white border-r border-gray-200'}`}>
         <div className="mb-8">
           <h1 className="text-xl font-bold">Creator Calculator</h1>
         </div>
@@ -160,8 +160,8 @@ export function Calculator() {
               onClick={() => setActiveTab(platform.id)}
               className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
                 activeTab === platform.id
-                  ? 'bg-zinc-800 text-white shadow-lg'
-                  : 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white hover:translate-x-1'
+                  ? `${theme === 'dark' ? 'bg-zinc-800 text-white' : 'bg-gray-200 text-zinc-900'} shadow-lg`
+                  : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:translate-x-1`
               }`}
               style={activeTab === platform.id ? { boxShadow: `0 0 20px ${platform.accentColor}30` } : {}}
             >

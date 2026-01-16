@@ -11,6 +11,7 @@ import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { OnboardingModal } from '@/components/OnboardingModal'
 import { regions, DEFAULT_REGION } from '@/data/geography'
+import { niches, DEFAULT_NICHE } from '@/data/niches'
 import {
   calculateYouTube,
   calculateTikTok,
@@ -45,12 +46,17 @@ export function Calculator() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [compareMode, setCompareMode] = useState(false)
   const [selectedRegion, setSelectedRegion] = useState<string>(DEFAULT_REGION)
+  const [selectedNiche, setSelectedNiche] = useState<string>(DEFAULT_NICHE)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
   const currentRegion = useMemo(() =>
     regions.find(r => r.id === selectedRegion) || regions[0],
     [selectedRegion]
+  )
+  const currentNiche = useMemo(() =>
+    niches.find(n => n.id === selectedNiche) || niches.find(n => n.id === 'general')!,
+    [selectedNiche]
   )
   const currentValues = inputValues[activeTab] || {}
 
@@ -131,12 +137,13 @@ export function Calculator() {
     }))
   }
 
-  // Helper function to apply region multiplier to calculation results
-  const applyRegionMultiplier = (result: CalculationResult, multiplier: number): CalculationResult => {
+  // Helper function to apply region and niche multipliers to calculation results
+  const applyMultipliers = (result: CalculationResult, regionMultiplier: number, nicheMultiplier: number): CalculationResult => {
+    const combinedMultiplier = regionMultiplier * nicheMultiplier
     return {
       ...result,
-      monthlyRevenue: result.monthlyRevenue * multiplier,
-      yearlyRevenue: result.yearlyRevenue * multiplier,
+      monthlyRevenue: result.monthlyRevenue * combinedMultiplier,
+      yearlyRevenue: result.yearlyRevenue * combinedMultiplier,
     }
   }
 
@@ -181,8 +188,8 @@ export function Calculator() {
       default:
         baseResult = { monthlyRevenue: 0, yearlyRevenue: 0 }
     }
-    return applyRegionMultiplier(baseResult, currentRegion.revenueMultiplier)
-  }, [activeTab, currentValues, currentRegion])
+    return applyMultipliers(baseResult, currentRegion.revenueMultiplier, currentNiche.rpmMultiplier)
+  }, [activeTab, currentValues, currentRegion, currentNiche])
 
   const formatCurrency = (value: number) => {
     const formatted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(value)
@@ -324,6 +331,35 @@ export function Calculator() {
           </p>
         </div>
 
+        {/* Niche Selector */}
+        <div className="mb-6">
+          <div className="flex items-center gap-1.5 mb-2 px-3">
+            <p className="text-xs text-zinc-500 uppercase tracking-wider">Niche</p>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3 h-3 text-zinc-500 hover:text-zinc-300 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent side="right" className="max-w-xs">
+                <p>Your content category affects ad rates. Finance and tech niches typically earn more per view than gaming or entertainment.</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <select
+            value={selectedNiche}
+            onChange={(e) => setSelectedNiche(e.target.value)}
+            className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+          >
+            {niches.map((niche) => (
+              <option key={niche.id} value={niche.id}>
+                {niche.icon} {niche.name}
+              </option>
+            ))}
+          </select>
+          <p className="text-xs text-zinc-500 mt-1 px-1">
+            {currentNiche.rpmMultiplier === 1 ? 'Average RPM' : currentNiche.rpmMultiplier > 1 ? `${Math.round(currentNiche.rpmMultiplier * 100)}% of average RPM` : `${Math.round(currentNiche.rpmMultiplier * 100)}% of average RPM`}
+          </p>
+        </div>
+
         <nav className="space-y-1 flex-1">
           <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3 px-3">Platforms</p>
           {platforms.map((platform) => (
@@ -444,7 +480,7 @@ export function Calculator() {
                     </CardHeader>
                     <CardContent>
                       <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                        {formatCurrency(revenue * currentRegion.revenueMultiplier)}
+                        {formatCurrency(revenue * currentRegion.revenueMultiplier * currentNiche.rpmMultiplier)}
                       </p>
                       <p className="text-xs text-emerald-500 mt-1">Monthly estimate</p>
                     </CardContent>

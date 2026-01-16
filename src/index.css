@@ -188,3 +188,39 @@ select:not(:disabled):hover {
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
   transition: box-shadow 0.2s ease;
 }
+
+/* Skeleton loading animation */
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+/* Light mode skeleton */
+.light .skeleton {
+  background: linear-gradient(90deg, #e5e7eb 25%, #d1d5db 50%, #e5e7eb 75%);
+}
+
+/* Calculating indicator pulse */
+@keyframes calculating {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.calculating {
+  animation: calculating 0.8s ease-in-out infinite;
+}

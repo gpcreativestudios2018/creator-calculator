@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { OnboardingModal } from '@/components/OnboardingModal'
 import {
   calculateYouTube,
   calculateTikTok,
@@ -244,6 +245,7 @@ export function Calculator() {
 
   return (
     <TooltipProvider>
+      <OnboardingModal onComplete={() => {}} />
     <div className={`min-h-screen flex ${theme === 'dark' ? 'bg-zinc-950 text-white' : 'bg-gray-100 text-zinc-900'}`}>
       {/* Mobile Header */}
       <div className={`lg:hidden fixed top-0 left-0 right-0 p-4 flex items-center justify-between z-50 ${theme === 'dark' ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-white border-b border-gray-200'}`}>

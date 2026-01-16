@@ -173,7 +173,7 @@ export function Calculator() {
 
             {/* Metric Cards Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-              <Card className={`bg-zinc-900 border-l-4 border-zinc-800 border-l-${activePlatform.gradient.split(' ')[0].replace('from-', '')}`}>
+              <Card className="bg-zinc-900 border-zinc-800 border-l-4" style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">

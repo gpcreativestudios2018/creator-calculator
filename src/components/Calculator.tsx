@@ -302,7 +302,7 @@ export function Calculator() {
                         formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Revenue']}
                         cursor={false}
                       />
-                      <Bar dataKey="value" fill={activePlatform.accentColor} radius={[4, 4, 0, 0]} style={{ cursor: 'default' }} />
+                      <Bar dataKey="value" fill={activePlatform.accentColor} radius={[4, 4, 0, 0]} style={{ cursor: 'default' }} animationDuration={500} animationEasing="ease-out" />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>

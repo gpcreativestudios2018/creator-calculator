@@ -348,6 +348,42 @@ export function Calculator() {
           </button>
         </div>
 
+        {/* Platform Selector */}
+        <div className="mb-6">
+          <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2 px-3">Platform</p>
+          <div className="relative">
+            <select
+              value={activeTab}
+              onChange={(e) => setActiveTab(e.target.value)}
+              className={`w-full px-3 py-2.5 rounded-lg text-sm font-medium appearance-none cursor-pointer ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+              style={{ paddingLeft: '2.5rem' }}
+            >
+              {platforms.map((platform) => (
+                <option key={platform.id} value={platform.id}>
+                  {platform.name}
+                </option>
+              ))}
+            </select>
+            {/* Platform Icon */}
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              {(() => {
+                const platform = platforms.find(p => p.id === activeTab)
+                if (platform) {
+                  const Icon = platform.icon
+                  return <Icon className={`w-4 h-4 ${platform.iconColor}`} />
+                }
+                return null
+              })()}
+            </div>
+            {/* Dropdown Arrow */}
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         {/* Region Selector */}
         <div className="mb-6">
           <div className="flex items-center gap-1.5 mb-2 px-3">
@@ -442,44 +478,19 @@ export function Calculator() {
           </div>
         </div>
 
-        {/* Portfolio Section */}
-        <div className="mb-4">
-          <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3 px-3">Portfolio</p>
-          <button
-            onClick={() => setActiveTab('portfolio')}
-            className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
-              activeTab === 'portfolio'
-                ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
-                : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:translate-x-1`
-            }`}
-            style={activeTab === 'portfolio' ? { boxShadow: '0 0 20px rgba(16, 185, 129, 0.3)' } : {}}
-          >
-            <Wallet className={`w-4 h-4 ${activeTab === 'portfolio' ? 'text-white' : 'text-emerald-500'}`} />
-            Total Earnings
-          </button>
-        </div>
-
-        {/* Divider */}
-        <div className={`border-t mb-4 ${theme === 'dark' ? 'border-zinc-800' : 'border-gray-200'}`} />
-
-        <nav className="space-y-1 flex-1">
-          <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3 px-3">Platforms</p>
-          {platforms.map((platform) => (
-            <button
-              key={platform.id}
-              onClick={() => setActiveTab(platform.id)}
-              className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
-                activeTab === platform.id
-                  ? `${theme === 'dark' ? 'bg-zinc-800 text-white' : 'bg-gray-200 text-zinc-900'} shadow-lg`
-                  : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:translate-x-1`
-              }`}
-              style={activeTab === platform.id ? { boxShadow: `0 0 20px ${platform.accentColor}30` } : {}}
-            >
-              <platform.icon className={`w-4 h-4 ${platform.iconColor}`} />
-              {platform.name}
-            </button>
-          ))}
-        </nav>
+        {/* Portfolio Button */}
+        <button
+          onClick={() => setActiveTab('portfolio')}
+          className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 mb-4 ${
+            activeTab === 'portfolio'
+              ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
+              : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:translate-x-1`
+          }`}
+          style={activeTab === 'portfolio' ? { boxShadow: '0 0 20px rgba(16, 185, 129, 0.3)' } : {}}
+        >
+          <Wallet className={`w-4 h-4 ${activeTab === 'portfolio' ? 'text-white' : 'text-emerald-500'}`} />
+          Total Earnings
+        </button>
 
         {/* Compare Toggle */}
         <button

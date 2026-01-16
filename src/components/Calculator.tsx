@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { TrendingUp } from 'lucide-react'
+import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -183,7 +184,9 @@ export function Calculator() {
                   </span>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-white">{formatCurrency(results.monthlyRevenue)}</p>
+                  <p className="text-2xl font-bold text-white">
+                    <AnimatedNumber value={results.monthlyRevenue} formatter={formatCurrency} />
+                  </p>
                   <p className="text-xs text-emerald-500 mt-1">Estimated earnings</p>
                 </CardContent>
               </Card>
@@ -197,7 +200,9 @@ export function Calculator() {
                   </span>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-white">{formatCurrency(results.yearlyRevenue)}</p>
+                  <p className="text-2xl font-bold text-white">
+                    <AnimatedNumber value={results.yearlyRevenue} formatter={formatCurrency} />
+                  </p>
                   <p className="text-xs text-zinc-500 mt-1">Based on current metrics</p>
                 </CardContent>
               </Card>
@@ -211,7 +216,9 @@ export function Calculator() {
                   </span>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-white">{(results.engagementRate ?? 0).toFixed(1)}%</p>
+                  <p className="text-2xl font-bold text-white">
+                    <AnimatedNumber value={results.engagementRate ?? 0} formatter={(v) => `${v.toFixed(1)}%`} />
+                  </p>
                   <p className="text-xs text-emerald-500 mt-1">Audience interaction</p>
                 </CardContent>
               </Card>
@@ -225,7 +232,9 @@ export function Calculator() {
                   </span>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold text-emerald-500">+{(results.growthRate ?? 0).toFixed(1)}%</p>
+                  <p className="text-2xl font-bold text-emerald-500">
+                    +<AnimatedNumber value={results.growthRate ?? 0} formatter={(v) => `${v.toFixed(1)}%`} />
+                  </p>
                   <p className="text-xs text-zinc-500 mt-1">Monthly average</p>
                 </CardContent>
               </Card>

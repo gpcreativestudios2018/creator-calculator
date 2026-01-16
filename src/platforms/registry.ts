@@ -14,6 +14,10 @@ import {
   Coffee,
   ShoppingBag,
   Podcast,
+  GraduationCap,
+  Users,
+  Store,
+  Package,
   type LucideIcon
 } from 'lucide-react'
 
@@ -243,6 +247,62 @@ export const platforms: Platform[] = [
       { id: 'downloads', label: 'Monthly Downloads', type: 'number', min: 0, max: 10000000, defaultValue: 10000, tooltip: 'Total monthly episode downloads' },
       { id: 'episodes', label: 'Episodes / Month', type: 'slider', min: 1, max: 30, step: 1, defaultValue: 4, tooltip: 'Episodes published per month' },
       { id: 'cpm', label: 'Sponsor CPM ($)', type: 'slider', min: 10, max: 50, step: 5, defaultValue: 25, tooltip: 'Cost per 1000 downloads for sponsors' },
+    ],
+  },
+  {
+    id: 'teachable',
+    name: 'Courses',
+    icon: GraduationCap,
+    iconColor: 'text-amber-500',
+    accentColor: '#f59e0b',
+    gradient: 'from-amber-500 to-orange-500',
+    description: 'Online courses via Teachable, Kajabi, etc.',
+    inputs: [
+      { id: 'students', label: 'Students / Month', type: 'number', min: 0, max: 10000, defaultValue: 20, tooltip: 'New enrollments per month' },
+      { id: 'coursePrice', label: 'Course Price ($)', type: 'slider', min: 10, max: 500, step: 10, defaultValue: 100, tooltip: 'Average course price' },
+      { id: 'platformFee', label: 'Platform Fee (%)', type: 'slider', min: 0, max: 20, step: 1, defaultValue: 5, tooltip: 'Platform transaction fee' },
+    ],
+  },
+  {
+    id: 'onlyfans',
+    name: 'OnlyFans',
+    icon: Users,
+    iconColor: 'text-sky-500',
+    accentColor: '#0ea5e9',
+    gradient: 'from-sky-500 to-blue-500',
+    description: 'Subscriptions, tips, and PPV content',
+    inputs: [
+      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 100, tooltip: 'Paying subscribers' },
+      { id: 'subPrice', label: 'Subscription Price ($)', type: 'slider', min: 5, max: 50, step: 1, defaultValue: 10, tooltip: 'Monthly subscription price' },
+      { id: 'tipsPercent', label: 'Tips (% of subs)', type: 'slider', min: 0, max: 100, step: 5, defaultValue: 20, tooltip: 'Additional tip revenue as % of sub revenue' },
+    ],
+  },
+  {
+    id: 'etsy',
+    name: 'Etsy',
+    icon: Store,
+    iconColor: 'text-orange-600',
+    accentColor: '#ea580c',
+    gradient: 'from-orange-600 to-red-600',
+    description: 'Handmade and digital product sales',
+    inputs: [
+      { id: 'orders', label: 'Orders / Month', type: 'number', min: 0, max: 10000, defaultValue: 30, tooltip: 'Total orders per month' },
+      { id: 'avgOrder', label: 'Average Order ($)', type: 'slider', min: 5, max: 200, step: 5, defaultValue: 25, tooltip: 'Average order value' },
+      { id: 'profitMargin', label: 'Profit Margin (%)', type: 'slider', min: 10, max: 90, step: 5, defaultValue: 50, tooltip: 'After materials and Etsy fees' },
+    ],
+  },
+  {
+    id: 'amazon',
+    name: 'Amazon Influencer',
+    icon: Package,
+    iconColor: 'text-yellow-500',
+    accentColor: '#eab308',
+    gradient: 'from-yellow-500 to-amber-600',
+    description: 'Storefront commissions and bounties',
+    inputs: [
+      { id: 'pageViews', label: 'Storefront Views / Month', type: 'number', min: 0, max: 1000000, defaultValue: 5000, tooltip: 'Monthly storefront page views' },
+      { id: 'conversionRate', label: 'Conversion Rate (%)', type: 'slider', min: 1, max: 15, step: 0.5, defaultValue: 3, tooltip: 'Visitors who purchase' },
+      { id: 'avgCommission', label: 'Avg Commission ($)', type: 'slider', min: 1, max: 20, step: 1, defaultValue: 4, tooltip: 'Average commission per sale' },
     ],
   },
 ]

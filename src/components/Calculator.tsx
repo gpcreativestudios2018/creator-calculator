@@ -1358,6 +1358,100 @@ export function Calculator() {
                 </CardContent>
               </Card>
             )}
+
+            {/* Scenario Modeling */}
+            {results.monthlyRevenue > 0 && (
+              <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Scenario Analysis</CardTitle>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="w-4 h-4 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent side="right" className="max-w-xs">
+                        <p>See best, expected, and worst case revenue scenarios based on typical variance in creator earnings.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {(() => {
+                    const worstCase = results.monthlyRevenue * 0.5
+                    const expectedCase = results.monthlyRevenue
+                    const bestCase = results.monthlyRevenue * 1.8
+
+                    return (
+                      <div className="space-y-4">
+                        {/* Scenario Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {/* Worst Case */}
+                          <div className={`p-4 rounded-lg border-2 ${theme === 'dark' ? 'bg-red-950/30 border-red-900/50' : 'bg-red-50 border-red-200'}`}>
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-lg">📉</span>
+                              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-red-400' : 'text-red-700'}`}>Worst Case</p>
+                            </div>
+                            <p className={`text-xs mb-1 ${theme === 'dark' ? 'text-red-400/70' : 'text-red-600/70'}`}>50% of expected</p>
+                            <p className={`text-xl font-bold mb-1 ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>
+                              <AnimatedNumber value={worstCase} formatter={formatCurrency} />
+                              <span className="text-xs font-normal">/mo</span>
+                            </p>
+                            <p className={`text-sm ${theme === 'dark' ? 'text-red-400/70' : 'text-red-600/70'}`}>
+                              <AnimatedNumber value={worstCase * 12} formatter={formatCurrency} />
+                              <span className="text-xs">/yr</span>
+                            </p>
+                          </div>
+
+                          {/* Expected Case */}
+                          <div className={`p-4 rounded-lg border-2 ${theme === 'dark' ? 'bg-purple-950/30 border-purple-900/50' : 'bg-purple-50 border-purple-200'}`}>
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-lg">📊</span>
+                              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-purple-400' : 'text-purple-700'}`}>Expected</p>
+                            </div>
+                            <p className={`text-xs mb-1 ${theme === 'dark' ? 'text-purple-400/70' : 'text-purple-600/70'}`}>Current estimate</p>
+                            <p className={`text-xl font-bold mb-1 ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`}>
+                              <AnimatedNumber value={expectedCase} formatter={formatCurrency} />
+                              <span className="text-xs font-normal">/mo</span>
+                            </p>
+                            <p className={`text-sm ${theme === 'dark' ? 'text-purple-400/70' : 'text-purple-600/70'}`}>
+                              <AnimatedNumber value={expectedCase * 12} formatter={formatCurrency} />
+                              <span className="text-xs">/yr</span>
+                            </p>
+                          </div>
+
+                          {/* Best Case */}
+                          <div className={`p-4 rounded-lg border-2 ${theme === 'dark' ? 'bg-emerald-950/30 border-emerald-900/50' : 'bg-emerald-50 border-emerald-200'}`}>
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-lg">🚀</span>
+                              <p className={`text-sm font-medium ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'}`}>Best Case</p>
+                            </div>
+                            <p className={`text-xs mb-1 ${theme === 'dark' ? 'text-emerald-400/70' : 'text-emerald-600/70'}`}>180% of expected</p>
+                            <p className={`text-xl font-bold mb-1 ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                              <AnimatedNumber value={bestCase} formatter={formatCurrency} />
+                              <span className="text-xs font-normal">/mo</span>
+                            </p>
+                            <p className={`text-sm ${theme === 'dark' ? 'text-emerald-400/70' : 'text-emerald-600/70'}`}>
+                              <AnimatedNumber value={bestCase * 12} formatter={formatCurrency} />
+                              <span className="text-xs">/yr</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Range Summary */}
+                        <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                          <p className={`text-sm ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                            Your monthly earnings likely fall between{' '}
+                            <span className={`font-semibold ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>{formatCurrency(worstCase)}</span>
+                            {' '}and{' '}
+                            <span className={`font-semibold ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'}`}>{formatCurrency(bestCase)}</span>
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })()}
+                </CardContent>
+              </Card>
+            )}
           </>
         )}
       </main>

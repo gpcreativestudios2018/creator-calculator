@@ -13,7 +13,7 @@
 | Phase 1: UI Overhaul | 15 | 15 | 🟩🟩🟩🟩🟩 100% |
 | Phase 2: Core Architecture | 13 | 13 | 🟩🟩🟩🟩🟩 100% |
 | Phase 3: UX Polish | 13 | 12 | 🟩🟩🟩🟩🟨 92% |
-| Phase 4: Calculations & Accuracy | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 4: Calculations & Accuracy | 12 | 3 | 🟩⬜⬜⬜⬜ 25% |
 | Phase 5: Transparency & Trust | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 6: Missing Platforms | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 7: Visualizations & Data | 5 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -25,7 +25,7 @@
 | Phase 13: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 14: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 15: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| **TOTAL** | **105** | **40** | **38%** |
+| **TOTAL** | **105** | **43** | **41%** |
 
 ---
 
@@ -91,11 +91,11 @@
 ## ✅ PHASE 4: CALCULATIONS & ACCURACY
 > *Make the numbers actually meaningful*
 
-- [ ] 4.1 — Geography/region selector (US, EU, India, LATAM, etc.)
+- [x] 4.1 — Geography/region selector (US, EU, India, LATAM, etc.)
 - [ ] 4.2 — Niche/category selector (finance, gaming, beauty, tech, etc.)
 - [ ] 4.3 — RPM/CPM ranges by niche with industry data
-- [ ] 4.4 — Geo-adjusted revenue multipliers
-- [ ] 4.5 — Currency converter (USD, EUR, GBP, etc.)
+- [x] 4.4 — Geo-adjusted revenue multipliers
+- [x] 4.5 — Currency converter (USD, EUR, GBP, etc.)
 - [ ] 4.6 — Time period toggle (daily/weekly/monthly/yearly)
 - [ ] 4.7 — Growth projections ("Where am I in 12 months?")
 - [ ] 4.8 — Total portfolio view (sum of ALL platforms)

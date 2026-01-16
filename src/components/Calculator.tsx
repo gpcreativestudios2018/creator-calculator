@@ -100,8 +100,8 @@ export function Calculator() {
       return (
         <div key={input.id} className="space-y-3">
           <div className="flex justify-between items-center">
-            <Label className="text-zinc-300">{input.label}</Label>
-            <span className="text-sm font-medium text-white">{value}{input.label.includes('%') || input.label.includes('CPM') ? '' : ''}</span>
+            <Label className={`${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>{input.label}</Label>
+            <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>{value}{input.label.includes('%') || input.label.includes('CPM') ? '' : ''}</span>
           </div>
           <Slider
             value={[value]}
@@ -120,14 +120,14 @@ export function Calculator() {
 
     return (
       <div key={input.id} className="space-y-2">
-        <Label className="text-zinc-300">{input.label}</Label>
+        <Label className={`${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>{input.label}</Label>
         <Input
           type="number"
           value={value}
           onChange={(e) => updateValue(input.id, Number(e.target.value))}
           min={input.min}
           max={input.max}
-          className="bg-zinc-800 border-zinc-700 text-white"
+          className={`${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'}`}
         />
         {input.tooltip && (
           <p className="text-xs text-zinc-500">{input.tooltip}</p>

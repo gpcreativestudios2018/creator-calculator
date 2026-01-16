@@ -323,10 +323,17 @@ export function Calculator() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between w-full">
                   <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
-                  <span className="flex items-center text-xs text-emerald-500">
-                    <TrendingUp className="w-3 h-3 mr-1" />
-                    (?)
-                  </span>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="flex items-center text-xs text-emerald-500 cursor-help">
+                        <TrendingUp className="w-3 h-3 mr-1" />
+                        <Info className="w-3 h-3" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs">
+                      <p>Estimated monthly earnings from ads, sponsorships, and platform programs based on your current metrics.</p>
+                    </TooltipContent>
+                  </Tooltip>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -341,10 +348,17 @@ export function Calculator() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between w-full">
                   <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
-                  <span className="flex items-center text-xs text-emerald-500">
-                    <TrendingUp className="w-3 h-3 mr-1" />
-                    (?)
-                  </span>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="flex items-center text-xs text-emerald-500 cursor-help">
+                        <TrendingUp className="w-3 h-3 mr-1" />
+                        <Info className="w-3 h-3" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs">
+                      <p>Annual projection calculated as monthly revenue × 12. Actual earnings may vary based on seasonal trends and growth.</p>
+                    </TooltipContent>
+                  </Tooltip>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -359,10 +373,17 @@ export function Calculator() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between w-full">
                   <CardTitle className="text-sm font-medium text-zinc-400">Engagement Rate</CardTitle>
-                  <span className="flex items-center text-xs text-emerald-500">
-                    <TrendingUp className="w-3 h-3 mr-1" />
-                    (?)
-                  </span>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="flex items-center text-xs text-emerald-500 cursor-help">
+                        <TrendingUp className="w-3 h-3 mr-1" />
+                        <Info className="w-3 h-3" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs">
+                      <p>Measures audience interaction as a percentage. Higher engagement often leads to better monetization opportunities.</p>
+                    </TooltipContent>
+                  </Tooltip>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -377,10 +398,17 @@ export function Calculator() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between w-full">
                   <CardTitle className="text-sm font-medium text-zinc-400">Growth Rate</CardTitle>
-                  <span className="flex items-center text-xs text-emerald-500">
-                    <TrendingUp className="w-3 h-3 mr-1" />
-                    (?)
-                  </span>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="flex items-center text-xs text-emerald-500 cursor-help">
+                        <TrendingUp className="w-3 h-3 mr-1" />
+                        <Info className="w-3 h-3" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs">
+                      <p>Estimated monthly growth rate based on typical platform benchmarks. Your actual growth depends on content quality and consistency.</p>
+                    </TooltipContent>
+                  </Tooltip>
                   </div>
                 </CardHeader>
                 <CardContent>

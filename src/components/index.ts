@@ -1,4 +1,5 @@
 export { Calculator } from './Calculator'
+export { CreatorBenchmark } from './CreatorBenchmark'
 export { Glossary } from './Glossary'
 export { HowItsCalculated } from './HowItsCalculated'
 export { MethodologyPage } from './MethodologyPage'

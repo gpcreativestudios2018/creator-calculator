@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { TrendingUp, Menu, X, Sun, Moon, Info, RotateCcw, Wallet } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell, LineChart, Line } from 'recharts'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -13,6 +13,7 @@ import { OnboardingModal } from '@/components/OnboardingModal'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
 import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
+import { growthScenarios, calculateProjectedRevenue, DEFAULT_GROWTH_SCENARIO } from '@/data/growthRates'
 import {
   calculateYouTube,
   calculateTikTok,
@@ -49,6 +50,7 @@ export function Calculator() {
   const [selectedRegion, setSelectedRegion] = useState<string>(DEFAULT_REGION)
   const [selectedNiche, setSelectedNiche] = useState<string>(DEFAULT_NICHE)
   const [selectedTimePeriod, setSelectedTimePeriod] = useState<string>(DEFAULT_TIME_PERIOD)
+  const [selectedGrowthRate, setSelectedGrowthRate] = useState<string>(DEFAULT_GROWTH_SCENARIO)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -63,6 +65,10 @@ export function Calculator() {
   const currentTimePeriod = useMemo(() =>
     timePeriods.find(t => t.id === selectedTimePeriod) || timePeriods.find(t => t.id === 'monthly')!,
     [selectedTimePeriod]
+  )
+  const currentGrowthScenario = useMemo(() =>
+    growthScenarios.find(g => g.id === selectedGrowthRate) || growthScenarios.find(g => g.id === 'moderate')!,
+    [selectedGrowthRate]
   )
   const currentValues = inputValues[activeTab] || {}
 
@@ -950,6 +956,121 @@ export function Calculator() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Growth Projection */}
+            {results.monthlyRevenue > 0 && (
+              <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>12-Month Projection</CardTitle>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-xs">
+                          <p>See where your earnings could be in 12 months based on consistent growth. Select different growth scenarios to see various projections.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                    {/* Growth Rate Selector */}
+                    <div className="flex">
+                      {growthScenarios.map((scenario, index) => (
+                        <button
+                          key={scenario.id}
+                          onClick={() => setSelectedGrowthRate(scenario.id)}
+                          className={`px-3 py-1 text-xs font-medium transition-colors ${
+                            index === 0 ? 'rounded-l-md' : ''
+                          } ${
+                            index === growthScenarios.length - 1 ? 'rounded-r-md' : ''
+                          } ${
+                            selectedGrowthRate === scenario.id
+                              ? `text-white`
+                              : theme === 'dark'
+                                ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
+                                : 'bg-gray-200 text-zinc-600 hover:bg-gray-300 hover:text-zinc-900'
+                          }`}
+                          style={selectedGrowthRate === scenario.id ? { backgroundColor: activePlatform.accentColor } : {}}
+                        >
+                          {scenario.id.charAt(0).toUpperCase() + scenario.id.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {(() => {
+                    const projectionData = calculateProjectedRevenue(
+                      results.monthlyRevenue,
+                      currentGrowthScenario.monthlyGrowthRate,
+                      12
+                    )
+                    const month6Revenue = projectionData[6]?.revenue || 0
+                    const month12Revenue = projectionData[12]?.revenue || 0
+
+                    return (
+                      <>
+                        <div className="h-64 mb-4">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={projectionData}>
+                              <XAxis
+                                dataKey="month"
+                                stroke={theme === 'dark' ? '#71717a' : '#52525b'}
+                                fontSize={12}
+                                tickFormatter={(v) => `M${v}`}
+                              />
+                              <YAxis
+                                stroke={theme === 'dark' ? '#71717a' : '#52525b'}
+                                fontSize={12}
+                                tickFormatter={(v) => `${currentRegion.currencySymbol}${v >= 1000 ? `${(v/1000).toFixed(1)}k` : v.toFixed(0)}`}
+                              />
+                              <RechartsTooltip
+                                contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a' }}
+                                labelStyle={{ color: '#fff' }}
+                                labelFormatter={(label) => `Month ${label}`}
+                                formatter={(value) => [formatCurrency(Number(value)), 'Revenue']}
+                                cursor={{ stroke: theme === 'dark' ? '#3f3f46' : '#d1d5db' }}
+                              />
+                              <Line
+                                type="monotone"
+                                dataKey="revenue"
+                                stroke={activePlatform.accentColor}
+                                strokeWidth={3}
+                                dot={{ fill: activePlatform.accentColor, strokeWidth: 0, r: 4 }}
+                                activeDot={{ r: 6, fill: activePlatform.accentColor }}
+                                animationDuration={500}
+                              />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </div>
+                        <div className="grid grid-cols-3 gap-4">
+                          <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                            <p className="text-xs text-zinc-500 mb-1">Now</p>
+                            <p className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                              {formatCurrency(results.monthlyRevenue)}
+                            </p>
+                          </div>
+                          <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                            <p className="text-xs text-zinc-500 mb-1">In 6 months</p>
+                            <p className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                              {formatCurrency(month6Revenue)}
+                            </p>
+                            <p className="text-xs text-emerald-500">+{((month6Revenue / results.monthlyRevenue - 1) * 100).toFixed(0)}%</p>
+                          </div>
+                          <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                            <p className="text-xs text-zinc-500 mb-1">In 12 months</p>
+                            <p className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                              {formatCurrency(month12Revenue)}
+                            </p>
+                            <p className="text-xs text-emerald-500">+{((month12Revenue / results.monthlyRevenue - 1) * 100).toFixed(0)}%</p>
+                          </div>
+                        </div>
+                      </>
+                    )
+                  })()}
+                </CardContent>
+              </Card>
+            )}
 
             {/* Input Card */}
             <Card className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>

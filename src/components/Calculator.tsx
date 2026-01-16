@@ -31,6 +31,10 @@ import {
   calculateTwitch,
   calculateKick,
   calculateNewsletter,
+  calculatePatreon,
+  calculateKofi,
+  calculateGumroad,
+  calculatePodcast,
   type CalculationResult,
 } from '@/engine/calculations'
 
@@ -215,6 +219,18 @@ export function Calculator() {
       case 'newsletter':
         baseResult = calculateNewsletter(v.subscribers || 0, v.paidPercent || 5, v.monthlyPrice || 10)
         break
+      case 'patreon':
+        baseResult = calculatePatreon(v.patrons || 0, v.avgPledge || 5)
+        break
+      case 'kofi':
+        baseResult = calculateKofi(v.supporters || 0, v.avgTip || 5, v.members || 0, v.memberPrice || 5)
+        break
+      case 'gumroad':
+        baseResult = calculateGumroad(v.products || 0, v.avgPrice || 25)
+        break
+      case 'podcast':
+        baseResult = calculatePodcast(v.downloads || 0, v.episodes || 4, v.cpm || 25)
+        break
       default:
         baseResult = { monthlyRevenue: 0, yearlyRevenue: 0 }
     }
@@ -370,7 +386,11 @@ export function Calculator() {
                 })()}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent className={`${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border-gray-200'}`}>
+            <SelectContent
+              className={`${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border-gray-200'} max-h-[300px]`}
+              position="popper"
+              sideOffset={4}
+            >
               {platforms.map((platform) => {
                 const Icon = platform.icon
                 return (
@@ -601,6 +621,18 @@ export function Calculator() {
                     break
                   case 'newsletter':
                     revenue = Math.floor((v.subscribers || 5000) * ((v.paidPercent || 5) / 100)) * (v.monthlyPrice || 10) * 0.9
+                    break
+                  case 'patreon':
+                    revenue = ((v.patrons || 100) * (v.avgPledge || 5)) * 0.9
+                    break
+                  case 'kofi':
+                    revenue = ((v.supporters || 20) * (v.avgTip || 5)) + ((v.members || 10) * (v.memberPrice || 5) * 0.95)
+                    break
+                  case 'gumroad':
+                    revenue = ((v.products || 50) * (v.avgPrice || 25)) * 0.9
+                    break
+                  case 'podcast':
+                    revenue = ((v.downloads || 10000) / 1000) * (v.cpm || 25)
                     break
                 }
 

@@ -554,55 +554,110 @@ export function Calculator() {
         ) : activeTab === 'portfolio' ? (
           /* Portfolio View */
           (() => {
-            // Calculate total revenue across all platforms
+            // Helper function to check if user has modified inputs from defaults
+            const hasUserInput = (platformId: string): boolean => {
+              const platform = platforms.find(p => p.id === platformId)
+              if (!platform) return false
+              const v = inputValues[platformId] || {}
+              return platform.inputs.some(input => {
+                const currentValue = v[input.id]
+                return currentValue !== undefined && currentValue !== input.defaultValue
+              })
+            }
+
+            // Calculate revenue for platforms where user has entered data
             const platformRevenues = platforms.map((platform) => {
               const v = inputValues[platform.id] || {}
+              const userHasInput = hasUserInput(platform.id)
+
+              // Only calculate revenue if user has entered custom values
+              if (!userHasInput) {
+                return { platform, revenue: 0, hasUserInput: false }
+              }
+
               let revenue = 0
 
               switch (platform.id) {
                 case 'youtube':
-                  revenue = ((v.monthlyViews || 100000) / 1000) * (v.cpm || 4) * 0.55 + (v.subscribers || 10000) * 0.05
+                  revenue = ((v.monthlyViews || 0) / 1000) * (v.cpm || 4) * 0.55 + (v.subscribers || 0) * 0.05
                   break
                 case 'tiktok':
-                  revenue = (v.monthlyViews || 500000) * 0.02 + ((v.followers || 50000) >= 10000 ? (v.followers || 50000) * 0.015 : 0)
+                  revenue = (v.monthlyViews || 0) * 0.02 + ((v.followers || 0) >= 10000 ? (v.followers || 0) * 0.015 : 0)
                   break
                 case 'instagram':
-                  revenue = ((v.followers || 25000) >= 10000 ? ((v.followers || 25000) / 1000) * 10 : 0) * ((v.postsPerMonth || 12) / 4)
+                  revenue = ((v.followers || 0) >= 10000 ? ((v.followers || 0) / 1000) * 10 : 0) * ((v.postsPerMonth || 12) / 4)
                   break
                 case 'twitter':
-                  revenue = ((v.impressions || 500000) / 1000) * 0.5 + (v.subscribers || 0) * 3
+                  revenue = ((v.impressions || 0) / 1000) * 0.5 + (v.subscribers || 0) * 3
                   break
                 case 'facebook':
-                  revenue = ((v.watchMinutes || 100000) / 1000) * 1.5
+                  revenue = ((v.watchMinutes || 0) / 1000) * 1.5
                   break
                 case 'linkedin':
-                  revenue = Math.floor((v.newsletterSubs || 1000) * 0.01) * 500
+                  revenue = Math.floor((v.newsletterSubs || 0) * 0.01) * 500
                   break
                 case 'snapchat':
-                  revenue = ((v.spotlightViews || 50000) / 1000) * 0.05
+                  revenue = ((v.spotlightViews || 0) / 1000) * 0.05
                   break
                 case 'pinterest':
-                  revenue = ((v.monthlyViews || 100000) / 1000) * 0.1 + (v.ideaPins || 20) * 2
+                  revenue = ((v.monthlyViews || 0) / 1000) * 0.1 + (v.ideaPins || 0) * 2
                   break
                 case 'twitch':
-                  revenue = (v.subscribers || 100) * 2.5 + (v.avgViewers || 50) * (v.hoursStreamed || 40) * 0.02 + (v.avgViewers || 50) * 0.5
+                  revenue = (v.subscribers || 0) * 2.5 + (v.avgViewers || 0) * (v.hoursStreamed || 0) * 0.02 + (v.avgViewers || 0) * 0.5
                   break
                 case 'kick':
-                  revenue = (v.subscribers || 50) * 4.5
+                  revenue = (v.subscribers || 0) * 4.5
                   break
                 case 'newsletter':
-                  revenue = Math.floor((v.subscribers || 5000) * ((v.paidPercent || 5) / 100)) * (v.monthlyPrice || 10) * 0.9
+                  revenue = Math.floor((v.subscribers || 0) * ((v.paidPercent || 5) / 100)) * (v.monthlyPrice || 10) * 0.9
                   break
               }
 
               return {
                 platform,
                 revenue: revenue * currentRegion.revenueMultiplier * currentNiche.rpmMultiplier,
+                hasUserInput: true,
               }
             })
 
-            const totalMonthlyRevenue = platformRevenues.reduce((sum, p) => sum + p.revenue, 0)
-            const sortedPlatforms = [...platformRevenues].sort((a, b) => b.revenue - a.revenue)
+            // Filter to only platforms with revenue > 0
+            const platformsWithRevenue = platformRevenues.filter(p => p.revenue > 0)
+            const totalMonthlyRevenue = platformsWithRevenue.reduce((sum, p) => sum + p.revenue, 0)
+            const sortedPlatforms = [...platformsWithRevenue].sort((a, b) => b.revenue - a.revenue)
+            const topPlatform = sortedPlatforms[0]
+
+            // Empty state if no platforms have revenue
+            if (platformsWithRevenue.length === 0) {
+              return (
+                <div>
+                  <div className="mb-6">
+                    <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+                      Total Portfolio
+                    </h2>
+                    <p className="text-zinc-400">Combined earnings across all platforms</p>
+                  </div>
+                  <Card className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                    <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+                      <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                        <Wallet className="w-10 h-10 text-emerald-500" />
+                      </div>
+                      <h3 className={`text-xl font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                        No earnings data yet
+                      </h3>
+                      <p className="text-zinc-500 max-w-md mb-6">
+                        Enter metrics for at least one platform to see your total portfolio earnings. Click on any platform in the sidebar to get started.
+                      </p>
+                      <button
+                        onClick={() => setActiveTab('youtube')}
+                        className="px-6 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                      >
+                        Start with YouTube
+                      </button>
+                    </CardContent>
+                  </Card>
+                </div>
+              )
+            }
 
             return (
               <div>
@@ -653,13 +708,16 @@ export function Calculator() {
 
                   <Card className={`border-l-4 border-l-emerald-500 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium text-zinc-400">Active Platforms</CardTitle>
+                      <CardTitle className="text-sm font-medium text-zinc-400">Top Platform</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                        {platforms.length}
-                      </p>
-                      <p className="text-xs text-emerald-500 mt-1">Revenue sources</p>
+                      <div className="flex items-center gap-2">
+                        {topPlatform && <topPlatform.platform.icon className={`w-5 h-5 ${topPlatform.platform.iconColor}`} />}
+                        <p className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                          {topPlatform?.platform.name || '-'}
+                        </p>
+                      </div>
+                      <p className="text-xs text-emerald-500 mt-1">{platformsWithRevenue.length} active platform{platformsWithRevenue.length !== 1 ? 's' : ''}</p>
                     </CardContent>
                   </Card>
                 </div>

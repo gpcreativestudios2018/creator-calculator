@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { OnboardingModal } from '@/components/OnboardingModal'
 import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { MethodologyPage } from '@/components/MethodologyPage'
+import { MonetizationProgress } from '@/components/MonetizationProgress'
 import { Glossary } from '@/components/Glossary'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -1094,6 +1095,13 @@ export function Calculator() {
               </Card>
             </div>
             )}
+
+            {/* Monetization Progress */}
+            <MonetizationProgress
+              platformId={activeTab}
+              currentValues={currentValues}
+              theme={theme}
+            />
 
             {/* Input Card - Your Metrics */}
             <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>

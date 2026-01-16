@@ -250,7 +250,7 @@ export function Calculator() {
                         labelStyle={{ color: '#fff' }}
                         formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Revenue']}
                       />
-                      <Bar dataKey="value" fill="#10b981" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="value" fill={activePlatform.accentColor} radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>

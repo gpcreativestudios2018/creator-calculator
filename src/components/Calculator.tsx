@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
-import { TrendingUp, Menu, X } from 'lucide-react'
+import { TrendingUp, Menu, X, Sun, Moon } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
+import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -39,6 +40,7 @@ export function Calculator() {
   const [activeTab, setActiveTab] = useState('youtube')
   const [inputValues, setInputValues] = useState<InputValues>(getInitialValues)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
   const currentValues = inputValues[activeTab] || {}
@@ -168,6 +170,15 @@ export function Calculator() {
             </button>
           ))}
         </nav>
+
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="mt-4 w-full px-3 py-2 rounded-lg flex items-center gap-3 text-zinc-400 hover:bg-zinc-800/50 hover:text-white transition-all duration-200"
+        >
+          {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+        </button>
       </aside>
 
       {/* Overlay for mobile */}

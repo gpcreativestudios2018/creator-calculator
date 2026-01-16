@@ -452,28 +452,22 @@ export function Calculator() {
             <Card className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Your Metrics</CardTitle>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={() => {
-                        const defaults: Record<string, number> = {}
-                        for (const input of activePlatform!.inputs) {
-                          defaults[input.id] = input.defaultValue
-                        }
-                        setInputValues(prev => ({
-                          ...prev,
-                          [activeTab]: defaults,
-                        }))
-                      }}
-                      className={`p-2 rounded-lg transition-colors ${theme === 'dark' ? 'hover:bg-zinc-800 text-zinc-400 hover:text-white' : 'hover:bg-gray-100 text-zinc-500 hover:text-zinc-900'}`}
-                    >
-                      <RotateCcw className="w-4 h-4" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="left">
-                    <p>Reset to defaults</p>
-                  </TooltipContent>
-                </Tooltip>
+<button
+                  onClick={() => {
+                    const defaults: Record<string, number> = {}
+                    for (const input of activePlatform!.inputs) {
+                      defaults[input.id] = input.defaultValue
+                    }
+                    setInputValues(prev => ({
+                      ...prev,
+                      [activeTab]: defaults,
+                    }))
+                  }}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${theme === 'dark' ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white' : 'bg-gray-200 hover:bg-gray-300 text-zinc-600 hover:text-zinc-900'}`}
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  Reset
+                </button>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

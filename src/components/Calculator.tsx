@@ -235,7 +235,7 @@ export function Calculator() {
                   <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                     <AnimatedNumber value={results.yearlyRevenue} formatter={formatCurrency} />
                   </p>
-                  <p className="text-xs text-zinc-500 mt-1">Based on current metrics</p>
+                  <p className="text-xs text-emerald-500 mt-1">Based on current metrics</p>
                 </CardContent>
               </Card>
 
@@ -271,7 +271,7 @@ export function Calculator() {
                   <p className="text-2xl font-bold text-emerald-500">
                     +<AnimatedNumber value={results.growthRate ?? 0} formatter={(v) => `${v.toFixed(1)}%`} />
                   </p>
-                  <p className="text-xs text-zinc-500 mt-1">Monthly average</p>
+                  <p className="text-xs text-emerald-500 mt-1">Monthly average</p>
                 </CardContent>
               </Card>
             </div>

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { TrendingUp, TrendingDown } from 'lucide-react'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -172,38 +173,54 @@ export function Calculator() {
             {/* Metric Cards Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <Card className="bg-zinc-900 border-zinc-800">
-                <CardHeader className="pb-2">
+                <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
+                  <span className="flex items-center text-xs text-emerald-500">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    +12.5%
+                  </span>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold text-white">{formatCurrency(results.monthlyRevenue)}</p>
-                  <p className="text-xs text-zinc-500 mt-1">Estimated earnings</p>
+                  <p className="text-xs text-emerald-500 mt-1">Estimated earnings</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-zinc-900 border-zinc-800">
-                <CardHeader className="pb-2">
+                <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
+                  <span className="flex items-center text-xs text-emerald-500">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    +12.5%
+                  </span>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold text-white">{formatCurrency(results.yearlyRevenue)}</p>
-                  <p className="text-xs text-zinc-500 mt-1">At current rate</p>
+                  <p className="text-xs text-zinc-500 mt-1">Based on current metrics</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-zinc-900 border-zinc-800">
-                <CardHeader className="pb-2">
+                <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Engagement Rate</CardTitle>
+                  <span className="flex items-center text-xs text-emerald-500">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    +4.5%
+                  </span>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold text-white">{(results.engagementRate ?? 0).toFixed(1)}%</p>
-                  <p className="text-xs text-zinc-500 mt-1">Platform metric</p>
+                  <p className="text-xs text-emerald-500 mt-1">Audience interaction</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-zinc-900 border-zinc-800">
-                <CardHeader className="pb-2">
+                <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Growth Rate</CardTitle>
+                  <span className="flex items-center text-xs text-emerald-500">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    +{(results.growthRate ?? 0).toFixed(1)}%
+                  </span>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold text-emerald-500">+{(results.growthRate ?? 0).toFixed(1)}%</p>

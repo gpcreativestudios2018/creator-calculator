@@ -224,3 +224,75 @@ select:not(:disabled):hover {
 .calculating {
   animation: calculating 0.8s ease-in-out infinite;
 }
+
+/* Print-friendly styles */
+@media print {
+  /* Hide non-essential elements */
+  aside,
+  .lg\\:hidden,
+  button:not(.print-show),
+  [role="slider"],
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset background colors for printing */
+  body,
+  main,
+  .bg-zinc-950,
+  .bg-zinc-900,
+  .bg-gray-100,
+  .bg-white {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Cards should have borders for print */
+  [class*="Card"],
+  .card {
+    border: 1px solid #ccc !important;
+    background: white !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  /* Text colors for print */
+  h1, h2, h3, h4, h5, h6,
+  p, span, label {
+    color: black !important;
+  }
+
+  .text-zinc-400,
+  .text-zinc-500,
+  .text-zinc-300 {
+    color: #666 !important;
+  }
+
+  .text-emerald-500 {
+    color: #059669 !important;
+  }
+
+  /* Full width main content */
+  main {
+    width: 100% !important;
+    padding: 20px !important;
+    margin: 0 !important;
+  }
+
+  /* Chart sizing for print */
+  .recharts-wrapper {
+    max-width: 100% !important;
+  }
+
+  /* Page break handling */
+  .page-break {
+    page-break-before: always;
+  }
+
+  /* Add URL after links */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+}

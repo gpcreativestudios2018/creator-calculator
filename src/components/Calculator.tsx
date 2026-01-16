@@ -12,6 +12,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { OnboardingModal } from '@/components/OnboardingModal'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
+import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
 import {
   calculateYouTube,
   calculateTikTok,
@@ -47,6 +48,7 @@ export function Calculator() {
   const [compareMode, setCompareMode] = useState(false)
   const [selectedRegion, setSelectedRegion] = useState<string>(DEFAULT_REGION)
   const [selectedNiche, setSelectedNiche] = useState<string>(DEFAULT_NICHE)
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState<string>(DEFAULT_TIME_PERIOD)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -57,6 +59,10 @@ export function Calculator() {
   const currentNiche = useMemo(() =>
     niches.find(n => n.id === selectedNiche) || niches.find(n => n.id === 'general')!,
     [selectedNiche]
+  )
+  const currentTimePeriod = useMemo(() =>
+    timePeriods.find(t => t.id === selectedTimePeriod) || timePeriods.find(t => t.id === 'monthly')!,
+    [selectedTimePeriod]
   )
   const currentValues = inputValues[activeTab] || {}
 
@@ -360,6 +366,42 @@ export function Calculator() {
           </p>
         </div>
 
+        {/* Time Period Selector */}
+        <div className="mb-6">
+          <div className="flex items-center gap-1.5 mb-2 px-3">
+            <p className="text-xs text-zinc-500 uppercase tracking-wider">Time Period</p>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3 h-3 text-zinc-500 hover:text-zinc-300 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent side="right" className="max-w-xs">
+                <p>View your estimated earnings by day, week, month, or year.</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+          <div className="flex">
+            {timePeriods.map((period, index) => (
+              <button
+                key={period.id}
+                onClick={() => setSelectedTimePeriod(period.id)}
+                className={`flex-1 px-2 py-1.5 text-xs font-medium transition-colors ${
+                  index === 0 ? 'rounded-l-md' : ''
+                } ${
+                  index === timePeriods.length - 1 ? 'rounded-r-md' : ''
+                } ${
+                  selectedTimePeriod === period.id
+                    ? 'bg-purple-600 text-white'
+                    : theme === 'dark'
+                      ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
+                      : 'bg-gray-200 text-zinc-600 hover:bg-gray-300 hover:text-zinc-900'
+                }`}
+              >
+                {period.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <nav className="space-y-1 flex-1">
           <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3 px-3">Platforms</p>
           {platforms.map((platform) => (
@@ -480,9 +522,9 @@ export function Calculator() {
                     </CardHeader>
                     <CardContent>
                       <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                        {formatCurrency(revenue * currentRegion.revenueMultiplier * currentNiche.rpmMultiplier)}
+                        {formatCurrency(revenue * currentRegion.revenueMultiplier * currentNiche.rpmMultiplier * currentTimePeriod.multiplier)}
                       </p>
-                      <p className="text-xs text-emerald-500 mt-1">Monthly estimate</p>
+                      <p className="text-xs text-emerald-500 mt-1">{currentTimePeriod.name} estimate</p>
                     </CardContent>
                   </Card>
                 )
@@ -519,7 +561,7 @@ export function Calculator() {
               <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between w-full">
-                  <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
+                  <CardTitle className="text-sm font-medium text-zinc-400">{currentTimePeriod.name} Revenue</CardTitle>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <span className="flex items-center text-xs text-emerald-500 cursor-help">
@@ -528,16 +570,16 @@ export function Calculator() {
                       </span>
                     </TooltipTrigger>
                     <TooltipContent side="top" className="max-w-xs">
-                      <p>Estimated monthly earnings from ads, sponsorships, and platform programs based on your current metrics.</p>
+                      <p>Estimated {currentTimePeriod.shortName}ly earnings from ads, sponsorships, and platform programs based on your current metrics.</p>
                     </TooltipContent>
                   </Tooltip>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                    <AnimatedNumber value={results.monthlyRevenue} formatter={formatCurrency} />
+                    <AnimatedNumber value={results.monthlyRevenue * currentTimePeriod.multiplier} formatter={formatCurrency} />
                   </p>
-                  <p className="text-xs text-emerald-500 mt-1">Estimated earnings</p>
+                  <p className="text-xs text-emerald-500 mt-1">Per {currentTimePeriod.shortName}</p>
                 </CardContent>
               </Card>
 
@@ -553,14 +595,14 @@ export function Calculator() {
                       </span>
                     </TooltipTrigger>
                     <TooltipContent side="top" className="max-w-xs">
-                      <p>Annual projection calculated as monthly revenue × 12. Actual earnings may vary based on seasonal trends and growth.</p>
+                      <p>Annual projection calculated as {currentTimePeriod.shortName}ly revenue × {Math.round(12 / currentTimePeriod.multiplier)}. Actual earnings may vary based on seasonal trends and growth.</p>
                     </TooltipContent>
                   </Tooltip>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                    <AnimatedNumber value={results.yearlyRevenue} formatter={formatCurrency} />
+                    <AnimatedNumber value={results.monthlyRevenue * 12} formatter={formatCurrency} />
                   </p>
                   <p className="text-xs text-emerald-500 mt-1">Based on current metrics</p>
                 </CardContent>
@@ -627,9 +669,9 @@ export function Calculator() {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={[
+                      { name: currentTimePeriod.name, value: results.monthlyRevenue * currentTimePeriod.multiplier },
                       { name: 'Monthly', value: results.monthlyRevenue },
-                      { name: 'Quarterly', value: results.monthlyRevenue * 3 },
-                      { name: 'Yearly', value: results.yearlyRevenue },
+                      { name: 'Yearly', value: results.monthlyRevenue * 12 },
                     ]}>
                       <XAxis dataKey="name" stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} />
                       <YAxis stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} tickFormatter={(v) => `${currentRegion.currencySymbol}${v}`} />

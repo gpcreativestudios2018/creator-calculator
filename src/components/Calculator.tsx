@@ -1452,6 +1452,128 @@ export function Calculator() {
                 </CardContent>
               </Card>
             )}
+
+            {/* Sensitivity Analysis */}
+            {results.monthlyRevenue > 0 && (
+              <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>What If Analysis</CardTitle>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="w-4 h-4 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent side="right" className="max-w-xs">
+                        <p>See how your revenue changes when your key metrics improve. This helps you understand which metrics have the biggest impact.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {(() => {
+                    const multipliers = [
+                      { label: 'Current', multiplier: 1, highlight: false },
+                      { label: '+50%', multiplier: 1.5, highlight: false },
+                      { label: '2x', multiplier: 2, highlight: true },
+                      { label: '5x', multiplier: 5, highlight: false },
+                      { label: '10x', multiplier: 10, highlight: false },
+                    ]
+                    const maxRevenue = results.monthlyRevenue * 10
+
+                    const getPrimaryMetric = () => {
+                      switch (activePlatform?.id) {
+                        case 'youtube': return 'views and subscribers'
+                        case 'tiktok': return 'views and followers'
+                        case 'instagram': return 'followers and engagement'
+                        case 'twitter': return 'impressions and subscribers'
+                        case 'facebook': return 'watch minutes'
+                        case 'linkedin': return 'followers and newsletter subscribers'
+                        case 'snapchat': return 'spotlight views'
+                        case 'pinterest': return 'monthly views and idea pins'
+                        case 'twitch': return 'subscribers and average viewers'
+                        case 'kick': return 'subscribers and viewers'
+                        case 'newsletter': return 'subscribers and paid conversion'
+                        default: return 'key metrics'
+                      }
+                    }
+
+                    return (
+                      <div className="space-y-4">
+                        {/* Growth Table */}
+                        <div className="space-y-2">
+                          {multipliers.map((item, index) => {
+                            const monthlyRev = results.monthlyRevenue * item.multiplier
+                            const yearlyRev = monthlyRev * 12
+                            const barWidth = (monthlyRev / maxRevenue) * 100
+
+                            return (
+                              <div
+                                key={item.label}
+                                className={`p-3 rounded-lg transition-all ${
+                                  item.highlight
+                                    ? theme === 'dark'
+                                      ? 'bg-purple-950/40 border border-purple-800/50'
+                                      : 'bg-purple-50 border border-purple-200'
+                                    : index % 2 === 0
+                                      ? theme === 'dark' ? 'bg-zinc-800/50' : 'bg-gray-50'
+                                      : theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'
+                                }`}
+                              >
+                                <div className="flex items-center justify-between mb-2">
+                                  <div className="flex items-center gap-3">
+                                    <span className={`text-sm font-medium w-16 ${
+                                      item.highlight
+                                        ? theme === 'dark' ? 'text-purple-400' : 'text-purple-700'
+                                        : theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'
+                                    }`}>
+                                      {item.label}
+                                    </span>
+                                    <span className={`text-lg font-bold ${
+                                      item.highlight
+                                        ? theme === 'dark' ? 'text-purple-400' : 'text-purple-600'
+                                        : theme === 'dark' ? 'text-white' : 'text-zinc-900'
+                                    }`}>
+                                      <AnimatedNumber value={monthlyRev} formatter={formatCurrency} />
+                                      <span className="text-xs font-normal text-zinc-500">/mo</span>
+                                    </span>
+                                  </div>
+                                  <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                                    <AnimatedNumber value={yearlyRev} formatter={formatCurrency} />
+                                    <span className="text-xs">/yr</span>
+                                  </span>
+                                </div>
+                                <div className={`h-2 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-200'}`}>
+                                  <div
+                                    className="h-full rounded-full transition-all duration-500"
+                                    style={{
+                                      width: `${barWidth}%`,
+                                      backgroundColor: item.highlight
+                                        ? (theme === 'dark' ? '#a855f7' : '#9333ea')
+                                        : (activePlatform?.accentColor || '#10b981')
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
+
+                        {/* Focus Note */}
+                        <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                          <p className={`text-sm ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                            <span className="mr-1">💡</span>
+                            Focus on growing your highest-impact metrics:{' '}
+                            <span className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                              {getPrimaryMetric()}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })()}
+                </CardContent>
+              </Card>
+            )}
           </>
         )}
       </main>

@@ -84,6 +84,7 @@
 - [ ] 3.10 — Full keyboard navigation support
 - [ ] 3.11 — Focus states and tab order optimization
 - [ ] 3.12 — Empty state designs (no data entered yet)
+- [ ] 3.13 — Create PWA icons (192px and 512px) for installable app
 
 ---
 

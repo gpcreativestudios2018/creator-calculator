@@ -13,7 +13,7 @@
 | Phase 1: UI Overhaul | 15 | 15 | 🟩🟩🟩🟩🟩 100% |
 | Phase 2: Core Architecture | 13 | 13 | 🟩🟩🟩🟩🟩 100% |
 | Phase 3: UX Polish | 13 | 12 | 🟩🟩🟩🟩🟨 92% |
-| Phase 4: Calculations & Accuracy | 12 | 3 | 🟩⬜⬜⬜⬜ 25% |
+| Phase 4: Calculations & Accuracy | 12 | 5 | 🟩🟩⬜⬜⬜ 42% |
 | Phase 5: Transparency & Trust | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 6: Missing Platforms | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 7: Visualizations & Data | 5 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -25,7 +25,7 @@
 | Phase 13: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 14: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 15: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| **TOTAL** | **105** | **43** | **41%** |
+| **TOTAL** | **105** | **45** | **43%** |
 
 ---
 
@@ -92,8 +92,8 @@
 > *Make the numbers actually meaningful*
 
 - [x] 4.1 — Geography/region selector (US, EU, India, LATAM, etc.)
-- [ ] 4.2 — Niche/category selector (finance, gaming, beauty, tech, etc.)
-- [ ] 4.3 — RPM/CPM ranges by niche with industry data
+- [x] 4.2 — Niche/category selector (finance, gaming, beauty, tech, etc.)
+- [x] 4.3 — RPM/CPM ranges by niche with industry data
 - [x] 4.4 — Geo-adjusted revenue multipliers
 - [x] 4.5 — Currency converter (USD, EUR, GBP, etc.)
 - [ ] 4.6 — Time period toggle (daily/weekly/monthly/yearly)

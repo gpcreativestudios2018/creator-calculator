@@ -131,36 +131,58 @@ export function Calculator() {
     }))
   }
 
+  // Helper function to apply region multiplier to calculation results
+  const applyRegionMultiplier = (result: CalculationResult, multiplier: number): CalculationResult => {
+    return {
+      ...result,
+      monthlyRevenue: result.monthlyRevenue * multiplier,
+      yearlyRevenue: result.yearlyRevenue * multiplier,
+    }
+  }
+
   // Calculate results using the calculation engine
   const results: CalculationResult = useMemo(() => {
     const v = currentValues
+    let baseResult: CalculationResult
     switch (activeTab) {
       case 'youtube':
-        return calculateYouTube(v.subscribers || 0, v.monthlyViews || 0, v.cpm || 4)
+        baseResult = calculateYouTube(v.subscribers || 0, v.monthlyViews || 0, v.cpm || 4)
+        break
       case 'tiktok':
-        return calculateTikTok(v.followers || 0, v.monthlyViews || 0, v.engagementRate || 6)
+        baseResult = calculateTikTok(v.followers || 0, v.monthlyViews || 0, v.engagementRate || 6)
+        break
       case 'instagram':
-        return calculateInstagram(v.followers || 0, v.avgLikes || 0, v.postsPerMonth || 12)
+        baseResult = calculateInstagram(v.followers || 0, v.avgLikes || 0, v.postsPerMonth || 12)
+        break
       case 'twitter':
-        return calculateTwitter(v.followers || 0, v.impressions || 0, v.subscribers || 0)
+        baseResult = calculateTwitter(v.followers || 0, v.impressions || 0, v.subscribers || 0)
+        break
       case 'facebook':
-        return calculateFacebook(v.followers || 0, v.watchMinutes || 0)
+        baseResult = calculateFacebook(v.followers || 0, v.watchMinutes || 0)
+        break
       case 'linkedin':
-        return calculateLinkedIn(v.followers || 0, v.newsletterSubs || 0)
+        baseResult = calculateLinkedIn(v.followers || 0, v.newsletterSubs || 0)
+        break
       case 'snapchat':
-        return calculateSnapchat(v.followers || 0, v.spotlightViews || 0)
+        baseResult = calculateSnapchat(v.followers || 0, v.spotlightViews || 0)
+        break
       case 'pinterest':
-        return calculatePinterest(v.followers || 0, v.monthlyViews || 0, v.ideaPins || 20)
+        baseResult = calculatePinterest(v.followers || 0, v.monthlyViews || 0, v.ideaPins || 20)
+        break
       case 'twitch':
-        return calculateTwitch(v.subscribers || 0, v.avgViewers || 0, v.hoursStreamed || 40)
+        baseResult = calculateTwitch(v.subscribers || 0, v.avgViewers || 0, v.hoursStreamed || 40)
+        break
       case 'kick':
-        return calculateKick(v.subscribers || 0, v.avgViewers || 0)
+        baseResult = calculateKick(v.subscribers || 0, v.avgViewers || 0)
+        break
       case 'newsletter':
-        return calculateNewsletter(v.subscribers || 0, v.paidPercent || 5, v.monthlyPrice || 10)
+        baseResult = calculateNewsletter(v.subscribers || 0, v.paidPercent || 5, v.monthlyPrice || 10)
+        break
       default:
-        return { monthlyRevenue: 0, yearlyRevenue: 0 }
+        baseResult = { monthlyRevenue: 0, yearlyRevenue: 0 }
     }
-  }, [activeTab, currentValues])
+    return applyRegionMultiplier(baseResult, currentRegion.revenueMultiplier)
+  }, [activeTab, currentValues, currentRegion])
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)

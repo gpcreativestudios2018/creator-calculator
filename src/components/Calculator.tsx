@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { OnboardingModal } from '@/components/OnboardingModal'
 import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { MethodologyPage } from '@/components/MethodologyPage'
@@ -351,37 +352,42 @@ export function Calculator() {
         {/* Platform Selector */}
         <div className="mb-6">
           <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2 px-3">Platform</p>
-          <div className="relative">
-            <select
-              value={activeTab}
-              onChange={(e) => setActiveTab(e.target.value)}
-              className={`w-full px-3 py-2.5 rounded-lg text-sm font-medium appearance-none cursor-pointer ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
-              style={{ paddingLeft: '2.5rem' }}
-            >
-              {platforms.map((platform) => (
-                <option key={platform.id} value={platform.id}>
-                  {platform.name}
-                </option>
-              ))}
-            </select>
-            {/* Platform Icon */}
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-              {(() => {
-                const platform = platforms.find(p => p.id === activeTab)
-                if (platform) {
-                  const Icon = platform.icon
-                  return <Icon className={`w-4 h-4 ${platform.iconColor}`} />
-                }
-                return null
-              })()}
-            </div>
-            {/* Dropdown Arrow */}
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-              <svg className={`w-4 h-4 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-          </div>
+          <Select value={activeTab} onValueChange={setActiveTab}>
+            <SelectTrigger className={`w-full ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'}`}>
+              <SelectValue>
+                {(() => {
+                  const platform = platforms.find(p => p.id === activeTab)
+                  if (platform) {
+                    const Icon = platform.icon
+                    return (
+                      <span className="flex items-center gap-2">
+                        <Icon className={`w-4 h-4 ${platform.iconColor}`} />
+                        {platform.name}
+                      </span>
+                    )
+                  }
+                  return 'Select platform'
+                })()}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent className={`${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border-gray-200'}`}>
+              {platforms.map((platform) => {
+                const Icon = platform.icon
+                return (
+                  <SelectItem
+                    key={platform.id}
+                    value={platform.id}
+                    className={`${theme === 'dark' ? 'text-white focus:bg-zinc-700' : 'text-zinc-900 focus:bg-gray-100'}`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <Icon className={`w-4 h-4 ${platform.iconColor}`} />
+                      {platform.name}
+                    </span>
+                  </SelectItem>
+                )
+              })}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Region Selector */}

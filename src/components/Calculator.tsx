@@ -248,7 +248,7 @@ export function Calculator() {
                       <Tooltip
                         contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a' }}
                         labelStyle={{ color: '#fff' }}
-                        formatter={(value: number) => [`$${value.toFixed(2)}`, 'Revenue']}
+                        formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Revenue']}
                       />
                       <Bar dataKey="value" fill="#10b981" radius={[4, 4, 0, 0]} />
                     </BarChart>

@@ -187,7 +187,7 @@ export function Calculator() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-zinc-900 border-zinc-800">
+              <Card className="bg-zinc-900 border-zinc-800 border-l-4" style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
@@ -201,7 +201,7 @@ export function Calculator() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-zinc-900 border-zinc-800">
+              <Card className="bg-zinc-900 border-zinc-800 border-l-4" style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Engagement Rate</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
@@ -215,7 +215,7 @@ export function Calculator() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-zinc-900 border-zinc-800">
+              <Card className="bg-zinc-900 border-zinc-800 border-l-4" style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2 flex flex-row items-center justify-between">
                   <CardTitle className="text-sm font-medium text-zinc-400">Growth Rate</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">

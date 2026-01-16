@@ -146,11 +146,12 @@ export function Calculator() {
             <button
               key={platform.id}
               onClick={() => setActiveTab(platform.id)}
-              className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-colors ${
+              className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
                 activeTab === platform.id
-                  ? 'bg-zinc-800 text-white'
-                  : 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white'
+                  ? 'bg-zinc-800 text-white shadow-lg'
+                  : 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white hover:translate-x-1'
               }`}
+              style={activeTab === platform.id ? { boxShadow: `0 0 20px ${platform.accentColor}30` } : {}}
             >
               <platform.icon className={`w-4 h-4 ${platform.iconColor}`} />
               {platform.name}

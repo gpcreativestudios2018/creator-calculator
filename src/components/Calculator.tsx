@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { TrendingUp } from 'lucide-react'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -229,10 +230,37 @@ export function Calculator() {
               </Card>
             </div>
 
+            {/* Revenue Chart */}
+            <Card className="bg-zinc-900 border-zinc-800 mb-6">
+              <CardHeader>
+                <CardTitle className="text-white">Revenue Breakdown</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={[
+                      { name: 'Monthly', value: results.monthlyRevenue },
+                      { name: 'Quarterly', value: results.monthlyRevenue * 3 },
+                      { name: 'Yearly', value: results.yearlyRevenue },
+                    ]}>
+                      <XAxis dataKey="name" stroke="#71717a" fontSize={12} />
+                      <YAxis stroke="#71717a" fontSize={12} tickFormatter={(v) => `$${v}`} />
+                      <Tooltip
+                        contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a' }}
+                        labelStyle={{ color: '#fff' }}
+                        formatter={(value: number) => [`$${value.toFixed(2)}`, 'Revenue']}
+                      />
+                      <Bar dataKey="value" fill="#10b981" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Input Card */}
             <Card className="bg-zinc-900 border-zinc-800">
               <CardHeader>
-                <CardTitle>Your Metrics</CardTitle>
+                <CardTitle className="text-white">Your Metrics</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

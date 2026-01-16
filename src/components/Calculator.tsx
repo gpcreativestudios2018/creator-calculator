@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { TrendingUp } from 'lucide-react'
+import { TrendingUp, Menu, X } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { platforms, type PlatformInput } from '@/platforms/registry'
@@ -38,6 +38,7 @@ function getInitialValues(): InputValues {
 export function Calculator() {
   const [activeTab, setActiveTab] = useState('youtube')
   const [inputValues, setInputValues] = useState<InputValues>(getInitialValues)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const activePlatform = platforms.find(p => p.id === activeTab)
   const currentValues = inputValues[activeTab] || {}
@@ -135,8 +136,16 @@ export function Calculator() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex">
+      {/* Mobile Header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 bg-zinc-900 border-b border-zinc-800 p-4 flex items-center justify-between z-50">
+        <h1 className="text-xl font-bold">Creator Calculator</h1>
+        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
+          {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </div>
+
       {/* Sidebar */}
-      <aside className="w-64 bg-zinc-900 border-r border-zinc-800 p-4 flex flex-col">
+      <aside className={`fixed lg:static inset-y-0 left-0 w-64 bg-zinc-900 border-r border-zinc-800 p-4 flex flex-col z-40 transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
         <div className="mb-8">
           <h1 className="text-xl font-bold">Creator Calculator</h1>
         </div>
@@ -161,8 +170,16 @@ export function Calculator() {
         </nav>
       </aside>
 
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 pt-20 lg:pt-6">
         {activePlatform && (
           <>
             {/* Header */}

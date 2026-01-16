@@ -209,7 +209,7 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Monthly Revenue</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
                     <TrendingUp className="w-3 h-3 mr-1" />
-                    +12.5%
+                    (?)
                   </span>
                   </div>
                 </CardHeader>
@@ -227,7 +227,7 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
                     <TrendingUp className="w-3 h-3 mr-1" />
-                    +12.5%
+                    (?)
                   </span>
                   </div>
                 </CardHeader>
@@ -245,7 +245,7 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Engagement Rate</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
                     <TrendingUp className="w-3 h-3 mr-1" />
-                    +4.5%
+                    (?)
                   </span>
                   </div>
                 </CardHeader>
@@ -263,7 +263,7 @@ export function Calculator() {
                   <CardTitle className="text-sm font-medium text-zinc-400">Growth Rate</CardTitle>
                   <span className="flex items-center text-xs text-emerald-500">
                     <TrendingUp className="w-3 h-3 mr-1" />
-                    +{(results.growthRate ?? 0).toFixed(1)}%
+                    (?)
                   </span>
                   </div>
                 </CardHeader>

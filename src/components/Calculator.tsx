@@ -383,6 +383,21 @@ export function Calculator() {
             </div>
 
             {/* Metric Cards Row */}
+            {results.monthlyRevenue === 0 ? (
+              <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                    <TrendingUp className="w-8 h-8 text-zinc-500" />
+                  </div>
+                  <h3 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                    Enter your metrics to see earnings
+                  </h3>
+                  <p className="text-zinc-500 max-w-md">
+                    Fill in your {activePlatform?.name} stats below and we'll calculate your estimated revenue from ads, sponsorships, and platform programs.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <Card className={`border-l-4 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`} style={{ borderLeftColor: activePlatform.accentColor }}>
                 <CardHeader className="pb-2">
@@ -484,6 +499,7 @@ export function Calculator() {
                 </CardContent>
               </Card>
             </div>
+            )}
 
             {/* Revenue Chart */}
             <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>

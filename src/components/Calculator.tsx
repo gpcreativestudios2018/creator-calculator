@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from 'react'
-import { TrendingUp, Menu, X, Sun, Moon, Info, RotateCcw } from 'lucide-react'
+import { TrendingUp, Menu, X, Sun, Moon, Info, RotateCcw, Wallet } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -402,6 +402,26 @@ export function Calculator() {
           </div>
         </div>
 
+        {/* Portfolio Section */}
+        <div className="mb-4">
+          <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3 px-3">Portfolio</p>
+          <button
+            onClick={() => setActiveTab('portfolio')}
+            className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
+              activeTab === 'portfolio'
+                ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
+                : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:translate-x-1`
+            }`}
+            style={activeTab === 'portfolio' ? { boxShadow: '0 0 20px rgba(16, 185, 129, 0.3)' } : {}}
+          >
+            <Wallet className={`w-4 h-4 ${activeTab === 'portfolio' ? 'text-white' : 'text-emerald-500'}`} />
+            Total Earnings
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div className={`border-t mb-4 ${theme === 'dark' ? 'border-zinc-800' : 'border-gray-200'}`} />
+
         <nav className="space-y-1 flex-1">
           <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3 px-3">Platforms</p>
           {platforms.map((platform) => (
@@ -531,6 +551,191 @@ export function Calculator() {
               })}
             </div>
           </div>
+        ) : activeTab === 'portfolio' ? (
+          /* Portfolio View */
+          (() => {
+            // Calculate total revenue across all platforms
+            const platformRevenues = platforms.map((platform) => {
+              const v = inputValues[platform.id] || {}
+              let revenue = 0
+
+              switch (platform.id) {
+                case 'youtube':
+                  revenue = ((v.monthlyViews || 100000) / 1000) * (v.cpm || 4) * 0.55 + (v.subscribers || 10000) * 0.05
+                  break
+                case 'tiktok':
+                  revenue = (v.monthlyViews || 500000) * 0.02 + ((v.followers || 50000) >= 10000 ? (v.followers || 50000) * 0.015 : 0)
+                  break
+                case 'instagram':
+                  revenue = ((v.followers || 25000) >= 10000 ? ((v.followers || 25000) / 1000) * 10 : 0) * ((v.postsPerMonth || 12) / 4)
+                  break
+                case 'twitter':
+                  revenue = ((v.impressions || 500000) / 1000) * 0.5 + (v.subscribers || 0) * 3
+                  break
+                case 'facebook':
+                  revenue = ((v.watchMinutes || 100000) / 1000) * 1.5
+                  break
+                case 'linkedin':
+                  revenue = Math.floor((v.newsletterSubs || 1000) * 0.01) * 500
+                  break
+                case 'snapchat':
+                  revenue = ((v.spotlightViews || 50000) / 1000) * 0.05
+                  break
+                case 'pinterest':
+                  revenue = ((v.monthlyViews || 100000) / 1000) * 0.1 + (v.ideaPins || 20) * 2
+                  break
+                case 'twitch':
+                  revenue = (v.subscribers || 100) * 2.5 + (v.avgViewers || 50) * (v.hoursStreamed || 40) * 0.02 + (v.avgViewers || 50) * 0.5
+                  break
+                case 'kick':
+                  revenue = (v.subscribers || 50) * 4.5
+                  break
+                case 'newsletter':
+                  revenue = Math.floor((v.subscribers || 5000) * ((v.paidPercent || 5) / 100)) * (v.monthlyPrice || 10) * 0.9
+                  break
+              }
+
+              return {
+                platform,
+                revenue: revenue * currentRegion.revenueMultiplier * currentNiche.rpmMultiplier,
+              }
+            })
+
+            const totalMonthlyRevenue = platformRevenues.reduce((sum, p) => sum + p.revenue, 0)
+            const sortedPlatforms = [...platformRevenues].sort((a, b) => b.revenue - a.revenue)
+
+            return (
+              <div>
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+                    Total Portfolio
+                  </h2>
+                  <p className="text-zinc-400">Combined earnings across all platforms</p>
+                </div>
+
+                {/* Total Earnings Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                  <Card className={`border-l-4 border-l-emerald-500 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm font-medium text-zinc-400">{currentTimePeriod.name} Total</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                        <AnimatedNumber value={totalMonthlyRevenue * currentTimePeriod.multiplier} formatter={formatCurrency} />
+                      </p>
+                      <p className="text-xs text-emerald-500 mt-1">All platforms combined</p>
+                    </CardContent>
+                  </Card>
+
+                  <Card className={`border-l-4 border-l-emerald-500 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm font-medium text-zinc-400">Monthly Total</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                        <AnimatedNumber value={totalMonthlyRevenue} formatter={formatCurrency} />
+                      </p>
+                      <p className="text-xs text-emerald-500 mt-1">Per month</p>
+                    </CardContent>
+                  </Card>
+
+                  <Card className={`border-l-4 border-l-emerald-500 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm font-medium text-zinc-400">Yearly Projection</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                        <AnimatedNumber value={totalMonthlyRevenue * 12} formatter={formatCurrency} />
+                      </p>
+                      <p className="text-xs text-emerald-500 mt-1">Annual estimate</p>
+                    </CardContent>
+                  </Card>
+
+                  <Card className={`border-l-4 border-l-emerald-500 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm font-medium text-zinc-400">Active Platforms</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                        {platforms.length}
+                      </p>
+                      <p className="text-xs text-emerald-500 mt-1">Revenue sources</p>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Revenue Chart */}
+                <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                  <CardHeader>
+                    <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Revenue by Platform</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-80">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={sortedPlatforms.map(p => ({
+                          name: p.platform.name,
+                          value: p.revenue * currentTimePeriod.multiplier,
+                          fill: p.platform.accentColor,
+                        }))} layout="vertical">
+                          <XAxis type="number" stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} tickFormatter={(v) => `${currentRegion.currencySymbol}${v}`} />
+                          <YAxis type="category" dataKey="name" stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} width={100} />
+                          <RechartsTooltip
+                            contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a' }}
+                            labelStyle={{ color: '#fff' }}
+                            formatter={(value) => [`${currentRegion.currencySymbol}${Number(value).toFixed(2)}`, 'Revenue']}
+                            cursor={false}
+                          />
+                          <Bar dataKey="value" radius={[0, 4, 4, 0]} animationDuration={500} animationEasing="ease-out">
+                            {sortedPlatforms.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.platform.accentColor} />
+                            ))}
+                          </Bar>
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Platform Breakdown */}
+                <Card className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+                  <CardHeader>
+                    <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Platform Breakdown</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {sortedPlatforms.map(({ platform, revenue }) => {
+                        const percentage = totalMonthlyRevenue > 0 ? (revenue / totalMonthlyRevenue) * 100 : 0
+                        return (
+                          <div
+                            key={platform.id}
+                            className={`p-3 rounded-lg cursor-pointer transition-all hover:scale-[1.02] ${theme === 'dark' ? 'bg-zinc-800 hover:bg-zinc-700' : 'bg-gray-100 hover:bg-gray-200'}`}
+                            onClick={() => setActiveTab(platform.id)}
+                          >
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-2">
+                                <platform.icon className={`w-4 h-4 ${platform.iconColor}`} />
+                                <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>{platform.name}</span>
+                              </div>
+                              <span className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                                {formatCurrency(revenue * currentTimePeriod.multiplier)}
+                              </span>
+                            </div>
+                            <div className={`h-2 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                              <div
+                                className="h-full rounded-full transition-all duration-500"
+                                style={{ width: `${percentage}%`, backgroundColor: platform.accentColor }}
+                              />
+                            </div>
+                            <p className="text-xs text-zinc-500 mt-1">{percentage.toFixed(1)}% of total</p>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )
+          })()
         ) : activePlatform && (
           <>
             {/* Header */}

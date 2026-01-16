@@ -14,7 +14,7 @@
 | Phase 2: Core Architecture | 13 | 13 | 🟩🟩🟩🟩🟩 100% |
 | Phase 3: UX Polish | 13 | 12 | 🟩🟩🟩🟩🟨 92% |
 | Phase 4: Calculations & Accuracy | 12 | 12 | 🟩🟩🟩🟩🟩 100% |
-| Phase 5: Transparency & Trust | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 5: Transparency & Trust | 8 | 8 | 🟩🟩🟩🟩🟩 100% |
 | Phase 6: Missing Platforms | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 7: Visualizations & Data | 5 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 8: Business Tools | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -25,7 +25,7 @@
 | Phase 13: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 14: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 15: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| **TOTAL** | **105** | **52** | **50%** |
+| **TOTAL** | **105** | **60** | **57%** |
 
 ---
 
@@ -109,14 +109,14 @@
 ## ✅ PHASE 5: TRANSPARENCY & TRUST
 > *Show your work — build credibility*
 
-- [ ] 5.1 — "How this is calculated" section per platform
-- [ ] 5.2 — Dedicated methodology page with all formulas
-- [ ] 5.3 — Glossary of creator economy terms (CPM, RPM, MRR, etc.)
-- [ ] 5.4 — Platform-specific disclaimers
-- [ ] 5.5 — "Why your earnings vary" explainer
-- [ ] 5.6 — Data source references (cite assumptions)
-- [ ] 5.7 — Formula versioning (v1, v2, v3 as updated)
-- [ ] 5.8 — Last updated timestamps on calculations
+- [x] 5.1 — "How this is calculated" section per platform
+- [x] 5.2 — Dedicated methodology page with all formulas
+- [x] 5.3 — Glossary of creator economy terms (CPM, RPM, MRR, etc.)
+- [x] 5.4 — Platform-specific disclaimers
+- [x] 5.5 — "Why your earnings vary" explainer
+- [x] 5.6 — Data source references (cite assumptions)
+- [x] 5.7 — Formula versioning (v1, v2, v3 as updated)
+- [x] 5.8 — Last updated timestamps on calculations
 
 ---
 

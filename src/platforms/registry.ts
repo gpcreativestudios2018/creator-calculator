@@ -10,6 +10,10 @@ import {
   Twitch,
   Gamepad2,
   Mail,
+  Heart,
+  Coffee,
+  ShoppingBag,
+  Podcast,
   type LucideIcon
 } from 'lucide-react'
 
@@ -184,6 +188,61 @@ export const platforms: Platform[] = [
       { id: 'subscribers', label: 'Total Subscribers', type: 'number', min: 0, max: 10000000, defaultValue: 5000, tooltip: 'Total email subscribers' },
       { id: 'paidPercent', label: 'Paid Subscriber %', type: 'slider', min: 0, max: 20, step: 0.5, defaultValue: 5, tooltip: 'Percentage who pay' },
       { id: 'monthlyPrice', label: 'Monthly Price ($)', type: 'slider', min: 1, max: 50, step: 1, defaultValue: 10, tooltip: 'Subscription price' },
+    ],
+  },
+  {
+    id: 'patreon',
+    name: 'Patreon',
+    icon: Heart,
+    iconColor: 'text-orange-500',
+    accentColor: '#f97316',
+    gradient: 'from-orange-500 to-red-500',
+    description: 'Memberships and exclusive content',
+    inputs: [
+      { id: 'patrons', label: 'Total Patrons', type: 'number', min: 0, max: 1000000, defaultValue: 100, tooltip: 'Number of paying patrons' },
+      { id: 'avgPledge', label: 'Average Pledge ($)', type: 'slider', min: 1, max: 50, step: 1, defaultValue: 5, tooltip: 'Average monthly pledge amount' },
+    ],
+  },
+  {
+    id: 'kofi',
+    name: 'Ko-fi',
+    icon: Coffee,
+    iconColor: 'text-cyan-500',
+    accentColor: '#06b6d4',
+    gradient: 'from-cyan-500 to-blue-500',
+    description: 'Tips, memberships, and shop sales',
+    inputs: [
+      { id: 'supporters', label: 'Monthly Supporters', type: 'number', min: 0, max: 100000, defaultValue: 20, tooltip: 'One-time supporters per month' },
+      { id: 'avgTip', label: 'Average Tip ($)', type: 'slider', min: 1, max: 25, step: 1, defaultValue: 5, tooltip: 'Average tip amount' },
+      { id: 'members', label: 'Monthly Members', type: 'number', min: 0, max: 100000, defaultValue: 10, tooltip: 'Recurring membership subscribers' },
+      { id: 'memberPrice', label: 'Membership Price ($)', type: 'slider', min: 1, max: 30, step: 1, defaultValue: 5, tooltip: 'Monthly membership price' },
+    ],
+  },
+  {
+    id: 'gumroad',
+    name: 'Gumroad',
+    icon: ShoppingBag,
+    iconColor: 'text-pink-500',
+    accentColor: '#ec4899',
+    gradient: 'from-pink-500 to-rose-500',
+    description: 'Digital products and courses',
+    inputs: [
+      { id: 'products', label: 'Products Sold / Month', type: 'number', min: 0, max: 10000, defaultValue: 50, tooltip: 'Units sold per month' },
+      { id: 'avgPrice', label: 'Average Price ($)', type: 'slider', min: 1, max: 200, step: 5, defaultValue: 25, tooltip: 'Average product price' },
+    ],
+  },
+  {
+    id: 'podcast',
+    name: 'Podcast',
+    icon: Podcast,
+    iconColor: 'text-violet-500',
+    accentColor: '#8b5cf6',
+    gradient: 'from-violet-500 to-purple-600',
+    description: 'Spotify, Apple Podcasts, and sponsorships',
+    inputs: [
+      { id: 'downloads', label: 'Monthly Downloads', type: 'number', min: 0, max: 10000000, defaultValue: 10000, tooltip: 'Total monthly episode downloads' },
+      { id: 'episodes', label: 'Episodes / Month', type: 'slider', min: 1, max: 30, step: 1, defaultValue: 4, tooltip: 'Episodes published per month' },
+      { id: 'cpm', label: 'Sponsor CPM ($)', type: 'slider', min: 10, max: 50, step: 5, defaultValue: 25, tooltip: 'Cost per 1000 downloads for sponsors' },
     ],
   },
 ]

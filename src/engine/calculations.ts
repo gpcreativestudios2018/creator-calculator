@@ -293,3 +293,96 @@ export function calculateAmazon(pageViews: number, conversionRate: number, avgCo
     growthRate: 3.0,
   }
 }
+
+// Fansly (takes 20% platform fee, same as OnlyFans)
+export function calculateFansly(subscribers: number, subPrice: number, tipsPercent: number): CalculationResult {
+  const subRevenue = subscribers * subPrice
+  const tipRevenue = subRevenue * (tipsPercent / 100)
+  const grossRevenue = subRevenue + tipRevenue
+  const platformFee = grossRevenue * 0.20
+  const monthlyRevenue = grossRevenue - platformFee
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Subscriptions': subRevenue,
+      'Tips': tipRevenue,
+      'Platform Fee (20%)': -platformFee,
+    },
+    engagementRate: subscribers > 0 ? Math.min((tipsPercent / 20) * 100, 100) : 0,
+    growthRate: 8.0,
+  }
+}
+
+// Threads (brand deals based on engagement)
+export function calculateThreads(followers: number, avgLikes: number, postsPerMonth: number): CalculationResult {
+  const engagementRate = followers > 0 ? (avgLikes / followers) * 100 : 0
+  const brandDealRate = followers >= 10000 ? (followers / 1000) * 8 : 0
+  const monthlyRevenue = brandDealRate * (postsPerMonth / 8) // assume 1 sponsored per 8 posts
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Brand Deals': monthlyRevenue,
+    },
+    engagementRate,
+    growthRate: 15.0,
+  }
+}
+
+// Discord (server subscriptions, 10% platform fee)
+export function calculateDiscord(subscribers: number, subPrice: number): CalculationResult {
+  const grossRevenue = subscribers * subPrice
+  const platformFee = grossRevenue * 0.10
+  const monthlyRevenue = grossRevenue - platformFee
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Subscriptions': grossRevenue,
+      'Platform Fee (10%)': -platformFee,
+    },
+    engagementRate: subscribers > 0 ? Math.min((subscribers / 100) * 10, 100) : 0,
+    growthRate: 5.0,
+  }
+}
+
+// Rumble (ad revenue + Rants)
+export function calculateRumble(followers: number, monthlyViews: number, rants: number): CalculationResult {
+  const adRevenue = (monthlyViews / 1000) * 2.5 // ~$2.50 CPM
+  const rantsRevenue = rants * 0.9 // 90% payout on Rants
+  const monthlyRevenue = adRevenue + rantsRevenue
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Ad Revenue': adRevenue,
+      'Rants': rantsRevenue,
+    },
+    engagementRate: followers > 0 ? (monthlyViews / followers) * 100 / 30 : 0,
+    growthRate: 12.0,
+  }
+}
+
+// Substack (10% platform fee on paid subscriptions)
+export function calculateSubstack(subscribers: number, paidPercent: number, monthlyPrice: number): CalculationResult {
+  const paidSubs = Math.floor(subscribers * (paidPercent / 100))
+  const grossRevenue = paidSubs * monthlyPrice
+  const platformFee = grossRevenue * 0.10
+  const monthlyRevenue = grossRevenue - platformFee
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Paid Subscriptions': grossRevenue,
+      'Platform Fee (10%)': -platformFee,
+    },
+    engagementRate: paidPercent,
+    growthRate: 8.5,
+  }
+}

@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { OnboardingModal } from '@/components/OnboardingModal'
+import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
 import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
@@ -1574,6 +1575,9 @@ export function Calculator() {
                 </CardContent>
               </Card>
             )}
+
+            {/* How This Is Calculated */}
+            <HowItsCalculated platformId={activeTab} />
           </>
         )}
       </main>

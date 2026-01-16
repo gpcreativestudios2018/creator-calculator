@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { TrendingUp, Menu, X, Sun, Moon, Info, RotateCcw, Wallet } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell, LineChart, Line } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell, LineChart, Line, PieChart, Pie } from 'recharts'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -1123,30 +1123,95 @@ export function Calculator() {
               </CardContent>
             </Card>
 
-            {/* Revenue Chart */}
+            {/* Revenue Breakdown */}
             <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
               <CardHeader>
                 <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Revenue Breakdown</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={[
-                      { name: currentTimePeriod.name, value: results.monthlyRevenue * currentTimePeriod.multiplier },
-                      { name: 'Monthly', value: results.monthlyRevenue },
-                      { name: 'Yearly', value: results.monthlyRevenue * 12 },
-                    ]}>
-                      <XAxis dataKey="name" stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} />
-                      <YAxis stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} tickFormatter={(v) => `${currentRegion.currencySymbol}${v}`} />
-                      <RechartsTooltip
-                        contentStyle={{ backgroundColor: '#18181b', border: '1px solid #27272a' }}
-                        labelStyle={{ color: '#fff' }}
-                        formatter={(value) => [`${currentRegion.currencySymbol}${Number(value).toFixed(2)}`, 'Revenue']}
-                        cursor={false}
-                      />
-                      <Bar dataKey="value" fill={activePlatform.accentColor} radius={[4, 4, 0, 0]} style={{ cursor: 'default' }} animationDuration={500} animationEasing="ease-out" />
-                    </BarChart>
-                  </ResponsiveContainer>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Pie Chart - Revenue Streams */}
+                  <div>
+                    <p className={`text-sm font-medium mb-3 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Revenue Streams</p>
+                    <div className="h-64">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={
+                              results.breakdown
+                                ? Object.entries(results.breakdown)
+                                    .filter(([_, value]) => typeof value === 'number' && value > 0)
+                                    .map(([name, value], index) => ({
+                                      name,
+                                      value: value as number,
+                                      fill: [activePlatform?.accentColor, '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'][index % 5],
+                                    }))
+                                : [{ name: 'Revenue', value: results.monthlyRevenue, fill: activePlatform?.accentColor }]
+                            }
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={50}
+                            outerRadius={80}
+                            paddingAngle={2}
+                            dataKey="value"
+                            animationDuration={500}
+                          >
+                            {results.breakdown &&
+                              Object.entries(results.breakdown)
+                                .filter(([_, value]) => typeof value === 'number' && value > 0)
+                                .map((_, index) => (
+                                  <Cell key={`cell-${index}`} fill={[activePlatform?.accentColor, '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'][index % 5]} />
+                                ))}
+                          </Pie>
+                          <RechartsTooltip
+                            contentStyle={{ backgroundColor: theme === 'dark' ? '#18181b' : '#fff', border: `1px solid ${theme === 'dark' ? '#27272a' : '#e5e7eb'}` }}
+                            labelStyle={{ color: theme === 'dark' ? '#fff' : '#000' }}
+                            formatter={(value) => [formatCurrency(Number(value)), '']}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                    {/* Legend */}
+                    <div className="flex flex-wrap justify-center gap-3 mt-2">
+                      {results.breakdown &&
+                        Object.entries(results.breakdown)
+                          .filter(([_, value]) => typeof value === 'number' && value > 0)
+                          .map(([name, _], index) => (
+                            <div key={name} className="flex items-center gap-1.5">
+                              <div
+                                className="w-3 h-3 rounded-full"
+                                style={{ backgroundColor: [activePlatform?.accentColor, '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'][index % 5] }}
+                              />
+                              <span className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>{name}</span>
+                            </div>
+                          ))}
+                    </div>
+                  </div>
+
+                  {/* Bar Chart - Time Periods */}
+                  <div>
+                    <p className={`text-sm font-medium mb-3 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Earnings by Period</p>
+                    <div className="h-64">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={[
+                          { name: 'Daily', value: results.monthlyRevenue / 30 },
+                          { name: 'Weekly', value: results.monthlyRevenue / 4 },
+                          { name: 'Monthly', value: results.monthlyRevenue },
+                          { name: 'Yearly', value: results.monthlyRevenue * 12 },
+                        ]}>
+                          <XAxis dataKey="name" stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} />
+                          <YAxis stroke={theme === 'dark' ? '#71717a' : '#52525b'} fontSize={12} tickFormatter={(v) => `${currentRegion.currencySymbol}${v >= 1000 ? `${(v/1000).toFixed(0)}k` : v.toFixed(0)}`} />
+                          <RechartsTooltip
+                            contentStyle={{ backgroundColor: theme === 'dark' ? '#18181b' : '#fff', border: `1px solid ${theme === 'dark' ? '#27272a' : '#e5e7eb'}` }}
+                            labelStyle={{ color: theme === 'dark' ? '#fff' : '#000' }}
+                            formatter={(value) => [formatCurrency(Number(value)), 'Revenue']}
+                            cursor={false}
+                          />
+                          <Bar dataKey="value" fill={activePlatform?.accentColor} radius={[4, 4, 0, 0]} animationDuration={500} animationEasing="ease-out" />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>

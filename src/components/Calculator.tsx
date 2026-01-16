@@ -68,6 +68,21 @@ export function Calculator() {
         }
       }
 
+      // Arrow keys to navigate platforms
+      if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && !compareMode) {
+        e.preventDefault()
+        const currentIndex = platforms.findIndex(p => p.id === activeTab)
+        let newIndex: number
+
+        if (e.key === 'ArrowDown') {
+          newIndex = currentIndex < platforms.length - 1 ? currentIndex + 1 : 0
+        } else {
+          newIndex = currentIndex > 0 ? currentIndex - 1 : platforms.length - 1
+        }
+
+        setActiveTab(platforms[newIndex].id)
+      }
+
       // R to reset current platform
       if (e.key.toLowerCase() === 'r' && !compareMode && activePlatform) {
         const defaults: Record<string, number> = {}
@@ -83,6 +98,12 @@ export function Calculator() {
       // C to toggle compare mode
       if (e.key.toLowerCase() === 'c') {
         setCompareMode(prev => !prev)
+      }
+
+      // ? to show keyboard shortcuts (future feature placeholder)
+      if (e.key === '?') {
+        // Could open a shortcuts modal in the future
+        console.log('Shortcuts: 1-9/0/- = platforms, ↑↓ = navigate, R = reset, C = compare')
       }
     }
 

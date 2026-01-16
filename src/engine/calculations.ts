@@ -1,6 +1,7 @@
 export interface CalculationResult {
   monthlyRevenue: number
   yearlyRevenue: number
+  breakdown?: Record<string, number>
   engagementRate?: number
   growthRate?: number
 }
@@ -142,5 +143,79 @@ export function calculateNewsletter(subscribers: number, paidPercent: number, mo
     yearlyRevenue: monthlyRevenue * 12,
     engagementRate: paidPercent,
     growthRate: 9.1,
+  }
+}
+
+// Patreon: Memberships (Patreon takes ~8-12% fee, we'll use 10%)
+export function calculatePatreon(patrons: number, avgPledge: number): CalculationResult {
+  const grossRevenue = patrons * avgPledge
+  const platformFee = grossRevenue * 0.10
+  const monthlyRevenue = grossRevenue - platformFee
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Membership Revenue': grossRevenue,
+      'Platform Fee (10%)': -platformFee,
+    },
+    engagementRate: patrons > 0 ? Math.min((avgPledge / 5) * 100, 100) : 0,
+    growthRate: 3.0,
+  }
+}
+
+// Ko-fi: Tips + Memberships (Ko-fi takes 0% on tips for free tier, 5% on memberships)
+export function calculateKofi(supporters: number, avgTip: number, members: number, memberPrice: number): CalculationResult {
+  const tipRevenue = supporters * avgTip
+  const membershipGross = members * memberPrice
+  const membershipFee = membershipGross * 0.05
+  const membershipRevenue = membershipGross - membershipFee
+  const monthlyRevenue = tipRevenue + membershipRevenue
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Tips': tipRevenue,
+      'Memberships': membershipRevenue,
+    },
+    engagementRate: (supporters + members) > 0 ? Math.min(((supporters + members) / 100) * 10, 100) : 0,
+    growthRate: 2.5,
+  }
+}
+
+// Gumroad: Digital products (Gumroad takes 10% flat fee)
+export function calculateGumroad(products: number, avgPrice: number): CalculationResult {
+  const grossRevenue = products * avgPrice
+  const platformFee = grossRevenue * 0.10
+  const monthlyRevenue = grossRevenue - platformFee
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Product Sales': grossRevenue,
+      'Platform Fee (10%)': -platformFee,
+    },
+    engagementRate: products > 0 ? Math.min((products / 50) * 100, 100) : 0,
+    growthRate: 4.0,
+  }
+}
+
+// Podcast: Sponsorships based on downloads
+export function calculatePodcast(downloads: number, episodes: number, cpm: number): CalculationResult {
+  const downloadsPerEpisode = episodes > 0 ? downloads / episodes : 0
+  const sponsorRevenue = (downloads / 1000) * cpm
+  const monthlyRevenue = sponsorRevenue
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Sponsorship Revenue': sponsorRevenue,
+      'Downloads/Episode': downloadsPerEpisode,
+    },
+    engagementRate: downloadsPerEpisode > 0 ? Math.min((downloadsPerEpisode / 1000) * 10, 100) : 0,
+    growthRate: 5.0,
   }
 }

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { TrendingUp, Menu, X, Sun, Moon, Info } from 'lucide-react'
+import { TrendingUp, Menu, X, Sun, Moon, Info, RotateCcw } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts'
@@ -450,8 +450,30 @@ export function Calculator() {
 
             {/* Input Card */}
             <Card className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className={`${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Your Metrics</CardTitle>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => {
+                        const defaults: Record<string, number> = {}
+                        for (const input of activePlatform!.inputs) {
+                          defaults[input.id] = input.defaultValue
+                        }
+                        setInputValues(prev => ({
+                          ...prev,
+                          [activeTab]: defaults,
+                        }))
+                      }}
+                      className={`p-2 rounded-lg transition-colors ${theme === 'dark' ? 'hover:bg-zinc-800 text-zinc-400 hover:text-white' : 'hover:bg-gray-100 text-zinc-500 hover:text-zinc-900'}`}
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="left">
+                    <p>Reset to defaults</p>
+                  </TooltipContent>
+                </Tooltip>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

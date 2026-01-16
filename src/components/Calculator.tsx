@@ -98,6 +98,20 @@ export function Calculator() {
   const renderInput = (input: PlatformInput) => {
     const value = currentValues[input.id] ?? input.defaultValue
 
+    // Validation logic
+    const getValidationError = (): string | null => {
+      if (value < (input.min ?? 0)) {
+        return `Minimum value is ${(input.min ?? 0).toLocaleString()}`
+      }
+      if (input.max && value > input.max) {
+        return `Maximum value is ${input.max.toLocaleString()}`
+      }
+      return null
+    }
+
+    const error = getValidationError()
+    const hasError = error !== null
+
     if (input.type === 'slider') {
       return (
         <div key={input.id} className="space-y-3">
@@ -115,7 +129,7 @@ export function Calculator() {
                 </Tooltip>
               )}
             </div>
-            <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>{value}{input.label.includes('%') || input.label.includes('CPM') ? '' : ''}</span>
+            <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>{value}</span>
           </div>
           <Slider
             value={[value]}
@@ -150,8 +164,16 @@ export function Calculator() {
           onChange={(e) => updateValue(input.id, Number(e.target.value))}
           min={input.min}
           max={input.max}
-          className={`${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'}`}
+          className={`${theme === 'dark' ? 'bg-zinc-800 text-white' : 'bg-gray-100 text-zinc-900'} ${hasError ? 'border-red-500 focus:ring-red-500' : theme === 'dark' ? 'border-zinc-700' : 'border-gray-300'}`}
         />
+        {hasError && (
+          <p className="text-xs text-red-500 flex items-center gap-1">
+            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+            {error}
+          </p>
+        )}
       </div>
     )
   }

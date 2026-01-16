@@ -149,7 +149,12 @@ export function Calculator() {
       {/* Sidebar */}
       <aside className={`fixed lg:static inset-y-0 left-0 w-64 p-4 flex flex-col z-40 transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${theme === 'dark' ? 'bg-zinc-900 border-r border-zinc-800' : 'bg-white border-r border-gray-200'}`}>
         <div className="mb-8">
-          <h1 className="text-xl font-bold">Creator Calculator</h1>
+          <div className="flex items-center gap-2">
+            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center`}>
+              <span className="text-white font-bold text-sm">CC</span>
+            </div>
+            <h1 className="text-xl font-bold">Creator Calculator</h1>
+          </div>
         </div>
 
         <nav className="space-y-1 flex-1">

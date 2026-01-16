@@ -219,3 +219,77 @@ export function calculatePodcast(downloads: number, episodes: number, cpm: numbe
     growthRate: 5.0,
   }
 }
+
+// Courses (Teachable, Kajabi, etc.)
+export function calculateCourses(students: number, coursePrice: number, platformFee: number): CalculationResult {
+  const grossRevenue = students * coursePrice
+  const fees = grossRevenue * (platformFee / 100)
+  const monthlyRevenue = grossRevenue - fees
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Course Sales': grossRevenue,
+      'Platform Fees': -fees,
+    },
+    engagementRate: students > 0 ? Math.min((students / 20) * 100, 100) : 0,
+    growthRate: 4.5,
+  }
+}
+
+// OnlyFans (takes 20% platform fee)
+export function calculateOnlyFans(subscribers: number, subPrice: number, tipsPercent: number): CalculationResult {
+  const subRevenue = subscribers * subPrice
+  const tipRevenue = subRevenue * (tipsPercent / 100)
+  const grossRevenue = subRevenue + tipRevenue
+  const platformFee = grossRevenue * 0.20
+  const monthlyRevenue = grossRevenue - platformFee
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Subscriptions': subRevenue,
+      'Tips': tipRevenue,
+      'Platform Fee (20%)': -platformFee,
+    },
+    engagementRate: subscribers > 0 ? Math.min((tipsPercent / 20) * 100, 100) : 0,
+    growthRate: 5.0,
+  }
+}
+
+// Etsy (profit after all costs)
+export function calculateEtsy(orders: number, avgOrder: number, profitMargin: number): CalculationResult {
+  const grossRevenue = orders * avgOrder
+  const monthlyRevenue = grossRevenue * (profitMargin / 100)
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Gross Sales': grossRevenue,
+      'Net Profit': monthlyRevenue,
+    },
+    engagementRate: orders > 0 ? Math.min((orders / 30) * 100, 100) : 0,
+    growthRate: 3.5,
+  }
+}
+
+// Amazon Influencer Program
+export function calculateAmazon(pageViews: number, conversionRate: number, avgCommission: number): CalculationResult {
+  const conversions = pageViews * (conversionRate / 100)
+  const monthlyRevenue = conversions * avgCommission
+
+  return {
+    monthlyRevenue,
+    yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Page Views': pageViews,
+      'Conversions': conversions,
+      'Commission Revenue': monthlyRevenue,
+    },
+    engagementRate: conversionRate,
+    growthRate: 3.0,
+  }
+}

@@ -24,6 +24,7 @@ import ContentROICalculator from '@/components/ContentROICalculator'
 import GoalTracker from '@/components/GoalTracker'
 import PlatformSwitchCalculator from '@/components/PlatformSwitchCalculator'
 import ContentMixSimulator from '@/components/ContentMixSimulator'
+import { YouTubeDashboard } from '@/components/YouTubeDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
 import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
@@ -1142,6 +1143,21 @@ export function Calculator() {
               </div>
             )
           })()
+        ) : activeTab === 'youtube' && activePlatform ? (
+          <YouTubeDashboard
+            inputValues={currentValues}
+            onUpdateValue={updateValue}
+            results={results}
+            theme={theme}
+            onShowMediaKit={() => setShowMediaKit(true)}
+            onShowRateCard={() => setShowRateCard(true)}
+            onShowSponsorshipCalc={() => setShowSponsorshipCalc(true)}
+            onShowBrandPitch={() => setShowBrandPitch(true)}
+            onShowContentROI={() => setShowContentROI(true)}
+            onShowGoalTracker={() => setShowGoalTracker(true)}
+            onShowPlatformSwitch={() => setShowPlatformSwitch(true)}
+            onShowContentMix={() => setShowContentMix(true)}
+          />
         ) : activePlatform && (
           <>
             {/* Header */}

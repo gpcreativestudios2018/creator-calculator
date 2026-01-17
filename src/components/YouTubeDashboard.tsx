@@ -1,8 +1,5 @@
-import { useState } from 'react'
 import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers } from 'lucide-react'
 import { CircularGauge } from '@/components/CircularGauge'
-import { PreviewCard } from '@/components/PreviewCard'
-import { PlatformModal } from '@/components/PlatformModal'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,7 +18,6 @@ interface YouTubeDashboardProps {
     engagementRate?: number
   }
   theme: 'dark' | 'light'
-  formatCurrency: (value: number) => string
   // Tool modal handlers
   onShowMediaKit: () => void
   onShowRateCard: () => void
@@ -33,14 +29,11 @@ interface YouTubeDashboardProps {
   onShowContentMix: () => void
 }
 
-type ModalType = 'revenue-streams' | 'earnings-period' | 'projection' | 'take-home' | 'hourly-rate' | 'benchmark' | 'scenario' | 'what-if' | 'partner-program' | null
-
 export function YouTubeDashboard({
   inputValues,
   onUpdateValue,
   results,
   theme,
-  formatCurrency,
   onShowMediaKit,
   onShowRateCard,
   onShowSponsorshipCalc,
@@ -50,8 +43,6 @@ export function YouTubeDashboard({
   onShowPlatformSwitch,
   onShowContentMix,
 }: YouTubeDashboardProps) {
-  const [activeModal, setActiveModal] = useState<ModalType>(null)
-
   const colors = getPlatformColors('youtube')
   const platform = platforms.find(p => p.id === 'youtube')!
 

@@ -1,5 +1,3 @@
-import { AnimatedNumber } from '@/components/AnimatedNumber'
-
 interface CircularGaugeProps {
   label: string
   value: number

@@ -68,10 +68,23 @@ export default function MediaKitGenerator({ platformId, metrics, theme }: MediaK
         useCORS: true,
         allowTaint: true,
         onclone: (clonedDoc) => {
-          const clonedElement = clonedDoc.querySelector('[data-media-kit-preview]')
-          if (clonedElement) {
-            (clonedElement as HTMLElement).style.display = 'block'
-          }
+          // Get all elements in the cloned document
+          const allElements = clonedDoc.querySelectorAll('*')
+          allElements.forEach((el) => {
+            const htmlEl = el as HTMLElement
+            const computedStyle = window.getComputedStyle(htmlEl)
+
+            // Override any oklch colors with safe fallbacks
+            if (computedStyle.backgroundColor.includes('oklch')) {
+              htmlEl.style.backgroundColor = '#18181b'
+            }
+            if (computedStyle.color.includes('oklch')) {
+              htmlEl.style.color = '#ffffff'
+            }
+            if (computedStyle.borderColor.includes('oklch')) {
+              htmlEl.style.borderColor = '#3f3f46'
+            }
+          })
         }
       })
 

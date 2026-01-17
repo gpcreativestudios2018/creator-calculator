@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { TrendingUp, Menu, X, Sun, Moon, Info, RotateCcw, Wallet, FileText } from 'lucide-react'
+import { TrendingUp, Menu, X, Sun, Moon, Info, RotateCcw, Wallet, FileText, DollarSign } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell, LineChart, Line, PieChart, Pie } from 'recharts'
@@ -17,6 +17,7 @@ import { MonetizationProgress } from '@/components/MonetizationProgress'
 import { CreatorBenchmark } from '@/components/CreatorBenchmark'
 import { Glossary } from '@/components/Glossary'
 import MediaKitGenerator from '@/components/MediaKitGenerator'
+import RateCardGenerator from '@/components/RateCardGenerator'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
 import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
@@ -78,6 +79,7 @@ export function Calculator() {
   const [showMethodology, setShowMethodology] = useState(false)
   const [showGlossary, setShowGlossary] = useState(false)
   const [showMediaKit, setShowMediaKit] = useState(false)
+  const [showRateCard, setShowRateCard] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -397,6 +399,22 @@ export function Calculator() {
                 monthlyRevenue: results.monthlyRevenue,
                 yearlyRevenue: results.monthlyRevenue * 12,
               }}
+              theme={theme}
+            />
+          </div>
+        </div>
+      )}
+      {showRateCard && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div className="relative max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto bg-zinc-900 rounded-xl p-6">
+            <button
+              onClick={() => setShowRateCard(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <RateCardGenerator
+              platformId={activeTab}
               theme={theme}
             />
           </div>
@@ -1136,9 +1154,9 @@ export function Calculator() {
               theme={theme}
             />
 
-            {/* Generate Media Kit Button */}
+            {/* Generate Media Kit & Rate Card Buttons */}
             {results.monthlyRevenue > 0 && (
-              <div className="mb-6">
+              <div className="mb-6 flex gap-3">
                 <button
                   onClick={() => setShowMediaKit(true)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
@@ -1148,7 +1166,18 @@ export function Calculator() {
                   }`}
                 >
                   <FileText className="w-4 h-4" />
-                  Generate Media Kit
+                  Media Kit
+                </button>
+                <button
+                  onClick={() => setShowRateCard(true)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                    theme === 'dark'
+                      ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white'
+                      : 'bg-gray-200 hover:bg-gray-300 text-zinc-700 hover:text-zinc-900'
+                  }`}
+                >
+                  <DollarSign className="w-4 h-4" />
+                  Rate Card
                 </button>
               </div>
             )}

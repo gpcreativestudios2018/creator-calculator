@@ -17,7 +17,7 @@
 | Phase 5: Transparency & Trust | 8 | 8 | 🟩🟩🟩🟩🟩 100% |
 | Phase 6: Missing Platforms | 12 | 12 | 🟩🟩🟩🟩🟩 100% |
 | Phase 7: Visualizations & Data | 5 | 5 | 🟩🟩🟩🟩🟩 100% |
-| Phase 8: Business Tools | 8 | 4 | 🟨🟨⬜⬜⬜ 50% |
+| Phase 8: Business Tools | 8 | 5 | 🟨🟨🟨⬜⬜ 63% |
 | Phase 9: Dashboard Redesign | 6 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 10: AI-Powered Features | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 11: Educational Content | 6 | 0 | ⬜⬜⬜⬜⬜ 0% |
@@ -26,7 +26,7 @@
 | Phase 14: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 15: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 16: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| **TOTAL** | **111** | **81** | **73%** |
+| **TOTAL** | **111** | **82** | **74%** |
 
 ---
 
@@ -157,7 +157,7 @@
 - [x] 8.2 — Rate card generator ("here's what I charge")
 - [x] 8.3 — Sponsorship pricing calculator with benchmarks
 - [x] 8.4 — Brand deal pitch generator
-- [ ] 8.5 — Content ROI calculator (revenue per hour of work)
+- [x] 8.5 — Content ROI calculator (revenue per hour of work)
 - [ ] 8.6 — Goal setting & tracking system
 - [ ] 8.7 — Platform switching calculator (TikTok → YouTube)
 - [ ] 8.8 — Content mix simulator (shorts vs long-form vs live)

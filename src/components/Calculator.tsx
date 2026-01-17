@@ -548,8 +548,8 @@ export function Calculator() {
         <CreatorBusinessPlanner
           platformId={activeTab}
           currentMetrics={{
-            followers: inputValues[activeTab]?.followers || inputValues[activeTab]?.subscribers || 0,
-            views: inputValues[activeTab]?.monthlyViews || inputValues[activeTab]?.impressions || 0,
+            followers: currentValues.followers || currentValues.subscribers || currentValues.patrons || 0,
+            views: currentValues.monthlyViews || currentValues.views || 0,
             monthlyRevenue: results.monthlyRevenue,
           }}
           theme={theme}

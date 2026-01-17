@@ -43,6 +43,7 @@ import {
   calculateEtsy,
   calculateAmazon,
   calculateFansly,
+  calculateFanvue,
   calculateThreads,
   calculateDiscord,
   calculateRumble,
@@ -249,6 +250,9 @@ export function Calculator() {
         break
       case 'fansly':
         baseResult = calculateFansly(v.subscribers || 0, v.subPrice || 10, v.tipsPercent || 20)
+        break
+      case 'fanvue':
+        baseResult = calculateFanvue(v.subscribers || 0, v.subPrice || 10, v.tipsPercent || 20)
         break
       case 'threads':
         baseResult = calculateThreads(v.followers || 0, v.avgLikes || 0, v.postsPerMonth || 20)

@@ -1131,6 +1131,13 @@ export function Calculator() {
             onShowGoalTracker={() => setShowGoalTracker(true)}
             onShowPlatformSwitch={() => setShowPlatformSwitch(true)}
             onShowContentMix={() => setShowContentMix(true)}
+            onShowAIAnalysis={() => setShowAIAnalysis(true)}
+            onShowAIGrowthPlan={() => setShowAIGrowthPlan(true)}
+            onShowAIContentIdeas={() => setShowAIContentIdeas(true)}
+            onShowAIBrandPitch={() => setShowAIBrandPitch(true)}
+            onShowAIRevenueOpt={() => setShowAIRevenueOpt(true)}
+            onShowAIFocus={() => setShowAIFocus(true)}
+            onShowAIRoadmap={() => setShowAIRoadmap(true)}
           />
         ) : null}
       </main>

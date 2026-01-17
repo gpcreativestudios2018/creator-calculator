@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers } from 'lucide-react'
+import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
@@ -31,6 +31,13 @@ interface PlatformDashboardProps {
   onShowGoalTracker: () => void
   onShowPlatformSwitch: () => void
   onShowContentMix: () => void
+  onShowAIAnalysis: () => void
+  onShowAIGrowthPlan: () => void
+  onShowAIContentIdeas: () => void
+  onShowAIBrandPitch: () => void
+  onShowAIRevenueOpt: () => void
+  onShowAIFocus: () => void
+  onShowAIRoadmap: () => void
 }
 
 export function PlatformDashboard({
@@ -48,6 +55,13 @@ export function PlatformDashboard({
   onShowGoalTracker,
   onShowPlatformSwitch,
   onShowContentMix,
+  onShowAIAnalysis,
+  onShowAIGrowthPlan,
+  onShowAIContentIdeas,
+  onShowAIBrandPitch,
+  onShowAIRevenueOpt,
+  onShowAIFocus,
+  onShowAIRoadmap,
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
 
@@ -74,6 +88,16 @@ export function PlatformDashboard({
     { label: 'Goal Tracker', icon: Target, onClick: onShowGoalTracker },
     { label: 'Platform Switch', icon: ArrowLeftRight, onClick: onShowPlatformSwitch },
     { label: 'Content Mix', icon: Layers, onClick: onShowContentMix },
+  ]
+
+  const aiToolButtons = [
+    { label: 'AI Analysis', icon: Sparkles, onClick: onShowAIAnalysis, color: 'purple' },
+    { label: 'Growth Plan', icon: TrendingUp, onClick: onShowAIGrowthPlan, color: 'emerald' },
+    { label: 'Content Ideas', icon: Lightbulb, onClick: onShowAIContentIdeas, color: 'yellow' },
+    { label: 'Brand Pitch', icon: Mail, onClick: onShowAIBrandPitch, color: 'blue' },
+    { label: 'Revenue Optimizer', icon: DollarSign, onClick: onShowAIRevenueOpt, color: 'green' },
+    { label: 'Focus Guide', icon: Compass, onClick: onShowAIFocus, color: 'orange' },
+    { label: 'Roadmap', icon: Map, onClick: onShowAIRoadmap, color: 'indigo' },
   ]
 
   // Revenue breakdown data for charts
@@ -255,6 +279,38 @@ export function PlatformDashboard({
             {tool.label}
           </button>
         ))}
+      </div>
+
+      {/* AI Tools Section */}
+      <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-800/30' : 'bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200'}`}>
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles className="w-5 h-5 text-purple-500" />
+          <h3 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>AI-Powered Tools</h3>
+        </div>
+        <div className="flex flex-wrap justify-center gap-2">
+          {aiToolButtons.map((tool) => (
+            <button
+              key={tool.label}
+              onClick={tool.onClick}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
+                theme === 'dark'
+                  ? 'bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700/50'
+                  : 'bg-white/80 text-zinc-700 hover:bg-white hover:text-zinc-900 border border-gray-200'
+              }`}
+            >
+              <tool.icon className={`w-4 h-4 ${
+                tool.color === 'purple' ? 'text-purple-500' :
+                tool.color === 'emerald' ? 'text-emerald-500' :
+                tool.color === 'yellow' ? 'text-yellow-500' :
+                tool.color === 'blue' ? 'text-blue-500' :
+                tool.color === 'green' ? 'text-green-500' :
+                tool.color === 'orange' ? 'text-orange-500' :
+                'text-indigo-500'
+              }`} />
+              {tool.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Your Metrics Input Card */}

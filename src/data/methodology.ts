@@ -629,6 +629,45 @@ export const methodology: Record<string, PlatformMethodology> = {
     version: 'v1.0',
   },
 
+  fanvue: {
+    howItWorks:
+      'Fanvue is a creator subscription platform similar to OnlyFans and Fansly, but with a more favorable 15% platform fee (compared to 20% on competitors). Revenue comes from monthly subscriptions, tips, and pay-per-view content.',
+    formulas: [
+      {
+        name: 'Subscription Revenue',
+        formula: 'subscribers × subscriptionPrice × 0.85',
+        explanation:
+          'Monthly subscribers times subscription price, minus Fanvue\'s 15% cut. This is 5% better than OnlyFans/Fansly.',
+      },
+      {
+        name: 'Tips',
+        formula: 'tipRevenue × 0.85',
+        explanation:
+          'Tips from fans, minus the 15% platform fee.',
+      },
+      {
+        name: 'Total Revenue',
+        formula: '(subscriptions + tips) × 0.85',
+        explanation:
+          'Combined subscription and tip revenue after Fanvue\'s 15% fee.',
+      },
+    ],
+    assumptions: [
+      'Fanvue takes 15% of all revenue (better than 20% competitors)',
+      'Platform is newer with a growing creator base',
+      'AI-powered features for content creation assistance',
+      'Similar content policies to Fansly',
+      'Cross-promotion from other platforms drives growth',
+    ],
+    disclaimer:
+      'Fanvue offers a better revenue split than OnlyFans and Fansly (85% vs 80%), but has a smaller audience. Success depends on bringing your own audience and consistent content creation. The platform is newer and still building its user base.',
+    sources: [
+      { name: 'Fanvue', url: 'https://www.fanvue.com/' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
   etsy: {
     howItWorks:
       'Etsy revenue comes from selling handmade, vintage, or craft supply items. Etsy charges listing fees ($0.20/item), transaction fees (6.5%), and payment processing fees (~3%).',

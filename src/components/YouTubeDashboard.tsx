@@ -280,6 +280,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('revenue-streams')}
+          theme={theme}
         >
           {revenueStreamsData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -313,6 +314,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('earnings-period')}
+          theme={theme}
         >
           {monthlyRevenue > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -347,6 +349,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('projection')}
+          theme={theme}
         >
           {monthlyRevenue > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -381,6 +384,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('take-home')}
+          theme={theme}
         >
           {yearlyRevenue > 0 ? (
             <div className="h-full flex flex-col items-center justify-center">
@@ -421,6 +425,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('hourly-rate')}
+          theme={theme}
         >
           <div className="h-full flex flex-col items-center justify-center">
             <p className={`text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
@@ -438,6 +443,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('benchmark')}
+          theme={theme}
         >
           <div className="h-full flex flex-col items-center justify-center">
             {(inputValues.subscribers || 0) > 0 ? (
@@ -471,6 +477,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('scenario')}
+          theme={theme}
         >
           {monthlyRevenue > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -502,6 +509,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('what-if')}
+          theme={theme}
         >
           <div className="h-full flex flex-col justify-center space-y-2 px-2">
             <div className="flex justify-between items-center">
@@ -532,6 +540,7 @@ export function YouTubeDashboard({
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('partner-program')}
+          theme={theme}
         >
           <div className="h-full flex flex-col justify-center px-2">
             {isMonetized ? (

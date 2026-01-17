@@ -8,6 +8,7 @@ interface PreviewCardProps {
   colorDark: string
   onClick: () => void
   children: React.ReactNode
+  theme?: 'dark' | 'light'
 }
 
 export function PreviewCard({
@@ -17,24 +18,26 @@ export function PreviewCard({
   colorDark,
   onClick,
   children,
+  theme = 'dark',
 }: PreviewCardProps) {
   return (
     <button
       onClick={onClick}
-      className="relative w-full aspect-square rounded-2xl overflow-hidden bg-[hsl(var(--dashboard-card))] border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl group text-left flex flex-col"
-      style={{
-        background: `linear-gradient(135deg, hsl(var(--dashboard-card)) 0%, hsl(var(--dashboard-card)) 100%)`,
-      }}
+      className={`relative w-full h-40 rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:shadow-lg group text-left flex flex-col ${
+        theme === 'dark'
+          ? 'bg-zinc-900 border border-zinc-800 hover:border-zinc-700'
+          : 'bg-white border border-gray-200 hover:border-gray-300'
+      }`}
     >
       {/* Gradient accent bar at top */}
       <div
-        className="h-1 w-full"
+        className="h-0.5 w-full"
         style={{ background: `linear-gradient(90deg, ${colorLight}, ${colorDark})` }}
       />
 
       {/* Header with title and tooltip */}
-      <div className="flex items-center justify-between px-4 pt-3 pb-2">
-        <h3 className="text-sm font-semibold text-foreground truncate pr-2">{title}</h3>
+      <div className="flex items-center justify-between px-3 pt-2 pb-1">
+        <h3 className="text-xs font-semibold text-foreground truncate pr-2">{title}</h3>
         {tooltip && (
           <Tooltip>
             <TooltipTrigger asChild>
@@ -50,13 +53,13 @@ export function PreviewCard({
       </div>
 
       {/* Chart/Content area */}
-      <div className="flex-1 px-4 pb-4 overflow-hidden">
+      <div className="flex-1 px-3 pb-2 overflow-hidden">
         {children}
       </div>
 
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-        <span className="bg-black/60 text-white text-xs px-3 py-1.5 rounded-full">
+        <span className="bg-black/60 text-white text-[10px] px-2 py-1 rounded-full">
           Click to expand
         </span>
       </div>

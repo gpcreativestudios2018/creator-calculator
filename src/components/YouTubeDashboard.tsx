@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers } from 'lucide-react'
+import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis } from 'recharts'
 import { CircularGauge } from '@/components/CircularGauge'
+import { PreviewCard } from '@/components/PreviewCard'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -43,6 +46,8 @@ export function YouTubeDashboard({
   onShowPlatformSwitch,
   onShowContentMix,
 }: YouTubeDashboardProps) {
+  const [_activeModal, setActiveModal] = useState<string | null>(null)
+
   const colors = getPlatformColors('youtube')
   const platform = platforms.find(p => p.id === 'youtube')!
 
@@ -64,6 +69,26 @@ export function YouTubeDashboard({
     { label: 'Goal Tracker', icon: Target, onClick: onShowGoalTracker },
     { label: 'Platform Switch', icon: ArrowLeftRight, onClick: onShowPlatformSwitch },
     { label: 'Content Mix', icon: Layers, onClick: onShowContentMix },
+  ]
+
+  // Revenue breakdown data for charts
+  const adRevenue = ((inputValues.monthlyViews || 0) / 1000) * (inputValues.cpm || 4) * 0.55
+  const sponsorRevenue = (inputValues.subscribers || 0) >= 100000
+    ? (inputValues.subscribers || 0) * 0.1
+    : (inputValues.subscribers || 0) * 0.05
+  const membershipRevenue = (inputValues.subscribers || 0) * 0.02
+
+  const revenueStreamsData = [
+    { name: 'Ad Revenue', value: adRevenue, color: colors.light },
+    { name: 'Sponsorships', value: sponsorRevenue, color: colors.dark },
+    { name: 'Memberships', value: membershipRevenue, color: '#FF9999' },
+  ].filter(item => item.value > 0)
+
+  const earningsByPeriodData = [
+    { name: 'Daily', value: monthlyRevenue / 30 },
+    { name: 'Weekly', value: monthlyRevenue / 4 },
+    { name: 'Monthly', value: monthlyRevenue },
+    { name: 'Yearly', value: yearlyRevenue },
   ]
 
   const renderInput = (input: PlatformInput) => {
@@ -210,15 +235,75 @@ export function YouTubeDashboard({
         </CardContent>
       </Card>
 
-      {/* 3x3 Preview Cards Grid - Coming in Part 2 */}
+      {/* 3x3 Preview Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Placeholder for preview cards */}
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          Revenue Streams (Coming)
-        </div>
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          Earnings by Period (Coming)
-        </div>
+        {/* Revenue Streams - Donut Chart */}
+        <PreviewCard
+          title="Revenue Streams"
+          tooltip="Breakdown of your YouTube income sources"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('revenue-streams')}
+        >
+          {revenueStreamsData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={revenueStreamsData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius="40%"
+                  outerRadius="70%"
+                  dataKey="value"
+                  stroke="none"
+                >
+                  {revenueStreamsData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+              Enter metrics to see breakdown
+            </div>
+          )}
+        </PreviewCard>
+
+        {/* Earnings by Period - Bar Chart */}
+        <PreviewCard
+          title="Earnings by Period"
+          tooltip="Your revenue across different time periods"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('earnings-period')}
+        >
+          {monthlyRevenue > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={earningsByPeriodData} margin={{ top: 5, right: 5, bottom: 20, left: 5 }}>
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: 10, fill: theme === 'dark' ? '#a1a1aa' : '#71717a' }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                  {earningsByPeriodData.map((_, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={index % 2 === 0 ? colors.light : colors.dark}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+              Enter metrics to see earnings
+            </div>
+          )}
+        </PreviewCard>
+
         <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
           12-Month Projection (Coming)
         </div>

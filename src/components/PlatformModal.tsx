@@ -1,23 +1,20 @@
 import { X } from 'lucide-react'
-import { type LucideIcon } from 'lucide-react'
 import { useEffect } from 'react'
 
 interface PlatformModalProps {
   isOpen: boolean
   onClose: () => void
-  platformName: string
-  platformId: string
-  icon: LucideIcon
-  gradient: string
+  title: string
+  platformId?: string
+  theme?: 'dark' | 'light'
   children: React.ReactNode
 }
 
 export function PlatformModal({
   isOpen,
   onClose,
-  platformName,
-  icon: Icon,
-  gradient,
+  title,
+  theme = 'dark',
   children,
 }: PlatformModalProps) {
   // Close on Escape key
@@ -47,23 +44,18 @@ export function PlatformModal({
 
       {/* Modal */}
       <div
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[hsl(var(--dashboard-card))] border border-white/10 shadow-2xl"
+        className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border shadow-2xl`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header with gradient */}
-        <div className={`sticky top-0 z-10 bg-gradient-to-r ${gradient} p-6`}>
+        {/* Header */}
+        <div className={`sticky top-0 z-10 p-6 border-b ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-white/20">
-                <Icon className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="text-2xl font-bold text-white">{platformName}</h2>
-            </div>
+            <h2 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>{title}</h2>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg bg-white/20 hover:bg-white/30 transition-colors"
+              className={`p-2 rounded-lg transition-colors ${theme === 'dark' ? 'hover:bg-zinc-800 text-zinc-400 hover:text-white' : 'hover:bg-gray-100 text-zinc-500 hover:text-zinc-900'}`}
             >
-              <X className="w-5 h-5 text-white" />
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>

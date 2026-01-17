@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers } from 'lucide-react'
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, LineChart, Line } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -613,7 +613,7 @@ export function PlatformDashboard({
                   outerRadius="70%"
                   dataKey="value"
                   stroke="none"
-                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${name}: ${((percent ?? 0) * 100).toFixed(0)}%`}
                 >
                   {revenueStreamsData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
@@ -725,6 +725,416 @@ export function PlatformDashboard({
           </div>
         </div>
       </PlatformModal>
+
+      {activeModal === 'take-home' && (
+        <PlatformModal
+          isOpen={true}
+          onClose={() => setActiveModal(null)}
+          title="Take-Home Estimate"
+          platformId={platformId}
+        >
+          <div className="space-y-6">
+            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              Estimated earnings after taxes and business expenses. Based on typical creator tax brackets and expense ratios.
+            </p>
+
+            {yearlyRevenue > 0 ? (
+              <>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={takeHomeData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius="40%"
+                        outerRadius="70%"
+                        dataKey="value"
+                        stroke="none"
+                        label={({ name, percent }) => `${name}: ${((percent ?? 0) * 100).toFixed(0)}%`}
+                      >
+                        {takeHomeData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="space-y-3">
+                  <div className={`flex justify-between items-center p-4 rounded-lg ${theme === 'dark' ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-emerald-50 border border-emerald-200'}`}>
+                    <span className={theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'}>Take-Home (60%)</span>
+                    <span className={`text-xl font-bold ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                      ${takeHome.toLocaleString(undefined, { maximumFractionDigits: 0 })}/yr
+                    </span>
+                  </div>
+                  <div className={`flex justify-between items-center p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                    <span className="text-zinc-500">Estimated Taxes (25%)</span>
+                    <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                      ${estimatedTax.toLocaleString(undefined, { maximumFractionDigits: 0 })}/yr
+                    </span>
+                  </div>
+                  <div className={`flex justify-between items-center p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                    <span className="text-zinc-500">Business Expenses (15%)</span>
+                    <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                      ${estimatedExpenses.toLocaleString(undefined, { maximumFractionDigits: 0 })}/yr
+                    </span>
+                  </div>
+                </div>
+
+                <p className={`text-xs ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                  * Estimates based on 25% tax rate and 15% business expenses. Actual amounts vary by location and business structure.
+                </p>
+              </>
+            ) : (
+              <p className="text-zinc-500 text-center py-8">Enter your metrics to see take-home estimate.</p>
+            )}
+          </div>
+        </PlatformModal>
+      )}
+
+      {activeModal === 'hourly-rate' && (
+        <PlatformModal
+          isOpen={true}
+          onClose={() => setActiveModal(null)}
+          title="Your Hourly Rate"
+          platformId={platformId}
+        >
+          <div className="space-y-6">
+            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              What you're effectively earning per hour based on estimated time investment.
+            </p>
+
+            <div className={`text-center p-8 rounded-xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+              <p className="text-6xl font-bold text-emerald-500 mb-2">
+                ${hourlyRate.toFixed(0)}
+              </p>
+              <p className="text-zinc-500">per hour</p>
+            </div>
+
+            <div className="space-y-3">
+              <div className={`flex justify-between items-center p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                <span className="text-zinc-500">Monthly Revenue</span>
+                <span className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  ${monthlyRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                </span>
+              </div>
+              <div className={`flex justify-between items-center p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                <span className="text-zinc-500">Hours/Month (estimated)</span>
+                <span className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>40 hrs</span>
+              </div>
+              <div className={`flex justify-between items-center p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                <span className="text-zinc-500">Hours/Week</span>
+                <span className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>~10 hrs</span>
+              </div>
+            </div>
+
+            <p className={`text-xs ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>
+              * Based on 40 hours/month estimate. Adjust mentally for your actual time investment.
+            </p>
+          </div>
+        </PlatformModal>
+      )}
+
+      {activeModal === 'benchmark' && (
+        <PlatformModal
+          isOpen={true}
+          onClose={() => setActiveModal(null)}
+          title="How You Compare"
+          platformId={platformId}
+        >
+          <div className="space-y-6">
+            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              See how your metrics stack up against other {platform.name} creators.
+            </p>
+
+            {(inputValues.subscribers || inputValues.followers || 0) > 0 ? (
+              <>
+                <div className={`text-center p-8 rounded-xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                  <p className={`text-5xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                    Top {(inputValues.subscribers || inputValues.followers || 0) >= 100000 ? '5%' : (inputValues.subscribers || inputValues.followers || 0) >= 10000 ? '20%' : (inputValues.subscribers || inputValues.followers || 0) >= 1000 ? '35%' : '50%'}
+                  </p>
+                  <p className="text-zinc-500">of {platform.name} creators</p>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-zinc-500">Your Position</span>
+                      <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                        {(inputValues.subscribers || inputValues.followers || 0).toLocaleString()} followers
+                      </span>
+                    </div>
+                    <div className={`h-4 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{
+                          width: `${Math.min(((inputValues.subscribers || inputValues.followers || 0) / 100000) * 100, 100)}%`,
+                          background: `linear-gradient(90deg, ${colors.light}, ${colors.dark})`
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                    <p className={`text-sm font-medium mb-3 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Milestones</p>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-zinc-500">1,000 (Top 50%)</span>
+                        <span>{(inputValues.subscribers || inputValues.followers || 0) >= 1000 ? '✓' : `${Math.round(((inputValues.subscribers || inputValues.followers || 0) / 1000) * 100)}%`}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-zinc-500">10,000 (Top 20%)</span>
+                        <span>{(inputValues.subscribers || inputValues.followers || 0) >= 10000 ? '✓' : `${Math.round(((inputValues.subscribers || inputValues.followers || 0) / 10000) * 100)}%`}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-zinc-500">100,000 (Top 5%)</span>
+                        <span>{(inputValues.subscribers || inputValues.followers || 0) >= 100000 ? '✓' : `${Math.round(((inputValues.subscribers || inputValues.followers || 0) / 100000) * 100)}%`}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-zinc-500">1,000,000 (Top 1%)</span>
+                        <span>{(inputValues.subscribers || inputValues.followers || 0) >= 1000000 ? '✓' : `${((inputValues.subscribers || inputValues.followers || 0) / 1000000 * 100).toFixed(1)}%`}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p className="text-zinc-500 text-center py-8">Enter your follower count to see how you compare.</p>
+            )}
+          </div>
+        </PlatformModal>
+      )}
+
+      {activeModal === 'scenario' && (
+        <PlatformModal
+          isOpen={true}
+          onClose={() => setActiveModal(null)}
+          title="Scenario Analysis"
+          platformId={platformId}
+        >
+          <div className="space-y-6">
+            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              Best case, expected, and worst case monthly revenue scenarios.
+            </p>
+
+            {monthlyRevenue > 0 ? (
+              <>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={scenarioData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                      <XAxis
+                        dataKey="name"
+                        tick={{ fontSize: 12, fill: theme === 'dark' ? '#a1a1aa' : '#71717a' }}
+                        axisLine={false}
+                        tickLine={false}
+                      />
+                      <YAxis
+                        tick={{ fontSize: 12, fill: theme === 'dark' ? '#a1a1aa' : '#71717a' }}
+                        axisLine={false}
+                        tickLine={false}
+                        tickFormatter={(v) => `$${v >= 1000 ? `${(v/1000).toFixed(0)}k` : v}`}
+                      />
+                      <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                        {scenarioData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="space-y-3">
+                  <div className={`flex justify-between items-center p-4 rounded-lg border ${theme === 'dark' ? 'bg-red-900/20 border-red-800' : 'bg-red-50 border-red-200'}`}>
+                    <div>
+                      <span className={theme === 'dark' ? 'text-red-400' : 'text-red-700'}>Worst Case</span>
+                      <p className={`text-xs ${theme === 'dark' ? 'text-red-400/70' : 'text-red-600'}`}>-30% from baseline</p>
+                    </div>
+                    <span className={`text-xl font-bold ${theme === 'dark' ? 'text-red-400' : 'text-red-700'}`}>
+                      ${(monthlyRevenue * 0.7).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </span>
+                  </div>
+                  <div className={`flex justify-between items-center p-4 rounded-lg border ${theme === 'dark' ? 'bg-blue-900/20 border-blue-800' : 'bg-blue-50 border-blue-200'}`}>
+                    <div>
+                      <span className={theme === 'dark' ? 'text-blue-400' : 'text-blue-700'}>Expected</span>
+                      <p className={`text-xs ${theme === 'dark' ? 'text-blue-400/70' : 'text-blue-600'}`}>Current estimate</p>
+                    </div>
+                    <span className={`text-xl font-bold ${theme === 'dark' ? 'text-blue-400' : 'text-blue-700'}`}>
+                      ${monthlyRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </span>
+                  </div>
+                  <div className={`flex justify-between items-center p-4 rounded-lg border ${theme === 'dark' ? 'bg-emerald-900/20 border-emerald-800' : 'bg-emerald-50 border-emerald-200'}`}>
+                    <div>
+                      <span className={theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'}>Best Case</span>
+                      <p className={`text-xs ${theme === 'dark' ? 'text-emerald-400/70' : 'text-emerald-600'}`}>+50% from baseline</p>
+                    </div>
+                    <span className={`text-xl font-bold ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                      ${(monthlyRevenue * 1.5).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p className="text-zinc-500 text-center py-8">Enter your metrics to see scenario analysis.</p>
+            )}
+          </div>
+        </PlatformModal>
+      )}
+
+      {activeModal === 'what-if' && (
+        <PlatformModal
+          isOpen={true}
+          onClose={() => setActiveModal(null)}
+          title="What If Analysis"
+          platformId={platformId}
+        >
+          <div className="space-y-6">
+            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              See how changes to your metrics would affect your revenue.
+            </p>
+
+            <div className="space-y-3">
+              <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                <div className="flex justify-between items-center mb-2">
+                  <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>Double your views</span>
+                  <span className="text-emerald-500 font-bold">
+                    ${Math.round(monthlyRevenue * 1.8).toLocaleString()}
+                  </span>
+                </div>
+                <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                  <div className="h-full rounded-full bg-emerald-500" style={{ width: '80%' }} />
+                </div>
+                <p className="text-xs text-emerald-500 mt-1">+{Math.round((1.8 - 1) * 100)}% revenue</p>
+              </div>
+
+              <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                <div className="flex justify-between items-center mb-2">
+                  <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>Double your followers</span>
+                  <span className="text-emerald-500 font-bold">
+                    ${Math.round(monthlyRevenue * 1.3).toLocaleString()}
+                  </span>
+                </div>
+                <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                  <div className="h-full rounded-full bg-emerald-500" style={{ width: '30%' }} />
+                </div>
+                <p className="text-xs text-emerald-500 mt-1">+{Math.round((1.3 - 1) * 100)}% revenue</p>
+              </div>
+
+              <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                <div className="flex justify-between items-center mb-2">
+                  <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>Increase CPM by $2</span>
+                  <span className="text-emerald-500 font-bold">
+                    ${Math.round(monthlyRevenue * 1.4).toLocaleString()}
+                  </span>
+                </div>
+                <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                  <div className="h-full rounded-full bg-emerald-500" style={{ width: '40%' }} />
+                </div>
+                <p className="text-xs text-emerald-500 mt-1">+{Math.round((1.4 - 1) * 100)}% revenue</p>
+              </div>
+
+              <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                <div className="flex justify-between items-center mb-2">
+                  <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>All of the above</span>
+                  <span className="text-emerald-500 font-bold">
+                    ${Math.round(monthlyRevenue * 3.5).toLocaleString()}
+                  </span>
+                </div>
+                <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                  <div className="h-full rounded-full bg-emerald-500" style={{ width: '100%' }} />
+                </div>
+                <p className="text-xs text-emerald-500 mt-1">+{Math.round((3.5 - 1) * 100)}% revenue</p>
+              </div>
+            </div>
+          </div>
+        </PlatformModal>
+      )}
+
+      {activeModal === 'partner-program' && (
+        <PlatformModal
+          isOpen={true}
+          onClose={() => setActiveModal(null)}
+          title="Partner Program Status"
+          platformId={platformId}
+        >
+          <div className="space-y-6">
+            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              Track your progress toward {platform.name} monetization requirements.
+            </p>
+
+            {isMonetized ? (
+              <div className={`text-center p-8 rounded-xl ${theme === 'dark' ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-emerald-50 border border-emerald-200'}`}>
+                <div className="text-5xl mb-4">🎉</div>
+                <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                  You're Eligible!
+                </p>
+                <p className={`mt-2 ${theme === 'dark' ? 'text-emerald-400/70' : 'text-emerald-600'}`}>
+                  You meet the requirements for {platform.name} monetization.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className={`text-center p-6 rounded-xl ${theme === 'dark' ? 'bg-amber-900/20 border border-amber-800' : 'bg-amber-50 border border-amber-200'}`}>
+                  <p className={`text-lg font-medium ${theme === 'dark' ? 'text-amber-400' : 'text-amber-700'}`}>
+                    Keep Growing!
+                  </p>
+                  <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-amber-400/70' : 'text-amber-600'}`}>
+                    You're on your way to monetization eligibility.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-zinc-500">Subscribers</span>
+                      <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                        {subscribers.toLocaleString()} / 1,000
+                      </span>
+                    </div>
+                    <div className={`h-4 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{
+                          width: `${subsProgress}%`,
+                          backgroundColor: subsProgress >= 100 ? '#22C55E' : colors.light
+                        }}
+                      />
+                    </div>
+                    <p className={`text-xs mt-1 ${subsProgress >= 100 ? 'text-emerald-500' : 'text-zinc-500'}`}>
+                      {subsProgress >= 100 ? '✓ Complete!' : `${(1000 - subscribers).toLocaleString()} more needed`}
+                    </p>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-zinc-500">Watch Hours (yearly)</span>
+                      <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                        {Math.round(yearlyWatchHours).toLocaleString()} / 4,000
+                      </span>
+                    </div>
+                    <div className={`h-4 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{
+                          width: `${watchProgress}%`,
+                          backgroundColor: watchProgress >= 100 ? '#22C55E' : colors.dark
+                        }}
+                      />
+                    </div>
+                    <p className={`text-xs mt-1 ${watchProgress >= 100 ? 'text-emerald-500' : 'text-zinc-500'}`}>
+                      {watchProgress >= 100 ? '✓ Complete!' : `${(4000 - yearlyWatchHours).toLocaleString()} more needed`}
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
+
+            <p className={`text-xs ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>
+              * Requirements shown are for YouTube Partner Program. Other platforms have different thresholds.
+            </p>
+          </div>
+        </PlatformModal>
+      )}
     </div>
   )
 }

@@ -165,8 +165,8 @@ export function MonetizationTracker({ theme, allInputValues, onClose }: Monetiza
                 } ${isExpanded ? 'ring-2' : ''}`}
                 style={{
                   borderLeftWidth: '4px',
-                  borderLeftColor: item.colors.primary,
-                  ...(isExpanded ? { ringColor: item.colors.primary } : {})
+                  borderLeftColor: item.colors.light,
+                  ...(isExpanded ? { ringColor: item.colors.light } : {})
                 }}
               >
                 <button
@@ -179,9 +179,9 @@ export function MonetizationTracker({ theme, allInputValues, onClose }: Monetiza
                         {Icon && (
                           <div
                             className="w-10 h-10 rounded-lg flex items-center justify-center"
-                            style={{ backgroundColor: `${item.colors.primary}20` }}
+                            style={{ backgroundColor: `${item.colors.light}20` }}
                           >
-                            <Icon className="w-5 h-5" style={{ color: item.colors.primary }} />
+                            <Icon className="w-5 h-5" style={{ color: item.colors.light }} />
                           </div>
                         )}
                         <div>
@@ -207,7 +207,7 @@ export function MonetizationTracker({ theme, allInputValues, onClose }: Monetiza
                                 className="h-full rounded-full transition-all"
                                 style={{
                                   width: `${item.overallProgress}%`,
-                                  backgroundColor: item.colors.primary,
+                                  backgroundColor: item.colors.light,
                                 }}
                               />
                             </div>
@@ -255,7 +255,7 @@ export function MonetizationTracker({ theme, allInputValues, onClose }: Monetiza
                               className="h-full rounded-full transition-all"
                               style={{
                                 width: `${req.percentage}%`,
-                                backgroundColor: req.isMet ? '#10b981' : item.colors.primary,
+                                backgroundColor: req.isMet ? '#10b981' : item.colors.light,
                               }}
                             />
                           </div>

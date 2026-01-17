@@ -63,9 +63,9 @@ export function MonetizationGuide({ platformId, theme, onClose }: MonetizationGu
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: `${colors.primary}20` }}
+                style={{ backgroundColor: `${colors.light}20` }}
               >
-                <Icon className="w-5 h-5" style={{ color: colors.primary }} />
+                <Icon className="w-5 h-5" style={{ color: colors.light }} />
               </div>
               <div>
                 <h1 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
@@ -90,7 +90,7 @@ export function MonetizationGuide({ platformId, theme, onClose }: MonetizationGu
         <Card className={theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}>
           <CardHeader className="pb-3">
             <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-              <BookOpen className="w-5 h-5" style={{ color: colors.primary }} />
+              <BookOpen className="w-5 h-5" style={{ color: colors.light }} />
               Overview
             </CardTitle>
           </CardHeader>
@@ -113,7 +113,7 @@ export function MonetizationGuide({ platformId, theme, onClose }: MonetizationGu
             <ul className="space-y-2">
               {guide.requirements.map((req, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full mt-2" style={{ backgroundColor: colors.primary }} />
+                  <div className="w-1.5 h-1.5 rounded-full mt-2" style={{ backgroundColor: colors.light }} />
                   <span className={theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}>{req}</span>
                 </li>
               ))}
@@ -203,7 +203,7 @@ export function MonetizationGuide({ platformId, theme, onClose }: MonetizationGu
         <Card className={theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}>
           <CardHeader className="pb-3">
             <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-              <ExternalLink className="w-5 h-5" style={{ color: colors.primary }} />
+              <ExternalLink className="w-5 h-5" style={{ color: colors.light }} />
               Official Resources
             </CardTitle>
           </CardHeader>

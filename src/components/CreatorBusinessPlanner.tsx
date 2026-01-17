@@ -141,9 +141,9 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: `${colors.primary}20` }}
+                style={{ backgroundColor: `${colors.light}20` }}
               >
-                <Target className="w-5 h-5" style={{ color: colors.primary }} />
+                <Target className="w-5 h-5" style={{ color: colors.light }} />
               </div>
               <div>
                 <h1 className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
@@ -173,7 +173,7 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
                       ? theme === 'dark' ? 'bg-zinc-800 text-emerald-500' : 'bg-gray-200 text-emerald-600'
                       : theme === 'dark' ? 'bg-zinc-800 text-zinc-500' : 'bg-gray-200 text-zinc-400'
                 }`}
-                style={step === s ? { backgroundColor: colors.primary } : {}}
+                style={step === s ? { backgroundColor: colors.light } : {}}
               >
                 {step > s ? <CheckCircle2 className="w-4 h-4" /> : <span className="w-4 text-center">{s}</span>}
                 {s === 1 ? 'Set Goals' : s === 2 ? 'Your Plan' : 'Action Steps'}
@@ -275,7 +275,7 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
                           ? 'ring-2 text-white'
                           : theme === 'dark' ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700' : 'bg-gray-100 text-zinc-700 hover:bg-gray-200'
                       }`}
-                      style={growthStrategy === strategy ? { backgroundColor: colors.primary, ringColor: colors.primary } : {}}
+                      style={growthStrategy === strategy ? { backgroundColor: colors.light, '--tw-ring-color': colors.light } as React.CSSProperties : {}}
                     >
                       <p className="font-semibold capitalize">{strategy}</p>
                       <p className={`text-xs mt-1 ${growthStrategy === strategy ? 'text-white/80' : 'text-zinc-500'}`}>
@@ -321,7 +321,7 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
             <Button
               onClick={() => setStep(2)}
               className="w-full py-6 text-lg"
-              style={{ backgroundColor: colors.primary }}
+              style={{ backgroundColor: colors.light }}
             >
               Generate My Plan
               <ChevronRight className="w-5 h-5 ml-2" />
@@ -467,7 +467,7 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
               <Button
                 onClick={() => setStep(3)}
                 className="flex-1"
-                style={{ backgroundColor: colors.primary }}
+                style={{ backgroundColor: colors.light }}
               >
                 Get Action Steps
                 <ChevronRight className="w-5 h-5 ml-2" />
@@ -482,12 +482,12 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
             <Card className={theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}>
               <CardHeader>
                 <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                  <Target className="w-5 h-5" style={{ color: colors.primary }} />
+                  <Target className="w-5 h-5" style={{ color: colors.light }} />
                   Your Weekly Action Plan
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className={`p-4 rounded-lg border-l-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-50'}`} style={{ borderLeftColor: colors.primary }}>
+                <div className={`p-4 rounded-lg border-l-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-50'}`} style={{ borderLeftColor: colors.light }}>
                   <h4 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                     Content Creation ({Math.ceil(plan.contentPerMonth / 4)} pieces/week)
                   </h4>
@@ -498,7 +498,7 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
                   </ul>
                 </div>
 
-                <div className={`p-4 rounded-lg border-l-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-50'}`} style={{ borderLeftColor: colors.primary }}>
+                <div className={`p-4 rounded-lg border-l-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-50'}`} style={{ borderLeftColor: colors.light }}>
                   <h4 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                     Growth Activities ({Math.round(hoursPerWeek * 0.3)} hrs/week)
                   </h4>
@@ -509,7 +509,7 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
                   </ul>
                 </div>
 
-                <div className={`p-4 rounded-lg border-l-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-50'}`} style={{ borderLeftColor: colors.primary }}>
+                <div className={`p-4 rounded-lg border-l-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-50'}`} style={{ borderLeftColor: colors.light }}>
                   <h4 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                     Monetization Focus
                   </h4>
@@ -520,7 +520,7 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
                   </ul>
                 </div>
 
-                <div className={`p-4 rounded-lg border-l-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-50'}`} style={{ borderLeftColor: colors.primary }}>
+                <div className={`p-4 rounded-lg border-l-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-50'}`} style={{ borderLeftColor: colors.light }}>
                   <h4 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                     Monthly Milestones
                   </h4>
@@ -534,15 +534,15 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
               </CardContent>
             </Card>
 
-            <Card className={`border-2 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-white'}`} style={{ borderColor: colors.primary }}>
+            <Card className={`border-2 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-white'}`} style={{ borderColor: colors.light }}>
               <CardContent className="p-6 text-center">
                 <h3 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                   Your Success Formula
                 </h3>
                 <p className={`text-lg ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
-                  <span style={{ color: colors.primary }} className="font-bold">{Math.ceil(plan.contentPerMonth / 4)}</span> posts/week +{' '}
-                  <span style={{ color: colors.primary }} className="font-bold">{hoursPerWeek}</span> hrs/week +{' '}
-                  <span style={{ color: colors.primary }} className="font-bold">{timelineMonths}</span> months
+                  <span style={{ color: colors.light }} className="font-bold">{Math.ceil(plan.contentPerMonth / 4)}</span> posts/week +{' '}
+                  <span style={{ color: colors.light }} className="font-bold">{hoursPerWeek}</span> hrs/week +{' '}
+                  <span style={{ color: colors.light }} className="font-bold">{timelineMonths}</span> months
                 </p>
                 <p className={`text-2xl font-bold mt-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                   = {formatCurrency(plan.finalProjection.revenue)}/month
@@ -561,7 +561,7 @@ export function CreatorBusinessPlanner({ platformId, currentMetrics, theme, onCl
               <Button
                 onClick={onClose}
                 className="flex-1"
-                style={{ backgroundColor: colors.primary }}
+                style={{ backgroundColor: colors.light }}
               >
                 Done
               </Button>

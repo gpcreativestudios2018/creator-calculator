@@ -27,6 +27,7 @@ import AIFocusRecommendations from '@/components/AIFocusRecommendations'
 import AIRoadmap from '@/components/AIRoadmap'
 import { MonetizationTracker } from '@/components/MonetizationTracker'
 import { MonetizationGuide } from '@/components/MonetizationGuide'
+import { CreatorBusinessPlanner } from '@/components/CreatorBusinessPlanner'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -100,6 +101,7 @@ export function Calculator() {
   const [showAIRoadmap, setShowAIRoadmap] = useState(false)
   const [showMonetizationTracker, setShowMonetizationTracker] = useState(false)
   const [showMonetizationGuide, setShowMonetizationGuide] = useState(false)
+  const [showBusinessPlanner, setShowBusinessPlanner] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -540,6 +542,18 @@ export function Calculator() {
           platformId={activeTab}
           theme={theme}
           onClose={() => setShowMonetizationGuide(false)}
+        />
+      )}
+      {showBusinessPlanner && (
+        <CreatorBusinessPlanner
+          platformId={activeTab}
+          currentMetrics={{
+            followers: inputValues[activeTab]?.followers || inputValues[activeTab]?.subscribers || 0,
+            views: inputValues[activeTab]?.monthlyViews || inputValues[activeTab]?.impressions || 0,
+            monthlyRevenue: results.monthlyRevenue,
+          }}
+          theme={theme}
+          onClose={() => setShowBusinessPlanner(false)}
         />
       )}
       {!showMethodology && !showGlossary && (
@@ -1166,6 +1180,7 @@ export function Calculator() {
             onShowAIFocus={() => setShowAIFocus(true)}
             onShowAIRoadmap={() => setShowAIRoadmap(true)}
             onShowMonetizationGuide={() => setShowMonetizationGuide(true)}
+            onShowBusinessPlanner={() => setShowBusinessPlanner(true)}
           />
         ) : null}
       </main>

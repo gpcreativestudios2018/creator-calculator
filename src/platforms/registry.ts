@@ -23,7 +23,7 @@ import {
   MessageCircle,
   Play,
   BookOpen,
-  Star,
+  Send,
   type LucideIcon
 } from 'lucide-react'
 
@@ -328,10 +328,10 @@ export const platforms: Platform[] = [
   {
     id: 'fanvue',
     name: 'Fanvue',
-    icon: Star,
-    iconColor: 'text-teal-400',
-    accentColor: '#2dd4bf',
-    gradient: 'from-teal-400 to-cyan-500',
+    icon: Send,
+    iconColor: 'text-green-400',
+    accentColor: '#00DC6E',
+    gradient: 'from-green-400 to-green-600',
     description: 'Subscriptions, tips, and PPV content',
     inputs: [
       { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 100, tooltip: 'Paying subscribers' },

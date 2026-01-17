@@ -78,7 +78,7 @@ export function MonetizationTracker({ theme, allInputValues, onClose }: Monetiza
   }
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-zinc-950' : 'bg-gray-50'}`}>
+    <div className={`fixed inset-0 z-50 overflow-y-auto ${theme === 'dark' ? 'bg-zinc-950' : 'bg-gray-50'}`}>
       {/* Header */}
       <div className={`sticky top-0 z-10 ${theme === 'dark' ? 'bg-zinc-950/95 border-zinc-800' : 'bg-gray-50/95 border-gray-200'} border-b backdrop-blur-sm`}>
         <div className="max-w-6xl mx-auto px-4 py-4">

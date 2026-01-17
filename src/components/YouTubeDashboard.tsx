@@ -112,6 +112,21 @@ export function YouTubeDashboard({
   const hoursPerMonth = 40 // Default assumption
   const hourlyRate = monthlyRevenue > 0 ? monthlyRevenue / hoursPerMonth : 0
 
+  // Scenario Analysis data
+  const scenarioData = [
+    { name: 'Worst', value: monthlyRevenue * 0.7, color: '#EF4444' },
+    { name: 'Expected', value: monthlyRevenue, color: colors.light },
+    { name: 'Best', value: monthlyRevenue * 1.5, color: '#22C55E' },
+  ]
+
+  // Partner Program thresholds
+  const monthlyViews = inputValues.monthlyViews || 0
+  const watchHours = (monthlyViews * 4) / 60 // Rough estimate: 4 min avg watch time
+  const yearlyWatchHours = watchHours * 12
+  const subsProgress = Math.min((subscribers / 1000) * 100, 100)
+  const watchProgress = Math.min((yearlyWatchHours / 4000) * 100, 100)
+  const isMonetized = subscribers >= 1000 && yearlyWatchHours >= 4000
+
   const renderInput = (input: PlatformInput) => {
     const value = inputValues[input.id] ?? input.defaultValue
 
@@ -449,15 +464,121 @@ export function YouTubeDashboard({
           </div>
         </PreviewCard>
 
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          Scenario Analysis (Coming)
-        </div>
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          What If Analysis (Coming)
-        </div>
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          Partner Program (Coming)
-        </div>
+        {/* Scenario Analysis - Bar Chart */}
+        <PreviewCard
+          title="Scenario Analysis"
+          tooltip="Best, expected, and worst case revenue scenarios"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('scenario')}
+        >
+          {monthlyRevenue > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={scenarioData} margin={{ top: 5, right: 5, bottom: 20, left: 5 }}>
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: 10, fill: theme === 'dark' ? '#a1a1aa' : '#71717a' }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                  {scenarioData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+              Enter metrics to see scenarios
+            </div>
+          )}
+        </PreviewCard>
+
+        {/* What If Analysis - Multiplier Display */}
+        <PreviewCard
+          title="What If Analysis"
+          tooltip="See how changes would affect your revenue"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('what-if')}
+        >
+          <div className="h-full flex flex-col justify-center space-y-2 px-2">
+            <div className="flex justify-between items-center">
+              <span className="text-xs text-zinc-500">2x Views</span>
+              <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                ${Math.round(monthlyRevenue * 1.8).toLocaleString()}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-xs text-zinc-500">2x Subs</span>
+              <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                ${Math.round(monthlyRevenue * 1.3).toLocaleString()}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-xs text-zinc-500">+$2 CPM</span>
+              <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                ${Math.round(monthlyRevenue * 1.4).toLocaleString()}
+              </span>
+            </div>
+          </div>
+        </PreviewCard>
+
+        {/* Partner Program - Progress Display */}
+        <PreviewCard
+          title="Partner Program"
+          tooltip="YouTube Partner Program eligibility status"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('partner-program')}
+        >
+          <div className="h-full flex flex-col justify-center px-2">
+            {isMonetized ? (
+              <div className="text-center">
+                <div className="text-3xl mb-2">✓</div>
+                <p className={`font-bold ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'}`}>Eligible!</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-zinc-500">Subscribers</span>
+                    <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                      {subscribers.toLocaleString()} / 1,000
+                    </span>
+                  </div>
+                  <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{
+                        width: `${subsProgress}%`,
+                        backgroundColor: subsProgress >= 100 ? '#22C55E' : colors.light
+                      }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-zinc-500">Watch Hours</span>
+                    <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                      {Math.round(yearlyWatchHours).toLocaleString()} / 4,000
+                    </span>
+                  </div>
+                  <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{
+                        width: `${watchProgress}%`,
+                        backgroundColor: watchProgress >= 100 ? '#22C55E' : colors.dark
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </PreviewCard>
       </div>
 
       {/* How Is This Calculated - Expandable Section */}

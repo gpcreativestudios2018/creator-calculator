@@ -11,9 +11,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { getPlatformColors } from '@/data/platformColors'
 import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { platforms, type PlatformInput } from '@/platforms/registry'
-import { Play } from 'lucide-react'
-
-interface YouTubeDashboardProps {
+interface PlatformDashboardProps {
+  platformId: string
   inputValues: Record<string, number>
   onUpdateValue: (inputId: string, value: number) => void
   results: {
@@ -22,7 +21,7 @@ interface YouTubeDashboardProps {
     engagementRate?: number
   }
   theme: 'dark' | 'light'
-  // Tool modal handlers
+  formatCurrency: (value: number) => string
   onShowMediaKit: () => void
   onShowRateCard: () => void
   onShowSponsorshipCalc: () => void
@@ -33,11 +32,13 @@ interface YouTubeDashboardProps {
   onShowContentMix: () => void
 }
 
-export function YouTubeDashboard({
+export function PlatformDashboard({
+  platformId,
   inputValues,
   onUpdateValue,
   results,
   theme,
+  formatCurrency,
   onShowMediaKit,
   onShowRateCard,
   onShowSponsorshipCalc,
@@ -46,11 +47,13 @@ export function YouTubeDashboard({
   onShowGoalTracker,
   onShowPlatformSwitch,
   onShowContentMix,
-}: YouTubeDashboardProps) {
+}: PlatformDashboardProps) {
   const [_activeModal, setActiveModal] = useState<string | null>(null)
 
-  const colors = getPlatformColors('youtube')
-  const platform = platforms.find(p => p.id === 'youtube')!
+  const colors = getPlatformColors(platformId)
+  const platform = platforms.find(p => p.id === platformId)
+
+  if (!platform) return null
 
   // Calculate additional metrics for gauges
   const monthlyRevenue = results.monthlyRevenue
@@ -193,10 +196,10 @@ export function YouTubeDashboard({
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
-          YouTube
+        <h2 className={`text-2xl font-bold bg-gradient-to-r ${platform.gradient} bg-clip-text text-transparent`}>
+          {platform.name}
         </h2>
-        <p className="text-zinc-400">Creator revenue dashboard</p>
+        <p className="text-zinc-400">{platform.description}</p>
       </div>
 
       {/* 4 Stat Cards */}
@@ -257,7 +260,7 @@ export function YouTubeDashboard({
       <Card className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
         <CardHeader>
           <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-            <Play className="w-5 h-5 text-red-500" />
+            <platform.icon className={`w-5 h-5 ${platform.iconColor}`} />
             Your Metrics
           </CardTitle>
         </CardHeader>
@@ -588,7 +591,7 @@ export function YouTubeDashboard({
       </div>
 
       {/* How Is This Calculated - Full Component */}
-      <HowItsCalculated platformId="youtube" theme={theme} />
+      <HowItsCalculated platformId={platformId} theme={theme} />
     </div>
   )
 }

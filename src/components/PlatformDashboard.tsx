@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map } from 'lucide-react'
+import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
@@ -38,6 +38,7 @@ interface PlatformDashboardProps {
   onShowAIRevenueOpt: () => void
   onShowAIFocus: () => void
   onShowAIRoadmap: () => void
+  onShowMonetizationGuide: () => void
 }
 
 export function PlatformDashboard({
@@ -62,6 +63,7 @@ export function PlatformDashboard({
   onShowAIRevenueOpt,
   onShowAIFocus,
   onShowAIRoadmap,
+  onShowMonetizationGuide,
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
 
@@ -88,6 +90,7 @@ export function PlatformDashboard({
     { label: 'Goal Tracker', icon: Target, onClick: onShowGoalTracker },
     { label: 'Platform Switch', icon: ArrowLeftRight, onClick: onShowPlatformSwitch },
     { label: 'Content Mix', icon: Layers, onClick: onShowContentMix },
+    { label: 'How to Monetize', icon: BookOpen, onClick: onShowMonetizationGuide },
   ]
 
   const aiToolButtons = [

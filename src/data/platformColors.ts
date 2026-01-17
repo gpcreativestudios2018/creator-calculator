@@ -115,6 +115,12 @@ export const platformColors: Record<string, PlatformColors> = {
     dark: '#0077CC',
   },
 
+  // Fanvue - Teal tones
+  fanvue: {
+    light: '#2DD4BF',
+    dark: '#0D9488',
+  },
+
   // Etsy - Two oranges
   etsy: {
     light: '#F56400',

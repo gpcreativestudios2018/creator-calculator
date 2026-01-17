@@ -18,6 +18,13 @@ import ContentROICalculator from '@/components/ContentROICalculator'
 import GoalTracker from '@/components/GoalTracker'
 import PlatformSwitchCalculator from '@/components/PlatformSwitchCalculator'
 import ContentMixSimulator from '@/components/ContentMixSimulator'
+import AIAnalysis from '@/components/AIAnalysis'
+import AIGrowthPlan from '@/components/AIGrowthPlan'
+import AIContentIdeas from '@/components/AIContentIdeas'
+import AIBrandPitch from '@/components/AIBrandPitch'
+import AIRevenueOptimization from '@/components/AIRevenueOptimization'
+import AIFocusRecommendations from '@/components/AIFocusRecommendations'
+import AIRoadmap from '@/components/AIRoadmap'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -82,6 +89,13 @@ export function Calculator() {
   const [showGoalTracker, setShowGoalTracker] = useState(false)
   const [showPlatformSwitch, setShowPlatformSwitch] = useState(false)
   const [showContentMix, setShowContentMix] = useState(false)
+  const [showAIAnalysis, setShowAIAnalysis] = useState(false)
+  const [showAIGrowthPlan, setShowAIGrowthPlan] = useState(false)
+  const [showAIContentIdeas, setShowAIContentIdeas] = useState(false)
+  const [showAIBrandPitch, setShowAIBrandPitch] = useState(false)
+  const [showAIRevenueOpt, setShowAIRevenueOpt] = useState(false)
+  const [showAIFocus, setShowAIFocus] = useState(false)
+  const [showAIRoadmap, setShowAIRoadmap] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -272,6 +286,18 @@ export function Calculator() {
     return applyMultipliers(baseResult, currentRegion.revenueMultiplier, currentNiche.rpmMultiplier)
   }, [activeTab, currentValues, currentRegion, currentNiche])
 
+  const aiContext = {
+    platform: activePlatform?.name || activeTab,
+    followers: currentValues.followers,
+    subscribers: currentValues.subscribers,
+    monthlyViews: currentValues.monthlyViews,
+    monthlyRevenue: results.monthlyRevenue,
+    yearlyRevenue: results.yearlyRevenue,
+    engagementRate: results.engagementRate,
+    niche: currentNiche.name,
+    region: currentRegion.name,
+  }
+
   const formatCurrency = (value: number) => {
     const formatted = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(value)
     return `${currentRegion.currencySymbol}${formatted}`
@@ -448,6 +474,55 @@ export function Calculator() {
             />
           </div>
         </div>
+      )}
+      {showAIAnalysis && (
+        <AIAnalysis
+          context={aiContext}
+          theme={theme}
+          onClose={() => setShowAIAnalysis(false)}
+        />
+      )}
+      {showAIGrowthPlan && (
+        <AIGrowthPlan
+          context={aiContext}
+          theme={theme}
+          onClose={() => setShowAIGrowthPlan(false)}
+        />
+      )}
+      {showAIContentIdeas && (
+        <AIContentIdeas
+          context={aiContext}
+          theme={theme}
+          onClose={() => setShowAIContentIdeas(false)}
+        />
+      )}
+      {showAIBrandPitch && (
+        <AIBrandPitch
+          context={aiContext}
+          theme={theme}
+          onClose={() => setShowAIBrandPitch(false)}
+        />
+      )}
+      {showAIRevenueOpt && (
+        <AIRevenueOptimization
+          context={aiContext}
+          theme={theme}
+          onClose={() => setShowAIRevenueOpt(false)}
+        />
+      )}
+      {showAIFocus && (
+        <AIFocusRecommendations
+          context={aiContext}
+          theme={theme}
+          onClose={() => setShowAIFocus(false)}
+        />
+      )}
+      {showAIRoadmap && (
+        <AIRoadmap
+          context={aiContext}
+          theme={theme}
+          onClose={() => setShowAIRoadmap(false)}
+        />
       )}
       {!showMethodology && !showGlossary && (
       <>

@@ -38,7 +38,7 @@ export function PlatformDashboard({
   onUpdateValue,
   results,
   theme,
-  formatCurrency,
+  formatCurrency: _formatCurrency,
   onShowMediaKit,
   onShowRateCard,
   onShowSponsorshipCalc,
@@ -591,7 +591,7 @@ export function PlatformDashboard({
       </div>
 
       {/* How Is This Calculated - Full Component */}
-      <HowItsCalculated platformId={platformId} theme={theme} />
+      <HowItsCalculated platformId={platformId} />
     </div>
   )
 }

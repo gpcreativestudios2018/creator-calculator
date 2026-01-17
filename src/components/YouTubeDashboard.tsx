@@ -79,9 +79,9 @@ export function YouTubeDashboard({
   const membershipRevenue = (inputValues.subscribers || 0) * 0.02
 
   const revenueStreamsData = [
-    { name: 'Ad Revenue', value: adRevenue, color: colors.light },
-    { name: 'Sponsorships', value: sponsorRevenue, color: colors.dark },
-    { name: 'Memberships', value: membershipRevenue, color: '#FF9999' },
+    { name: 'Ad Revenue', value: adRevenue, color: '#22C55E' },
+    { name: 'Sponsorships', value: sponsorRevenue, color: '#3B82F6' },
+    { name: 'Memberships', value: membershipRevenue, color: '#F97316' },
   ].filter(item => item.value > 0)
 
   const earningsByPeriodData = [
@@ -103,9 +103,9 @@ export function YouTubeDashboard({
   const estimatedExpenses = grossAnnual * 0.15
   const takeHome = grossAnnual - estimatedTax - estimatedExpenses
   const takeHomeData = [
-    { name: 'Take Home', value: takeHome, color: colors.light },
-    { name: 'Taxes', value: estimatedTax, color: colors.dark },
-    { name: 'Expenses', value: estimatedExpenses, color: '#FF9999' },
+    { name: 'Take Home', value: takeHome, color: '#22C55E' },
+    { name: 'Taxes', value: estimatedTax, color: '#EF4444' },
+    { name: 'Expenses', value: estimatedExpenses, color: '#F97316' },
   ]
 
   // Hourly Rate calculation
@@ -115,7 +115,7 @@ export function YouTubeDashboard({
   // Scenario Analysis data
   const scenarioData = [
     { name: 'Worst', value: monthlyRevenue * 0.7, color: '#EF4444' },
-    { name: 'Expected', value: monthlyRevenue, color: colors.light },
+    { name: 'Expected', value: monthlyRevenue, color: '#3B82F6' },
     { name: 'Best', value: monthlyRevenue * 1.5, color: '#22C55E' },
   ]
 
@@ -205,36 +205,36 @@ export function YouTubeDashboard({
           value={monthlyRevenue}
           maxValue={Math.max(monthlyRevenue * 1.5, 10000)}
           format="currency"
-          colorLight={colors.light}
-          colorDark={colors.dark}
-          size="lg"
+          colorLight="#34D399"
+          colorDark="#22C55E"
+          size="md"
         />
         <CircularGauge
           label="Yearly Projection"
           value={yearlyRevenue}
           maxValue={Math.max(yearlyRevenue * 1.5, 120000)}
           format="currency"
-          colorLight={colors.light}
-          colorDark={colors.dark}
-          size="lg"
+          colorLight="#60A5FA"
+          colorDark="#3B82F6"
+          size="md"
         />
         <CircularGauge
           label="Engagement Rate"
           value={engagementRate}
           maxValue={15}
           format="percent"
-          colorLight={colors.light}
-          colorDark={colors.dark}
-          size="lg"
+          colorLight="#FBBF24"
+          colorDark="#F97316"
+          size="md"
         />
         <CircularGauge
           label="Growth Rate"
           value={growthRate}
           maxValue={30}
           format="percent"
-          colorLight={colors.light}
-          colorDark={colors.dark}
-          size="lg"
+          colorLight="#2DD4BF"
+          colorDark="#14B8A6"
+          size="md"
         />
       </div>
 
@@ -329,7 +329,7 @@ export function YouTubeDashboard({
                   {earningsByPeriodData.map((_, index) => (
                     <Cell
                       key={`cell-${index}`}
-                      fill={index % 2 === 0 ? colors.light : colors.dark}
+                      fill={index % 2 === 0 ? '#3B82F6' : '#60A5FA'}
                     />
                   ))}
                 </Bar>
@@ -364,7 +364,7 @@ export function YouTubeDashboard({
                 <Line
                   type="monotone"
                   dataKey="value"
-                  stroke={colors.light}
+                  stroke="#22C55E"
                   strokeWidth={2}
                   dot={false}
                 />
@@ -428,7 +428,7 @@ export function YouTubeDashboard({
           theme={theme}
         >
           <div className="h-full flex flex-col items-center justify-center">
-            <p className={`text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+            <p className="text-4xl font-bold text-emerald-500">
               ${hourlyRate.toFixed(0)}
             </p>
             <p className="text-sm text-zinc-500 mt-1">per hour</p>

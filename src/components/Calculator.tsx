@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -794,6 +794,15 @@ export function Calculator() {
         >
           <Award className="w-4 h-4 text-yellow-500" />
           Monetization Tracker
+        </button>
+
+        {/* Success Stories */}
+        <button
+          onClick={() => setShowCaseStudies(true)}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          <Users className="w-4 h-4 text-emerald-500" />
+          Success Stories
         </button>
       </aside>
 

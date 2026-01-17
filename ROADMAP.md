@@ -1,6 +1,6 @@
 # CREATOR CALCULATOR — GOLD STANDARD MASTER ROADMAP
 
-> **Total Items:** 105
+> **Total Items:** 111
 > **Status:** In Progress
 > **Last Updated:** January 2025
 
@@ -18,14 +18,15 @@
 | Phase 6: Missing Platforms | 12 | 12 | 🟩🟩🟩🟩🟩 100% |
 | Phase 7: Visualizations & Data | 5 | 5 | 🟩🟩🟩🟩🟩 100% |
 | Phase 8: Business Tools | 8 | 3 | 🟨🟨⬜⬜⬜ 38% |
-| Phase 9: AI-Powered Features | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| Phase 10: Educational Content | 6 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| Phase 11: Social & Sharing | 6 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| Phase 12: Marketing & Growth | 5 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| Phase 13: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| Phase 14: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| Phase 15: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| **TOTAL** | **105** | **80** | **76%** |
+| Phase 9: Dashboard Redesign | 6 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 10: AI-Powered Features | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 11: Educational Content | 6 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 12: Social & Sharing | 6 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 13: Marketing & Growth | 5 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 14: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 15: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| Phase 16: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| **TOTAL** | **111** | **80** | **72%** |
 
 ---
 
@@ -163,92 +164,104 @@
 
 ---
 
-## ✅ PHASE 9: AI-POWERED FEATURES
+## ⬜ PHASE 9: DASHBOARD REDESIGN
+> *Clean, snapshot-style layout — everything visible at a glance*
+
+- [ ] 9.1 — Redesign main view as card grid (no endless scrolling)
+- [ ] 9.2 — Create summary cards that show key metrics at a glance
+- [ ] 9.3 — Click-to-expand modals for detailed views (charts, breakdowns)
+- [ ] 9.4 — Keep inputs pinned/accessible at top
+- [ ] 9.5 — Implement clean dashboard aesthetic (inspired by analytics dashboards)
+- [ ] 9.6 — Mobile responsive grid layout
+
+---
+
+## ⬜ PHASE 10: AI-POWERED FEATURES
 > *Premium intelligence layer*
 
-- [ ] 9.1 — AI analysis of user inputs ("what's holding you back")
-- [ ] 9.2 — AI-generated growth plan per platform
-- [ ] 9.3 — AI brand deal pitch writer
-- [ ] 9.4 — AI content ideas based on niche + metrics
-- [ ] 9.5 — AI revenue optimization suggestions
-- [ ] 9.6 — AI benchmarking ("how you compare to similar creators")
-- [ ] 9.7 — "Where should you focus?" recommendation engine
-- [ ] 9.8 — "What should you do next?" personalized roadmap
+- [ ] 10.1 — AI analysis of user inputs ("what's holding you back")
+- [ ] 10.2 — AI-generated growth plan per platform
+- [ ] 10.3 — AI brand deal pitch writer
+- [ ] 10.4 — AI content ideas based on niche + metrics
+- [ ] 10.5 — AI revenue optimization suggestions
+- [ ] 10.6 — AI benchmarking ("how you compare to similar creators")
+- [ ] 10.7 — "Where should you focus?" recommendation engine
+- [ ] 10.8 — "What should you do next?" personalized roadmap
 
 ---
 
-## ✅ PHASE 10: EDUCATIONAL CONTENT
+## ⬜ PHASE 11: EDUCATIONAL CONTENT
 > *Become the authority on creator monetization*
 
-- [ ] 10.1 — Platform-specific monetization guides
-- [ ] 10.2 — Video tutorials (how to use the calculator)
-- [ ] 10.3 — Blog/resources section
-- [ ] 10.4 — Case studies ("how Creator X makes $10k/month")
-- [ ] 10.5 — Monetization threshold tracker (YouTube 1k subs, etc.)
-- [ ] 10.6 — Creator business planner (goals → revenue → content)
+- [ ] 11.1 — Platform-specific monetization guides
+- [ ] 11.2 — Video tutorials (how to use the calculator)
+- [ ] 11.3 — Blog/resources section
+- [ ] 11.4 — Case studies ("how Creator X makes $10k/month")
+- [ ] 11.5 — Monetization threshold tracker (YouTube 1k subs, etc.)
+- [ ] 11.6 — Creator business planner (goals → revenue → content)
 
 ---
 
-## ✅ PHASE 11: SOCIAL & SHARING
+## ⬜ PHASE 12: SOCIAL & SHARING
 > *Make it viral*
 
-- [ ] 11.1 — Social share buttons (Twitter, LinkedIn, etc.)
-- [ ] 11.2 — Screenshot/image export of results
-- [ ] 11.3 — Shareable revenue cards (image generator)
-- [ ] 11.4 — Embeddable widget for other sites
-- [ ] 11.5 — Testimonials from real creators
-- [ ] 11.6 — Shareable links with saved inputs
+- [ ] 12.1 — Social share buttons (Twitter, LinkedIn, etc.)
+- [ ] 12.2 — Screenshot/image export of results
+- [ ] 12.3 — Shareable revenue cards (image generator)
+- [ ] 12.4 — Embeddable widget for other sites
+- [ ] 12.5 — Testimonials from real creators
+- [ ] 12.6 — Shareable links with saved inputs
 
 ---
 
-## ✅ PHASE 12: MARKETING & GROWTH
+## ⬜ PHASE 13: MARKETING & GROWTH
 > *Build the growth engine*
 
-- [ ] 12.1 — Email capture + newsletter signup
-- [ ] 12.2 — Lead magnet (free PDF guide)
-- [ ] 12.3 — Programmatic SEO pages ("/youtube-rpm-by-niche")
-- [ ] 12.4 — Platform-specific landing pages
-- [ ] 12.5 — Expanded affiliate partnerships
+- [ ] 13.1 — Email capture + newsletter signup
+- [ ] 13.2 — Lead magnet (free PDF guide)
+- [ ] 13.3 — Programmatic SEO pages ("/youtube-rpm-by-niche")
+- [ ] 13.4 — Platform-specific landing pages
+- [ ] 13.5 — Expanded affiliate partnerships
 
 ---
 
-## ✅ PHASE 13: MONETIZATION (CREATOR CALCULATOR PRO)
+## ⬜ PHASE 14: MONETIZATION (CREATOR CALCULATOR PRO)
 > *Build the business model*
 
-- [ ] 13.1 — Free tier definition (basic calculators + ads)
-- [ ] 13.2 — Pro tier features (advanced models, AI, exports)
-- [ ] 13.3 — Stripe billing integration
-- [ ] 13.4 — Email login or magic link auth
-- [ ] 13.5 — PDF/CSV export functionality
-- [ ] 13.6 — Saved scenarios ("My YouTube Plan")
-- [ ] 13.7 — User accounts/profiles
-- [ ] 13.8 — "Buy me a coffee" donation option
+- [ ] 14.1 — Free tier definition (basic calculators + ads)
+- [ ] 14.2 — Pro tier features (advanced models, AI, exports)
+- [ ] 14.3 — Stripe billing integration
+- [ ] 14.4 — Email login or magic link auth
+- [ ] 14.5 — PDF/CSV export functionality
+- [ ] 14.6 — Saved scenarios ("My YouTube Plan")
+- [ ] 14.7 — User accounts/profiles
+- [ ] 14.8 — "Buy me a coffee" donation option
 
 ---
 
-## ✅ PHASE 14: TECHNICAL & PERFORMANCE
+## ⬜ PHASE 15: TECHNICAL & PERFORMANCE
 > *Make it fast and bulletproof*
 
-- [ ] 14.1 — localStorage persistence for inputs
-- [ ] 14.2 — Code splitting + lazy loading
-- [ ] 14.3 — Lighthouse score 95+ optimization
-- [ ] 14.4 — Sentry error monitoring
-- [ ] 14.5 — Vercel Analytics integration
-- [ ] 14.6 — Detailed analytics events (input changes, tab switches, etc.)
-- [ ] 14.7 — PWA offline support
-- [ ] 14.8 — Automated testing setup
-- [ ] 14.9 — CI/CD pipeline
-- [ ] 14.10 — Performance monitoring dashboard
+- [ ] 15.1 — localStorage persistence for inputs
+- [ ] 15.2 — Code splitting + lazy loading
+- [ ] 15.3 — Lighthouse score 95+ optimization
+- [ ] 15.4 — Sentry error monitoring
+- [ ] 15.5 — Vercel Analytics integration
+- [ ] 15.6 — Detailed analytics events (input changes, tab switches, etc.)
+- [ ] 15.7 — PWA offline support
+- [ ] 15.8 — Automated testing setup
+- [ ] 15.9 — CI/CD pipeline
+- [ ] 15.10 — Performance monitoring dashboard
 
 ---
 
-## ✅ PHASE 15: ACCESSIBILITY & INTERNATIONALIZATION
+## ⬜ PHASE 16: ACCESSIBILITY & INTERNATIONALIZATION
 > *Reach everyone*
 
-- [ ] 15.1 — Multi-language support (Spanish, Portuguese, etc.)
-- [ ] 15.2 — Font size controls
-- [ ] 15.3 — High contrast mode
-- [ ] 15.4 — Full screen reader audit and optimization
+- [ ] 16.1 — Multi-language support (Spanish, Portuguese, etc.)
+- [ ] 16.2 — Font size controls
+- [ ] 16.3 — High contrast mode
+- [ ] 16.4 — Full screen reader audit and optimization
 
 ---
 

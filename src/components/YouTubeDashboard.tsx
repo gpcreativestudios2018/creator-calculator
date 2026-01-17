@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, LineChart, Line } from 'recharts'
-import { CircularGauge } from '@/components/CircularGauge'
+import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -198,43 +198,39 @@ export function YouTubeDashboard({
         <p className="text-zinc-400">Creator revenue dashboard</p>
       </div>
 
-      {/* 4 Circular Gauges */}
-      <div className="flex flex-wrap justify-center gap-6 lg:gap-10">
-        <CircularGauge
+      {/* 4 Stat Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <StatCard
           label="Monthly Revenue"
-          value={monthlyRevenue}
-          maxValue={Math.max(monthlyRevenue * 1.5, 10000)}
-          format="currency"
-          colorLight="#34D399"
-          colorDark="#22C55E"
-          size="md"
+          value={`$${monthlyRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
+          subtitle="per month"
+          progress={Math.min((monthlyRevenue / 10000) * 100, 100)}
+          color="#22C55E"
+          theme={theme}
         />
-        <CircularGauge
+        <StatCard
           label="Yearly Projection"
-          value={yearlyRevenue}
-          maxValue={Math.max(yearlyRevenue * 1.5, 120000)}
-          format="currency"
-          colorLight="#60A5FA"
-          colorDark="#3B82F6"
-          size="md"
+          value={`$${yearlyRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
+          subtitle="per year"
+          progress={Math.min((yearlyRevenue / 120000) * 100, 100)}
+          color="#3B82F6"
+          theme={theme}
         />
-        <CircularGauge
+        <StatCard
           label="Engagement Rate"
-          value={engagementRate}
-          maxValue={15}
-          format="percent"
-          colorLight="#FBBF24"
-          colorDark="#F97316"
-          size="md"
+          value={`${engagementRate.toFixed(1)}%`}
+          subtitle="avg engagement"
+          progress={Math.min((engagementRate / 10) * 100, 100)}
+          color="#F97316"
+          theme={theme}
         />
-        <CircularGauge
+        <StatCard
           label="Growth Rate"
-          value={growthRate}
-          maxValue={30}
-          format="percent"
-          colorLight="#2DD4BF"
-          colorDark="#14B8A6"
-          size="md"
+          value={`${growthRate.toFixed(1)}%`}
+          subtitle="monthly growth"
+          progress={Math.min((growthRate / 20) * 100, 100)}
+          color="#14B8A6"
+          theme={theme}
         />
       </div>
 

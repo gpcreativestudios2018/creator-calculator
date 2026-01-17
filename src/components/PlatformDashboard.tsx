@@ -10,6 +10,7 @@ import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getPlatformColors } from '@/data/platformColors'
 import { HowItsCalculated } from '@/components/HowItsCalculated'
+import { PlatformModal } from '@/components/PlatformModal'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 interface PlatformDashboardProps {
   platformId: string
@@ -48,7 +49,7 @@ export function PlatformDashboard({
   onShowPlatformSwitch,
   onShowContentMix,
 }: PlatformDashboardProps) {
-  const [_activeModal, setActiveModal] = useState<string | null>(null)
+  const [activeModal, setActiveModal] = useState<string | null>(null)
 
   const colors = getPlatformColors(platformId)
   const platform = platforms.find(p => p.id === platformId)
@@ -592,6 +593,138 @@ export function PlatformDashboard({
 
       {/* How Is This Calculated - Full Component */}
       <HowItsCalculated platformId={platformId} />
+
+      {/* Revenue Streams Modal */}
+      <PlatformModal
+        isOpen={activeModal === 'revenue-streams'}
+        onClose={() => setActiveModal(null)}
+        title="Revenue Streams"
+        theme={theme}
+      >
+        <div className="space-y-6">
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={revenueStreamsData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius="40%"
+                  outerRadius="70%"
+                  dataKey="value"
+                  stroke="none"
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                >
+                  {revenueStreamsData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="space-y-2">
+            {revenueStreamsData.map((stream) => (
+              <div key={stream.name} className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stream.color }} />
+                  <span className={theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}>{stream.name}</span>
+                </div>
+                <span className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  ${stream.value.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </PlatformModal>
+
+      {/* Earnings by Period Modal */}
+      <PlatformModal
+        isOpen={activeModal === 'earnings-period'}
+        onClose={() => setActiveModal(null)}
+        title="Earnings by Period"
+        theme={theme}
+      >
+        <div className="space-y-6">
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={earningsByPeriodData} margin={{ top: 20, right: 30, bottom: 20, left: 40 }}>
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: 12, fill: theme === 'dark' ? '#a1a1aa' : '#71717a' }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                  {earningsByPeriodData.map((_, index) => (
+                    <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#3B82F6' : '#60A5FA'} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {earningsByPeriodData.map((period) => (
+              <div key={period.name} className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                <p className="text-sm text-zinc-500">{period.name}</p>
+                <p className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  ${period.value.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </PlatformModal>
+
+      {/* 12-Month Projection Modal */}
+      <PlatformModal
+        isOpen={activeModal === 'projection'}
+        onClose={() => setActiveModal(null)}
+        title="12-Month Projection"
+        theme={theme}
+      >
+        <div className="space-y-6">
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={projectionData} margin={{ top: 20, right: 30, bottom: 20, left: 40 }}>
+                <XAxis
+                  dataKey="month"
+                  tick={{ fontSize: 12, fill: theme === 'dark' ? '#a1a1aa' : '#71717a' }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#22C55E"
+                  strokeWidth={2}
+                  dot={{ fill: '#22C55E', strokeWidth: 0 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+              <p className="text-sm text-zinc-500">Starting</p>
+              <p className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                ${monthlyRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              </p>
+            </div>
+            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+              <p className="text-sm text-zinc-500">End of Year</p>
+              <p className={`text-xl font-bold text-emerald-500`}>
+                ${projectionData[11]?.value.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              </p>
+            </div>
+            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+              <p className="text-sm text-zinc-500">Growth</p>
+              <p className={`text-xl font-bold text-emerald-500`}>
+                +{growthRate.toFixed(1)}%
+              </p>
+            </div>
+          </div>
+        </div>
+      </PlatformModal>
     </div>
   )
 }

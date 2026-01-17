@@ -26,6 +26,7 @@ import AIRevenueOptimization from '@/components/AIRevenueOptimization'
 import AIFocusRecommendations from '@/components/AIFocusRecommendations'
 import AIRoadmap from '@/components/AIRoadmap'
 import { MonetizationTracker } from '@/components/MonetizationTracker'
+import { MonetizationGuide } from '@/components/MonetizationGuide'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -98,6 +99,7 @@ export function Calculator() {
   const [showAIFocus, setShowAIFocus] = useState(false)
   const [showAIRoadmap, setShowAIRoadmap] = useState(false)
   const [showMonetizationTracker, setShowMonetizationTracker] = useState(false)
+  const [showMonetizationGuide, setShowMonetizationGuide] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -531,6 +533,13 @@ export function Calculator() {
           theme={theme}
           allInputValues={inputValues}
           onClose={() => setShowMonetizationTracker(false)}
+        />
+      )}
+      {showMonetizationGuide && (
+        <MonetizationGuide
+          platformId={activeTab}
+          theme={theme}
+          onClose={() => setShowMonetizationGuide(false)}
         />
       )}
       {!showMethodology && !showGlossary && (
@@ -1156,6 +1165,7 @@ export function Calculator() {
             onShowAIRevenueOpt={() => setShowAIRevenueOpt(true)}
             onShowAIFocus={() => setShowAIFocus(true)}
             onShowAIRoadmap={() => setShowAIRoadmap(true)}
+            onShowMonetizationGuide={() => setShowMonetizationGuide(true)}
           />
         ) : null}
       </main>

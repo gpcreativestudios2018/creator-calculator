@@ -415,6 +415,393 @@ export const methodology: Record<string, PlatformMethodology> = {
     lastUpdated: 'January 2025',
     version: 'v1.0',
   },
+
+  patreon: {
+    howItWorks:
+      'Patreon revenue comes from monthly membership pledges from your patrons. The platform takes a percentage based on your plan (Lite 5%, Pro 8%, Premium 12%), plus payment processing fees.',
+    formulas: [
+      {
+        name: 'Monthly Revenue',
+        formula: 'patrons × averagePledge × (1 - platformFee)',
+        explanation:
+          'Total patrons times average pledge amount, minus Patreon\'s cut (5-12% depending on plan) and payment processing (~3%).',
+      },
+    ],
+    assumptions: [
+      'Platform fee varies by plan: Lite 5%, Pro 8%, Premium 12%',
+      'Payment processing adds ~2.9% + $0.30 per transaction',
+      'Average pledge varies widely by creator type ($3-15 typical)',
+      'Patron retention averages 6-12 months',
+      'Higher tiers have lower volume but higher revenue per patron',
+    ],
+    disclaimer:
+      'Patreon income depends heavily on the value you provide and your relationship with supporters. Churn rate (patrons leaving) is a major factor. Most creators see 5-15% monthly churn.',
+    sources: [
+      { name: 'Patreon Pricing', url: 'https://www.patreon.com/pricing' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  kofi: {
+    howItWorks:
+      'Ko-fi lets creators receive one-time donations ("coffees"), monthly memberships, and sell products. Ko-fi takes 0% of donations on the free plan, and 5% on the Gold plan which enables more features.',
+    formulas: [
+      {
+        name: 'Donations',
+        formula: 'supporters × averageTip',
+        explanation:
+          'Number of supporters times average tip amount. Ko-fi takes 0% on free plan, 5% on Gold.',
+      },
+      {
+        name: 'Memberships',
+        formula: 'members × membershipPrice × 0.95',
+        explanation:
+          'Monthly members times membership price. Ko-fi Gold takes 5% of membership revenue.',
+      },
+    ],
+    assumptions: [
+      'Free plan: 0% platform fee on donations',
+      'Gold plan ($6/month): 5% fee but more features',
+      'Payment processor fees still apply (~3%)',
+      'One-time donations are less predictable than memberships',
+      'Shop sales have separate fee structure',
+    ],
+    disclaimer:
+      'Ko-fi is best for creators wanting a simple tip jar with low fees. Income is typically less predictable than subscription platforms. Building a consistent supporter base takes time.',
+    sources: [
+      { name: 'Ko-fi Gold', url: 'https://ko-fi.com/gold' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  gumroad: {
+    howItWorks:
+      'Gumroad is a platform for selling digital products (ebooks, courses, software, art). Gumroad takes a 10% flat fee on all sales plus payment processing.',
+    formulas: [
+      {
+        name: 'Product Sales',
+        formula: 'unitsSold × productPrice × 0.90',
+        explanation:
+          'Units sold times price, minus Gumroad\'s 10% fee. Payment processing is additional (~3%).',
+      },
+    ],
+    assumptions: [
+      'Flat 10% platform fee on all sales',
+      'Payment processing adds ~2.9% + $0.30',
+      'No monthly fees on the free plan',
+      'Gumroad Discover can drive additional sales',
+      'Refund rates vary by product type (typically 2-5%)',
+    ],
+    disclaimer:
+      'Gumroad revenue depends on product quality, marketing, and audience size. Digital products have high margins but require upfront creation time. Success varies dramatically by niche and marketing effort.',
+    sources: [
+      { name: 'Gumroad Pricing', url: 'https://gumroad.com/pricing' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  podcast: {
+    howItWorks:
+      'Podcast monetization comes from dynamically inserted ads (CPM-based), host-read sponsorships, and listener support. Ad rates depend on download numbers and audience demographics.',
+    formulas: [
+      {
+        name: 'Ad Revenue',
+        formula: '(downloads / 1000) × CPM × adsPerEpisode',
+        explanation:
+          'Downloads per episode divided by 1000, times CPM rate, times number of ad slots. CPM ranges from $15-50+ depending on niche.',
+      },
+      {
+        name: 'Sponsorships',
+        formula: 'sponsorRate × episodesPerMonth',
+        explanation:
+          'Flat sponsor rate per episode times episodes published. Rates vary from $100-10,000+ per episode.',
+      },
+    ],
+    assumptions: [
+      'Industry average CPM is $18-25 for pre-roll, $20-30 for mid-roll',
+      'Premium niches (business, finance) command $40-80+ CPM',
+      'Most networks require 5,000-10,000 downloads/episode minimum',
+      'Host-read ads command 2-3x higher rates than dynamic insertion',
+      'Listener support (Patreon, etc.) adds supplementary income',
+    ],
+    disclaimer:
+      'Podcast monetization requires significant download numbers. Most podcasts never reach monetization thresholds. Success requires consistent publishing and audience building over months or years.',
+    sources: [
+      { name: 'AdvertiseCast Rates', url: 'https://www.advertisecast.com/podcast-advertising-rates' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  teachable: {
+    howItWorks:
+      'Online course revenue comes from one-time course purchases or subscription access. Platforms like Teachable, Kajabi, and Thinkific charge monthly fees plus transaction fees depending on the plan.',
+    formulas: [
+      {
+        name: 'Course Sales',
+        formula: 'students × coursePrice × (1 - platformFee)',
+        explanation:
+          'Number of students times course price, minus platform transaction fee (0-5% depending on plan).',
+      },
+    ],
+    assumptions: [
+      'Teachable Free: 10% + $1 per sale',
+      'Teachable Basic ($59/mo): 5% transaction fee',
+      'Teachable Pro ($159/mo): 0% transaction fee',
+      'Course completion rates average 5-15%',
+      'Refund rates typically 5-15% depending on price point',
+    ],
+    disclaimer:
+      'Online course success depends heavily on marketing, course quality, and niche demand. Most courses sell fewer than 100 copies. High-ticket courses ($500+) require more trust-building but fewer sales.',
+    sources: [
+      { name: 'Teachable Pricing', url: 'https://teachable.com/pricing' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  onlyfans: {
+    howItWorks:
+      'OnlyFans revenue comes from monthly subscriptions, tips, pay-per-view messages, and paid posts. The platform takes a flat 20% of all earnings.',
+    formulas: [
+      {
+        name: 'Subscription Revenue',
+        formula: 'subscribers × subscriptionPrice × 0.80',
+        explanation:
+          'Monthly subscribers times subscription price, minus OnlyFans\' 20% cut.',
+      },
+      {
+        name: 'Tips & PPV',
+        formula: '(tips + ppvRevenue) × 0.80',
+        explanation:
+          'Tips and pay-per-view purchases, minus the 20% platform fee.',
+      },
+    ],
+    assumptions: [
+      'OnlyFans takes 20% of all revenue',
+      'Subscription prices typically range $5-50/month',
+      'Tips and PPV can equal or exceed subscription revenue',
+      'Churn rate is high (30-50% monthly is common)',
+      'Promotion on other platforms is essential for growth',
+    ],
+    disclaimer:
+      'OnlyFans income varies enormously based on content type, promotion, and engagement. Top creators earn significantly more from tips and PPV than subscriptions. Building a subscriber base requires consistent content and external promotion.',
+    sources: [
+      { name: 'OnlyFans Creator Terms', url: 'https://onlyfans.com/terms' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  fansly: {
+    howItWorks:
+      'Fansly is similar to OnlyFans, with revenue from subscriptions, tips, and paid content. Fansly takes 20% of earnings, matching OnlyFans\' rate.',
+    formulas: [
+      {
+        name: 'Subscription Revenue',
+        formula: 'subscribers × subscriptionPrice × 0.80',
+        explanation:
+          'Monthly subscribers times subscription price, minus Fansly\'s 20% cut.',
+      },
+      {
+        name: 'Tips & Sales',
+        formula: '(tips + contentSales) × 0.80',
+        explanation:
+          'Tips and content purchases, minus the 20% platform fee.',
+      },
+    ],
+    assumptions: [
+      'Fansly takes 20% of all revenue',
+      'Platform has more lenient content policies than OnlyFans',
+      'Smaller user base but growing',
+      'Multi-tier subscription options available',
+      'Cross-promotion from other platforms is necessary',
+    ],
+    disclaimer:
+      'Fansly has a smaller audience than OnlyFans but offers similar monetization. Success depends on bringing your own audience and consistent content creation.',
+    sources: [
+      { name: 'Fansly', url: 'https://fansly.com/' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  etsy: {
+    howItWorks:
+      'Etsy revenue comes from selling handmade, vintage, or craft supply items. Etsy charges listing fees ($0.20/item), transaction fees (6.5%), and payment processing fees (~3%).',
+    formulas: [
+      {
+        name: 'Net Revenue',
+        formula: '(orders × avgOrderValue) × (1 - 0.065 - 0.03) - (listings × 0.20)',
+        explanation:
+          'Gross sales minus 6.5% transaction fee, ~3% payment processing, and $0.20 per listing fee.',
+      },
+      {
+        name: 'Profit',
+        formula: 'netRevenue - costOfGoods - shipping',
+        explanation:
+          'Net revenue minus your costs for materials and shipping supplies.',
+      },
+    ],
+    assumptions: [
+      '$0.20 listing fee per item (lasts 4 months or until sold)',
+      '6.5% transaction fee on sale price + shipping',
+      '~3% + $0.25 payment processing fee',
+      'Etsy Ads can increase visibility (additional cost)',
+      'Profit margins vary widely by product type',
+    ],
+    disclaimer:
+      'Etsy profitability depends heavily on product margins and competition. Fees add up quickly—factor in all costs before pricing. Success requires SEO optimization and often paid advertising.',
+    sources: [
+      { name: 'Etsy Fees', url: 'https://www.etsy.com/legal/fees/' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  amazon: {
+    howItWorks:
+      'Amazon Influencer Program lets you earn commissions by recommending products through your storefront. Commission rates vary by category (1-10%), and you earn when visitors purchase through your links.',
+    formulas: [
+      {
+        name: 'Commission Revenue',
+        formula: 'pageViews × conversionRate × avgOrderValue × commissionRate',
+        explanation:
+          'Storefront visits times purchase rate times order value times category commission rate.',
+      },
+    ],
+    assumptions: [
+      'Commission rates: 1-4% for most categories, up to 10% for luxury beauty',
+      'Conversion rates typically 3-8% from storefront visits',
+      '24-hour cookie window for purchases',
+      'Bounty bonuses available for Prime signups, Audible trials, etc.',
+      'Video reviews on product pages earn additional commissions',
+    ],
+    disclaimer:
+      'Amazon commissions are relatively low compared to direct affiliate programs. Success requires high traffic volume. Commission rates can change without notice and vary significantly by product category.',
+    sources: [
+      { name: 'Amazon Associates', url: 'https://affiliate-program.amazon.com/' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  threads: {
+    howItWorks:
+      'Threads currently has no direct monetization program. Revenue for Threads creators comes from brand deals, cross-promotion to monetized platforms, and building audience for other income streams.',
+    formulas: [
+      {
+        name: 'Brand Deals (estimated)',
+        formula: 'followers × engagementRate × brandDealRate',
+        explanation:
+          'Rough estimate based on follower count and engagement. Rates are not yet established as the platform is new.',
+      },
+    ],
+    assumptions: [
+      'No native monetization program currently exists',
+      'Value comes from audience building and cross-promotion',
+      'Brand deal rates are not yet standardized',
+      'Platform is growing rapidly from Instagram integration',
+      'Future monetization programs may be introduced',
+    ],
+    disclaimer:
+      'Threads does not currently pay creators directly. All revenue estimates are based on potential brand deals and cross-platform promotion. This may change as Meta develops the platform.',
+    sources: [
+      { name: 'Threads by Meta', url: 'https://www.threads.net/' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  discord: {
+    howItWorks:
+      'Discord server monetization comes from Server Subscriptions (premium membership tiers), which Discord launched for eligible servers. Discord takes 10% of subscription revenue.',
+    formulas: [
+      {
+        name: 'Server Subscriptions',
+        formula: 'premiumMembers × subscriptionPrice × 0.90',
+        explanation:
+          'Paying members times subscription price, minus Discord\'s 10% cut.',
+      },
+    ],
+    assumptions: [
+      'Discord takes 10% of Server Subscription revenue',
+      'Must apply and be approved for monetization',
+      'Requires 500+ members to be eligible',
+      'Multiple subscription tiers allowed',
+      'Payment processing fees are additional',
+    ],
+    disclaimer:
+      'Discord Server Subscriptions require application approval and a minimum community size. Most Discord monetization still comes through external platforms like Patreon or Ko-fi integrated with role bots.',
+    sources: [
+      { name: 'Discord Server Subscriptions', url: 'https://support.discord.com/hc/en-us/articles/4415163187607' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  rumble: {
+    howItWorks:
+      'Rumble pays creators through ad revenue sharing on videos. The platform offers different licensing options with varying revenue splits. Rumble Rants allows viewers to tip during live streams.',
+    formulas: [
+      {
+        name: 'Ad Revenue',
+        formula: '(views / 1000) × CPM × revSharePercent',
+        explanation:
+          'Views divided by 1000 times CPM rate times your revenue share (60-90% depending on license).',
+      },
+      {
+        name: 'Rumble Rants',
+        formula: 'rantsReceived × avgRantValue × 0.80',
+        explanation:
+          'Tips received through Rants during live streams, minus Rumble\'s 20% cut.',
+      },
+    ],
+    assumptions: [
+      'Exclusive license: up to 90% revenue share',
+      'Rumble-only license: 85% revenue share',
+      'Non-exclusive license: 60% revenue share',
+      'CPM varies but generally lower than YouTube',
+      'Rants (tips) have 80/20 creator/platform split',
+    ],
+    disclaimer:
+      'Rumble CPMs are generally lower than YouTube. The platform has a smaller but dedicated audience. Revenue depends heavily on content type and licensing choice.',
+    sources: [
+      { name: 'Rumble Creator Program', url: 'https://rumble.com/our-platform/creators/' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
+
+  substack: {
+    howItWorks:
+      'Substack revenue comes from paid newsletter subscriptions. The platform takes 10% of subscription revenue, plus payment processing fees (~3%).',
+    formulas: [
+      {
+        name: 'Subscription Revenue',
+        formula: 'paidSubscribers × subscriptionPrice × 0.90',
+        explanation:
+          'Paying subscribers times monthly/annual price, minus Substack\'s 10% cut.',
+      },
+    ],
+    assumptions: [
+      'Substack takes 10% of paid subscription revenue',
+      'Payment processing adds ~3%',
+      'Typical conversion: 5-10% of free subscribers become paid',
+      'Annual subscriptions reduce churn and increase LTV',
+      'Substack Network can help with discovery',
+    ],
+    disclaimer:
+      'Substack success requires building a loyal readership over time. Conversion rates from free to paid vary significantly. Quality and consistency are essential for subscriber retention.',
+    sources: [
+      { name: 'Substack Economics', url: 'https://on.substack.com/p/how-writers-make-money' },
+    ],
+    lastUpdated: 'January 2025',
+    version: 'v1.0',
+  },
 }
 
 export function getMethodologyByPlatformId(platformId: string): PlatformMethodology | null {

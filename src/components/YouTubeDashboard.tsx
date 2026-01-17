@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers } from 'lucide-react'
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, LineChart, Line } from 'recharts'
 import { CircularGauge } from '@/components/CircularGauge'
 import { PreviewCard } from '@/components/PreviewCard'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -90,6 +90,27 @@ export function YouTubeDashboard({
     { name: 'Monthly', value: monthlyRevenue },
     { name: 'Yearly', value: yearlyRevenue },
   ]
+
+  // 12-Month Projection data
+  const projectionData = Array.from({ length: 12 }, (_, i) => ({
+    month: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+    value: monthlyRevenue * (1 + (growthRate / 100 * (i / 12))),
+  }))
+
+  // Take-Home calculation (simplified)
+  const grossAnnual = yearlyRevenue
+  const estimatedTax = grossAnnual * 0.25
+  const estimatedExpenses = grossAnnual * 0.15
+  const takeHome = grossAnnual - estimatedTax - estimatedExpenses
+  const takeHomeData = [
+    { name: 'Take Home', value: takeHome, color: colors.light },
+    { name: 'Taxes', value: estimatedTax, color: colors.dark },
+    { name: 'Expenses', value: estimatedExpenses, color: '#FF9999' },
+  ]
+
+  // Hourly Rate calculation
+  const hoursPerMonth = 40 // Default assumption
+  const hourlyRate = monthlyRevenue > 0 ? monthlyRevenue / hoursPerMonth : 0
 
   const renderInput = (input: PlatformInput) => {
     const value = inputValues[input.id] ?? input.defaultValue
@@ -304,18 +325,130 @@ export function YouTubeDashboard({
           )}
         </PreviewCard>
 
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          12-Month Projection (Coming)
-        </div>
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          Take-Home Estimate (Coming)
-        </div>
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          Hourly Rate (Coming)
-        </div>
-        <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
-          How You Compare (Coming)
-        </div>
+        {/* 12-Month Projection - Line Chart */}
+        <PreviewCard
+          title="12-Month Projection"
+          tooltip="Projected revenue growth over the next year"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('projection')}
+        >
+          {monthlyRevenue > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={projectionData} margin={{ top: 5, right: 5, bottom: 20, left: 5 }}>
+                <XAxis
+                  dataKey="month"
+                  tick={{ fontSize: 8, fill: theme === 'dark' ? '#a1a1aa' : '#71717a' }}
+                  axisLine={false}
+                  tickLine={false}
+                  interval={2}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke={colors.light}
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+              Enter metrics to see projection
+            </div>
+          )}
+        </PreviewCard>
+
+        {/* Take-Home Estimate - Donut Chart */}
+        <PreviewCard
+          title="Take-Home Estimate"
+          tooltip="Your estimated earnings after taxes and expenses"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('take-home')}
+        >
+          {yearlyRevenue > 0 ? (
+            <div className="h-full flex flex-col items-center justify-center">
+              <div className="h-3/4 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={takeHomeData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius="40%"
+                      outerRadius="70%"
+                      dataKey="value"
+                      stroke="none"
+                    >
+                      {takeHomeData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <p className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                ${Math.round(takeHome).toLocaleString()}/yr
+              </p>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+              Enter metrics to see take-home
+            </div>
+          )}
+        </PreviewCard>
+
+        {/* Hourly Rate - Big Number Display */}
+        <PreviewCard
+          title="Your Hourly Rate"
+          tooltip="What you're effectively earning per hour of work"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('hourly-rate')}
+        >
+          <div className="h-full flex flex-col items-center justify-center">
+            <p className={`text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+              ${hourlyRate.toFixed(0)}
+            </p>
+            <p className="text-sm text-zinc-500 mt-1">per hour</p>
+            <p className="text-xs text-zinc-600 mt-2">(based on 40 hrs/month)</p>
+          </div>
+        </PreviewCard>
+
+        {/* How You Compare - Benchmark Display */}
+        <PreviewCard
+          title="How You Compare"
+          tooltip="See how you stack up against other YouTube creators"
+          colorLight={colors.light}
+          colorDark={colors.dark}
+          onClick={() => setActiveModal('benchmark')}
+        >
+          <div className="h-full flex flex-col items-center justify-center">
+            {(inputValues.subscribers || 0) > 0 ? (
+              <>
+                <p className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  Top {inputValues.subscribers >= 100000 ? '5%' : inputValues.subscribers >= 10000 ? '20%' : '50%'}
+                </p>
+                <p className="text-sm text-zinc-500 mt-1">of creators</p>
+                <div className="w-full mt-3 px-4">
+                  <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: `${inputValues.subscribers >= 100000 ? 95 : inputValues.subscribers >= 10000 ? 80 : 50}%`,
+                        background: `linear-gradient(90deg, ${colors.light}, ${colors.dark})`
+                      }}
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="text-zinc-500 text-sm">Enter subscribers to compare</div>
+            )}
+          </div>
+        </PreviewCard>
+
         <div className={`aspect-square rounded-2xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'} flex items-center justify-center text-zinc-500`}>
           Scenario Analysis (Coming)
         </div>

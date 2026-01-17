@@ -28,6 +28,7 @@ import AIRoadmap from '@/components/AIRoadmap'
 import { MonetizationTracker } from '@/components/MonetizationTracker'
 import { MonetizationGuide } from '@/components/MonetizationGuide'
 import { CreatorBusinessPlanner } from '@/components/CreatorBusinessPlanner'
+import { CaseStudies } from '@/components/CaseStudies'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -102,6 +103,7 @@ export function Calculator() {
   const [showMonetizationTracker, setShowMonetizationTracker] = useState(false)
   const [showMonetizationGuide, setShowMonetizationGuide] = useState(false)
   const [showBusinessPlanner, setShowBusinessPlanner] = useState(false)
+  const [showCaseStudies, setShowCaseStudies] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -554,6 +556,12 @@ export function Calculator() {
           }}
           theme={theme}
           onClose={() => setShowBusinessPlanner(false)}
+        />
+      )}
+      {showCaseStudies && (
+        <CaseStudies
+          theme={theme}
+          onClose={() => setShowCaseStudies(false)}
         />
       )}
       {!showMethodology && !showGlossary && (

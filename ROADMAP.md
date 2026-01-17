@@ -1,6 +1,6 @@
 # CREATOR CALCULATOR — GOLD STANDARD MASTER ROADMAP
 
-> **Total Items:** 112
+> **Total Items:** 113
 > **Status:** In Progress
 > **Last Updated:** January 2025
 
@@ -15,7 +15,7 @@
 | Phase 3: UX Polish | 13 | 12 | 🟩🟩🟩🟩🟨 92% |
 | Phase 4: Calculations & Accuracy | 12 | 12 | 🟩🟩🟩🟩🟩 100% |
 | Phase 5: Transparency & Trust | 8 | 8 | 🟩🟩🟩🟩🟩 100% |
-| Phase 6: Missing Platforms | 12 | 12 | 🟩🟩🟩🟩🟩 100% |
+| Phase 6: Missing Platforms | 13 | 13 | 🟩🟩🟩🟩🟩 100% |
 | Phase 7: Visualizations & Data | 5 | 5 | 🟩🟩🟩🟩🟩 100% |
 | Phase 8: Business Tools | 8 | 8 | 🟩🟩🟩🟩🟩 100% |
 | Phase 9: Dashboard Redesign | 7 | 7 | 🟩🟩🟩🟩🟩 100% |
@@ -26,7 +26,7 @@
 | Phase 14: Monetization (Pro Tier) | 8 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 15: Technical & Performance | 10 | 0 | ⬜⬜⬜⬜⬜ 0% |
 | Phase 16: Accessibility & i18n | 4 | 0 | ⬜⬜⬜⬜⬜ 0% |
-| **TOTAL** | **112** | **92** | **83%** |
+| **TOTAL** | **113** | **93** | **82%** |
 
 ---
 
@@ -136,6 +136,7 @@
 - [x] 6.10 — Discord subscriptions calculator
 - [x] 6.11 — Rumble calculator
 - [x] 6.12 — Substack calculator (separate from generic newsletter)
+- [x] 6.13 — Fanvue calculator (subscription platform)
 
 ---
 

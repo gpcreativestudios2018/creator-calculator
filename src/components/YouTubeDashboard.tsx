@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getPlatformColors } from '@/data/platformColors'
+import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { Play } from 'lucide-react'
 
@@ -586,17 +587,8 @@ export function YouTubeDashboard({
         </PreviewCard>
       </div>
 
-      {/* How Is This Calculated - Expandable Section */}
-      <details className={`rounded-lg ${theme === 'dark' ? 'bg-zinc-900 border border-zinc-800' : 'bg-white border border-gray-200'}`}>
-        <summary className={`px-4 py-3 cursor-pointer font-medium ${theme === 'dark' ? 'text-white hover:bg-zinc-800' : 'text-zinc-900 hover:bg-gray-50'}`}>
-          ▼ How Is This Calculated?
-        </summary>
-        <div className={`px-4 pb-4 text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
-          <p className="mb-2"><strong>Ad Revenue:</strong> (Monthly Views / 1,000) × CPM × 0.55</p>
-          <p className="mb-2"><strong>Sponsorships:</strong> Based on subscriber count tier</p>
-          <p><strong>Note:</strong> These are estimates based on industry averages. Actual earnings vary by niche, location, and audience engagement.</p>
-        </div>
-      </details>
+      {/* How Is This Calculated - Full Component */}
+      <HowItsCalculated platformId="youtube" theme={theme} />
     </div>
   )
 }

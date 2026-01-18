@@ -16,13 +16,8 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           // Split node_modules into logical vendor chunks
+          // Keep React with its dependents to avoid load order issues
           if (id.includes('node_modules')) {
-            if (id.includes('react-dom') || id.includes('/react/')) {
-              return 'vendor-react'
-            }
-            if (id.includes('recharts') || id.includes('d3-')) {
-              return 'vendor-charts'
-            }
             if (id.includes('@radix-ui')) {
               return 'vendor-radix'
             }

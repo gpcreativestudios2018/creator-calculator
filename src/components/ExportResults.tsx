@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import jsPDF from 'jspdf'
-import { X, FileText, FileSpreadsheet, Check } from 'lucide-react'
+import { X, FileText, FileSpreadsheet, Check, Crown } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { platforms } from '@/platforms/registry'
+import { usePro } from '@/contexts/ProContext'
 
 interface ExportResultsProps {
   platformId: string
@@ -29,6 +30,7 @@ export function ExportResults({
   const [pdfSuccess, setPdfSuccess] = useState(false)
   const [csvSuccess, setCsvSuccess] = useState(false)
 
+  const { canUseFeature, triggerUpgrade, isPro } = usePro()
   const platform = platforms.find(p => p.id === platformId)
 
   const formatCurrency = (num: number) => {
@@ -54,6 +56,11 @@ export function ExportResults({
   }
 
   const handleExportPDF = async () => {
+    if (!canUseFeature('export-pdf')) {
+      triggerUpgrade('export-pdf')
+      return
+    }
+
     if (!platform) return
     setExportingPDF(true)
     setPdfSuccess(false)
@@ -156,6 +163,11 @@ export function ExportResults({
   }
 
   const handleExportCSV = () => {
+    if (!canUseFeature('export-csv')) {
+      triggerUpgrade('export-csv')
+      return
+    }
+
     if (!platform) return
     setExportingCSV(true)
     setCsvSuccess(false)
@@ -264,6 +276,7 @@ export function ExportResults({
               <>
                 <FileText className="w-5 h-5" />
                 Export as PDF
+                {!isPro && <Crown className="w-4 h-4 ml-2 text-yellow-400" />}
               </>
             )}
           </Button>
@@ -288,6 +301,7 @@ export function ExportResults({
               <>
                 <FileSpreadsheet className="w-5 h-5" />
                 Export as CSV
+                {!isPro && <Crown className="w-4 h-4 ml-2 text-yellow-400" />}
               </>
             )}
           </Button>

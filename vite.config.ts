@@ -14,13 +14,25 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Split vendor libraries into separate chunks
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-charts': ['recharts'],
-          'vendor-ui': ['@radix-ui/react-dialog', '@radix-ui/react-tabs', '@radix-ui/react-select', '@radix-ui/react-tooltip', '@radix-ui/react-slider', '@radix-ui/react-switch', '@radix-ui/react-accordion', '@radix-ui/react-collapsible', '@radix-ui/react-popover'],
-          'vendor-pdf': ['jspdf', 'html2canvas'],
-          'vendor-icons': ['lucide-react'],
+        manualChunks(id) {
+          // Split node_modules into logical vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react-dom') || id.includes('/react/')) {
+              return 'vendor-react'
+            }
+            if (id.includes('recharts') || id.includes('d3-')) {
+              return 'vendor-charts'
+            }
+            if (id.includes('@radix-ui')) {
+              return 'vendor-radix'
+            }
+            if (id.includes('jspdf') || id.includes('html2canvas')) {
+              return 'vendor-pdf'
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons'
+            }
+          }
         },
       },
     },

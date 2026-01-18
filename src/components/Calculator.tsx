@@ -36,6 +36,7 @@ import { EmbeddableWidget } from '@/components/EmbeddableWidget'
 import { EmailCapture } from '@/components/EmailCapture'
 import { LeadMagnet } from '@/components/LeadMagnet'
 import { AffiliatePartnerships } from '@/components/AffiliatePartnerships'
+import { ExportResults } from '@/components/ExportResults'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -119,6 +120,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showVideoTutorials, setShowVideoTutorials] = useState(false)
   const [showTestimonials, setShowTestimonials] = useState(false)
   const [showEmbedWidget, setShowEmbedWidget] = useState(false)
+  const [showExport, setShowExport] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -643,6 +645,15 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         <EmbeddableWidget
           theme={theme}
           onClose={() => setShowEmbedWidget(false)}
+        />
+      )}
+      {showExport && (
+        <ExportResults
+          platformId={activeTab}
+          inputValues={currentValues}
+          results={results}
+          theme={theme}
+          onClose={() => setShowExport(false)}
         />
       )}
       {!showMethodology && !showGlossary && (
@@ -1348,6 +1359,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             onShowAIRoadmap={() => setShowAIRoadmap(true)}
             onShowMonetizationGuide={() => setShowMonetizationGuide(true)}
             onShowBusinessPlanner={() => setShowBusinessPlanner(true)}
+            onShowExport={() => setShowExport(true)}
           />
         ) : null}
       </main>

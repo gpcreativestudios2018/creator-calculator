@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -32,6 +32,7 @@ import { CaseStudies } from '@/components/CaseStudies'
 import { Resources } from '@/components/Resources'
 import { VideoTutorials } from '@/components/VideoTutorials'
 import { Testimonials } from '@/components/Testimonials'
+import { EmbeddableWidget } from '@/components/EmbeddableWidget'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -110,6 +111,7 @@ export function Calculator() {
   const [showResources, setShowResources] = useState(false)
   const [showVideoTutorials, setShowVideoTutorials] = useState(false)
   const [showTestimonials, setShowTestimonials] = useState(false)
+  const [showEmbedWidget, setShowEmbedWidget] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -623,6 +625,12 @@ export function Calculator() {
           onClose={() => setShowTestimonials(false)}
         />
       )}
+      {showEmbedWidget && (
+        <EmbeddableWidget
+          theme={theme}
+          onClose={() => setShowEmbedWidget(false)}
+        />
+      )}
       {!showMethodology && !showGlossary && (
       <>
       <OnboardingModal onComplete={() => {}} />
@@ -889,6 +897,15 @@ export function Calculator() {
         >
           <MessageSquareQuote className="w-4 h-4 text-pink-500" />
           Testimonials
+        </button>
+
+        {/* Embed Widget */}
+        <button
+          onClick={() => setShowEmbedWidget(true)}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          <Code className="w-4 h-4 text-cyan-500" />
+          Embed Widget
         </button>
       </aside>
 

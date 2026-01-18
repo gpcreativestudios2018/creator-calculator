@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Camera, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { domToPng } from 'modern-screenshot'
 
 interface ScreenshotExportProps {
   targetId: string
@@ -15,31 +16,23 @@ export function ScreenshotExport({ targetId, filename, theme }: ScreenshotExport
     const target = document.getElementById(targetId)
     if (!target) {
       console.error('Target element not found:', targetId)
-      alert('Could not find element to capture')
       return
     }
 
     setIsCapturing(true)
 
     try {
-      // Dynamic import to avoid SSR issues
-      const html2canvasModule = await import('html2canvas')
-      const html2canvas = html2canvasModule.default
-
-      const canvas = await html2canvas(target, {
-        backgroundColor: theme === 'dark' ? '#09090b' : '#f9fafb',
+      const dataUrl = await domToPng(target, {
         scale: 2,
-        logging: false,
-        useCORS: true,
+        backgroundColor: theme === 'dark' ? '#09090b' : '#f9fafb',
       })
 
       const link = document.createElement('a')
       link.download = `${filename}.png`
-      link.href = canvas.toDataURL('image/png')
+      link.href = dataUrl
       link.click()
     } catch (error) {
       console.error('Screenshot failed:', error)
-      alert('Screenshot failed. Check console for details.')
     } finally {
       setIsCapturing(false)
     }

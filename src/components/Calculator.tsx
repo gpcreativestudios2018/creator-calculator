@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -940,6 +940,19 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             description="Weekly tips on monetization and growth strategies."
             className="mx-0"
           />
+        </div>
+
+        {/* Support Section */}
+        <div className={`mt-auto pt-4 border-t ${theme === 'dark' ? 'border-zinc-800' : 'border-gray-200'}`}>
+          <a
+            href="https://buymeacoffee.com/gpcreativestudios"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:scale-[1.02]`}
+          >
+            <Coffee className="w-4 h-4 text-yellow-500" />
+            Buy Me a Coffee
+          </a>
         </div>
       </aside>
 

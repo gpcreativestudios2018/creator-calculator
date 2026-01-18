@@ -683,7 +683,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
     <div className={`min-h-screen flex ${theme === 'dark' ? 'bg-zinc-950 text-white' : 'bg-gray-100 text-zinc-900'}`}>
       {/* Mobile Header */}
       <div className={`lg:hidden fixed top-0 left-0 right-0 p-4 flex items-center justify-between z-50 ${theme === 'dark' ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-white border-b border-gray-200'}`}>
-        <h1 className="text-xl font-bold">Creator Calculator</h1>
+        <h1 className="text-xl font-bold">SocialStacks</h1>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
           {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -697,9 +697,9 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-[1.02]"
           >
             <div className={`w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center`}>
-              <span className="text-white font-bold text-sm">CC</span>
+              <span className="text-white font-bold text-sm">SS</span>
             </div>
-            <h1 className="text-xl font-bold">Creator Calculator</h1>
+            <h1 className="text-xl font-bold">SocialStacks</h1>
           </button>
         </div>
 

@@ -1,0 +1,219 @@
+export interface Resource {
+  id: string
+  title: string
+  description: string
+  url: string
+  category: 'tools' | 'guides' | 'communities' | 'news' | 'courses'
+  icon: string
+  featured?: boolean
+}
+
+export const resourceCategories = [
+  { id: 'all', name: 'All Resources', icon: '📚' },
+  { id: 'tools', name: 'Creator Tools', icon: '🛠️' },
+  { id: 'guides', name: 'Guides & Tips', icon: '📖' },
+  { id: 'communities', name: 'Communities', icon: '👥' },
+  { id: 'news', name: 'News & Trends', icon: '📰' },
+  { id: 'courses', name: 'Courses', icon: '🎓' },
+]
+
+export const resources: Resource[] = [
+  // Tools
+  {
+    id: 'canva',
+    title: 'Canva',
+    description: 'Free graphic design tool for thumbnails, social posts, and brand assets.',
+    url: 'https://www.canva.com',
+    category: 'tools',
+    icon: '🎨',
+    featured: true,
+  },
+  {
+    id: 'capcut',
+    title: 'CapCut',
+    description: 'Free video editor with templates, effects, and auto-captions.',
+    url: 'https://www.capcut.com',
+    category: 'tools',
+    icon: '🎬',
+  },
+  {
+    id: 'descript',
+    title: 'Descript',
+    description: 'AI-powered video and podcast editor. Edit video by editing text.',
+    url: 'https://www.descript.com',
+    category: 'tools',
+    icon: '✂️',
+  },
+  {
+    id: 'linktree',
+    title: 'Linktree',
+    description: 'Create a landing page with all your links for your social bio.',
+    url: 'https://linktr.ee',
+    category: 'tools',
+    icon: '🔗',
+  },
+  {
+    id: 'notion',
+    title: 'Notion',
+    description: 'All-in-one workspace for content calendars, planning, and notes.',
+    url: 'https://www.notion.so',
+    category: 'tools',
+    icon: '📝',
+  },
+  {
+    id: 'riverside',
+    title: 'Riverside',
+    description: 'High-quality remote recording for podcasts and video interviews.',
+    url: 'https://riverside.fm',
+    category: 'tools',
+    icon: '🎙️',
+  },
+  {
+    id: 'tubebuddy',
+    title: 'TubeBuddy',
+    description: 'YouTube optimization toolkit for SEO, tags, and analytics.',
+    url: 'https://www.tubebuddy.com',
+    category: 'tools',
+    icon: '📊',
+  },
+  {
+    id: 'vidiq',
+    title: 'vidIQ',
+    description: 'YouTube growth tool with keyword research and competitor analysis.',
+    url: 'https://vidiq.com',
+    category: 'tools',
+    icon: '📈',
+  },
+
+  // Guides
+  {
+    id: 'youtube-creator-academy',
+    title: 'YouTube Creator Academy',
+    description: 'Official free courses from YouTube on growing your channel.',
+    url: 'https://creatoracademy.youtube.com',
+    category: 'guides',
+    icon: '🎓',
+    featured: true,
+  },
+  {
+    id: 'tiktok-creator-portal',
+    title: 'TikTok Creator Portal',
+    description: 'Official guides and best practices from TikTok.',
+    url: 'https://www.tiktok.com/creators',
+    category: 'guides',
+    icon: '📱',
+  },
+  {
+    id: 'instagram-creators',
+    title: 'Instagram for Creators',
+    description: 'Tips and resources from Instagram on growing your presence.',
+    url: 'https://creators.instagram.com',
+    category: 'guides',
+    icon: '📸',
+  },
+  {
+    id: 'twitch-creator-camp',
+    title: 'Twitch Creator Camp',
+    description: 'Free resources for streamers from beginner to advanced.',
+    url: 'https://www.twitch.tv/creatorcamp',
+    category: 'guides',
+    icon: '🎮',
+  },
+  {
+    id: 'substack-guide',
+    title: 'Substack Writer Guide',
+    description: 'Learn how to grow and monetize your newsletter.',
+    url: 'https://substack.com/going-paid-guide',
+    category: 'guides',
+    icon: '✉️',
+  },
+
+  // Communities
+  {
+    id: 'reddit-newtubers',
+    title: 'r/NewTubers',
+    description: 'Reddit community for small YouTube creators to learn and grow.',
+    url: 'https://www.reddit.com/r/NewTubers',
+    category: 'communities',
+    icon: '🤝',
+    featured: true,
+  },
+  {
+    id: 'reddit-twitch',
+    title: 'r/Twitch',
+    description: 'Community for Twitch streamers to share tips and get feedback.',
+    url: 'https://www.reddit.com/r/Twitch',
+    category: 'communities',
+    icon: '💬',
+  },
+  {
+    id: 'creator-insider',
+    title: 'Creator Insider (YouTube)',
+    description: 'Official YouTube channel with platform updates and tips.',
+    url: 'https://www.youtube.com/@CreatorInsider',
+    category: 'communities',
+    icon: '📺',
+  },
+  {
+    id: 'indiehackers',
+    title: 'Indie Hackers',
+    description: 'Community for creators building independent businesses.',
+    url: 'https://www.indiehackers.com',
+    category: 'communities',
+    icon: '💡',
+  },
+
+  // News
+  {
+    id: 'tubefilter',
+    title: 'Tubefilter',
+    description: 'News and analysis about the creator economy and YouTube.',
+    url: 'https://www.tubefilter.com',
+    category: 'news',
+    icon: '📰',
+    featured: true,
+  },
+  {
+    id: 'passionfruit',
+    title: 'Passionfruit',
+    description: 'Creator economy news, trends, and business insights.',
+    url: 'https://www.passionfruit.co',
+    category: 'news',
+    icon: '🍇',
+  },
+  {
+    id: 'creator-economy-news',
+    title: 'The Publish Press',
+    description: 'Newsletter covering creator economy news and platform updates.',
+    url: 'https://www.publishpress.com',
+    category: 'news',
+    icon: '📧',
+  },
+
+  // Courses
+  {
+    id: 'skillshare',
+    title: 'Skillshare',
+    description: 'Thousands of creative classes on video, design, and marketing.',
+    url: 'https://www.skillshare.com',
+    category: 'courses',
+    icon: '🎨',
+    featured: true,
+  },
+  {
+    id: 'coursera-marketing',
+    title: 'Coursera - Digital Marketing',
+    description: 'Free courses on social media marketing from top universities.',
+    url: 'https://www.coursera.org/browse/business/marketing',
+    category: 'courses',
+    icon: '🎓',
+  },
+  {
+    id: 'hubspot-academy',
+    title: 'HubSpot Academy',
+    description: 'Free certifications in content marketing and social media.',
+    url: 'https://academy.hubspot.com',
+    category: 'courses',
+    icon: '📜',
+  },
+]

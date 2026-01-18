@@ -627,19 +627,19 @@ export function PlatformDashboard({
         >
           <div className="h-full flex flex-col justify-center space-y-2 px-2">
             <div className="flex justify-between items-center">
-              <span className="text-xs text-zinc-500">2x Views</span>
+              <span className="text-xs text-zinc-400">2x Views</span>
               <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                 ${Math.round(monthlyRevenue * 1.8).toLocaleString()}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-xs text-zinc-500">2x Subs</span>
+              <span className="text-xs text-zinc-400">2x Subs</span>
               <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                 ${Math.round(monthlyRevenue * 1.3).toLocaleString()}
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-xs text-zinc-500">+$2 CPM</span>
+              <span className="text-xs text-zinc-400">+$2 CPM</span>
               <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                 ${Math.round(monthlyRevenue * 1.4).toLocaleString()}
               </span>

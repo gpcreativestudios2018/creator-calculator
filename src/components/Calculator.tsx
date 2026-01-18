@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
 import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
@@ -18,13 +18,13 @@ import ContentROICalculator from '@/components/ContentROICalculator'
 import GoalTracker from '@/components/GoalTracker'
 import PlatformSwitchCalculator from '@/components/PlatformSwitchCalculator'
 import ContentMixSimulator from '@/components/ContentMixSimulator'
-import AIAnalysis from '@/components/AIAnalysis'
-import AIGrowthPlan from '@/components/AIGrowthPlan'
-import AIContentIdeas from '@/components/AIContentIdeas'
-import AIBrandPitch from '@/components/AIBrandPitch'
-import AIRevenueOptimization from '@/components/AIRevenueOptimization'
-import AIFocusRecommendations from '@/components/AIFocusRecommendations'
-import AIRoadmap from '@/components/AIRoadmap'
+const AIAnalysis = lazy(() => import('@/components/AIAnalysis'))
+const AIGrowthPlan = lazy(() => import('@/components/AIGrowthPlan'))
+const AIContentIdeas = lazy(() => import('@/components/AIContentIdeas'))
+const AIBrandPitch = lazy(() => import('@/components/AIBrandPitch'))
+const AIRevenueOptimization = lazy(() => import('@/components/AIRevenueOptimization'))
+const AIFocusRecommendations = lazy(() => import('@/components/AIFocusRecommendations'))
+const AIRoadmap = lazy(() => import('@/components/AIRoadmap'))
 import { MonetizationTracker } from '@/components/MonetizationTracker'
 import { MonetizationGuide } from '@/components/MonetizationGuide'
 import { CreatorBusinessPlanner } from '@/components/CreatorBusinessPlanner'
@@ -573,53 +573,67 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         </div>
       )}
       {showAIAnalysis && (
-        <AIAnalysis
-          context={aiContext}
-          theme={theme}
-          onClose={() => setShowAIAnalysis(false)}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"><div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" /></div>}>
+          <AIAnalysis
+            context={aiContext}
+            theme={theme}
+            onClose={() => setShowAIAnalysis(false)}
+          />
+        </Suspense>
       )}
       {showAIGrowthPlan && (
-        <AIGrowthPlan
-          context={aiContext}
-          theme={theme}
-          onClose={() => setShowAIGrowthPlan(false)}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"><div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" /></div>}>
+          <AIGrowthPlan
+            context={aiContext}
+            theme={theme}
+            onClose={() => setShowAIGrowthPlan(false)}
+          />
+        </Suspense>
       )}
       {showAIContentIdeas && (
-        <AIContentIdeas
-          context={aiContext}
-          theme={theme}
-          onClose={() => setShowAIContentIdeas(false)}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"><div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" /></div>}>
+          <AIContentIdeas
+            context={aiContext}
+            theme={theme}
+            onClose={() => setShowAIContentIdeas(false)}
+          />
+        </Suspense>
       )}
       {showAIBrandPitch && (
-        <AIBrandPitch
-          context={aiContext}
-          theme={theme}
-          onClose={() => setShowAIBrandPitch(false)}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"><div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" /></div>}>
+          <AIBrandPitch
+            context={aiContext}
+            theme={theme}
+            onClose={() => setShowAIBrandPitch(false)}
+          />
+        </Suspense>
       )}
       {showAIRevenueOpt && (
-        <AIRevenueOptimization
-          context={aiContext}
-          theme={theme}
-          onClose={() => setShowAIRevenueOpt(false)}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"><div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" /></div>}>
+          <AIRevenueOptimization
+            context={aiContext}
+            theme={theme}
+            onClose={() => setShowAIRevenueOpt(false)}
+          />
+        </Suspense>
       )}
       {showAIFocus && (
-        <AIFocusRecommendations
-          context={aiContext}
-          theme={theme}
-          onClose={() => setShowAIFocus(false)}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"><div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" /></div>}>
+          <AIFocusRecommendations
+            context={aiContext}
+            theme={theme}
+            onClose={() => setShowAIFocus(false)}
+          />
+        </Suspense>
       )}
       {showAIRoadmap && (
-        <AIRoadmap
-          context={aiContext}
-          theme={theme}
-          onClose={() => setShowAIRoadmap(false)}
-        />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"><div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" /></div>}>
+          <AIRoadmap
+            context={aiContext}
+            theme={theme}
+            onClose={() => setShowAIRoadmap(false)}
+          />
+        </Suspense>
       )}
       {showMonetizationTracker && (
         <MonetizationTracker

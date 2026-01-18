@@ -666,7 +666,7 @@ export function PlatformDashboard({
               <div className="space-y-3">
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-zinc-500">Subscribers</span>
+                    <span className="text-zinc-400">Subscribers</span>
                     <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
                       {subscribers.toLocaleString()} / 1,000
                     </span>
@@ -683,7 +683,7 @@ export function PlatformDashboard({
                 </div>
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-zinc-500">Watch Hours</span>
+                    <span className="text-zinc-400">Watch Hours</span>
                     <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
                       {Math.round(yearlyWatchHours).toLocaleString()} / 4,000
                     </span>

@@ -9,7 +9,7 @@ describe('YouTube Revenue Calculations', () => {
 
     const adRevenue = (monthlyViews / 1000) * cpm * creatorShare
 
-    expect(adRevenue).toBe(220)
+    expect(adRevenue).toBeCloseTo(220)
   })
 
   it('calculates yearly revenue from monthly', () => {

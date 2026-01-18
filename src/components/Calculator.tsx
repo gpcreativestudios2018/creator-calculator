@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -39,6 +39,7 @@ import { AffiliatePartnerships } from '@/components/AffiliatePartnerships'
 import { ExportResults } from '@/components/ExportResults'
 import { SavedScenarios } from '@/components/SavedScenarios'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
+import { usePro } from '@/contexts/ProContext'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
 import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
@@ -124,6 +125,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showExport, setShowExport] = useState(false)
   const [showScenarios, setShowScenarios] = useState(false)
   const { theme, toggleTheme } = useTheme()
+  const { isPro, setTier } = usePro()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
   const currentRegion = useMemo(() =>
@@ -979,6 +981,45 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             description="Weekly tips on monetization and growth strategies."
             className="mx-0"
           />
+        </div>
+
+        {/* Pro Status */}
+        <div className={`mt-4 p-3 rounded-lg ${isPro
+          ? 'bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30'
+          : theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'
+        }`}>
+          {isPro ? (
+            <div className="flex items-center gap-2">
+              <Crown className="w-5 h-5 text-yellow-400" />
+              <div>
+                <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Pro Member</p>
+                <button
+                  onClick={() => setTier('free')}
+                  className="text-xs text-zinc-500 hover:text-zinc-400"
+                >
+                  (Demo: Click to reset)
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setTier('pro')}
+              className="w-full text-left group"
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <Crown className="w-5 h-5 text-yellow-400" />
+                <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  Upgrade to Pro
+                </p>
+              </div>
+              <p className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                Unlock AI tools, exports & more
+              </p>
+              <p className="text-xs text-purple-400 mt-1 group-hover:text-purple-300">
+                $9/month →
+              </p>
+            </button>
+          )}
         </div>
 
         {/* Support Section */}

@@ -125,6 +125,41 @@ export function Calculator() {
   )
   const currentValues = inputValues[activeTab] || {}
 
+  // Load from URL parameters on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const platformParam = params.get('p')
+
+    if (platformParam && platforms.find(p => p.id === platformParam)) {
+      setActiveTab(platformParam)
+
+      // Load input values from URL
+      const platform = platforms.find(p => p.id === platformParam)
+      if (platform) {
+        const newValues: Record<string, number> = {}
+        platform.inputs.forEach(input => {
+          const value = params.get(input.id)
+          if (value !== null) {
+            newValues[input.id] = Number(value)
+          }
+        })
+
+        if (Object.keys(newValues).length > 0) {
+          setInputValues(prev => ({
+            ...prev,
+            [platformParam]: {
+              ...prev[platformParam],
+              ...newValues,
+            },
+          }))
+        }
+      }
+
+      // Clear URL params after loading (cleaner URL)
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

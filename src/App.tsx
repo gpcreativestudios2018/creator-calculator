@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import { Calculator } from '@/components/Calculator'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
-import { ThemeProvider } from '@/components/ThemeProvider'
+import { ThemeProvider, useTheme } from '@/components/ThemeProvider'
 import { SEOLandingPage, seoPages } from '@/components/SEOLandingPage'
 import { PlatformLandingPage } from '@/components/PlatformLandingPage'
 import { platforms } from '@/platforms/registry'
+import { ProProvider } from '@/contexts/ProContext'
+import { UpgradeModal } from '@/components/UpgradeModal'
 
-function App() {
+function AppContent() {
   const [seoPage, setSeoPage] = useState<string | null>(null)
   const [platformLandingPage, setPlatformLandingPage] = useState<string | null>(null)
   const [initialPlatform, setInitialPlatform] = useState<string | null>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const path = window.location.pathname.slice(1)
@@ -25,29 +28,40 @@ function App() {
   }, [])
 
   return (
+    <>
+      <UpgradeModal theme={theme} />
+      {seoPage ? (
+        <SEOLandingPage
+          pageId={seoPage}
+          onNavigateToCalculator={() => {
+            setSeoPage(null)
+            window.history.pushState({}, '', '/')
+          }}
+        />
+      ) : platformLandingPage ? (
+        <PlatformLandingPage
+          platformId={platformLandingPage}
+          onOpenCalculator={(id) => {
+            setPlatformLandingPage(null)
+            setInitialPlatform(id)
+            window.history.pushState({}, '', '/')
+          }}
+        />
+      ) : (
+        <Calculator initialPlatform={initialPlatform} />
+      )}
+    </>
+  )
+}
+
+function App() {
+  return (
     <ThemeProvider>
-      <ErrorBoundary>
-        {seoPage ? (
-          <SEOLandingPage
-            pageId={seoPage}
-            onNavigateToCalculator={() => {
-              setSeoPage(null)
-              window.history.pushState({}, '', '/')
-            }}
-          />
-        ) : platformLandingPage ? (
-          <PlatformLandingPage
-            platformId={platformLandingPage}
-            onOpenCalculator={(id) => {
-              setPlatformLandingPage(null)
-              setInitialPlatform(id)
-              window.history.pushState({}, '', '/')
-            }}
-          />
-        ) : (
-          <Calculator initialPlatform={initialPlatform} />
-        )}
-      </ErrorBoundary>
+      <ProProvider>
+        <ErrorBoundary>
+          <AppContent />
+        </ErrorBoundary>
+      </ProProvider>
     </ThemeProvider>
   )
 }

@@ -716,7 +716,11 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
       {/* Mobile Header */}
       <div className={`lg:hidden fixed top-0 left-0 right-0 p-4 flex items-center justify-between z-50 ${theme === 'dark' ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-white border-b border-gray-200'}`}>
         <h1 className="text-xl font-bold">SocialStacks</h1>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="p-2"
+          aria-label={sidebarOpen ? "Close menu" : "Open menu"}
+        >
           {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>

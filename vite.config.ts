@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import path from "path"
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -46,7 +47,7 @@ export default defineConfig({
               cacheName: 'google-fonts-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                maxAgeSeconds: 60 * 60 * 24 * 365
               }
             }
           }
@@ -77,5 +78,10 @@ export default defineConfig({
         },
       },
     },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
   },
 })

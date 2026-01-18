@@ -72,6 +72,8 @@ import {
   type CalculationResult,
 } from '@/engine/calculations'
 
+const INPUT_STORAGE_KEY = 'socialstacks-input-values'
+
 type InputValues = Record<string, Record<string, number>>
 
 function getInitialValues(): InputValues {
@@ -91,7 +93,17 @@ interface CalculatorProps {
 
 export function Calculator({ initialPlatform }: CalculatorProps) {
   const [activeTab, setActiveTab] = useState(initialPlatform || 'youtube')
-  const [inputValues, setInputValues] = useState<InputValues>(getInitialValues)
+  const [inputValues, setInputValues] = useState<InputValues>(() => {
+    const stored = localStorage.getItem(INPUT_STORAGE_KEY)
+    if (stored) {
+      try {
+        return JSON.parse(stored)
+      } catch (e) {
+        console.error('Failed to parse stored inputs:', e)
+      }
+    }
+    return getInitialValues()
+  })
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [compareMode, setCompareMode] = useState(false)
   const [selectedRegion, setSelectedRegion] = useState<string>(DEFAULT_REGION)
@@ -183,6 +195,11 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
       window.history.replaceState({}, '', window.location.pathname)
     }
   }, [])
+
+  // Persist inputs to localStorage
+  useEffect(() => {
+    localStorage.setItem(INPUT_STORAGE_KEY, JSON.stringify(inputValues))
+  }, [inputValues])
 
   // Keyboard shortcuts
   useEffect(() => {

@@ -4,6 +4,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, 
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
 import { ShareButtons } from '@/components/ShareButtons'
+import { ShareableLink } from '@/components/ShareableLink'
 import { ShareCard } from '@/components/ShareCard'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -284,6 +285,11 @@ export function PlatformDashboard({
         >
           <Camera className="w-4 h-4 text-pink-500" />
         </Button>
+        <ShareableLink
+          platformId={platformId}
+          inputValues={inputValues}
+          theme={theme}
+        />
         <ShareButtons
           platform={platform.name}
           monthlyRevenue={monthlyRevenue}

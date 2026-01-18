@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
+import * as Sentry from "@sentry/react"
 import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
@@ -95,7 +96,8 @@ interface CalculatorProps {
 export function Calculator({ initialPlatform }: CalculatorProps) {
   // TEMPORARY: Remove after testing Sentry
   const testSentry = () => {
-    throw new Error("Sentry test error from Calculator");
+    Sentry.captureException(new Error("Sentry manual test from Calculator"));
+    alert("Error sent to Sentry! Check your dashboard.");
   };
 
   const [activeTab, setActiveTab] = useState(initialPlatform || 'youtube')

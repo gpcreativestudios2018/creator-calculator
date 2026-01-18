@@ -35,6 +35,7 @@ import { Testimonials } from '@/components/Testimonials'
 import { EmbeddableWidget } from '@/components/EmbeddableWidget'
 import { EmailCapture } from '@/components/EmailCapture'
 import { LeadMagnet } from '@/components/LeadMagnet'
+import { AffiliatePartnerships } from '@/components/AffiliatePartnerships'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -924,6 +925,11 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         {/* Lead Magnet */}
         <div className="mt-4">
           <LeadMagnet className="mx-0 mb-3" />
+        </div>
+
+        {/* Affiliate Partners */}
+        <div className="mb-3">
+          <AffiliatePartnerships variant="compact" className="mx-0" />
         </div>
 
         {/* Newsletter Signup */}

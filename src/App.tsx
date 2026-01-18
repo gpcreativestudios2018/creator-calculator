@@ -1,12 +1,25 @@
-import { useState, useEffect } from 'react'
-import { Calculator } from '@/components/Calculator'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { ThemeProvider, useTheme } from '@/components/ThemeProvider'
-import { SEOLandingPage, seoPages } from '@/components/SEOLandingPage'
-import { PlatformLandingPage } from '@/components/PlatformLandingPage'
+import { seoPages } from '@/components/SEOLandingPage'
 import { platforms } from '@/platforms/registry'
 import { ProProvider } from '@/contexts/ProContext'
 import { UpgradeModal } from '@/components/UpgradeModal'
+
+const Calculator = lazy(() => import('@/components/Calculator').then(m => ({ default: m.Calculator })))
+const SEOLandingPage = lazy(() => import('@/components/SEOLandingPage').then(m => ({ default: m.SEOLandingPage })))
+const PlatformLandingPage = lazy(() => import('@/components/PlatformLandingPage').then(m => ({ default: m.PlatformLandingPage })))
+
+function LoadingSpinner() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+        <p className="text-muted-foreground text-sm">Loading...</p>
+      </div>
+    </div>
+  )
+}
 
 function AppContent() {
   const [seoPage, setSeoPage] = useState<string | null>(null)
@@ -30,26 +43,28 @@ function AppContent() {
   return (
     <>
       <UpgradeModal theme={theme} />
-      {seoPage ? (
-        <SEOLandingPage
-          pageId={seoPage}
-          onNavigateToCalculator={() => {
-            setSeoPage(null)
-            window.history.pushState({}, '', '/')
-          }}
-        />
-      ) : platformLandingPage ? (
-        <PlatformLandingPage
-          platformId={platformLandingPage}
-          onOpenCalculator={(id) => {
-            setPlatformLandingPage(null)
-            setInitialPlatform(id)
-            window.history.pushState({}, '', '/')
-          }}
-        />
-      ) : (
-        <Calculator initialPlatform={initialPlatform} />
-      )}
+      <Suspense fallback={<LoadingSpinner />}>
+        {seoPage ? (
+          <SEOLandingPage
+            pageId={seoPage}
+            onNavigateToCalculator={() => {
+              setSeoPage(null)
+              window.history.pushState({}, '', '/')
+            }}
+          />
+        ) : platformLandingPage ? (
+          <PlatformLandingPage
+            platformId={platformLandingPage}
+            onOpenCalculator={(id) => {
+              setPlatformLandingPage(null)
+              setInitialPlatform(id)
+              window.history.pushState({}, '', '/')
+            }}
+          />
+        ) : (
+          <Calculator initialPlatform={initialPlatform} />
+        )}
+      </Suspense>
     </>
   )
 }

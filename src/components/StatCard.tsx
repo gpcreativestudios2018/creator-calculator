@@ -41,7 +41,7 @@ export function StatCard({
           {value}
         </p>
         {subtitle && (
-          <p className="text-xs text-zinc-500 truncate">{subtitle}</p>
+          <p className={`text-xs truncate ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>{subtitle}</p>
         )}
       </div>
 

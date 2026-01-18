@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -37,6 +37,7 @@ import { EmailCapture } from '@/components/EmailCapture'
 import { LeadMagnet } from '@/components/LeadMagnet'
 import { AffiliatePartnerships } from '@/components/AffiliatePartnerships'
 import { ExportResults } from '@/components/ExportResults'
+import { SavedScenarios } from '@/components/SavedScenarios'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -121,6 +122,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showTestimonials, setShowTestimonials] = useState(false)
   const [showEmbedWidget, setShowEmbedWidget] = useState(false)
   const [showExport, setShowExport] = useState(false)
+  const [showScenarios, setShowScenarios] = useState(false)
   const { theme, toggleTheme } = useTheme()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -352,6 +354,14 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
     }
     return applyMultipliers(baseResult, currentRegion.revenueMultiplier, currentNiche.rpmMultiplier)
   }, [activeTab, currentValues, currentRegion, currentNiche])
+
+  const handleLoadScenario = (platformId: string, scenarioInputValues: Record<string, number>) => {
+    setActiveTab(platformId)
+    setInputValues(prev => ({
+      ...prev,
+      [platformId]: scenarioInputValues,
+    }))
+  }
 
   const aiContext = {
     platform: activePlatform?.name || activeTab,
@@ -656,6 +666,15 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           onClose={() => setShowExport(false)}
         />
       )}
+      {showScenarios && (
+        <SavedScenarios
+          currentPlatformId={activeTab}
+          currentInputValues={currentValues}
+          theme={theme}
+          onClose={() => setShowScenarios(false)}
+          onLoadScenario={handleLoadScenario}
+        />
+      )}
       {!showMethodology && !showGlossary && (
       <>
       <OnboardingModal onComplete={() => {}} />
@@ -877,6 +896,15 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
           Glossary
+        </button>
+
+        {/* Saved Scenarios */}
+        <button
+          onClick={() => setShowScenarios(true)}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          <FolderOpen className="w-4 h-4 text-purple-500" />
+          Saved Scenarios
         </button>
 
         {/* Monetization Tracker */}

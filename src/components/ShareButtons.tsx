@@ -44,7 +44,7 @@ export function ShareButtons({ platform, monthlyRevenue, yearlyRevenue, theme }:
 
   return (
     <div className="flex items-center gap-2">
-      <span className={`text-sm ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>Share:</span>
+      <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Share:</span>
 
       <Button
         variant="outline"
@@ -52,6 +52,7 @@ export function ShareButtons({ platform, monthlyRevenue, yearlyRevenue, theme }:
         onClick={handleTwitterShare}
         className={`p-2 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-800' : 'border-gray-300 hover:bg-gray-100'}`}
         title="Share on X (Twitter)"
+        aria-label="Share on X (Twitter)"
       >
         <Twitter className="w-4 h-4 text-sky-500" />
       </Button>
@@ -62,6 +63,7 @@ export function ShareButtons({ platform, monthlyRevenue, yearlyRevenue, theme }:
         onClick={handleLinkedInShare}
         className={`p-2 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-800' : 'border-gray-300 hover:bg-gray-100'}`}
         title="Share on LinkedIn"
+        aria-label="Share on LinkedIn"
       >
         <Linkedin className="w-4 h-4 text-blue-600" />
       </Button>
@@ -72,6 +74,7 @@ export function ShareButtons({ platform, monthlyRevenue, yearlyRevenue, theme }:
         onClick={handleFacebookShare}
         className={`p-2 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-800' : 'border-gray-300 hover:bg-gray-100'}`}
         title="Share on Facebook"
+        aria-label="Share on Facebook"
       >
         <Facebook className="w-4 h-4 text-blue-500" />
       </Button>
@@ -82,6 +85,7 @@ export function ShareButtons({ platform, monthlyRevenue, yearlyRevenue, theme }:
         onClick={handleCopyLink}
         className={`p-2 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-800' : 'border-gray-300 hover:bg-gray-100'}`}
         title="Copy link"
+        aria-label="Copy link to clipboard"
       >
         {copied ? (
           <Check className="w-4 h-4 text-emerald-500" />

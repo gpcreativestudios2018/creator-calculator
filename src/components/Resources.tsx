@@ -3,7 +3,7 @@ import { X, ExternalLink, Search, Star } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { resources, resourceCategories, type Resource } from '@/data/resources'
+import { resources, resourceCategories } from '@/data/resources'
 
 interface ResourcesProps {
   theme: 'dark' | 'light'

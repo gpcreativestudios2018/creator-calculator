@@ -33,6 +33,7 @@ import { Resources } from '@/components/Resources'
 import { VideoTutorials } from '@/components/VideoTutorials'
 import { Testimonials } from '@/components/Testimonials'
 import { EmbeddableWidget } from '@/components/EmbeddableWidget'
+import { EmailCapture } from '@/components/EmailCapture'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -907,6 +908,16 @@ export function Calculator() {
           <Code className="w-4 h-4 text-cyan-500" />
           Embed Widget
         </button>
+
+        {/* Newsletter Signup */}
+        <div className="mt-4">
+          <EmailCapture
+            variant="card"
+            title="Creator Newsletter"
+            description="Weekly tips on monetization and growth strategies."
+            className="mx-0"
+          />
+        </div>
       </aside>
 
       {/* Overlay for mobile */}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen, Briefcase, Camera } from 'lucide-react'
+import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen, Briefcase, Camera, Download } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
@@ -44,6 +44,7 @@ interface PlatformDashboardProps {
   onShowAIRoadmap: () => void
   onShowMonetizationGuide: () => void
   onShowBusinessPlanner: () => void
+  onShowExport: () => void
 }
 
 export function PlatformDashboard({
@@ -70,6 +71,7 @@ export function PlatformDashboard({
   onShowAIRoadmap,
   onShowMonetizationGuide,
   onShowBusinessPlanner,
+  onShowExport,
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
@@ -89,6 +91,7 @@ export function PlatformDashboard({
   const growthRate = subscribers > 0 ? Math.min(((subscribers / 10000) * 5), 25) : 0
 
   const toolButtons = [
+    { label: 'Export Results', icon: Download, onClick: onShowExport },
     { label: 'Media Kit', icon: FileText, onClick: onShowMediaKit },
     { label: 'Rate Card', icon: DollarSign, onClick: onShowRateCard },
     { label: 'Sponsorship Pricing', icon: HandCoins, onClick: onShowSponsorshipCalc },

@@ -4,6 +4,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, 
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
 import { ShareButtons } from '@/components/ShareButtons'
+import { ScreenshotExport } from '@/components/ScreenshotExport'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -235,7 +236,7 @@ export function PlatformDashboard({
       </div>
 
       {/* 4 Stat Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div id="revenue-card" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
           label="Monthly Revenue"
           value={`$${monthlyRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
@@ -271,7 +272,12 @@ export function PlatformDashboard({
       </div>
 
       {/* Share Buttons */}
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-end items-center gap-2 mt-4">
+        <ScreenshotExport
+          targetId="revenue-card"
+          filename={`${platform.name.toLowerCase()}-earnings`}
+          theme={theme}
+        />
         <ShareButtons
           platform={platform.name}
           monthlyRevenue={monthlyRevenue}

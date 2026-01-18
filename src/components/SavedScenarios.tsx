@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { X, Save, Trash2, FolderOpen, Plus, Check } from 'lucide-react'
+import { X, Save, Trash2, FolderOpen, Plus, Check, Crown } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { platforms } from '@/platforms/registry'
+import { usePro } from '@/contexts/ProContext'
 
 interface SavedScenario {
   id: string
@@ -37,6 +38,7 @@ export function SavedScenarios({
   const [saveSuccess, setSaveSuccess] = useState(false)
   const [showSaveForm, setShowSaveForm] = useState(false)
 
+  const { isPro, maxFreeScenarios, triggerUpgrade, incrementScenarios } = usePro()
   const currentPlatform = platforms.find(p => p.id === currentPlatformId)
 
   // Load scenarios from localStorage on mount
@@ -59,6 +61,13 @@ export function SavedScenarios({
 
   const handleSave = () => {
     if (!newName.trim()) return
+
+    // Check if user can save more scenarios
+    if (!isPro && scenarios.length >= maxFreeScenarios) {
+      triggerUpgrade('save-scenario')
+      return
+    }
+
     setSaving(true)
 
     const newScenario: SavedScenario = {
@@ -72,6 +81,11 @@ export function SavedScenarios({
 
     const updated = [...scenarios, newScenario]
     saveToStorage(updated)
+
+    // Track scenario usage for free tier
+    if (!isPro) {
+      incrementScenarios()
+    }
 
     setNewName('')
     setSaving(false)
@@ -135,7 +149,13 @@ export function SavedScenarios({
           {/* Save Current Button */}
           {!showSaveForm ? (
             <Button
-              onClick={() => setShowSaveForm(true)}
+              onClick={() => {
+                if (!isPro && scenarios.length >= maxFreeScenarios) {
+                  triggerUpgrade('save-scenario')
+                  return
+                }
+                setShowSaveForm(true)
+              }}
               className="w-full mb-4 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
             >
               {saveSuccess ? (
@@ -147,6 +167,7 @@ export function SavedScenarios({
                 <>
                   <Plus className="w-4 h-4" />
                   Save Current ({currentPlatform?.name})
+                  {!isPro && scenarios.length >= maxFreeScenarios && <Crown className="w-4 h-4 ml-1 text-yellow-400" />}
                 </>
               )}
             </Button>
@@ -182,6 +203,35 @@ export function SavedScenarios({
                 </div>
               </CardContent>
             </Card>
+          )}
+
+          {/* Free tier usage indicator */}
+          {!isPro && (
+            <div className={`mb-4 p-3 rounded-lg ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                  Saved scenarios
+                </span>
+                <span className={`text-sm font-medium ${scenarios.length >= maxFreeScenarios ? 'text-orange-500' : theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  {scenarios.length} / {maxFreeScenarios}
+                </span>
+              </div>
+              <div className={`h-2 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                <div
+                  className={`h-full transition-all ${scenarios.length >= maxFreeScenarios ? 'bg-orange-500' : 'bg-purple-500'}`}
+                  style={{ width: `${Math.min((scenarios.length / maxFreeScenarios) * 100, 100)}%` }}
+                />
+              </div>
+              {scenarios.length >= maxFreeScenarios && (
+                <button
+                  onClick={() => triggerUpgrade('unlimited-scenarios')}
+                  className="mt-2 text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1"
+                >
+                  <Crown className="w-3 h-3" />
+                  Upgrade for unlimited scenarios
+                </button>
+              )}
+            </div>
           )}
 
           {/* Saved Scenarios List */}

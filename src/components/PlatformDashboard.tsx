@@ -415,7 +415,7 @@ export function PlatformDashboard({
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+            <div className="flex items-center justify-center h-full text-zinc-400 text-sm">
               Enter metrics to see breakdown
             </div>
           )}
@@ -450,7 +450,7 @@ export function PlatformDashboard({
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+            <div className="flex items-center justify-center h-full text-zinc-400 text-sm">
               Enter metrics to see earnings
             </div>
           )}
@@ -485,7 +485,7 @@ export function PlatformDashboard({
               </LineChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+            <div className="flex items-center justify-center h-full text-zinc-400 text-sm">
               Enter metrics to see projection
             </div>
           )}
@@ -526,7 +526,7 @@ export function PlatformDashboard({
               </p>
             </div>
           ) : (
-            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+            <div className="flex items-center justify-center h-full text-zinc-400 text-sm">
               Enter metrics to see take-home
             </div>
           )}
@@ -579,7 +579,7 @@ export function PlatformDashboard({
                 </div>
               </>
             ) : (
-              <div className="text-zinc-500 text-sm">Enter subscribers to compare</div>
+              <div className="text-zinc-400 text-sm">Enter subscribers to compare</div>
             )}
           </div>
         </PreviewCard>
@@ -610,7 +610,7 @@ export function PlatformDashboard({
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+            <div className="flex items-center justify-center h-full text-zinc-400 text-sm">
               Enter metrics to see scenarios
             </div>
           )}

@@ -1,13 +1,14 @@
 import { useState } from 'react'
-import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen, Briefcase } from 'lucide-react'
+import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen, Briefcase, Camera } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
 import { ShareButtons } from '@/components/ShareButtons'
-import { ScreenshotExport } from '@/components/ScreenshotExport'
+import { ShareCard } from '@/components/ShareCard'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getPlatformColors } from '@/data/platformColors'
@@ -70,6 +71,7 @@ export function PlatformDashboard({
   onShowBusinessPlanner,
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
+  const [showShareCard, setShowShareCard] = useState(false)
 
   const colors = getPlatformColors(platformId)
   const platform = platforms.find(p => p.id === platformId)
@@ -273,11 +275,15 @@ export function PlatformDashboard({
 
       {/* Share Buttons */}
       <div className="flex justify-end items-center gap-2 mt-4">
-        <ScreenshotExport
-          targetId="revenue-card"
-          filename={`${platform.name.toLowerCase()}-earnings`}
-          theme={theme}
-        />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setShowShareCard(true)}
+          className={`p-2 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-800' : 'border-gray-300 hover:bg-gray-100'}`}
+          title="Create shareable card"
+        >
+          <Camera className="w-4 h-4 text-pink-500" />
+        </Button>
         <ShareButtons
           platform={platform.name}
           monthlyRevenue={monthlyRevenue}
@@ -1213,6 +1219,17 @@ export function PlatformDashboard({
             </p>
           </div>
         </PlatformModal>
+      )}
+
+      {/* Share Card Modal */}
+      {showShareCard && (
+        <ShareCard
+          platformId={platformId}
+          monthlyRevenue={monthlyRevenue}
+          yearlyRevenue={yearlyRevenue}
+          theme={theme}
+          onClose={() => setShowShareCard(false)}
+        />
       )}
     </div>
   )

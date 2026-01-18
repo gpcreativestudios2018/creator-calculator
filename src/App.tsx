@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { ThemeProvider, useTheme } from '@/components/ThemeProvider'
-import { seoPages } from '@/components/SEOLandingPage'
+import { seoPages } from '@/data/seoPages'
 import { platforms } from '@/platforms/registry'
 import { ProProvider } from '@/contexts/ProContext'
 import { UpgradeModal } from '@/components/UpgradeModal'

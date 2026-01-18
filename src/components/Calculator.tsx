@@ -34,6 +34,7 @@ import { VideoTutorials } from '@/components/VideoTutorials'
 import { Testimonials } from '@/components/Testimonials'
 import { EmbeddableWidget } from '@/components/EmbeddableWidget'
 import { EmailCapture } from '@/components/EmailCapture'
+import { LeadMagnet } from '@/components/LeadMagnet'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -909,8 +910,13 @@ export function Calculator() {
           Embed Widget
         </button>
 
-        {/* Newsletter Signup */}
+        {/* Lead Magnet */}
         <div className="mt-4">
+          <LeadMagnet className="mx-0 mb-3" />
+        </div>
+
+        {/* Newsletter Signup */}
+        <div>
           <EmailCapture
             variant="card"
             title="Creator Newsletter"

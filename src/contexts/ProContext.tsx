@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { trackUpgradePrompt, trackUpgradeComplete } from '@/utils/analytics'
 
 type Tier = 'free' | 'pro'
 
@@ -68,6 +69,9 @@ export function ProProvider({ children }: { children: ReactNode }) {
   const setTier = (newTier: Tier) => {
     setTierState(newTier)
     localStorage.setItem(STORAGE_KEY_TIER, newTier)
+    if (newTier === 'pro') {
+      trackUpgradeComplete()
+    }
   }
 
   const canUseFeature = (feature: string): boolean => {
@@ -95,6 +99,7 @@ export function ProProvider({ children }: { children: ReactNode }) {
   const triggerUpgrade = (feature: string) => {
     setUpgradeBlockedFeature(feature)
     setShowUpgradeModal(true)
+    trackUpgradePrompt(feature)
   }
 
   return (

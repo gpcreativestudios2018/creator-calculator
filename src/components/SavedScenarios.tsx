@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { platforms } from '@/platforms/registry'
 import { usePro } from '@/contexts/ProContext'
+import { trackScenarioSave, trackScenarioLoad } from '@/utils/analytics'
 
 interface SavedScenario {
   id: string
@@ -87,6 +88,7 @@ export function SavedScenarios({
       incrementScenarios()
     }
 
+    trackScenarioSave(currentPlatformId)
     setNewName('')
     setSaving(false)
     setSaveSuccess(true)
@@ -100,6 +102,7 @@ export function SavedScenarios({
   }
 
   const handleLoad = (scenario: SavedScenario) => {
+    trackScenarioLoad(scenario.platformId)
     onLoadScenario(scenario.platformId, scenario.inputValues)
     onClose()
   }

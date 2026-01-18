@@ -40,6 +40,7 @@ import { ExportResults } from '@/components/ExportResults'
 import { SavedScenarios } from '@/components/SavedScenarios'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
 import { usePro } from '@/contexts/ProContext'
+import { trackPlatformSwitch } from '@/utils/analytics'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
 import { timePeriods, DEFAULT_TIME_PERIOD } from '@/data/timePeriods'
@@ -723,7 +724,10 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         {/* Platform Selector */}
         <div className="mb-6">
           <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2 px-3">Platform</p>
-          <Select value={activeTab} onValueChange={setActiveTab}>
+          <Select value={activeTab} onValueChange={(value) => {
+              setActiveTab(value)
+              trackPlatformSwitch(value)
+            }}>
             <SelectTrigger className={`w-full ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'}`}>
               <SelectValue>
                 {(() => {

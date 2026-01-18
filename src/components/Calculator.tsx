@@ -81,8 +81,12 @@ function getInitialValues(): InputValues {
   return values
 }
 
-export function Calculator() {
-  const [activeTab, setActiveTab] = useState('youtube')
+interface CalculatorProps {
+  initialPlatform?: string | null
+}
+
+export function Calculator({ initialPlatform }: CalculatorProps) {
+  const [activeTab, setActiveTab] = useState(initialPlatform || 'youtube')
   const [inputValues, setInputValues] = useState<InputValues>(getInitialValues)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [compareMode, setCompareMode] = useState(false)
@@ -130,6 +134,13 @@ export function Calculator() {
     [selectedTimePeriod]
   )
   const currentValues = inputValues[activeTab] || {}
+
+  // Handle initialPlatform prop changes
+  useEffect(() => {
+    if (initialPlatform && platforms.find(p => p.id === initialPlatform)) {
+      setActiveTab(initialPlatform)
+    }
+  }, [initialPlatform])
 
   // Load from URL parameters on mount
   useEffect(() => {

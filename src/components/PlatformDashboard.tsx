@@ -290,6 +290,7 @@ export function PlatformDashboard({
           onClick={() => setShowShareCard(true)}
           className={`p-2 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-800' : 'border-gray-300 hover:bg-gray-100'}`}
           title="Create shareable card"
+          aria-label="Create shareable card"
         >
           <Camera className="w-4 h-4 text-pink-500" />
         </Button>

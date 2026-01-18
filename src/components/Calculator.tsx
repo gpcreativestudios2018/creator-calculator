@@ -93,6 +93,11 @@ interface CalculatorProps {
 }
 
 export function Calculator({ initialPlatform }: CalculatorProps) {
+  // TEMPORARY: Remove after testing Sentry
+  const testSentry = () => {
+    throw new Error("Sentry test error from Calculator");
+  };
+
   const [activeTab, setActiveTab] = useState(initialPlatform || 'youtube')
   const [inputValues, setInputValues] = useState<InputValues>(() => {
     const stored = localStorage.getItem(INPUT_STORAGE_KEY)
@@ -402,6 +407,10 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
 
   return (
     <TooltipProvider>
+      {/* TEMPORARY: Remove after testing Sentry */}
+      <button onClick={testSentry} className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded z-50">
+        Test Sentry
+      </button>
       {showMethodology && (
         <MethodologyPage
           onClose={() => setShowMethodology(false)}

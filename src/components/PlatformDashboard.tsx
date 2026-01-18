@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen, Briefcase, Camera, Download } from 'lucide-react'
+import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen, Briefcase, Camera, Download, Crown } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
@@ -16,6 +16,7 @@ import { getPlatformColors } from '@/data/platformColors'
 import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { PlatformModal } from '@/components/PlatformModal'
 import { platforms, type PlatformInput } from '@/platforms/registry'
+import { usePro } from '@/contexts/ProContext'
 interface PlatformDashboardProps {
   platformId: string
   inputValues: Record<string, number>
@@ -76,6 +77,7 @@ export function PlatformDashboard({
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
 
+  const { canUseFeature, triggerUpgrade, isPro } = usePro()
   const colors = getPlatformColors(platformId)
   const platform = platforms.find(p => p.id === platformId)
 
@@ -91,27 +93,27 @@ export function PlatformDashboard({
   const growthRate = subscribers > 0 ? Math.min(((subscribers / 10000) * 5), 25) : 0
 
   const toolButtons = [
-    { label: 'Export Results', icon: Download, onClick: onShowExport },
-    { label: 'Media Kit', icon: FileText, onClick: onShowMediaKit },
-    { label: 'Rate Card', icon: DollarSign, onClick: onShowRateCard },
-    { label: 'Sponsorship Pricing', icon: HandCoins, onClick: onShowSponsorshipCalc },
-    { label: 'Brand Pitch', icon: Send, onClick: onShowBrandPitch },
-    { label: 'Content ROI', icon: Clock, onClick: onShowContentROI },
-    { label: 'Goal Tracker', icon: Target, onClick: onShowGoalTracker },
-    { label: 'Platform Switch', icon: ArrowLeftRight, onClick: onShowPlatformSwitch },
-    { label: 'Content Mix', icon: Layers, onClick: onShowContentMix },
-    { label: 'How to Monetize', icon: BookOpen, onClick: onShowMonetizationGuide },
-    { label: 'Business Planner', icon: Briefcase, onClick: onShowBusinessPlanner },
+    { label: 'Export Results', icon: Download, onClick: onShowExport, featureId: 'export-pdf', isProFeature: true },
+    { label: 'Media Kit', icon: FileText, onClick: onShowMediaKit, featureId: 'media-kit', isProFeature: true },
+    { label: 'Rate Card', icon: DollarSign, onClick: onShowRateCard, featureId: 'rate-card', isProFeature: true },
+    { label: 'Sponsorship Pricing', icon: HandCoins, onClick: onShowSponsorshipCalc, featureId: 'sponsorship-calc', isProFeature: true },
+    { label: 'Brand Pitch', icon: Send, onClick: onShowBrandPitch, featureId: 'brand-pitch', isProFeature: true },
+    { label: 'Content ROI', icon: Clock, onClick: onShowContentROI, featureId: 'content-roi', isProFeature: true },
+    { label: 'Goal Tracker', icon: Target, onClick: onShowGoalTracker, featureId: 'goal-tracker', isProFeature: true },
+    { label: 'Platform Switch', icon: ArrowLeftRight, onClick: onShowPlatformSwitch, featureId: null, isProFeature: false },
+    { label: 'Content Mix', icon: Layers, onClick: onShowContentMix, featureId: null, isProFeature: false },
+    { label: 'How to Monetize', icon: BookOpen, onClick: onShowMonetizationGuide, featureId: null, isProFeature: false },
+    { label: 'Business Planner', icon: Briefcase, onClick: onShowBusinessPlanner, featureId: 'business-planner', isProFeature: true },
   ]
 
   const aiToolButtons = [
-    { label: 'AI Analysis', icon: Sparkles, onClick: onShowAIAnalysis, color: 'purple' },
-    { label: 'Growth Plan', icon: TrendingUp, onClick: onShowAIGrowthPlan, color: 'emerald' },
-    { label: 'Content Ideas', icon: Lightbulb, onClick: onShowAIContentIdeas, color: 'yellow' },
-    { label: 'Brand Pitch', icon: Mail, onClick: onShowAIBrandPitch, color: 'blue' },
-    { label: 'Revenue Optimizer', icon: DollarSign, onClick: onShowAIRevenueOpt, color: 'green' },
-    { label: 'Focus Guide', icon: Compass, onClick: onShowAIFocus, color: 'orange' },
-    { label: 'Roadmap', icon: Map, onClick: onShowAIRoadmap, color: 'indigo' },
+    { label: 'AI Analysis', icon: Sparkles, onClick: onShowAIAnalysis, color: 'purple', featureId: 'ai-analysis' },
+    { label: 'Growth Plan', icon: TrendingUp, onClick: onShowAIGrowthPlan, color: 'emerald', featureId: 'ai-growth-plan' },
+    { label: 'Content Ideas', icon: Lightbulb, onClick: onShowAIContentIdeas, color: 'yellow', featureId: 'ai-content-ideas' },
+    { label: 'Brand Pitch', icon: Mail, onClick: onShowAIBrandPitch, color: 'blue', featureId: 'ai-brand-pitch' },
+    { label: 'Revenue Optimizer', icon: DollarSign, onClick: onShowAIRevenueOpt, color: 'green', featureId: 'ai-revenue-opt' },
+    { label: 'Focus Guide', icon: Compass, onClick: onShowAIFocus, color: 'orange', featureId: 'ai-focus' },
+    { label: 'Roadmap', icon: Map, onClick: onShowAIRoadmap, color: 'indigo', featureId: 'ai-roadmap' },
   ]
 
   // Revenue breakdown data for charts
@@ -306,7 +308,13 @@ export function PlatformDashboard({
         {toolButtons.map((tool) => (
           <button
             key={tool.label}
-            onClick={tool.onClick}
+            onClick={() => {
+              if (tool.featureId && !canUseFeature(tool.featureId)) {
+                triggerUpgrade(tool.featureId)
+                return
+              }
+              tool.onClick()
+            }}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
               theme === 'dark'
                 ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700'
@@ -315,6 +323,7 @@ export function PlatformDashboard({
           >
             <tool.icon className="w-4 h-4" />
             {tool.label}
+            {tool.isProFeature && !isPro && <Crown className="w-3 h-3 text-yellow-400" />}
           </button>
         ))}
       </div>
@@ -329,7 +338,13 @@ export function PlatformDashboard({
           {aiToolButtons.map((tool) => (
             <button
               key={tool.label}
-              onClick={tool.onClick}
+              onClick={() => {
+                if (!canUseFeature(tool.featureId)) {
+                  triggerUpgrade(tool.featureId)
+                  return
+                }
+                tool.onClick()
+              }}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
                 theme === 'dark'
                   ? 'bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700/50'
@@ -346,6 +361,7 @@ export function PlatformDashboard({
                 'text-indigo-500'
               }`} />
               {tool.label}
+              {!isPro && <Crown className="w-3 h-3 text-yellow-400" />}
             </button>
           ))}
         </div>

@@ -1,5 +1,4 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
-import * as Sentry from "@sentry/react"
 import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
@@ -94,12 +93,6 @@ interface CalculatorProps {
 }
 
 export function Calculator({ initialPlatform }: CalculatorProps) {
-  // TEMPORARY: Remove after testing Sentry
-  const testSentry = () => {
-    Sentry.captureException(new Error("Sentry manual test from Calculator"));
-    alert("Error sent to Sentry! Check your dashboard.");
-  };
-
   const [activeTab, setActiveTab] = useState(initialPlatform || 'youtube')
   const [inputValues, setInputValues] = useState<InputValues>(() => {
     const stored = localStorage.getItem(INPUT_STORAGE_KEY)
@@ -409,10 +402,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
 
   return (
     <TooltipProvider>
-      {/* TEMPORARY: Remove after testing Sentry */}
-      <button onClick={testSentry} className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded z-50">
-        Test Sentry
-      </button>
       {showMethodology && (
         <MethodologyPage
           onClose={() => setShowMethodology(false)}

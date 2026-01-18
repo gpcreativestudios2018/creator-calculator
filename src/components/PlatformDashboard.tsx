@@ -201,6 +201,7 @@ export function PlatformDashboard({
             max={input.max}
             step={input.step}
             className="w-full"
+            aria-label={input.label}
           />
         </div>
       )
@@ -209,7 +210,7 @@ export function PlatformDashboard({
     return (
       <div key={input.id} className="space-y-2">
         <div className="flex items-center gap-1.5">
-          <Label className={theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}>{input.label}</Label>
+          <Label htmlFor={`input-${input.id}`} className={theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}>{input.label}</Label>
           {input.tooltip && (
             <Tooltip>
               <TooltipTrigger asChild>
@@ -223,10 +224,12 @@ export function PlatformDashboard({
         </div>
         <Input
           type="number"
+          id={`input-${input.id}`}
           value={value}
           onChange={(e) => onUpdateValue(input.id, Number(e.target.value))}
           min={input.min}
           max={input.max}
+          aria-label={input.label}
           className={theme === 'dark' ? 'bg-zinc-800 text-white border-zinc-700' : 'bg-gray-100 text-zinc-900 border-gray-300'}
         />
       </div>

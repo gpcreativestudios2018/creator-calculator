@@ -3,6 +3,7 @@ import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRi
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
+import { ShareButtons } from '@/components/ShareButtons'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -265,6 +266,16 @@ export function PlatformDashboard({
           subtitle="monthly growth"
           progress={Math.min((growthRate / 20) * 100, 100)}
           color="#14B8A6"
+          theme={theme}
+        />
+      </div>
+
+      {/* Share Buttons */}
+      <div className="flex justify-end mt-4">
+        <ShareButtons
+          platform={platform.name}
+          monthlyRevenue={monthlyRevenue}
+          yearlyRevenue={yearlyRevenue}
           theme={theme}
         />
       </div>

@@ -748,7 +748,7 @@ export function Calculator() {
         {/* Portfolio Button */}
         <button
           onClick={() => setActiveTab('portfolio')}
-          className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 mb-4 ${
+          className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
             activeTab === 'portfolio'
               ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
               : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:translate-x-1`
@@ -762,7 +762,7 @@ export function Calculator() {
         {/* Compare Toggle */}
         <button
           onClick={() => setCompareMode(!compareMode)}
-          className={`mt-4 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
             compareMode
               ? 'bg-purple-600 text-white'
               : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`

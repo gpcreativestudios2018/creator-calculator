@@ -545,8 +545,8 @@ export function PlatformDashboard({
             <p className="text-4xl font-bold text-emerald-500">
               ${hourlyRate.toFixed(0)}
             </p>
-            <p className="text-sm text-zinc-500 mt-1">per hour</p>
-            <p className="text-xs text-zinc-600 mt-2">(based on 40 hrs/month)</p>
+            <p className="text-sm text-zinc-400 mt-1">per hour</p>
+            <p className="text-xs text-zinc-400 mt-2">(based on 40 hrs/month)</p>
           </div>
         </PreviewCard>
 
@@ -565,7 +565,7 @@ export function PlatformDashboard({
                 <p className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                   Top {inputValues.subscribers >= 100000 ? '5%' : inputValues.subscribers >= 10000 ? '20%' : '50%'}
                 </p>
-                <p className="text-sm text-zinc-500 mt-1">of creators</p>
+                <p className="text-sm text-zinc-400 mt-1">of creators</p>
                 <div className="w-full mt-3 px-4">
                   <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
                     <div

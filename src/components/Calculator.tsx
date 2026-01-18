@@ -803,6 +803,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           <select
             value={selectedRegion}
             onChange={(e) => setSelectedRegion(e.target.value)}
+            aria-label="Select your region"
             className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
           >
             {regions.map((region) => (
@@ -832,6 +833,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           <select
             value={selectedNiche}
             onChange={(e) => setSelectedNiche(e.target.value)}
+            aria-label="Select your content niche"
             className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
           >
             {niches.map((niche) => (

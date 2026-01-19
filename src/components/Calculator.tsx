@@ -795,9 +795,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             onClick={() => { setActiveTab('youtube'); setCompareMode(false); }}
             className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-[1.02]"
           >
-            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center`}>
-              <span className="text-white font-bold text-sm">SS</span>
-            </div>
+            <img src="/icon-192.png" alt="SocialStacks" className="w-8 h-8 rounded-lg" />
             <h1 className="text-xl font-bold">SocialStacks</h1>
           </button>
         </div>

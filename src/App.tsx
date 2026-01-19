@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { ThemeProvider, useTheme } from '@/components/ThemeProvider'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import { seoPages } from '@/data/seoPages'
 import { platforms } from '@/platforms/registry'
 import { ProProvider } from '@/contexts/ProContext'
@@ -75,9 +76,11 @@ function App() {
   return (
     <ThemeProvider>
       <ProProvider>
-        <ErrorBoundary>
-          <AppContent />
-        </ErrorBoundary>
+        <TooltipProvider>
+          <ErrorBoundary>
+            <AppContent />
+          </ErrorBoundary>
+        </TooltipProvider>
         <Analytics />
         <SpeedInsights />
       </ProProvider>

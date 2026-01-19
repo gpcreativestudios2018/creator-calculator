@@ -412,6 +412,12 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
 
   return (
     <TooltipProvider>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-purple-600 focus:text-white focus:px-4 focus:py-2 focus:rounded"
+      >
+        Skip to main content
+      </a>
       {showMethodology && (
         <MethodologyPage
           onClose={() => setShowMethodology(false)}
@@ -1106,7 +1112,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 p-6 pt-20 lg:pt-6 overflow-y-auto">
+      <main id="main-content" className="flex-1 p-6 pt-20 lg:pt-6 overflow-y-auto">
         {compareMode ? (
           /* Compare Mode View */
           <div>

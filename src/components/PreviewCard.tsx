@@ -21,9 +21,9 @@ export function PreviewCard({
   theme = 'dark',
 }: PreviewCardProps) {
   return (
-    <button
+    <div
       onClick={onClick}
-      className={`relative w-full h-40 rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:shadow-lg group text-left flex flex-col ${
+      className={`relative w-full h-40 rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:shadow-lg group text-left flex flex-col cursor-pointer ${
         theme === 'dark'
           ? 'bg-zinc-900 border border-zinc-800 hover:border-zinc-700'
           : 'bg-white border border-gray-200 hover:border-gray-300'
@@ -41,11 +41,15 @@ export function PreviewCard({
         {tooltip && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <span className="text-muted-foreground hover:text-foreground transition-colors">
+              <button
+                type="button"
+                onClick={(e) => e.stopPropagation()}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
                 <Info className="w-4 h-4" />
-              </span>
+              </button>
             </TooltipTrigger>
-            <TooltipContent side="top" className="max-w-xs">
+            <TooltipContent side="top" className="max-w-xs z-[100]">
               <p>{tooltip}</p>
             </TooltipContent>
           </Tooltip>
@@ -58,11 +62,11 @@ export function PreviewCard({
       </div>
 
       {/* Hover overlay */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
         <span className="bg-black/60 text-white text-[10px] px-2 py-1 rounded-full">
           Click to expand
         </span>
       </div>
-    </button>
+    </div>
   )
 }

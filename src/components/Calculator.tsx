@@ -956,7 +956,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
         >
           {theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
           {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
@@ -965,7 +965,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         {/* Portfolio Button */}
         <button
           onClick={() => setActiveTab('portfolio')}
-          className={`w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
+          className={`mt-2 w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
             activeTab === 'portfolio'
               ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
               : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:translate-x-1`
@@ -979,7 +979,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         {/* Compare Toggle */}
         <button
           onClick={() => setCompareMode(!compareMode)}
-          className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
             compareMode
               ? 'bg-purple-600 text-white'
               : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`

@@ -371,6 +371,27 @@ export function PlatformDashboard({
         />
       </div>
 
+      {/* Social Proof Strip */}
+      <div className={`flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-3 px-4 rounded-lg text-sm ${
+        theme === 'dark' ? 'bg-zinc-900/50 text-zinc-400' : 'bg-gray-50 text-zinc-600'
+      }`}>
+        <span className="flex items-center gap-1.5">
+          <span className="text-emerald-500 font-semibold">25+</span> platforms supported
+        </span>
+        <span className={`hidden sm:block ${theme === 'dark' ? 'text-zinc-700' : 'text-zinc-300'}`}>•</span>
+        <span className="flex items-center gap-1.5">
+          <span className="text-emerald-500 font-semibold">Free</span> to use
+        </span>
+        <span className={`hidden sm:block ${theme === 'dark' ? 'text-zinc-700' : 'text-zinc-300'}`}>•</span>
+        <span className="flex items-center gap-1.5">
+          <span className="text-emerald-500 font-semibold">No signup</span> required
+        </span>
+        <span className={`hidden sm:block ${theme === 'dark' ? 'text-zinc-700' : 'text-zinc-300'}`}>•</span>
+        <span className="flex items-center gap-1.5">
+          Used by <span className="text-emerald-500 font-semibold">creators worldwide</span>
+        </span>
+      </div>
+
       {/* Creator Tools - Organized Sections */}
       <div className="space-y-3">
         {Object.entries(toolGroups).map(([key, group]) => (

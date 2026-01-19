@@ -39,6 +39,7 @@ import { AffiliatePartnerships } from '@/components/AffiliatePartnerships'
 import { ExportResults } from '@/components/ExportResults'
 import { SavedScenarios } from '@/components/SavedScenarios'
 import { PlatformDashboard } from '@/components/PlatformDashboard'
+import { FontSizeControl } from '@/components/FontSizeControl'
 import { usePro } from '@/contexts/ProContext'
 import { trackPlatformSwitch } from '@/utils/analytics'
 import { regions, DEFAULT_REGION } from '@/data/geography'
@@ -201,6 +202,14 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   useEffect(() => {
     localStorage.setItem(INPUT_STORAGE_KEY, JSON.stringify(inputValues))
   }, [inputValues])
+
+  // Restore font size from localStorage
+  useEffect(() => {
+    const savedFontSize = localStorage.getItem('fontSize')
+    if (savedFontSize) {
+      document.documentElement.style.fontSize = `${savedFontSize}px`
+    }
+  }, [])
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -911,6 +920,12 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           </svg>
           {compareMode ? 'Exit Compare' : 'Compare All'}
         </button>
+
+        {/* Font Size Control */}
+        <div className="mt-2 px-3 py-2 flex items-center justify-between">
+          <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Text Size</span>
+          <FontSizeControl theme={theme} />
+        </div>
 
         {/* Theme Toggle */}
         <button

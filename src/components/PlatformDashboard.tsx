@@ -246,6 +246,31 @@ export function PlatformDashboard({
         <p className="text-zinc-400">{platform.description}</p>
       </div>
 
+      {/* Share Buttons */}
+      <div className="flex justify-end items-center gap-2 mb-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setShowShareCard(true)}
+          className={`p-2 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-800' : 'border-gray-300 hover:bg-gray-100'}`}
+          title="Create shareable card"
+          aria-label="Create shareable card"
+        >
+          <Camera className="w-4 h-4 text-pink-500" />
+        </Button>
+        <ShareableLink
+          platformId={platformId}
+          inputValues={inputValues}
+          theme={theme}
+        />
+        <ShareButtons
+          platform={platform.name}
+          monthlyRevenue={monthlyRevenue}
+          yearlyRevenue={yearlyRevenue}
+          theme={theme}
+        />
+      </div>
+
       {/* 4 Stat Cards */}
       <div id="revenue-card" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
@@ -278,31 +303,6 @@ export function PlatformDashboard({
           subtitle="monthly growth"
           progress={Math.min((growthRate / 20) * 100, 100)}
           color="#14B8A6"
-          theme={theme}
-        />
-      </div>
-
-      {/* Share Buttons */}
-      <div className="flex justify-end items-center gap-2 mt-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setShowShareCard(true)}
-          className={`p-2 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-800' : 'border-gray-300 hover:bg-gray-100'}`}
-          title="Create shareable card"
-          aria-label="Create shareable card"
-        >
-          <Camera className="w-4 h-4 text-pink-500" />
-        </Button>
-        <ShareableLink
-          platformId={platformId}
-          inputValues={inputValues}
-          theme={theme}
-        />
-        <ShareButtons
-          platform={platform.name}
-          monthlyRevenue={monthlyRevenue}
-          yearlyRevenue={yearlyRevenue}
           theme={theme}
         />
       </div>

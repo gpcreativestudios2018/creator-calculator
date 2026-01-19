@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen, Briefcase, Camera, Download, Crown } from 'lucide-react'
+import { Info, FileText, DollarSign, HandCoins, Send, Clock, Target, ArrowLeftRight, Layers, Sparkles, TrendingUp, Lightbulb, Mail, Compass, Map, BookOpen, Briefcase, Camera, Download, Crown, ChevronDown, ChevronRight } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
@@ -76,6 +76,15 @@ export function PlatformDashboard({
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
+  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({
+    earnings: false,
+    sponsorships: true,
+    growth: true,
+  })
+
+  const toggleSection = (section: string) => {
+    setCollapsedSections(prev => ({ ...prev, [section]: !prev[section] }))
+  }
 
   const { canUseFeature, triggerUpgrade, isPro } = usePro()
   const colors = getPlatformColors(platformId)
@@ -98,29 +107,47 @@ export function PlatformDashboard({
   const subscribers = inputValues.subscribers || 0
   const growthRate = subscribers > 0 ? Math.min(((subscribers / 10000) * 5), 25) : 0
 
-  const toolButtons = [
-    { label: 'Export Results', icon: Download, onClick: onShowExport, featureId: 'export-pdf', isProFeature: true },
-    { label: 'Media Kit', icon: FileText, onClick: onShowMediaKit, featureId: 'media-kit', isProFeature: true },
-    { label: 'Rate Card', icon: DollarSign, onClick: onShowRateCard, featureId: 'rate-card', isProFeature: true },
-    { label: 'Sponsorship Pricing', icon: HandCoins, onClick: onShowSponsorshipCalc, featureId: 'sponsorship-calc', isProFeature: true },
-    { label: 'Brand Pitch', icon: Send, onClick: onShowBrandPitch, featureId: 'brand-pitch', isProFeature: true },
-    { label: 'Content ROI', icon: Clock, onClick: onShowContentROI, featureId: 'content-roi', isProFeature: true },
-    { label: 'Goal Tracker', icon: Target, onClick: onShowGoalTracker, featureId: 'goal-tracker', isProFeature: true },
-    { label: 'Platform Switch', icon: ArrowLeftRight, onClick: onShowPlatformSwitch, featureId: null, isProFeature: false },
-    { label: 'Content Mix', icon: Layers, onClick: onShowContentMix, featureId: null, isProFeature: false },
-    { label: 'How to Monetize', icon: BookOpen, onClick: onShowMonetizationGuide, featureId: null, isProFeature: false },
-    { label: 'Business Planner', icon: Briefcase, onClick: onShowBusinessPlanner, featureId: 'business-planner', isProFeature: true },
-  ]
-
-  const aiToolButtons = [
-    { label: 'AI Analysis', icon: Sparkles, onClick: onShowAIAnalysis, color: 'purple', featureId: 'ai-analysis' },
-    { label: 'Growth Plan', icon: TrendingUp, onClick: onShowAIGrowthPlan, color: 'emerald', featureId: 'ai-growth-plan' },
-    { label: 'Content Ideas', icon: Lightbulb, onClick: onShowAIContentIdeas, color: 'yellow', featureId: 'ai-content-ideas' },
-    { label: 'Brand Pitch', icon: Mail, onClick: onShowAIBrandPitch, color: 'blue', featureId: 'ai-brand-pitch' },
-    { label: 'Revenue Optimizer', icon: DollarSign, onClick: onShowAIRevenueOpt, color: 'green', featureId: 'ai-revenue-opt' },
-    { label: 'Focus Guide', icon: Compass, onClick: onShowAIFocus, color: 'orange', featureId: 'ai-focus' },
-    { label: 'Roadmap', icon: Map, onClick: onShowAIRoadmap, color: 'indigo', featureId: 'ai-roadmap' },
-  ]
+  const toolGroups = {
+    earnings: {
+      title: 'Earnings & Analytics',
+      icon: DollarSign,
+      color: 'emerald',
+      tools: [
+        { label: 'Export Results', icon: Download, onClick: onShowExport, featureId: 'export-pdf', isProFeature: true },
+        { label: 'Content ROI', icon: Clock, onClick: onShowContentROI, featureId: 'content-roi', isProFeature: true },
+        { label: 'AI Analysis', icon: Sparkles, onClick: onShowAIAnalysis, featureId: 'ai-analysis', isProFeature: true },
+        { label: 'Revenue Optimizer', icon: TrendingUp, onClick: onShowAIRevenueOpt, featureId: 'ai-revenue-opt', isProFeature: true },
+      ],
+    },
+    sponsorships: {
+      title: 'Sponsorships & Pitching',
+      icon: HandCoins,
+      color: 'blue',
+      tools: [
+        { label: 'Media Kit', icon: FileText, onClick: onShowMediaKit, featureId: 'media-kit', isProFeature: true },
+        { label: 'Rate Card', icon: DollarSign, onClick: onShowRateCard, featureId: 'rate-card', isProFeature: true },
+        { label: 'Sponsorship Pricing', icon: HandCoins, onClick: onShowSponsorshipCalc, featureId: 'sponsorship-calc', isProFeature: true },
+        { label: 'Brand Pitch', icon: Send, onClick: onShowBrandPitch, featureId: 'brand-pitch', isProFeature: true },
+        { label: 'AI Brand Pitch', icon: Mail, onClick: onShowAIBrandPitch, featureId: 'ai-brand-pitch', isProFeature: true },
+      ],
+    },
+    growth: {
+      title: 'Growth & Planning',
+      icon: Target,
+      color: 'purple',
+      tools: [
+        { label: 'Goal Tracker', icon: Target, onClick: onShowGoalTracker, featureId: 'goal-tracker', isProFeature: true },
+        { label: 'Platform Switch', icon: ArrowLeftRight, onClick: onShowPlatformSwitch, featureId: null, isProFeature: false },
+        { label: 'Content Mix', icon: Layers, onClick: onShowContentMix, featureId: null, isProFeature: false },
+        { label: 'How to Monetize', icon: BookOpen, onClick: onShowMonetizationGuide, featureId: null, isProFeature: false },
+        { label: 'Business Planner', icon: Briefcase, onClick: onShowBusinessPlanner, featureId: 'business-planner', isProFeature: true },
+        { label: 'AI Growth Plan', icon: TrendingUp, onClick: onShowAIGrowthPlan, featureId: 'ai-growth-plan', isProFeature: true },
+        { label: 'AI Content Ideas', icon: Lightbulb, onClick: onShowAIContentIdeas, featureId: 'ai-content-ideas', isProFeature: true },
+        { label: 'AI Focus Guide', icon: Compass, onClick: onShowAIFocus, featureId: 'ai-focus', isProFeature: true },
+        { label: 'AI Roadmap', icon: Map, onClick: onShowAIRoadmap, featureId: 'ai-roadmap', isProFeature: true },
+      ],
+    },
+  }
 
   // Revenue breakdown data for charts
   const adRevenue = ((inputValues.monthlyViews || 0) / 1000) * (inputValues.cpm || 4) * 0.55
@@ -344,68 +371,80 @@ export function PlatformDashboard({
         />
       </div>
 
-      {/* 8 Tool Buttons */}
-      <div className="flex flex-wrap justify-center gap-2">
-        {toolButtons.map((tool) => (
-          <button
-            key={tool.label}
-            onClick={() => {
-              if (tool.featureId && !canUseFeature(tool.featureId)) {
-                triggerUpgrade(tool.featureId)
-                return
-              }
-              tool.onClick()
-            }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
-              theme === 'dark'
-                ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700'
-                : 'bg-gray-100 text-zinc-700 hover:bg-gray-200 hover:text-zinc-900 border border-gray-300'
+      {/* Creator Tools - Organized Sections */}
+      <div className="space-y-3">
+        {Object.entries(toolGroups).map(([key, group]) => (
+          <div
+            key={key}
+            className={`rounded-xl border ${
+              theme === 'dark' ? 'bg-zinc-900/50 border-zinc-800' : 'bg-white border-gray-200'
             }`}
           >
-            <tool.icon className="w-4 h-4" />
-            {tool.label}
-            {tool.isProFeature && !isPro && <Crown className="w-3 h-3 text-yellow-400" />}
-          </button>
-        ))}
-      </div>
-
-      {/* AI Tools Section */}
-      <div className={`p-3 rounded-xl ${theme === 'dark' ? 'bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-800/30' : 'bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200'}`}>
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <Sparkles className="w-4 h-4 text-purple-500" />
-          <h3 className={`font-semibold text-sm ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>AI-Powered Tools</h3>
-        </div>
-        <div className="flex flex-wrap justify-center gap-1.5">
-          {aiToolButtons.map((tool) => (
+            {/* Section Header - Clickable */}
             <button
-              key={tool.label}
-              onClick={() => {
-                if (!canUseFeature(tool.featureId)) {
-                  triggerUpgrade(tool.featureId)
-                  return
-                }
-                tool.onClick()
-              }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
-                theme === 'dark'
-                  ? 'bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700/50'
-                  : 'bg-white/80 text-zinc-700 hover:bg-white hover:text-zinc-900 border border-gray-200'
+              onClick={() => toggleSection(key)}
+              className={`w-full px-4 py-3 flex items-center justify-between rounded-xl transition-colors ${
+                theme === 'dark' ? 'hover:bg-zinc-800/50' : 'hover:bg-gray-50'
               }`}
             >
-              <tool.icon className={`w-3.5 h-3.5 ${
-                tool.color === 'purple' ? 'text-purple-500' :
-                tool.color === 'emerald' ? 'text-emerald-500' :
-                tool.color === 'yellow' ? 'text-yellow-500' :
-                tool.color === 'blue' ? 'text-blue-500' :
-                tool.color === 'green' ? 'text-green-500' :
-                tool.color === 'orange' ? 'text-orange-500' :
-                'text-indigo-500'
-              }`} />
-              {tool.label}
-              {!isPro && <Crown className="w-3 h-3 text-yellow-400" />}
+              <div className="flex items-center gap-3">
+                <div className={`p-2 rounded-lg ${
+                  group.color === 'emerald' ? 'bg-emerald-500/20' :
+                  group.color === 'blue' ? 'bg-blue-500/20' :
+                  'bg-purple-500/20'
+                }`}>
+                  <group.icon className={`w-4 h-4 ${
+                    group.color === 'emerald' ? 'text-emerald-500' :
+                    group.color === 'blue' ? 'text-blue-500' :
+                    'text-purple-500'
+                  }`} />
+                </div>
+                <span className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  {group.title}
+                </span>
+                <span className={`text-xs px-2 py-0.5 rounded-full ${
+                  theme === 'dark' ? 'bg-zinc-800 text-zinc-400' : 'bg-gray-100 text-zinc-600'
+                }`}>
+                  {group.tools.length} tools
+                </span>
+              </div>
+              {collapsedSections[key] ? (
+                <ChevronRight className={`w-5 h-5 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`} />
+              ) : (
+                <ChevronDown className={`w-5 h-5 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`} />
+              )}
             </button>
-          ))}
-        </div>
+
+            {/* Section Content - Collapsible */}
+            {!collapsedSections[key] && (
+              <div className="px-4 pb-4">
+                <div className="flex flex-wrap gap-2">
+                  {group.tools.map((tool) => (
+                    <button
+                      key={tool.label}
+                      onClick={() => {
+                        if (tool.featureId && !canUseFeature(tool.featureId)) {
+                          triggerUpgrade(tool.featureId)
+                          return
+                        }
+                        tool.onClick()
+                      }}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
+                        theme === 'dark'
+                          ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700'
+                          : 'bg-gray-100 text-zinc-700 hover:bg-gray-200 hover:text-zinc-900 border border-gray-300'
+                      }`}
+                    >
+                      <tool.icon className="w-4 h-4" />
+                      {tool.label}
+                      {tool.isProFeature && !isPro && <Crown className="w-3 h-3 text-yellow-400" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
 
       {/* Your Metrics Input Card */}

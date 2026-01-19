@@ -1,3 +1,10 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { HelpCircle } from 'lucide-react'
+
 interface StatCardProps {
   label: string
   value: string
@@ -5,6 +12,7 @@ interface StatCardProps {
   progress?: number // 0-100 percentage for the mini circle
   color: string
   theme?: 'dark' | 'light'
+  tooltip?: string
 }
 
 export function StatCard({
@@ -14,6 +22,7 @@ export function StatCard({
   progress = 75,
   color,
   theme = 'dark',
+  tooltip,
 }: StatCardProps) {
   // Mini circle dimensions
   const size = 44
@@ -30,11 +39,27 @@ export function StatCard({
     }`}>
       {/* Left side - Text */}
       <div className="flex-1 min-w-0">
-        <p className={`text-xs font-medium truncate ${
-          theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'
-        }`}>
-          {label}
-        </p>
+        {tooltip ? (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <p className={`text-xs font-medium truncate inline-flex items-center gap-1 cursor-help ${
+                theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'
+              }`}>
+                {label}
+                <HelpCircle className="w-3 h-3 flex-shrink-0" />
+              </p>
+            </TooltipTrigger>
+            <TooltipContent className="max-w-xs">
+              <p>{tooltip}</p>
+            </TooltipContent>
+          </Tooltip>
+        ) : (
+          <p className={`text-xs font-medium truncate ${
+            theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'
+          }`}>
+            {label}
+          </p>
+        )}
         <p className={`text-xl font-bold truncate ${
           theme === 'dark' ? 'text-white' : 'text-zinc-900'
         }`}>

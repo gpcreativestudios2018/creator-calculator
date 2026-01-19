@@ -280,6 +280,7 @@ export function PlatformDashboard({
           progress={Math.min((monthlyRevenue / 10000) * 100, 100)}
           color="#22C55E"
           theme={theme}
+          tooltip="Your estimated monthly earnings from this platform based on the metrics you entered. This includes ad revenue, sponsorships, and other income sources."
         />
         <StatCard
           label="Yearly Projection"
@@ -288,6 +289,7 @@ export function PlatformDashboard({
           progress={Math.min((yearlyRevenue / 120000) * 100, 100)}
           color="#3B82F6"
           theme={theme}
+          tooltip="Your monthly revenue multiplied by 12. This assumes consistent performance throughout the year."
         />
         <StatCard
           label="Engagement Rate"
@@ -296,6 +298,7 @@ export function PlatformDashboard({
           progress={Math.min((engagementRate / 10) * 100, 100)}
           color="#F97316"
           theme={theme}
+          tooltip="How actively your audience interacts with your content (likes, comments, shares) relative to your reach. Rates over 100% can happen when content goes viral beyond your follower count!"
         />
         <StatCard
           label="Growth Rate"
@@ -304,6 +307,7 @@ export function PlatformDashboard({
           progress={Math.min((growthRate / 20) * 100, 100)}
           color="#14B8A6"
           theme={theme}
+          tooltip="An estimated monthly growth percentage based on your current audience size. Smaller accounts typically grow faster percentage-wise than larger ones."
         />
       </div>
 

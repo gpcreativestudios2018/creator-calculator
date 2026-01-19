@@ -920,15 +920,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           <HighContrastToggle theme={theme} />
         </div>
 
-        {/* Theme Toggle */}
-        <button
-          onClick={toggleTheme}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          {theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
-          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-        </button>
-
         {/* Time Period Selector */}
         <div className="mt-4 mb-4">
           <div className="flex items-center gap-1.5 mb-2 px-3">
@@ -964,6 +955,15 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             ))}
           </div>
         </div>
+
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          {theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
+          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+        </button>
 
         {/* Portfolio Button */}
         <button

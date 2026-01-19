@@ -304,3 +304,41 @@ select:not(:disabled):hover {
     color: #666;
   }
 }
+
+/* High Contrast Mode */
+.high-contrast {
+  --high-contrast-bg: #000000;
+  --high-contrast-text: #ffffff;
+  --high-contrast-border: #ffffff;
+  --high-contrast-accent: #ffff00;
+}
+
+.high-contrast body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.high-contrast * {
+  border-color: #ffffff !important;
+}
+
+.high-contrast a,
+.high-contrast button,
+.high-contrast [role="button"] {
+  color: #ffff00 !important;
+}
+
+.high-contrast .text-zinc-400,
+.high-contrast .text-zinc-500,
+.high-contrast .text-gray-400,
+.high-contrast .text-gray-500 {
+  color: #ffffff !important;
+}
+
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}

@@ -1,4 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { ThemeProvider, useTheme } from '@/components/ThemeProvider'
 import { seoPages } from '@/data/seoPages'
@@ -76,6 +78,8 @@ function App() {
         <ErrorBoundary>
           <AppContent />
         </ErrorBoundary>
+        <Analytics />
+        <SpeedInsights />
       </ProProvider>
     </ThemeProvider>
   )

@@ -83,6 +83,12 @@ export function PlatformDashboard({
 
   if (!platform) return null
 
+  // Check if user has entered custom values (not just defaults)
+  const hasCustomValues = platform.inputs.some(input => {
+    const currentValue = inputValues[input.id]
+    return currentValue !== undefined && currentValue !== input.defaultValue
+  })
+
   // Calculate additional metrics for gauges
   const monthlyRevenue = results.monthlyRevenue
   const yearlyRevenue = results.yearlyRevenue
@@ -271,6 +277,33 @@ export function PlatformDashboard({
         />
       </div>
 
+      {/* Demo Data Banner */}
+      {!hasCustomValues && (
+        <div className={`p-4 rounded-xl border-2 border-dashed ${theme === 'dark' ? 'bg-amber-900/20 border-amber-600/50' : 'bg-amber-50 border-amber-300'}`}>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-full ${theme === 'dark' ? 'bg-amber-600/20' : 'bg-amber-100'}`}>
+                <Info className="w-5 h-5 text-amber-500" />
+              </div>
+              <div>
+                <p className={`font-semibold ${theme === 'dark' ? 'text-amber-400' : 'text-amber-700'}`}>
+                  You're viewing sample data
+                </p>
+                <p className={`text-sm ${theme === 'dark' ? 'text-amber-400/70' : 'text-amber-600'}`}>
+                  Enter your real metrics below to see personalized estimates
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => document.getElementById('metrics-input')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-lg transition-colors whitespace-nowrap"
+            >
+              Enter My Stats →
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 4 Stat Cards */}
       <div id="revenue-card" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
@@ -376,7 +409,7 @@ export function PlatformDashboard({
       </div>
 
       {/* Your Metrics Input Card */}
-      <Card className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+      <Card id="metrics-input" className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
         <CardHeader>
           <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
             <platform.icon className={`w-5 h-5 ${platform.iconColor}`} />

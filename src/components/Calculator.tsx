@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown, Mail } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -139,6 +139,9 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showEmbedWidget, setShowEmbedWidget] = useState(false)
   const [showExport, setShowExport] = useState(false)
   const [showScenarios, setShowScenarios] = useState(false)
+  const [showLeadMagnet, setShowLeadMagnet] = useState(false)
+  const [showAffiliates, setShowAffiliates] = useState(false)
+  const [showNewsletter, setShowNewsletter] = useState(false)
   const { theme, toggleTheme } = useTheme()
   const { isPro, setTier } = usePro()
 
@@ -725,6 +728,50 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           onLoadScenario={handleLoadScenario}
         />
       )}
+      {showLeadMagnet && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div className="relative max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto bg-zinc-900 rounded-xl p-6">
+            <button
+              onClick={() => setShowLeadMagnet(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <LeadMagnet className="mx-0" />
+          </div>
+        </div>
+      )}
+      {showAffiliates && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div className="relative max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto bg-zinc-900 rounded-xl p-6">
+            <button
+              onClick={() => setShowAffiliates(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <AffiliatePartnerships variant="compact" className="mx-0" />
+          </div>
+        </div>
+      )}
+      {showNewsletter && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div className="relative max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto bg-zinc-900 rounded-xl p-6">
+            <button
+              onClick={() => setShowNewsletter(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <EmailCapture
+              variant="card"
+              title="Creator Newsletter"
+              description="Weekly tips on monetization and growth strategies."
+              className="mx-0"
+            />
+          </div>
+        </div>
+      )}
       {!showMethodology && !showGlossary && (
       <>
       <OnboardingModal onComplete={() => {}} />
@@ -863,8 +910,27 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           </p>
         </div>
 
+        {/* Accessibility Controls */}
+        <div className="px-3 py-2 flex items-center justify-between">
+          <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Text Size</span>
+          <FontSizeControl theme={theme} />
+        </div>
+        <div className="px-3 py-2 flex items-center justify-between">
+          <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>High Contrast</span>
+          <HighContrastToggle theme={theme} />
+        </div>
+
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          {theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
+          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+        </button>
+
         {/* Time Period Selector */}
-        <div className="mb-6">
+        <div className="mt-4 mb-4">
           <div className="flex items-center gap-1.5 mb-2 px-3">
             <p className="text-xs text-zinc-500 uppercase tracking-wider">Time Period</p>
             <Tooltip>
@@ -926,25 +992,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
           {compareMode ? 'Exit Compare' : 'Compare All'}
-        </button>
-
-        {/* Accessibility Controls */}
-        <div className="mt-2 px-3 py-2 flex items-center justify-between">
-          <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Text Size</span>
-          <FontSizeControl theme={theme} />
-        </div>
-        <div className="px-3 py-2 flex items-center justify-between">
-          <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>High Contrast</span>
-          <HighContrastToggle theme={theme} />
-        </div>
-
-        {/* Theme Toggle */}
-        <button
-          onClick={toggleTheme}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          {theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
-          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
         </button>
 
         {/* Methodology Link */}
@@ -1030,25 +1077,32 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           Embed Widget
         </button>
 
-        {/* Lead Magnet */}
-        <div className="mt-4">
-          <LeadMagnet className="mx-0 mb-3" />
-        </div>
+        {/* Free Guide */}
+        <button
+          onClick={() => setShowLeadMagnet(true)}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          <BookOpen className="w-4 h-4 text-green-500" />
+          Free Guide
+        </button>
 
-        {/* Affiliate Partners */}
-        <div className="mb-3">
-          <AffiliatePartnerships variant="compact" className="mx-0" />
-        </div>
+        {/* Recommended Tools */}
+        <button
+          onClick={() => setShowAffiliates(true)}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          <Award className="w-4 h-4 text-amber-500" />
+          Recommended Tools
+        </button>
 
-        {/* Newsletter Signup */}
-        <div>
-          <EmailCapture
-            variant="card"
-            title="Creator Newsletter"
-            description="Weekly tips on monetization and growth strategies."
-            className="mx-0"
-          />
-        </div>
+        {/* Creator Newsletter */}
+        <button
+          onClick={() => setShowNewsletter(true)}
+          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        >
+          <Mail className="w-4 h-4 text-blue-500" />
+          Creator Newsletter
+        </button>
 
         {/* Pro Status */}
         <div className={`mt-4 p-3 rounded-lg ${isPro

@@ -789,13 +789,13 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
       </div>
 
       {/* Sidebar */}
-      <aside className={`fixed lg:static inset-y-0 left-0 w-64 p-4 flex flex-col z-40 transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${theme === 'dark' ? 'bg-zinc-900 border-r border-zinc-800' : 'bg-white border-r border-gray-200'}`}>
-        <div className="mb-8">
+      <aside className={`fixed lg:static inset-y-0 left-0 w-64 px-4 pt-0 pb-4 flex flex-col z-40 transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${theme === 'dark' ? 'bg-zinc-900 border-r border-zinc-800' : 'bg-white border-r border-gray-200'}`}>
+        <div className="-mb-6">
           <button
             onClick={() => { setActiveTab('youtube'); setCompareMode(false); }}
-            className="flex items-center cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-[1.02]"
+            className="flex items-center cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-[1.02] p-0"
           >
-            <img src="/logo_full_transparent.png" alt="SocialStacks" className="h-10 w-auto" />
+            <img src="/logo_full_transparent.png" alt="SocialStacks" className="h-56 w-auto mx-auto -mt-4" />
           </button>
         </div>
 

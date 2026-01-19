@@ -333,12 +333,12 @@ export function PlatformDashboard({
       </div>
 
       {/* AI Tools Section */}
-      <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-800/30' : 'bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200'}`}>
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-5 h-5 text-purple-500" />
-          <h3 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>AI-Powered Tools</h3>
+      <div className={`p-3 rounded-xl ${theme === 'dark' ? 'bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-800/30' : 'bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200'}`}>
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <Sparkles className="w-4 h-4 text-purple-500" />
+          <h3 className={`font-semibold text-sm ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>AI-Powered Tools</h3>
         </div>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-1.5">
           {aiToolButtons.map((tool) => (
             <button
               key={tool.label}
@@ -349,13 +349,13 @@ export function PlatformDashboard({
                 }
                 tool.onClick()
               }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:scale-105 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all hover:scale-105 ${
                 theme === 'dark'
                   ? 'bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700/50'
                   : 'bg-white/80 text-zinc-700 hover:bg-white hover:text-zinc-900 border border-gray-200'
               }`}
             >
-              <tool.icon className={`w-4 h-4 ${
+              <tool.icon className={`w-3.5 h-3.5 ${
                 tool.color === 'purple' ? 'text-purple-500' :
                 tool.color === 'emerald' ? 'text-emerald-500' :
                 tool.color === 'yellow' ? 'text-yellow-500' :

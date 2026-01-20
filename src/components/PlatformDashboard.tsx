@@ -217,30 +217,18 @@ export function PlatformDashboard({
         />
       </div>
 
-      {/* Demo Data Banner */}
+      {/* Sample Data Indicator */}
       {!hasCustomValues && (
-        <div className={`p-4 rounded-xl border-2 border-dashed ${theme === 'dark' ? 'bg-amber-900/20 border-amber-600/50' : 'bg-amber-50 border-amber-300'}`}>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-full ${theme === 'dark' ? 'bg-amber-600/20' : 'bg-amber-100'}`}>
-                <Info className="w-5 h-5 text-amber-500" />
-              </div>
-              <div>
-                <p className={`font-semibold ${theme === 'dark' ? 'text-amber-400' : 'text-amber-700'}`}>
-                  You're viewing sample data
-                </p>
-                <p className={`text-sm ${theme === 'dark' ? 'text-amber-400/70' : 'text-amber-600'}`}>
-                  Enter your real metrics below to see personalized estimates
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => document.getElementById('metrics-input')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-lg transition-colors whitespace-nowrap"
-            >
-              Enter My Stats →
-            </button>
-          </div>
+        <div className={`flex items-center justify-center gap-2 py-2 text-sm ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>
+          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+          <span>Showing sample data</span>
+          <span className={theme === 'dark' ? 'text-zinc-600' : 'text-zinc-300'}>•</span>
+          <button
+            onClick={() => document.getElementById('metrics-input')?.scrollIntoView({ behavior: 'smooth' })}
+            className={`underline hover:no-underline ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}
+          >
+            Enter your stats
+          </button>
         </div>
       )}
 

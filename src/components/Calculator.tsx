@@ -1755,24 +1755,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             results={results}
             theme={theme}
             formatCurrency={formatCurrency}
-            onShowMediaKit={() => setShowMediaKit(true)}
-            onShowRateCard={() => setShowRateCard(true)}
-            onShowSponsorshipCalc={() => setShowSponsorshipCalc(true)}
-            onShowBrandPitch={() => setShowBrandPitch(true)}
-            onShowContentROI={() => setShowContentROI(true)}
-            onShowGoalTracker={() => setShowGoalTracker(true)}
-            onShowPlatformSwitch={() => setShowPlatformSwitch(true)}
-            onShowContentMix={() => setShowContentMix(true)}
-            onShowAIAnalysis={() => setShowAIAnalysis(true)}
-            onShowAIGrowthPlan={() => setShowAIGrowthPlan(true)}
-            onShowAIContentIdeas={() => setShowAIContentIdeas(true)}
-            onShowAIBrandPitch={() => setShowAIBrandPitch(true)}
-            onShowAIRevenueOpt={() => setShowAIRevenueOpt(true)}
-            onShowAIFocus={() => setShowAIFocus(true)}
-            onShowAIRoadmap={() => setShowAIRoadmap(true)}
-            onShowMonetizationGuide={() => setShowMonetizationGuide(true)}
-            onShowBusinessPlanner={() => setShowBusinessPlanner(true)}
-            onShowExport={() => setShowExport(true)}
           />
         ) : null}
       </main>

@@ -1217,15 +1217,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           >
             <span className="flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-blue-500" />
-              Resources
-            </span>
-          </button>
-          <button
-            onClick={() => setShowAffiliates(true)}
-            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
-          >
-            <span className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-amber-500" />
               Recommended Tools
             </span>
           </button>

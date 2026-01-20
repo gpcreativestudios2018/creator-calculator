@@ -1,6 +1,6 @@
 # CREATOR CALCULATOR — GOLD STANDARD MASTER ROADMAP
 
-> **Total Items:** 141
+> **Total Items:** 153
 > **Status:** In Progress
 > **Last Updated:** January 2025
 
@@ -26,7 +26,8 @@
 | Phase 14: Monetization (Pro Tier) | 8 | 4 | 🟩🟩🟨⬜⬜ 50% |
 | Phase 15: Technical & Performance | 10 | 10 | 🟩🟩🟩🟩🟩 100% |
 | Phase 16: Accessibility & i18n | 4 | 3 | 🟩🟩🟩🟨⬜ 75% |
-| **TOTAL** | **141** | **136** | **96%** |
+| Phase 17: Launch Readiness | 12 | 0 | ⬜⬜⬜⬜⬜ 0% |
+| **TOTAL** | **153** | **136** | **89%** |
 
 ---
 
@@ -254,6 +255,24 @@
 - [x] 15.8 — Automated testing setup
 - [x] 15.9 — CI/CD pipeline
 - [x] 15.10 — Performance monitoring dashboard
+
+---
+
+## ⬜ PHASE 17: LAUNCH READINESS & CONTENT
+> *Final polish before public launch*
+
+- [ ] 17.1 — Point www.socialstacks.app domain (Squarespace) to Vercel
+- [ ] 17.2 — Add Support/Contact Us page or modal
+- [ ] 17.3 — Add Feedback mechanism (form, widget, or email link)
+- [ ] 17.4 — Complete Video Tutorials section (currently placeholder)
+- [ ] 17.5 — Complete Free Guide lead magnet (actual downloadable PDF)
+- [ ] 17.6 — Complete Creator Newsletter with email integration
+- [ ] 17.7 — Redesign first-visit onboarding popup
+- [ ] 17.8 — Merge "Resources" into "Recommended Tools" section
+- [ ] 17.9 — Sign up for affiliate programs for recommended tools
+- [ ] 17.10 — Add affiliate links to all tool recommendations
+- [ ] 17.11 — Create "Start Here" / beginner's guide for aspiring creators
+- [ ] 17.12 — Add embedded YouTube tutorials (creator education content)
 
 ---
 

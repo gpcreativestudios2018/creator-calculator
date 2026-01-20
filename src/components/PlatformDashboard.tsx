@@ -266,29 +266,6 @@ export function PlatformDashboard({
         </div>
       )}
 
-      {/* Time Period Selector */}
-      <div className="flex items-center justify-between mb-6">
-        <div className={`inline-flex rounded-lg p-1 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'}`}>
-          {timePeriods.map((period) => (
-            <button
-              key={period.id}
-              onClick={() => onTimePeriodChange(period.id)}
-              className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
-                selectedTimePeriod === period.id
-                  ? theme === 'dark'
-                    ? 'bg-purple-600 text-white shadow-sm'
-                    : 'bg-white text-purple-600 shadow-sm'
-                  : theme === 'dark'
-                    ? 'text-zinc-400 hover:text-white'
-                    : 'text-zinc-600 hover:text-zinc-900'
-              }`}
-            >
-              {period.name}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* 4 Stat Cards */}
       <div id="revenue-card" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
@@ -353,17 +330,38 @@ export function PlatformDashboard({
       {/* Your Metrics Input Card */}
       <Card id="metrics-input" className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap gap-2">
             <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
               <platform.icon className={`w-5 h-5 ${platform.iconColor}`} />
               Your Metrics
             </CardTitle>
-            {!hasCustomValues && (
-              <div className={`flex items-center gap-2 text-xs ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                <span>Sample data</span>
+            <div className="flex items-center gap-3">
+              {!hasCustomValues && (
+                <div className={`flex items-center gap-2 text-xs ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                  <span>Sample data</span>
+                </div>
+              )}
+              <div className={`inline-flex rounded-lg p-0.5 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'}`}>
+                {timePeriods.map((period) => (
+                  <button
+                    key={period.id}
+                    onClick={() => onTimePeriodChange(period.id)}
+                    className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
+                      selectedTimePeriod === period.id
+                        ? theme === 'dark'
+                          ? 'bg-purple-600 text-white shadow-sm'
+                          : 'bg-white text-purple-600 shadow-sm'
+                        : theme === 'dark'
+                          ? 'text-zinc-400 hover:text-white'
+                          : 'text-zinc-600 hover:text-zinc-900'
+                    }`}
+                  >
+                    {period.name}
+                  </button>
+                ))}
               </div>
-            )}
+            </div>
           </div>
         </CardHeader>
         <CardContent>

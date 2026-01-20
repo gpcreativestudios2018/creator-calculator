@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Info, Camera } from 'lucide-react'
+import { Info, Camera, Crown } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
@@ -41,7 +41,7 @@ export function PlatformDashboard({
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
 
-  const { canUseFeature: _canUseFeature, triggerUpgrade: _triggerUpgrade, isPro: _isPro } = usePro()
+  const { canUseFeature: _canUseFeature, triggerUpgrade, isPro } = usePro()
   const colors = getPlatformColors(platformId)
   const platform = platforms.find(p => p.id === platformId)
 
@@ -217,18 +217,43 @@ export function PlatformDashboard({
         />
       </div>
 
-      {/* Sample Data Indicator */}
-      {!hasCustomValues && (
-        <div className={`flex items-center justify-center gap-2 py-2 text-sm ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>
-          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-          <span>Showing sample data</span>
-          <span className={theme === 'dark' ? 'text-zinc-600' : 'text-zinc-300'}>•</span>
-          <button
-            onClick={() => document.getElementById('metrics-input')?.scrollIntoView({ behavior: 'smooth' })}
-            className={`underline hover:no-underline ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}
-          >
-            Enter your stats
-          </button>
+      {/* Upgrade to Pro Banner */}
+      {!isPro && (
+        <div
+          onClick={() => triggerUpgrade('pro-banner')}
+          className={`p-4 rounded-xl cursor-pointer transition-all hover:scale-[1.01] ${
+            theme === 'dark'
+              ? 'bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/30 hover:border-purple-500/50'
+              : 'bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 hover:border-purple-300'
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-lg ${theme === 'dark' ? 'bg-purple-500/20' : 'bg-purple-100'}`}>
+                <Crown className="w-5 h-5 text-yellow-500" />
+              </div>
+              <div>
+                <p className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  Unlock Pro Features
+                </p>
+                <p className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                  AI tools, exports, media kits & more
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className={`text-sm font-medium ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`}>
+                $9/mo
+              </span>
+              <span className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                theme === 'dark'
+                  ? 'bg-purple-600 hover:bg-purple-500 text-white'
+                  : 'bg-purple-600 hover:bg-purple-700 text-white'
+              }`}>
+                Upgrade →
+              </span>
+            </div>
+          </div>
         </div>
       )}
 
@@ -296,10 +321,18 @@ export function PlatformDashboard({
       {/* Your Metrics Input Card */}
       <Card id="metrics-input" className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
         <CardHeader>
-          <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-            <platform.icon className={`w-5 h-5 ${platform.iconColor}`} />
-            Your Metrics
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+              <platform.icon className={`w-5 h-5 ${platform.iconColor}`} />
+              Your Metrics
+            </CardTitle>
+            {!hasCustomValues && (
+              <div className={`flex items-center gap-2 text-xs ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                <span>Sample data</span>
+              </div>
+            )}
+          </div>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

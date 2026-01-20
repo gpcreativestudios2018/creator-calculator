@@ -28,24 +28,6 @@ interface PlatformDashboardProps {
   }
   theme: 'dark' | 'light'
   formatCurrency: (value: number) => string
-  onShowMediaKit: () => void
-  onShowRateCard: () => void
-  onShowSponsorshipCalc: () => void
-  onShowBrandPitch: () => void
-  onShowContentROI: () => void
-  onShowGoalTracker: () => void
-  onShowPlatformSwitch: () => void
-  onShowContentMix: () => void
-  onShowAIAnalysis: () => void
-  onShowAIGrowthPlan: () => void
-  onShowAIContentIdeas: () => void
-  onShowAIBrandPitch: () => void
-  onShowAIRevenueOpt: () => void
-  onShowAIFocus: () => void
-  onShowAIRoadmap: () => void
-  onShowMonetizationGuide: () => void
-  onShowBusinessPlanner: () => void
-  onShowExport: () => void
 }
 
 export function PlatformDashboard({
@@ -55,24 +37,6 @@ export function PlatformDashboard({
   results,
   theme,
   formatCurrency: _formatCurrency,
-  onShowMediaKit,
-  onShowRateCard,
-  onShowSponsorshipCalc,
-  onShowBrandPitch,
-  onShowContentROI,
-  onShowGoalTracker,
-  onShowPlatformSwitch,
-  onShowContentMix,
-  onShowAIAnalysis,
-  onShowAIGrowthPlan,
-  onShowAIContentIdeas,
-  onShowAIBrandPitch,
-  onShowAIRevenueOpt,
-  onShowAIFocus,
-  onShowAIRoadmap,
-  onShowMonetizationGuide,
-  onShowBusinessPlanner,
-  onShowExport,
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)

@@ -801,353 +801,578 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         </div>
 
         {/* Platform Selector */}
-        <div className="mb-6">
-          <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2 px-3">Platform</p>
-          <Select value={activeTab} onValueChange={(value) => {
+        <div className="mb-4">
+          <SidebarSection
+            title="Platform"
+            icon={Globe}
+            iconColor="text-purple-500"
+            theme={theme}
+            defaultOpen={true}
+          >
+            <Select value={activeTab} onValueChange={(value) => {
               setActiveTab(value)
               trackPlatformSwitch(value)
             }}>
-            <SelectTrigger className={`w-full ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'}`}>
-              <SelectValue>
-                {(() => {
-                  const platform = platforms.find(p => p.id === activeTab)
-                  if (platform) {
-                    const Icon = platform.icon
-                    return (
+              <SelectTrigger className={`w-full ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'}`}>
+                <SelectValue>
+                  {(() => {
+                    const platform = platforms.find(p => p.id === activeTab)
+                    if (platform) {
+                      const Icon = platform.icon
+                      return (
+                        <span className="flex items-center gap-2">
+                          <Icon className={`w-4 h-4 ${platform.iconColor}`} />
+                          {platform.name}
+                        </span>
+                      )
+                    }
+                    return 'Select platform'
+                  })()}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent
+                className={`${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border-gray-200'} max-h-[300px]`}
+                position="popper"
+                sideOffset={4}
+              >
+                {platforms.map((platform) => {
+                  const Icon = platform.icon
+                  return (
+                    <SelectItem
+                      key={platform.id}
+                      value={platform.id}
+                      className={`${theme === 'dark' ? 'text-white focus:bg-zinc-700' : 'text-zinc-900 focus:bg-gray-100'}`}
+                    >
                       <span className="flex items-center gap-2">
                         <Icon className={`w-4 h-4 ${platform.iconColor}`} />
                         {platform.name}
                       </span>
-                    )
-                  }
-                  return 'Select platform'
-                })()}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent
-              className={`${theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-white border-gray-200'} max-h-[300px]`}
-              position="popper"
-              sideOffset={4}
-            >
-              {platforms.map((platform) => {
-                const Icon = platform.icon
-                return (
-                  <SelectItem
-                    key={platform.id}
-                    value={platform.id}
-                    className={`${theme === 'dark' ? 'text-white focus:bg-zinc-700' : 'text-zinc-900 focus:bg-gray-100'}`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <Icon className={`w-4 h-4 ${platform.iconColor}`} />
-                      {platform.name}
-                    </span>
-                  </SelectItem>
-                )
-              })}
-            </SelectContent>
-          </Select>
+                    </SelectItem>
+                  )
+                })}
+              </SelectContent>
+            </Select>
+          </SidebarSection>
         </div>
 
         {/* Region Selector */}
-        <div className="mb-6">
-          <div className="flex items-center gap-1.5 mb-2 px-3">
-            <p className="text-xs text-zinc-500 uppercase tracking-wider">Region</p>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="w-3 h-3 text-zinc-500 hover:text-zinc-300 cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent side="right" className="max-w-xs">
-                <p>Your region affects estimated earnings. US typically has the highest ad rates.</p>
-              </TooltipContent>
-            </Tooltip>
-          </div>
-          <select
-            value={selectedRegion}
-            onChange={(e) => setSelectedRegion(e.target.value)}
-            aria-label="Select your region"
-            className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+        <div className="mb-4">
+          <SidebarSection
+            title="Region"
+            icon={Globe}
+            iconColor="text-blue-500"
+            theme={theme}
+            defaultOpen={false}
           >
-            {regions.map((region) => (
-              <option key={region.id} value={region.id}>
-                {region.flag} {region.name}
-              </option>
-            ))}
-          </select>
-          <p className="text-xs text-zinc-500 mt-1 px-1">
-            {currentRegion.revenueMultiplier === 1 ? 'Baseline rates' : `${Math.round(currentRegion.revenueMultiplier * 100)}% of US rates`}
-          </p>
+            <select
+              value={selectedRegion}
+              onChange={(e) => setSelectedRegion(e.target.value)}
+              aria-label="Select your region"
+              className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+            >
+              {regions.map((region) => (
+                <option key={region.id} value={region.id}>
+                  {region.flag} {region.name}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-zinc-500 mt-1">
+              {currentRegion.revenueMultiplier === 1 ? 'Baseline rates' : `${Math.round(currentRegion.revenueMultiplier * 100)}% of US rates`}
+            </p>
+          </SidebarSection>
         </div>
 
         {/* Niche Selector */}
-        <div className="mb-6">
-          <div className="flex items-center gap-1.5 mb-2 px-3">
-            <p className="text-xs text-zinc-500 uppercase tracking-wider">Niche</p>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="w-3 h-3 text-zinc-500 hover:text-zinc-300 cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent side="right" className="max-w-xs">
-                <p>Your content category affects ad rates. Finance and tech niches typically earn more per view than gaming or entertainment.</p>
-              </TooltipContent>
-            </Tooltip>
-          </div>
-          <select
-            value={selectedNiche}
-            onChange={(e) => setSelectedNiche(e.target.value)}
-            aria-label="Select your content niche"
-            className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+        <div className="mb-4">
+          <SidebarSection
+            title="Niche"
+            icon={Target}
+            iconColor="text-green-500"
+            theme={theme}
+            defaultOpen={false}
           >
-            {niches.map((niche) => (
-              <option key={niche.id} value={niche.id}>
-                {niche.icon} {niche.name}
-              </option>
-            ))}
-          </select>
-          <p className="text-xs text-zinc-500 mt-1 px-1">
-            {currentNiche.rpmMultiplier === 1 ? 'Average RPM' : currentNiche.rpmMultiplier > 1 ? `${Math.round(currentNiche.rpmMultiplier * 100)}% of average RPM` : `${Math.round(currentNiche.rpmMultiplier * 100)}% of average RPM`}
-          </p>
-        </div>
-
-        {/* Accessibility Controls */}
-        <div className="px-3 py-2 flex items-center justify-between">
-          <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Text Size</span>
-          <FontSizeControl theme={theme} />
-        </div>
-        <div className="px-3 py-2 flex items-center justify-between">
-          <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>High Contrast</span>
-          <HighContrastToggle theme={theme} />
+            <select
+              value={selectedNiche}
+              onChange={(e) => setSelectedNiche(e.target.value)}
+              aria-label="Select your content niche"
+              className={`w-full px-3 py-2 rounded-lg text-sm ${theme === 'dark' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-gray-100 border-gray-300 text-zinc-900'} border focus:outline-none focus:ring-2 focus:ring-purple-500`}
+            >
+              {niches.map((niche) => (
+                <option key={niche.id} value={niche.id}>
+                  {niche.icon} {niche.name}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-zinc-500 mt-1">
+              {currentNiche.rpmMultiplier === 1 ? 'Average RPM' : currentNiche.rpmMultiplier > 1 ? `${Math.round(currentNiche.rpmMultiplier * 100)}% of average RPM` : `${Math.round(currentNiche.rpmMultiplier * 100)}% of average RPM`}
+            </p>
+          </SidebarSection>
         </div>
 
         {/* Time Period Selector */}
-        <div className="mt-4 mb-4">
-          <div className="flex items-center gap-1.5 mb-2 px-3">
-            <p className="text-xs text-zinc-500 uppercase tracking-wider">Time Period</p>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="w-3 h-3 text-zinc-500 hover:text-zinc-300 cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent side="right" className="max-w-xs">
-                <p>View your estimated earnings by day, week, month, or year.</p>
-              </TooltipContent>
-            </Tooltip>
-          </div>
-          <div className="flex">
-            {timePeriods.map((period, index) => (
-              <button
-                key={period.id}
-                onClick={() => setSelectedTimePeriod(period.id)}
-                className={`flex-1 px-2 py-1.5 text-xs font-medium transition-colors ${
-                  index === 0 ? 'rounded-l-md' : ''
-                } ${
-                  index === timePeriods.length - 1 ? 'rounded-r-md' : ''
-                } ${
-                  selectedTimePeriod === period.id
-                    ? 'bg-purple-600 text-white'
-                    : theme === 'dark'
-                      ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
-                      : 'bg-gray-200 text-zinc-600 hover:bg-gray-300 hover:text-zinc-900'
-                }`}
-              >
-                {period.name}
-              </button>
-            ))}
-          </div>
+        <div className="mb-4">
+          <SidebarSection
+            title="Time Period"
+            icon={Clock}
+            iconColor="text-amber-500"
+            theme={theme}
+            defaultOpen={false}
+          >
+            <div className="space-y-1">
+              {timePeriods.map((period) => (
+                <button
+                  key={period.id}
+                  onClick={() => setSelectedTimePeriod(period.id)}
+                  className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${
+                    selectedTimePeriod === period.id
+                      ? 'bg-purple-600 text-white'
+                      : theme === 'dark'
+                        ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
+                        : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'
+                  }`}
+                >
+                  {period.name}
+                </button>
+              ))}
+            </div>
+          </SidebarSection>
         </div>
 
-        {/* Theme Toggle */}
-        <button
-          onClick={toggleTheme}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        {/* Earnings & Analytics */}
+        <SidebarSection
+          title="Earnings & Analytics"
+          icon={DollarSign}
+          iconColor="text-emerald-500"
+          theme={theme}
+          defaultOpen={false}
         >
-          {theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
-          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-        </button>
+          <button
+            onClick={() => { setActiveTab('portfolio'); setCompareMode(false); }}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${
+              activeTab === 'portfolio'
+                ? 'bg-emerald-600 text-white'
+                : theme === 'dark'
+                  ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
+                  : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <Wallet className={`w-4 h-4 ${activeTab === 'portfolio' ? 'text-white' : 'text-emerald-500'}`} />
+              Total Earnings
+            </span>
+          </button>
+          <button
+            onClick={() => setCompareMode(!compareMode)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${
+              compareMode
+                ? 'bg-purple-600 text-white'
+                : theme === 'dark'
+                  ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
+                  : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              <svg className={`w-4 h-4 ${compareMode ? 'text-white' : 'text-blue-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              {compareMode ? 'Exit Compare' : 'Compare All'}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowScenarios(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <FolderOpen className="w-4 h-4 text-purple-500" />
+              Saved Scenarios
+            </span>
+          </button>
+          <button
+            onClick={() => setShowMonetizationTracker(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-yellow-500" />
+              Monetization Tracker
+            </span>
+          </button>
+          <button
+            onClick={() => setShowExport(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Download className="w-4 h-4 text-green-500" />
+              Export Results
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowAIAnalysis(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-purple-500" />
+              AI Analysis
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowAIRevenueOpt(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-emerald-500" />
+              Revenue Optimizer
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+        </SidebarSection>
 
-        {/* Portfolio Button */}
-        <button
-          onClick={() => setActiveTab('portfolio')}
-          className={`mt-2 w-full text-left px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
-            activeTab === 'portfolio'
-              ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
-              : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:translate-x-1`
-          }`}
-          style={activeTab === 'portfolio' ? { boxShadow: '0 0 20px rgba(16, 185, 129, 0.3)' } : {}}
+        {/* Sponsorships & Pitching */}
+        <SidebarSection
+          title="Sponsorships & Pitching"
+          icon={HandCoins}
+          iconColor="text-blue-500"
+          theme={theme}
+          defaultOpen={false}
         >
-          <Wallet className={`w-4 h-4 ${activeTab === 'portfolio' ? 'text-white' : 'text-emerald-500'}`} />
-          Total Earnings
-        </button>
+          <button
+            onClick={() => setShowMediaKit(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-blue-500" />
+              Media Kit
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowRateCard(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-green-500" />
+              Rate Card
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowSponsorshipCalc(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <HandCoins className="w-4 h-4 text-amber-500" />
+              Sponsorship Pricing
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowBrandPitch(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Send className="w-4 h-4 text-pink-500" />
+              Brand Pitch
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowAIBrandPitch(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-purple-500" />
+              AI Brand Pitch
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+        </SidebarSection>
 
-        {/* Compare Toggle */}
-        <button
-          onClick={() => setCompareMode(!compareMode)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
-            compareMode
-              ? 'bg-purple-600 text-white'
-              : `${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`
-          }`}
+        {/* Growth & Planning */}
+        <SidebarSection
+          title="Growth & Planning"
+          icon={Target}
+          iconColor="text-purple-500"
+          theme={theme}
+          defaultOpen={false}
         >
-          <svg className={`w-4 h-4 ${compareMode ? 'text-white' : 'text-blue-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-          {compareMode ? 'Exit Compare' : 'Compare All'}
-        </button>
+          <button
+            onClick={() => setShowGoalTracker(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Target className="w-4 h-4 text-red-500" />
+              Goal Tracker
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowPlatformSwitch(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <ArrowLeftRight className="w-4 h-4 text-blue-500" />
+              Platform Switch
+            </span>
+          </button>
+          <button
+            onClick={() => setShowContentMix(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Layers className="w-4 h-4 text-indigo-500" />
+              Content Mix
+            </span>
+          </button>
+          <button
+            onClick={() => setShowMonetizationGuide(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-cyan-500" />
+              How to Monetize
+            </span>
+          </button>
+          <button
+            onClick={() => setShowBusinessPlanner(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-orange-500" />
+              Business Planner
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowAIGrowthPlan(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-green-500" />
+              AI Growth Plan
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowAIContentIdeas(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Lightbulb className="w-4 h-4 text-yellow-500" />
+              AI Content Ideas
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowAIFocus(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Compass className="w-4 h-4 text-teal-500" />
+              AI Focus Guide
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+          <button
+            onClick={() => setShowAIRoadmap(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Map className="w-4 h-4 text-violet-500" />
+              AI Roadmap
+              {!isPro && <Crown className="w-3 h-3 text-yellow-500" />}
+            </span>
+          </button>
+        </SidebarSection>
 
-        {/* Methodology Link */}
-        <button
-          onClick={() => setShowMethodology(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        {/* Learn */}
+        <SidebarSection
+          title="Learn"
+          icon={BookOpen}
+          iconColor="text-cyan-500"
+          theme={theme}
+          defaultOpen={false}
         >
-          <Info className="w-4 h-4 text-cyan-500" />
-          How It Works
-        </button>
-
-        {/* Glossary Link */}
-        <button
-          onClick={() => setShowGlossary(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-          </svg>
-          Glossary
-        </button>
-
-        {/* Saved Scenarios */}
-        <button
-          onClick={() => setShowScenarios(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <FolderOpen className="w-4 h-4 text-purple-500" />
-          Saved Scenarios
-        </button>
-
-        {/* Monetization Tracker */}
-        <button
-          onClick={() => setShowMonetizationTracker(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <Award className="w-4 h-4 text-yellow-500" />
-          Monetization Tracker
-        </button>
-
-        {/* Success Stories */}
-        <button
-          onClick={() => setShowCaseStudies(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <Users className="w-4 h-4 text-emerald-500" />
-          Success Stories
-        </button>
+          <button
+            onClick={() => setShowMethodology(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Info className="w-4 h-4 text-cyan-500" />
+              How It Works
+            </span>
+          </button>
+          <button
+            onClick={() => setShowGlossary(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-orange-500" />
+              Glossary
+            </span>
+          </button>
+          <button
+            onClick={() => setShowVideoTutorials(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Video className="w-4 h-4 text-red-500" />
+              Video Tutorials
+            </span>
+          </button>
+          <button
+            onClick={() => setShowLeadMagnet(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-green-500" />
+              Free Guide
+            </span>
+          </button>
+        </SidebarSection>
 
         {/* Resources */}
-        <button
-          onClick={() => setShowResources(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        <SidebarSection
+          title="Resources"
+          icon={FolderOpen}
+          iconColor="text-orange-500"
+          theme={theme}
+          defaultOpen={false}
         >
-          <BookOpen className="w-4 h-4 text-blue-500" />
-          Resources
-        </button>
+          <button
+            onClick={() => setShowResources(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-blue-500" />
+              Resources
+            </span>
+          </button>
+          <button
+            onClick={() => setShowAffiliates(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-amber-500" />
+              Recommended Tools
+            </span>
+          </button>
+          <button
+            onClick={() => setShowEmbedWidget(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Code className="w-4 h-4 text-cyan-500" />
+              Embed Widget
+            </span>
+          </button>
+        </SidebarSection>
 
-        {/* Video Tutorials */}
-        <button
-          onClick={() => setShowVideoTutorials(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+        {/* Community */}
+        <SidebarSection
+          title="Community"
+          icon={Users}
+          iconColor="text-pink-500"
+          theme={theme}
+          defaultOpen={false}
         >
-          <Video className="w-4 h-4 text-red-500" />
-          Video Tutorials
-        </button>
+          <button
+            onClick={() => setShowCaseStudies(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-emerald-500" />
+              Success Stories
+            </span>
+          </button>
+          <button
+            onClick={() => setShowTestimonials(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <MessageSquareQuote className="w-4 h-4 text-pink-500" />
+              Testimonials
+            </span>
+          </button>
+          <button
+            onClick={() => setShowNewsletter(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-blue-500" />
+              Creator Newsletter
+            </span>
+          </button>
+        </SidebarSection>
 
-        {/* Testimonials */}
-        <button
-          onClick={() => setShowTestimonials(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <MessageSquareQuote className="w-4 h-4 text-pink-500" />
-          Testimonials
-        </button>
-
-        {/* Embed Widget */}
-        <button
-          onClick={() => setShowEmbedWidget(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <Code className="w-4 h-4 text-cyan-500" />
-          Embed Widget
-        </button>
-
-        {/* Free Guide */}
-        <button
-          onClick={() => setShowLeadMagnet(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <BookOpen className="w-4 h-4 text-green-500" />
-          Free Guide
-        </button>
-
-        {/* Recommended Tools */}
-        <button
-          onClick={() => setShowAffiliates(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <Award className="w-4 h-4 text-amber-500" />
-          Recommended Tools
-        </button>
-
-        {/* Creator Newsletter */}
-        <button
-          onClick={() => setShowNewsletter(true)}
-          className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
-        >
-          <Mail className="w-4 h-4 text-blue-500" />
-          Creator Newsletter
-        </button>
-
-        {/* Pro Status */}
-        <div className={`mt-4 p-3 rounded-lg ${isPro
-          ? 'bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30'
-          : theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'
-        }`}>
-          {isPro ? (
-            <div className="flex items-center gap-2">
-              <Crown className="w-5 h-5 text-yellow-400" />
-              <div>
-                <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Pro Member</p>
-                <button
-                  onClick={() => setTier('free')}
-                  className="text-xs text-zinc-500 hover:text-zinc-400"
-                >
-                  (Demo: Click to reset)
-                </button>
-              </div>
-            </div>
-          ) : (
-            <button
-              onClick={() => setTier('pro')}
-              className="w-full text-left group"
-            >
-              <div className="flex items-center gap-2 mb-1">
-                <Crown className="w-5 h-5 text-yellow-400" />
-                <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                  Upgrade to Pro
-                </p>
-              </div>
-              <p className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                Unlock AI tools, exports & more
-              </p>
-              <p className="text-xs text-purple-400 mt-1 group-hover:text-purple-300">
-                $9/month →
-              </p>
-            </button>
-          )}
-        </div>
-
-        {/* Support Section */}
+        {/* Bottom Section - Settings & Toggles */}
         <div className={`mt-auto pt-4 border-t ${theme === 'dark' ? 'border-zinc-800' : 'border-gray-200'}`}>
+          {/* Text Size */}
+          <div className="px-3 py-2 flex items-center justify-between">
+            <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Text Size</span>
+            <FontSizeControl theme={theme} />
+          </div>
+
+          {/* High Contrast */}
+          <div className="px-3 py-2 flex items-center justify-between">
+            <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>High Contrast</span>
+            <HighContrastToggle theme={theme} />
+          </div>
+
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'}`}
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
+            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+          </button>
+
+          {/* Pro Status */}
+          <div className={`mt-4 p-3 rounded-lg ${isPro
+            ? 'bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30'
+            : theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'
+          }`}>
+            {isPro ? (
+              <div className="flex items-center gap-2">
+                <Crown className="w-5 h-5 text-yellow-400" />
+                <div>
+                  <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Pro Member</p>
+                  <button
+                    onClick={() => setTier('free')}
+                    className="text-xs text-zinc-500 hover:text-zinc-400"
+                  >
+                    (Demo: Click to reset)
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setTier('pro')}
+                className="w-full text-left group"
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <Crown className="w-5 h-5 text-yellow-400" />
+                  <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                    Upgrade to Pro
+                  </p>
+                </div>
+                <p className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                  Unlock AI tools, exports & more
+                </p>
+                <p className="text-xs text-purple-400 mt-1 group-hover:text-purple-300">
+                  $9/month →
+                </p>
+              </button>
+            )}
+          </div>
+
+          {/* Buy Me a Coffee */}
           <a
             href="https://buymeacoffee.com/gpcreativestudios"
             target="_blank"
             rel="noopener noreferrer"
-            className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:scale-[1.02]`}
+            className={`mt-2 w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white' : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'} hover:scale-[1.02]`}
           >
             <Coffee className="w-4 h-4 text-yellow-500" />
             Buy Me a Coffee

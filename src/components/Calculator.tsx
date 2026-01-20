@@ -144,7 +144,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showAffiliates, setShowAffiliates] = useState(false)
   const [showNewsletter, setShowNewsletter] = useState(false)
   const { theme, toggleTheme } = useTheme()
-  const { isPro, setTier } = usePro()
+  const { isPro, setTier, canUseFeature, triggerUpgrade } = usePro()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
   const currentRegion = useMemo(() =>
@@ -997,7 +997,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowExport(true)}
+            onClick={() => canUseFeature('export-pdf') ? setShowExport(true) : triggerUpgrade('export-pdf')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1007,7 +1007,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowAIAnalysis(true)}
+            onClick={() => canUseFeature('ai-analysis') ? setShowAIAnalysis(true) : triggerUpgrade('ai-analysis')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1017,7 +1017,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowAIRevenueOpt(true)}
+            onClick={() => canUseFeature('ai-revenue-opt') ? setShowAIRevenueOpt(true) : triggerUpgrade('ai-revenue-opt')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1037,7 +1037,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           defaultOpen={false}
         >
           <button
-            onClick={() => setShowMediaKit(true)}
+            onClick={() => canUseFeature('media-kit') ? setShowMediaKit(true) : triggerUpgrade('media-kit')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1047,7 +1047,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowRateCard(true)}
+            onClick={() => canUseFeature('rate-card') ? setShowRateCard(true) : triggerUpgrade('rate-card')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1057,7 +1057,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowSponsorshipCalc(true)}
+            onClick={() => canUseFeature('sponsorship-calc') ? setShowSponsorshipCalc(true) : triggerUpgrade('sponsorship-calc')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1067,7 +1067,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowBrandPitch(true)}
+            onClick={() => canUseFeature('brand-pitch') ? setShowBrandPitch(true) : triggerUpgrade('brand-pitch')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1077,7 +1077,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowAIBrandPitch(true)}
+            onClick={() => canUseFeature('ai-brand-pitch') ? setShowAIBrandPitch(true) : triggerUpgrade('ai-brand-pitch')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1097,7 +1097,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           defaultOpen={false}
         >
           <button
-            onClick={() => setShowGoalTracker(true)}
+            onClick={() => canUseFeature('goal-tracker') ? setShowGoalTracker(true) : triggerUpgrade('goal-tracker')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1134,7 +1134,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowBusinessPlanner(true)}
+            onClick={() => canUseFeature('business-planner') ? setShowBusinessPlanner(true) : triggerUpgrade('business-planner')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1144,7 +1144,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowAIGrowthPlan(true)}
+            onClick={() => canUseFeature('ai-growth-plan') ? setShowAIGrowthPlan(true) : triggerUpgrade('ai-growth-plan')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1154,7 +1154,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowAIContentIdeas(true)}
+            onClick={() => canUseFeature('ai-content-ideas') ? setShowAIContentIdeas(true) : triggerUpgrade('ai-content-ideas')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1164,7 +1164,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowAIFocus(true)}
+            onClick={() => canUseFeature('ai-focus') ? setShowAIFocus(true) : triggerUpgrade('ai-focus')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1174,7 +1174,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => setShowAIRoadmap(true)}
+            onClick={() => canUseFeature('ai-roadmap') ? setShowAIRoadmap(true) : triggerUpgrade('ai-roadmap')}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">

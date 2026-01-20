@@ -28,6 +28,9 @@ interface PlatformDashboardProps {
   }
   theme: 'dark' | 'light'
   formatCurrency: (value: number) => string
+  selectedTimePeriod: string
+  onTimePeriodChange: (period: string) => void
+  timePeriods: Array<{ id: string; name: string; multiplier: number }>
 }
 
 export function PlatformDashboard({
@@ -37,6 +40,9 @@ export function PlatformDashboard({
   results,
   theme,
   formatCurrency: _formatCurrency,
+  selectedTimePeriod,
+  onTimePeriodChange,
+  timePeriods,
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
@@ -47,6 +53,9 @@ export function PlatformDashboard({
 
   if (!platform) return null
 
+  // Get current time period for revenue display
+  const currentTimePeriod = timePeriods.find(t => t.id === selectedTimePeriod) || timePeriods[0]
+
   // Check if user has entered custom values (not just defaults)
   const hasCustomValues = platform.inputs.some(input => {
     const currentValue = inputValues[input.id]
@@ -54,7 +63,7 @@ export function PlatformDashboard({
   })
 
   // Calculate additional metrics for gauges
-  const monthlyRevenue = results.monthlyRevenue
+  const monthlyRevenue = results.monthlyRevenue * currentTimePeriod.multiplier
   const yearlyRevenue = results.yearlyRevenue
   const engagementRate = results.engagementRate || 4.5
 
@@ -257,16 +266,39 @@ export function PlatformDashboard({
         </div>
       )}
 
+      {/* Time Period Selector */}
+      <div className="flex items-center justify-between mb-6">
+        <div className={`inline-flex rounded-lg p-1 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-200'}`}>
+          {timePeriods.map((period) => (
+            <button
+              key={period.id}
+              onClick={() => onTimePeriodChange(period.id)}
+              className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
+                selectedTimePeriod === period.id
+                  ? theme === 'dark'
+                    ? 'bg-purple-600 text-white shadow-sm'
+                    : 'bg-white text-purple-600 shadow-sm'
+                  : theme === 'dark'
+                    ? 'text-zinc-400 hover:text-white'
+                    : 'text-zinc-600 hover:text-zinc-900'
+              }`}
+            >
+              {period.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* 4 Stat Cards */}
       <div id="revenue-card" className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
-          label="Monthly Revenue"
+          label={`${currentTimePeriod.name} Revenue`}
           value={`$${monthlyRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
-          subtitle="per month"
-          progress={Math.min((monthlyRevenue / 10000) * 100, 100)}
+          subtitle={`per ${currentTimePeriod.name.toLowerCase().replace('ly', '')}`}
+          progress={Math.min((monthlyRevenue / (10000 * currentTimePeriod.multiplier)) * 100, 100)}
           color="#22C55E"
           theme={theme}
-          tooltip="Your estimated monthly earnings from this platform based on the metrics you entered. This includes ad revenue, sponsorships, and other income sources."
+          tooltip={`Your estimated ${currentTimePeriod.name.toLowerCase()} earnings from this platform based on the metrics you entered. This includes ad revenue, sponsorships, and other income sources.`}
         />
         <StatCard
           label="Yearly Projection"
@@ -275,7 +307,7 @@ export function PlatformDashboard({
           progress={Math.min((yearlyRevenue / 120000) * 100, 100)}
           color="#3B82F6"
           theme={theme}
-          tooltip="Your monthly revenue multiplied by 12. This assumes consistent performance throughout the year."
+          tooltip="Your annual revenue projection based on 12 months of consistent performance."
         />
         <StatCard
           label="Engagement Rate"

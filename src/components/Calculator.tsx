@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown, Mail, DollarSign, HandCoins, Target, Globe, Clock, FileText, Send, Download, TrendingUp, Sparkles, Lightbulb, Compass, Map, Briefcase, ArrowLeftRight, Layers } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown, Mail, DollarSign, HandCoins, Target, Globe, FileText, Send, Download, TrendingUp, Sparkles, Lightbulb, Compass, Map, Briefcase, ArrowLeftRight, Layers } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -909,34 +909,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           </SidebarSection>
         </div>
 
-        {/* Time Period Selector */}
-        <div className="mb-4">
-          <SidebarSection
-            title="Time Period"
-            icon={Clock}
-            iconColor="text-amber-500"
-            theme={theme}
-            defaultOpen={false}
-          >
-            <div className="space-y-1">
-              {timePeriods.map((period) => (
-                <button
-                  key={period.id}
-                  onClick={() => setSelectedTimePeriod(period.id)}
-                  className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${
-                    selectedTimePeriod === period.id
-                      ? 'bg-purple-600 text-white'
-                      : theme === 'dark'
-                        ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
-                        : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'
-                  }`}
-                >
-                  {period.name}
-                </button>
-              ))}
-            </div>
-          </SidebarSection>
-        </div>
 
         {/* Earnings & Analytics */}
         <SidebarSection
@@ -1755,6 +1727,9 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             results={results}
             theme={theme}
             formatCurrency={formatCurrency}
+            selectedTimePeriod={selectedTimePeriod}
+            onTimePeriodChange={setSelectedTimePeriod}
+            timePeriods={timePeriods}
           />
         ) : null}
       </main>

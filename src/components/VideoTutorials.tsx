@@ -249,13 +249,9 @@ export function VideoTutorials({ theme, onClose }: VideoTutorialsProps) {
                   {/* Thumbnail */}
                   <div className="relative aspect-video bg-zinc-800">
                     <img
-                      src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                      src={`https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`}
                       alt={video.title}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
-                        // Fallback to hqdefault if maxresdefault doesn't exist
-                        (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`
-                      }}
                     />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <div className="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center">

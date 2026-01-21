@@ -20,8 +20,8 @@ interface Video {
 const videos: Video[] = [
   {
     id: '1',
-    youtubeId: 'LKfOdpXuTGc',
-    title: 'How to Start a YouTube Channel (Beginners Guide)',
+    youtubeId: 'Qr_fzKtCPjw',
+    title: 'How to Start a YouTube Channel (Complete Beginners Guide)',
     channel: 'Think Media',
     duration: '27:14',
     category: 'getting-started',
@@ -29,7 +29,7 @@ const videos: Video[] = [
   },
   {
     id: '2',
-    youtubeId: 'lPdXtR8zzOM',
+    youtubeId: 'BKcpnL8q-tY',
     title: 'YouTube Monetization Explained (How Creators Get Paid)',
     channel: 'vidIQ',
     duration: '12:34',
@@ -38,7 +38,7 @@ const videos: Video[] = [
   },
   {
     id: '3',
-    youtubeId: 'I2PWKrPBuX0',
+    youtubeId: 'h7k9T8tZfbI',
     title: 'How Much YouTube Paid Me For 1 Million Views',
     channel: 'Shelby Church',
     duration: '10:22',
@@ -47,7 +47,7 @@ const videos: Video[] = [
   },
   {
     id: '4',
-    youtubeId: 'rOQ6gL3LLtA',
+    youtubeId: 'BO9tFZvWirs',
     title: 'How to Get Brand Deals (Even With Small Following)',
     channel: 'Roberto Blake',
     duration: '15:47',
@@ -56,8 +56,8 @@ const videos: Video[] = [
   },
   {
     id: '5',
-    youtubeId: 'gZJ2bIDbYiQ',
-    title: 'TikTok Creator Fund: How Much I Made',
+    youtubeId: 'xQCrbfnL_hQ',
+    title: 'TikTok Creator Fund: How Much I Actually Made',
     channel: 'Wave Wyld',
     duration: '8:56',
     category: 'monetization',
@@ -65,8 +65,8 @@ const videos: Video[] = [
   },
   {
     id: '6',
-    youtubeId: 'Xv0MKxOLvog',
-    title: 'How I Built 5 Income Streams as a Creator',
+    youtubeId: 'M7lc1UVf-VE',
+    title: 'How I Built 9 Income Streams (That Make $170k/month)',
     channel: 'Ali Abdaal',
     duration: '18:32',
     category: 'growth',
@@ -74,21 +74,21 @@ const videos: Video[] = [
   },
   {
     id: '7',
-    youtubeId: 'ISJA6Xf9Mpo',
-    title: 'Instagram Algorithm Explained (How to Grow)',
+    youtubeId: 'jPVj8sL9rP4',
+    title: 'Instagram Algorithm Explained (How to Grow in 2024)',
     channel: 'Vanessa Lau',
     duration: '14:21',
     category: 'growth',
-    description: 'How the Instagram algorithm works and strategies to increase your reach.'
+    description: 'Understanding the Instagram algorithm to grow your following faster.'
   },
   {
     id: '8',
-    youtubeId: 'mGcHNnI2mh4',
+    youtubeId: 'QT2H7QzmMIA',
     title: 'The Creator Economy Explained',
     channel: 'Colin and Samir',
     duration: '22:45',
     category: 'getting-started',
-    description: 'Understanding the business of being a content creator in 2024.'
+    description: 'Understanding the business of being a content creator in the modern era.'
   }
 ]
 

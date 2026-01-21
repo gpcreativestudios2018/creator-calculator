@@ -20,73 +20,73 @@ interface Video {
 const videos: Video[] = [
   {
     id: '1',
-    youtubeId: 'Qr_fzKtCPjw',
-    title: 'How to Start a YouTube Channel (Complete Beginners Guide)',
+    youtubeId: 'G8aDsx9NQWU',
+    title: 'How to Start a YouTube Channel - Beginner\'s Guide to YouTube',
     channel: 'Think Media',
-    duration: '27:14',
+    duration: '23:41',
     category: 'getting-started',
     description: 'Complete step-by-step guide to launching your YouTube channel the right way.'
   },
   {
     id: '2',
-    youtubeId: 'BKcpnL8q-tY',
-    title: 'YouTube Monetization Explained (How Creators Get Paid)',
-    channel: 'vidIQ',
-    duration: '12:34',
+    youtubeId: 'XzxVfKCx5gY',
+    title: 'How Much Money YouTube Pays Me (With 100K Subscribers)',
+    channel: 'Cathrin Manning',
+    duration: '14:28',
     category: 'monetization',
-    description: 'Understand exactly how YouTube AdSense, RPM, and CPM work to pay creators.'
+    description: 'Real earnings breakdown from a creator with 100K subscribers.'
   },
   {
     id: '3',
-    youtubeId: 'h7k9T8tZfbI',
-    title: 'How Much YouTube Paid Me For 1 Million Views',
-    channel: 'Shelby Church',
-    duration: '10:22',
+    youtubeId: 'unkIjvTIFQ4',
+    title: 'My 9 Sources of Income (Passive Income Ideas)',
+    channel: 'Ali Abdaal',
+    duration: '20:27',
     category: 'monetization',
-    description: 'Real earnings breakdown showing what 1M views actually pays across different videos.'
+    description: 'Building multiple income streams as a content creator.'
   },
   {
     id: '4',
-    youtubeId: 'BO9tFZvWirs',
-    title: 'How to Get Brand Deals (Even With Small Following)',
+    youtubeId: '6SpP_VIfFu4',
+    title: 'How to Get Sponsored on YouTube (With ANY Size Channel)',
     channel: 'Roberto Blake',
-    duration: '15:47',
+    duration: '12:33',
     category: 'brand-deals',
     description: 'Practical strategies to land your first sponsorship as a small creator.'
   },
   {
     id: '5',
-    youtubeId: 'xQCrbfnL_hQ',
-    title: 'TikTok Creator Fund: How Much I Actually Made',
-    channel: 'Wave Wyld',
-    duration: '8:56',
+    youtubeId: 'iLtPqfP4Xec',
+    title: 'TikTok Creativity Program - How Much I Made',
+    channel: 'Hayls World',
+    duration: '11:45',
     category: 'monetization',
-    description: 'Honest breakdown of TikTok Creator Fund earnings and alternative monetization.'
+    description: 'Honest breakdown of TikTok earnings and monetization strategies.'
   },
   {
     id: '6',
-    youtubeId: 'M7lc1UVf-VE',
-    title: 'How I Built 9 Income Streams (That Make $170k/month)',
-    channel: 'Ali Abdaal',
-    duration: '18:32',
-    category: 'growth',
-    description: 'Diversifying your creator income beyond just ad revenue.'
-  },
-  {
-    id: '7',
-    youtubeId: 'jPVj8sL9rP4',
-    title: 'Instagram Algorithm Explained (How to Grow in 2024)',
+    youtubeId: 'FFjP82vMX0U',
+    title: 'How to Grow on Instagram in 2024 (NEW Algorithm)',
     channel: 'Vanessa Lau',
-    duration: '14:21',
+    duration: '18:24',
     category: 'growth',
     description: 'Understanding the Instagram algorithm to grow your following faster.'
   },
   {
+    id: '7',
+    youtubeId: 'LJ2gKKJAfCc',
+    title: 'YouTube CPM Explained - How YouTubers Get Paid',
+    channel: 'vidIQ',
+    duration: '10:15',
+    category: 'monetization',
+    description: 'Understanding CPM, RPM, and how YouTube ad revenue actually works.'
+  },
+  {
     id: '8',
-    youtubeId: 'QT2H7QzmMIA',
-    title: 'The Creator Economy Explained',
+    youtubeId: 'VJuP-eCGnEw',
+    title: 'The Creator Economy: How to Build a Business',
     channel: 'Colin and Samir',
-    duration: '22:45',
+    duration: '19:32',
     category: 'getting-started',
     description: 'Understanding the business of being a content creator in the modern era.'
   }
@@ -129,9 +129,13 @@ export function VideoTutorials({ theme, onClose }: VideoTutorialsProps) {
                   Learn from top creators about monetization, growth, and building your brand
                 </p>
               </div>
-              <Button variant="outline" onClick={onClose} className={theme === 'dark' ? 'border-zinc-700' : ''}>
+              <Button
+                variant="outline"
+                onClick={() => selectedVideo ? setSelectedVideo(null) : onClose()}
+                className={theme === 'dark' ? 'border-zinc-700' : ''}
+              >
                 <X className="w-4 h-4 mr-2" />
-                Close
+                {selectedVideo ? 'Back' : 'Close'}
               </Button>
             </div>
 

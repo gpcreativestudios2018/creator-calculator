@@ -119,7 +119,6 @@ export function ProProvider({ children }: { children: ReactNode }) {
   }
 
   const triggerUpgrade = (feature?: string) => {
-    setUpgradeFeature(feature || null)
     window.dispatchEvent(new CustomEvent('showUpgradeModal', { detail: { feature } }))
   }
 

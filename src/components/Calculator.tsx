@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, MessageSquare, Code, Coffee, FolderOpen, Crown, Mail, DollarSign, HandCoins, Target, Globe, FileText, Send, Download, TrendingUp, Sparkles, Lightbulb, Compass, Map, Briefcase, ArrowLeftRight, Layers, Rocket } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, MessageSquare, Code, Coffee, FolderOpen, Crown, Mail, DollarSign, HandCoins, Target, Globe, FileText, Send, Download, TrendingUp, Sparkles, Lightbulb, Compass, Map, Briefcase, ArrowLeftRight, Layers, Rocket, User } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -43,7 +43,9 @@ import { HighContrastToggle } from '@/components/HighContrastToggle'
 import { SidebarSection } from '@/components/SidebarSection'
 import { ContactModal } from '@/components/ContactModal'
 import { StartHereGuide } from '@/components/StartHereGuide'
+import { AuthModal } from '@/components/AuthModal'
 import { usePro } from '@/contexts/ProContext'
+import { useAuth } from '@/contexts/AuthContext'
 import { trackPlatformSwitch } from '@/utils/analytics'
 import { regions, DEFAULT_REGION } from '@/data/geography'
 import { niches, DEFAULT_NICHE } from '@/data/niches'
@@ -146,8 +148,10 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showNewsletter, setShowNewsletter] = useState(false)
   const [showContact, setShowContact] = useState(false)
   const [showStartHere, setShowStartHere] = useState(false)
+  const [showAuth, setShowAuth] = useState(false)
   const { theme, toggleTheme } = useTheme()
   const { isPro, setTier, canUseFeature, triggerUpgrade } = usePro()
+  const { user } = useAuth()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
   const currentRegion = useMemo(() =>
@@ -782,6 +786,12 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           onClose={() => setShowStartHere(false)}
         />
       )}
+      {showAuth && (
+        <AuthModal
+          theme={theme}
+          onClose={() => setShowAuth(false)}
+        />
+      )}
       {!showMethodology && !showGlossary && (
       <>
       <OnboardingModal onComplete={() => {}} />
@@ -1308,6 +1318,19 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>High Contrast</span>
             <HighContrastToggle theme={theme} />
           </div>
+
+          {/* Sign In / Account */}
+          <button
+            onClick={() => setShowAuth(true)}
+            className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
+              theme === 'dark'
+                ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white'
+                : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'
+            }`}
+          >
+            <User className="w-4 h-4 text-purple-500" />
+            <span className="text-sm font-medium">{user ? user.email?.split('@')[0] : 'Sign In'}</span>
+          </button>
 
           {/* Theme Toggle */}
           <button

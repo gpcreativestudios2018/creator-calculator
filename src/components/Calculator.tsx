@@ -766,12 +766,16 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             >
               <X className="w-5 h-5" />
             </button>
-            <EmailCapture
-              variant="card"
-              title="Creator Newsletter"
-              description="Weekly tips on monetization and growth strategies."
-              className="mx-0"
-            />
+            <div className="text-center py-8">
+              <Mail className="w-16 h-16 text-purple-500 mx-auto mb-4" />
+              <h2 className="text-2xl font-bold text-white mb-2">Newsletter Coming Soon!</h2>
+              <p className="text-zinc-400 mb-4">
+                We're setting up weekly creator tips on monetization, growth strategies, and platform updates.
+              </p>
+              <p className="text-zinc-500 text-sm">
+                Check back soon to subscribe!
+              </p>
+            </div>
           </div>
         </div>
       )}

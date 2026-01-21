@@ -7,6 +7,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { seoPages } from '@/data/seoPages'
 import { platforms } from '@/platforms/registry'
 import { ProProvider } from '@/contexts/ProContext'
+import { AuthProvider } from '@/contexts/AuthContext'
 import { UpgradeModal } from '@/components/UpgradeModal'
 
 const Calculator = lazy(() => import('@/components/Calculator').then(m => ({ default: m.Calculator })))
@@ -75,15 +76,17 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <ProProvider>
-        <TooltipProvider>
+      <AuthProvider>
+        <ProProvider>
+          <TooltipProvider>
           <ErrorBoundary>
             <AppContent />
           </ErrorBoundary>
-        </TooltipProvider>
-        <Analytics />
-        <SpeedInsights />
-      </ProProvider>
+          </TooltipProvider>
+          <Analytics />
+          <SpeedInsights />
+        </ProProvider>
+      </AuthProvider>
     </ThemeProvider>
   )
 }

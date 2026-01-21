@@ -6,10 +6,8 @@ import {
   Facebook,
   Linkedin,
   Twitch,
-  Music2,
   ShoppingBag,
-  Mail,
-  MessageCircle
+  Mail
 } from 'lucide-react'
 import {
   SiTiktok,

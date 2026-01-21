@@ -44,6 +44,7 @@ import { SidebarSection } from '@/components/SidebarSection'
 import { ContactModal } from '@/components/ContactModal'
 import { StartHereGuide } from '@/components/StartHereGuide'
 import { AuthModal } from '@/components/AuthModal'
+import { SecretPromo } from '@/components/SecretPromo'
 import { usePro } from '@/contexts/ProContext'
 import { useAuth } from '@/contexts/AuthContext'
 import { trackPlatformSwitch } from '@/utils/analytics'
@@ -149,6 +150,8 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showContact, setShowContact] = useState(false)
   const [showStartHere, setShowStartHere] = useState(false)
   const [showAuth, setShowAuth] = useState(false)
+  const [showSecretPromo, setShowSecretPromo] = useState(false)
+  const [logoTapCount, setLogoTapCount] = useState(0)
   const { theme, toggleTheme } = useTheme()
   const { isPro, setTier, canUseFeature, triggerUpgrade } = usePro()
   const { user } = useAuth()
@@ -167,6 +170,14 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
     [selectedTimePeriod]
   )
   const currentValues = inputValues[activeTab] || {}
+
+  // Reset logo tap count after 2 seconds of no taps
+  useEffect(() => {
+    if (logoTapCount > 0 && logoTapCount < 7) {
+      const timer = setTimeout(() => setLogoTapCount(0), 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [logoTapCount])
 
   // Handle initialPlatform prop changes
   useEffect(() => {
@@ -792,6 +803,12 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           onClose={() => setShowAuth(false)}
         />
       )}
+      {showSecretPromo && (
+        <SecretPromo
+          theme={theme}
+          onClose={() => setShowSecretPromo(false)}
+        />
+      )}
       {!showMethodology && !showGlossary && (
       <>
       <OnboardingModal onComplete={() => {}} />
@@ -812,7 +829,17 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
       <aside className={`fixed lg:static inset-y-0 left-0 w-64 px-4 pt-0 pb-4 flex flex-col z-40 transform transition-transform duration-300 lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${theme === 'dark' ? 'bg-zinc-900 border-r border-zinc-800' : 'bg-white border-r border-gray-200'}`}>
         <div className="-mb-6">
           <button
-            onClick={() => { setActiveTab('youtube'); setCompareMode(false); }}
+            onClick={() => {
+              const newCount = logoTapCount + 1
+              if (newCount >= 7) {
+                setShowSecretPromo(true)
+                setLogoTapCount(0)
+              } else {
+                setLogoTapCount(newCount)
+              }
+              setActiveTab('youtube')
+              setCompareMode(false)
+            }}
             className="flex items-center cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-[1.02] p-0"
           >
             <img src="/logo_full_transparent.png" alt="SocialStacks" className="h-56 w-auto mx-auto -mt-4" />

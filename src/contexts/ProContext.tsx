@@ -1,23 +1,21 @@
-import { createContext, useContext, useState, useEffect } from 'react'
-import type { ReactNode } from 'react'
-import { trackUpgradePrompt, trackUpgradeComplete } from '@/utils/analytics'
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import { useAuth } from '@/contexts/AuthContext'
+import { getSubscription, hasRedeemedPromo, createCheckoutSession } from '@/services/subscription'
 
-type Tier = 'free' | 'pro'
+type ProTier = 'free' | 'pro' | 'lifetime'
 
 interface ProContextType {
-  tier: Tier
+  tier: ProTier
   isPro: boolean
-  scenariosUsed: number
-  maxFreeScenarios: number
+  isLifetime: boolean
+  loading: boolean
+  setTier: (tier: ProTier) => void
   canUseFeature: (feature: string) => boolean
-  incrementScenarios: () => void
-  showUpgradeModal: boolean
-  setShowUpgradeModal: (show: boolean) => void
-  upgradeBlockedFeature: string | null
-  triggerUpgrade: (feature: string) => void
-  // For testing/demo purposes
-  setTier: (tier: Tier) => void
+  triggerUpgrade: (feature?: string) => void
+  checkout: () => Promise<void>
 }
+
+const ProContext = createContext<ProContextType | undefined>(undefined)
 
 const PRO_FEATURES = [
   'ai-analysis',
@@ -29,96 +27,131 @@ const PRO_FEATURES = [
   'ai-roadmap',
   'export-pdf',
   'export-csv',
+  'saved-scenarios',
   'media-kit',
-  'rate-card',
-  'sponsorship-calc',
-  'brand-pitch',
-  'business-planner',
-  'content-roi',
-  'goal-tracker',
-  'screenshot-export',
-  'unlimited-scenarios',
 ]
 
-const MAX_FREE_SCENARIOS = 3
-const STORAGE_KEY_TIER = 'creator-calc-tier'
-const STORAGE_KEY_SCENARIOS = 'creator-calc-scenarios-count'
-
-const ProContext = createContext<ProContextType | undefined>(undefined)
-
 export function ProProvider({ children }: { children: ReactNode }) {
-  const [tier, setTierState] = useState<Tier>('free')
-  const [scenariosUsed, setScenariosUsed] = useState(0)
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false)
-  const [upgradeBlockedFeature, setUpgradeBlockedFeature] = useState<string | null>(null)
+  const { user } = useAuth()
+  const [tier, setTierState] = useState<ProTier>('free')
+  const [loading, setLoading] = useState(true)
+  const [upgradeFeature, setUpgradeFeature] = useState<string | null>(null)
 
-  // Load from localStorage on mount
+  // Check subscription status when user changes
   useEffect(() => {
-    const storedTier = localStorage.getItem(STORAGE_KEY_TIER) as Tier | null
-    const storedScenarios = localStorage.getItem(STORAGE_KEY_SCENARIOS)
+    async function checkSubscription() {
+      if (!user) {
+        // Check localStorage for demo/promo
+        const stored = localStorage.getItem('socialstacks_tier')
+        if (stored === 'pro' || stored === 'lifetime') {
+          setTierState(stored)
+        } else {
+          setTierState('free')
+        }
+        setLoading(false)
+        return
+      }
 
-    if (storedTier === 'pro') {
-      setTierState('pro')
+      setLoading(true)
+      try {
+        // Check for lifetime promo redemption first
+        const hasPromo = await hasRedeemedPromo(user.id)
+        if (hasPromo) {
+          setTierState('lifetime')
+          localStorage.setItem('socialstacks_tier', 'lifetime')
+          setLoading(false)
+          return
+        }
+
+        // Check for active subscription
+        const subscription = await getSubscription(user.id)
+        if (subscription && subscription.status === 'active') {
+          setTierState('pro')
+          localStorage.setItem('socialstacks_tier', 'pro')
+        } else {
+          setTierState('free')
+          localStorage.removeItem('socialstacks_tier')
+        }
+      } catch (error) {
+        console.error('Error checking subscription:', error)
+        setTierState('free')
+      }
+      setLoading(false)
     }
-    if (storedScenarios) {
-      setScenariosUsed(parseInt(storedScenarios, 10) || 0)
+
+    checkSubscription()
+  }, [user])
+
+  // Listen for successful checkout return
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('success') === 'true') {
+      // Clear URL params
+      window.history.replaceState({}, '', window.location.pathname)
+      // Refresh subscription status
+      if (user) {
+        setLoading(true)
+        getSubscription(user.id).then(sub => {
+          if (sub && sub.status === 'active') {
+            setTierState('pro')
+            localStorage.setItem('socialstacks_tier', 'pro')
+          }
+          setLoading(false)
+        })
+      }
     }
-  }, [])
+  }, [user])
 
-  const isPro = tier === 'pro'
-
-  const setTier = (newTier: Tier) => {
+  const setTier = (newTier: ProTier) => {
     setTierState(newTier)
-    localStorage.setItem(STORAGE_KEY_TIER, newTier)
-    if (newTier === 'pro') {
-      trackUpgradeComplete()
+    if (newTier === 'free') {
+      localStorage.removeItem('socialstacks_tier')
+    } else {
+      localStorage.setItem('socialstacks_tier', newTier)
     }
   }
 
-  const canUseFeature = (feature: string): boolean => {
+  const isPro = tier === 'pro' || tier === 'lifetime'
+  const isLifetime = tier === 'lifetime'
+
+  const canUseFeature = (feature: string) => {
     if (isPro) return true
-
-    // Check if it's a pro-only feature
-    if (PRO_FEATURES.includes(feature)) {
-      return false
-    }
-
-    // Check scenario limit
-    if (feature === 'save-scenario' && scenariosUsed >= MAX_FREE_SCENARIOS) {
-      return false
-    }
-
-    return true
+    return !PRO_FEATURES.includes(feature)
   }
 
-  const incrementScenarios = () => {
-    const newCount = scenariosUsed + 1
-    setScenariosUsed(newCount)
-    localStorage.setItem(STORAGE_KEY_SCENARIOS, newCount.toString())
+  const triggerUpgrade = (feature?: string) => {
+    setUpgradeFeature(feature || null)
+    window.dispatchEvent(new CustomEvent('showUpgradeModal', { detail: { feature } }))
   }
 
-  const triggerUpgrade = (feature: string) => {
-    setUpgradeBlockedFeature(feature)
-    setShowUpgradeModal(true)
-    trackUpgradePrompt(feature)
+  const checkout = async () => {
+    if (!user) {
+      window.dispatchEvent(new CustomEvent('showAuthModal'))
+      return
+    }
+
+    try {
+      const { url } = await createCheckoutSession(user.id, user.email!)
+      if (url) {
+        window.location.href = url
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      alert('Failed to start checkout. Please try again.')
+    }
   }
 
   return (
-    <ProContext.Provider
-      value={{
-        tier,
-        isPro,
-        scenariosUsed,
-        maxFreeScenarios: MAX_FREE_SCENARIOS,
-        canUseFeature,
-        incrementScenarios,
-        showUpgradeModal,
-        setShowUpgradeModal,
-        upgradeBlockedFeature,
-        triggerUpgrade,
-        setTier,
-      }}
-    >
+    <ProContext.Provider value={{
+      tier,
+      isPro,
+      isLifetime,
+      loading,
+      setTier,
+      canUseFeature,
+      triggerUpgrade,
+      checkout
+    }}>
       {children}
     </ProContext.Provider>
   )

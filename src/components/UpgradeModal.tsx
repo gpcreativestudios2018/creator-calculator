@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { X, Crown, Sparkles, FileText, Download, Target, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { usePro } from '@/contexts/ProContext'
@@ -36,7 +37,19 @@ interface UpgradeModalProps {
 }
 
 export function UpgradeModal({ theme }: UpgradeModalProps) {
-  const { showUpgradeModal, setShowUpgradeModal, upgradeBlockedFeature, setTier } = usePro()
+  const { checkout } = usePro()
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const [upgradeBlockedFeature, setUpgradeBlockedFeature] = useState<string | null>(null)
+
+  // Listen for upgrade modal events
+  useEffect(() => {
+    const handleShowUpgrade = (e: CustomEvent<{ feature?: string }>) => {
+      setUpgradeBlockedFeature(e.detail?.feature || null)
+      setShowUpgradeModal(true)
+    }
+    window.addEventListener('showUpgradeModal', handleShowUpgrade as EventListener)
+    return () => window.removeEventListener('showUpgradeModal', handleShowUpgrade as EventListener)
+  }, [])
 
   if (!showUpgradeModal) return null
 
@@ -45,10 +58,8 @@ export function UpgradeModal({ theme }: UpgradeModalProps) {
     : 'this feature'
 
   const handleUpgrade = () => {
-    // For now, just unlock pro (demo mode)
-    // In production, this would redirect to Stripe checkout
-    setTier('pro')
     setShowUpgradeModal(false)
+    checkout()
   }
 
   return (
@@ -124,7 +135,7 @@ export function UpgradeModal({ theme }: UpgradeModalProps) {
           </Button>
 
           <p className={`text-xs text-center ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>
-            Demo mode: Click to instantly unlock all features
+            Cancel anytime. Secure payment via Stripe.
           </p>
         </div>
       </div>

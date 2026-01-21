@@ -819,6 +819,18 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           </button>
         </div>
 
+        <button
+          onClick={() => setShowAuth(true)}
+          className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 mb-2 ${
+            theme === 'dark'
+              ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white'
+              : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'
+          }`}
+        >
+          <User className="w-4 h-4 text-purple-500" />
+          <span className="text-sm font-medium">{user ? user.email?.split('@')[0] : 'Sign In / Sign Up'}</span>
+        </button>
+
         {/* Platform Selector */}
         <div className="mb-4">
           <SidebarSection
@@ -1318,19 +1330,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             <span className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>High Contrast</span>
             <HighContrastToggle theme={theme} />
           </div>
-
-          {/* Sign In / Account */}
-          <button
-            onClick={() => setShowAuth(true)}
-            className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 transition-all duration-200 ${
-              theme === 'dark'
-                ? 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white'
-                : 'text-zinc-600 hover:bg-gray-100 hover:text-zinc-900'
-            }`}
-          >
-            <User className="w-4 h-4 text-purple-500" />
-            <span className="text-sm font-medium">{user ? user.email?.split('@')[0] : 'Sign In'}</span>
-          </button>
 
           {/* Theme Toggle */}
           <button

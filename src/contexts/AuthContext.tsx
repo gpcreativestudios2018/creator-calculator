@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
-import { User, Session } from '@supabase/supabase-js'
+import type { User, Session } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
 
 interface AuthContextType {
@@ -7,6 +7,7 @@ interface AuthContextType {
   session: Session | null
   loading: boolean
   signInWithEmail: (email: string) => Promise<{ error: Error | null }>
+  signInWithGoogle: () => Promise<{ error: Error | null }>
   signOut: () => Promise<void>
 }
 
@@ -57,13 +58,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error }
   }
 
+  const signInWithGoogle = async () => {
+    if (!supabase) {
+      return { error: new Error('Supabase not configured') }
+    }
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
+    })
+
+    return { error }
+  }
+
   const signOut = async () => {
     if (!supabase) return
     await supabase.auth.signOut()
   }
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signInWithEmail, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, signInWithEmail, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   )

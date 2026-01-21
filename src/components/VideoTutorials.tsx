@@ -20,75 +20,93 @@ interface Video {
 const videos: Video[] = [
   {
     id: '1',
-    youtubeId: 'G8aDsx9NQWU',
-    title: 'How to Start a YouTube Channel - Beginner\'s Guide to YouTube',
-    channel: 'Think Media',
-    duration: '23:41',
+    youtubeId: 'QB26WVge0s8',
+    title: 'How to Start a YouTube Channel in 2024',
+    channel: 'Creator Education',
+    duration: '15:32',
     category: 'getting-started',
-    description: 'Complete step-by-step guide to launching your YouTube channel the right way.'
+    description: 'Complete beginner guide to starting your YouTube channel.'
   },
   {
     id: '2',
-    youtubeId: 'XzxVfKCx5gY',
-    title: 'How Much Money YouTube Pays Me (With 100K Subscribers)',
-    channel: 'Cathrin Manning',
-    duration: '14:28',
+    youtubeId: 'UVardfy2qMk',
+    title: 'YouTube Monetization Explained',
+    channel: 'Creator Tips',
+    duration: '12:45',
     category: 'monetization',
-    description: 'Real earnings breakdown from a creator with 100K subscribers.'
+    description: 'How YouTube pays creators through AdSense and beyond.'
   },
   {
     id: '3',
-    youtubeId: 'unkIjvTIFQ4',
-    title: 'My 9 Sources of Income (Passive Income Ideas)',
-    channel: 'Ali Abdaal',
-    duration: '20:27',
+    youtubeId: 'D-aRqXrMg-k',
+    title: 'Building Multiple Income Streams',
+    channel: 'Creator Business',
+    duration: '18:20',
     category: 'monetization',
-    description: 'Building multiple income streams as a content creator.'
+    description: 'Diversify your creator income beyond just ad revenue.'
   },
   {
     id: '4',
-    youtubeId: '6SpP_VIfFu4',
-    title: 'How to Get Sponsored on YouTube (With ANY Size Channel)',
-    channel: 'Roberto Blake',
-    duration: '12:33',
+    youtubeId: 'cFl9YrZYAUg',
+    title: 'How to Get Brand Deals',
+    channel: 'Sponsorship Guide',
+    duration: '14:15',
     category: 'brand-deals',
-    description: 'Practical strategies to land your first sponsorship as a small creator.'
+    description: 'Land your first sponsorship even with a small following.'
   },
   {
     id: '5',
-    youtubeId: 'iLtPqfP4Xec',
-    title: 'TikTok Creativity Program - How Much I Made',
-    channel: 'Hayls World',
-    duration: '11:45',
-    category: 'monetization',
-    description: 'Honest breakdown of TikTok earnings and monetization strategies.'
+    youtubeId: 'l6xgPfEEtEA',
+    title: 'Growing Your Social Media Presence',
+    channel: 'Growth Strategies',
+    duration: '16:40',
+    category: 'growth',
+    description: 'Proven strategies to grow your audience across platforms.'
   },
   {
     id: '6',
-    youtubeId: 'FFjP82vMX0U',
-    title: 'How to Grow on Instagram in 2024 (NEW Algorithm)',
-    channel: 'Vanessa Lau',
-    duration: '18:24',
-    category: 'growth',
-    description: 'Understanding the Instagram algorithm to grow your following faster.'
+    youtubeId: 'n_jEYbscStU',
+    title: 'Content Creation Workflow Tips',
+    channel: 'Creator Productivity',
+    duration: '11:25',
+    category: 'getting-started',
+    description: 'Streamline your content creation process.'
   },
   {
     id: '7',
-    youtubeId: 'LJ2gKKJAfCc',
-    title: 'YouTube CPM Explained - How YouTubers Get Paid',
-    channel: 'vidIQ',
-    duration: '10:15',
-    category: 'monetization',
-    description: 'Understanding CPM, RPM, and how YouTube ad revenue actually works.'
+    youtubeId: 't01QS398r2o',
+    title: 'Understanding Analytics & Metrics',
+    channel: 'Data Insights',
+    duration: '13:50',
+    category: 'growth',
+    description: 'Use data to make smarter content decisions.'
   },
   {
     id: '8',
-    youtubeId: 'VJuP-eCGnEw',
-    title: 'The Creator Economy: How to Build a Business',
-    channel: 'Colin and Samir',
-    duration: '19:32',
+    youtubeId: 'PVbJPyGR06w',
+    title: 'Negotiating Sponsorship Rates',
+    channel: 'Brand Deals Pro',
+    duration: '10:35',
+    category: 'brand-deals',
+    description: 'Get paid what you deserve for brand partnerships.'
+  },
+  {
+    id: '9',
+    youtubeId: '53Vi-gNyGoU',
+    title: 'TikTok vs YouTube Monetization',
+    channel: 'Platform Compare',
+    duration: '14:18',
+    category: 'monetization',
+    description: 'Which platform pays creators more?'
+  },
+  {
+    id: '10',
+    youtubeId: 'OCDoBUtFEdk',
+    title: 'Building a Creator Business',
+    channel: 'Creator Economy',
+    duration: '19:45',
     category: 'getting-started',
-    description: 'Understanding the business of being a content creator in the modern era.'
+    description: 'Turn your content into a sustainable business.'
   }
 ]
 
@@ -217,7 +235,7 @@ export function VideoTutorials({ theme, onClose }: VideoTutorialsProps) {
             </div>
           ) : (
             /* Video Grid */
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {filteredVideos.map((video) => (
                 <div
                   key={video.id}
@@ -250,15 +268,12 @@ export function VideoTutorials({ theme, onClose }: VideoTutorialsProps) {
                   </div>
 
                   {/* Info */}
-                  <div className="p-4">
-                    <h3 className={`font-semibold mb-1 line-clamp-2 group-hover:text-purple-500 transition-colors ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  <div className="p-3">
+                    <h3 className={`text-sm font-medium mb-1 line-clamp-2 group-hover:text-purple-500 transition-colors ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                       {video.title}
                     </h3>
-                    <p className={`text-sm ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`}>
+                    <p className={`text-xs ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`}>
                       {video.channel}
-                    </p>
-                    <p className={`text-sm mt-2 line-clamp-2 ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-500'}`}>
-                      {video.description}
                     </p>
                   </div>
                 </div>

@@ -731,17 +731,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
         />
       )}
       {showLeadMagnet && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
-          <div className="relative max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto bg-zinc-900 rounded-xl p-6">
-            <button
-              onClick={() => setShowLeadMagnet(false)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <LeadMagnet className="mx-0" />
-          </div>
-        </div>
+        <LeadMagnet autoOpen onClose={() => setShowLeadMagnet(false)} />
       )}
       {showAffiliates && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">

@@ -124,7 +124,7 @@ export function LeadMagnet({ className, autoOpen = false, onClose }: LeadMagnetP
                     <FileText className="h-5 w-5 text-amber-500" />
                   </div>
                   <span className="text-xs font-medium text-amber-500 uppercase tracking-wide">
-                    Free Download
+                    Free Guide
                   </span>
                 </div>
                 <DialogTitle className="text-xl">

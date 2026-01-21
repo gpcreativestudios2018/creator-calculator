@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, MessageSquare, Code, Coffee, FolderOpen, Crown, Mail, DollarSign, HandCoins, Target, Globe, FileText, Send, Download, TrendingUp, Sparkles, Lightbulb, Compass, Map, Briefcase, ArrowLeftRight, Layers } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, MessageSquare, Code, Coffee, FolderOpen, Crown, Mail, DollarSign, HandCoins, Target, Globe, FileText, Send, Download, TrendingUp, Sparkles, Lightbulb, Compass, Map, Briefcase, ArrowLeftRight, Layers, Rocket } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'
@@ -42,6 +42,7 @@ import { FontSizeControl } from '@/components/FontSizeControl'
 import { HighContrastToggle } from '@/components/HighContrastToggle'
 import { SidebarSection } from '@/components/SidebarSection'
 import { ContactModal } from '@/components/ContactModal'
+import { StartHereGuide } from '@/components/StartHereGuide'
 import { usePro } from '@/contexts/ProContext'
 import { trackPlatformSwitch } from '@/utils/analytics'
 import { regions, DEFAULT_REGION } from '@/data/geography'
@@ -144,6 +145,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showAffiliates, setShowAffiliates] = useState(false)
   const [showNewsletter, setShowNewsletter] = useState(false)
   const [showContact, setShowContact] = useState(false)
+  const [showStartHere, setShowStartHere] = useState(false)
   const { theme, toggleTheme } = useTheme()
   const { isPro, setTier, canUseFeature, triggerUpgrade } = usePro()
 
@@ -774,6 +776,12 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           onClose={() => setShowContact(false)}
         />
       )}
+      {showStartHere && (
+        <StartHereGuide
+          theme={theme}
+          onClose={() => setShowStartHere(false)}
+        />
+      )}
       {!showMethodology && !showGlossary && (
       <>
       <OnboardingModal onComplete={() => {}} />
@@ -1166,6 +1174,15 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           theme={theme}
           defaultOpen={false}
         >
+          <button
+            onClick={() => setShowStartHere(true)}
+            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
+          >
+            <span className="flex items-center gap-2">
+              <Rocket className="w-4 h-4 text-pink-500" />
+              Start Here (Beginners)
+            </span>
+          </button>
           <button
             onClick={() => setShowMethodology(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}

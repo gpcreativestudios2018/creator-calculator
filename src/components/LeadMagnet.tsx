@@ -8,10 +8,12 @@ import { cn } from '@/lib/utils'
 
 interface LeadMagnetProps {
   className?: string
+  autoOpen?: boolean
+  onClose?: () => void
 }
 
-export function LeadMagnet({ className }: LeadMagnetProps) {
-  const [isOpen, setIsOpen] = useState(false)
+export function LeadMagnet({ className, autoOpen = false, onClose }: LeadMagnetProps) {
+  const [isOpen, setIsOpen] = useState(autoOpen)
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -64,37 +66,42 @@ export function LeadMagnet({ className }: LeadMagnetProps) {
 
   return (
     <>
-      <Card
-        className={cn(
-          'relative overflow-hidden cursor-pointer group border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-orange-500/10 hover:border-amber-500/50 transition-all',
-          className
-        )}
-        onClick={() => setIsOpen(true)}
-      >
-        <CardContent className="p-4">
-          <div className="flex items-start gap-3">
-            <div className="p-2 bg-amber-500/20 rounded-lg shrink-0">
-              <FileText className="h-5 w-5 text-amber-500" />
+      {!autoOpen && (
+        <Card
+          className={cn(
+            'relative overflow-hidden cursor-pointer group border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-orange-500/10 hover:border-amber-500/50 transition-all',
+            className
+          )}
+          onClick={() => setIsOpen(true)}
+        >
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2 bg-amber-500/20 rounded-lg shrink-0">
+                <FileText className="h-5 w-5 text-amber-500" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-sm text-amber-500">Free Guide</h3>
+                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
+                  The Creator Monetization Blueprint — 25+ pages of strategies
+                </p>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="mt-2 h-7 px-2 text-xs text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 p-0"
+                >
+                  <Download className="h-3 w-3 mr-1" />
+                  Get Free Guide
+                </Button>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-sm text-amber-500">Free Guide</h3>
-              <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
-                The Creator Monetization Blueprint — 25+ pages of strategies
-              </p>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="mt-2 h-7 px-2 text-xs text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 p-0"
-              >
-                <Download className="h-3 w-3 mr-1" />
-                Download Free
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog open={isOpen} onOpenChange={(open) => {
+        setIsOpen(open)
+        if (!open && onClose) onClose()
+      }}>
         <DialogContent className="sm:max-w-md">
           {status === 'success' ? (
             <div className="text-center py-6">

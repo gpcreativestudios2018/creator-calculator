@@ -23,11 +23,11 @@
 | Phase 11: Educational Content | 6 | 6 | 🟩🟩🟩🟩🟩 100% |
 | Phase 12: Social & Sharing | 6 | 6 | 🟩🟩🟩🟩🟩 100% |
 | Phase 13: Marketing & Growth | 5 | 5 | 🟩🟩🟩🟩🟩 100% |
-| Phase 14: Monetization (Pro Tier) | 8 | 5 | 🟩🟩🟩🟨⬜ 63% |
+| Phase 14: Monetization (Pro Tier) | 8 | 7 | 🟩🟩🟩🟩🟨 88% |
 | Phase 15: Technical & Performance | 10 | 10 | 🟩🟩🟩🟩🟩 100% |
 | Phase 16: Accessibility & i18n | 4 | 3 | 🟩🟩🟩🟨⬜ 75% |
 | Phase 17: Launch Readiness | 12 | 8 | 🟩🟩🟩🟨⬜ 67% |
-| **TOTAL** | **153** | **145** | **95%** |
+| **TOTAL** | **153** | **147** | **96%** |
 
 ---
 
@@ -234,10 +234,10 @@
 - [x] 14.1 — Free tier definition (basic calculators + ads)
 - [x] 14.2 — Pro tier features (advanced models, AI, exports)
 - [ ] 14.3 — Stripe billing integration
-- [ ] 14.4 — Email login or magic link auth
+- [x] 14.4 — Email login or magic link auth (+ Google sign-in)
 - [x] 14.5 — PDF/CSV export functionality
 - [x] 14.6 — Saved scenarios ("My YouTube Plan")
-- [ ] 14.7 — User accounts/profiles
+- [x] 14.7 — User accounts/profiles
 - [x] 14.8 — "Buy me a coffee" donation option
 
 ---

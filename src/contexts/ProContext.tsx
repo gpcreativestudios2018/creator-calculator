@@ -35,7 +35,6 @@ export function ProProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth()
   const [tier, setTierState] = useState<ProTier>('free')
   const [loading, setLoading] = useState(true)
-  const [upgradeFeature, setUpgradeFeature] = useState<string | null>(null)
 
   // Check subscription status when user changes
   useEffect(() => {

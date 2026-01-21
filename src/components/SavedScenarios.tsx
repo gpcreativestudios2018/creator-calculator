@@ -39,7 +39,8 @@ export function SavedScenarios({
   const [saveSuccess, setSaveSuccess] = useState(false)
   const [showSaveForm, setShowSaveForm] = useState(false)
 
-  const { isPro, maxFreeScenarios, triggerUpgrade, incrementScenarios } = usePro()
+  const { isPro, triggerUpgrade } = usePro()
+  const maxFreeScenarios = 3
   const currentPlatform = platforms.find(p => p.id === currentPlatformId)
 
   // Load scenarios from localStorage on mount
@@ -82,11 +83,6 @@ export function SavedScenarios({
 
     const updated = [...scenarios, newScenario]
     saveToStorage(updated)
-
-    // Track scenario usage for free tier
-    if (!isPro) {
-      incrementScenarios()
-    }
 
     trackScenarioSave(currentPlatformId)
     setNewName('')

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { X, Gift, Loader2, CheckCircle, Sparkles } from 'lucide-react'
+import { X, Gift, Loader2, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/contexts/AuthContext'

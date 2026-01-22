@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
-import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, MessageSquare, Code, Coffee, FolderOpen, Crown, Mail, DollarSign, HandCoins, Target, Globe, FileText, Send, Download, TrendingUp, Sparkles, Lightbulb, Compass, Map, Briefcase, ArrowLeftRight, Layers, Rocket, User } from 'lucide-react'
+import { Menu, X, Sun, Moon, Info, Wallet, Award, Users, BookOpen, Video, MessageSquareQuote, Code, Coffee, FolderOpen, Crown, Mail, DollarSign, HandCoins, Target, Globe, FileText, Send, Download, TrendingUp, Sparkles, Lightbulb, Compass, Map, Briefcase, ArrowLeftRight, Layers, Rocket, User } from 'lucide-react'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { useTheme } from '@/components/ThemeProvider'
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts'

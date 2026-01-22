@@ -42,6 +42,7 @@ import { FontSizeControl } from '@/components/FontSizeControl'
 import { HighContrastToggle } from '@/components/HighContrastToggle'
 import { SidebarSection } from '@/components/SidebarSection'
 import { ContactModal } from '@/components/ContactModal'
+import { Footer } from '@/components/Footer'
 import { StartHereGuide } from '@/components/StartHereGuide'
 import { AuthModal } from '@/components/AuthModal'
 import { SecretPromo } from '@/components/SecretPromo'
@@ -1333,15 +1334,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
               Creator Newsletter
             </span>
           </button>
-          <button
-            onClick={() => setShowContact(true)}
-            className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
-          >
-            <span className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 text-green-500" />
-              Contact Us
-            </span>
-          </button>
         </SidebarSection>
 
         {/* Bottom Section - Settings & Toggles */}
@@ -1800,6 +1792,10 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           />
         ) : null}
       </main>
+      <Footer
+        theme={theme}
+        onContactClick={() => setShowContact(true)}
+      />
     </div>
     </>
     )}

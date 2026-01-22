@@ -1441,6 +1441,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
 
       {/* Main Content */}
       <main id="main-content" className="flex-1 p-6 pt-20 lg:pt-6 overflow-y-auto">
+        <h1 className="sr-only">SocialStacks - Creator Revenue Calculator</h1>
         {compareMode ? (
           /* Compare Mode View */
           <div>

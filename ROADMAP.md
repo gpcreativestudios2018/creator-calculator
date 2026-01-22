@@ -255,6 +255,7 @@
 - [x] 15.8 — Automated testing setup
 - [x] 15.9 — CI/CD pipeline
 - [x] 15.10 — Performance monitoring dashboard
+- [ ] 15.11 — Fix LCP (Largest Contentful Paint) - currently 15.9s, target under 2.5s
 
 ---
 

@@ -56,10 +56,10 @@ export function PricingModal({ theme, onClose, onUpgrade, onContinueFree, isLogg
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 items-stretch">
 
           {/* FREE Tier */}
-          <div className={`relative rounded-xl border-2 flex flex-col ${isDark ? 'border-zinc-700 bg-zinc-800/50' : 'border-zinc-200 bg-zinc-50'} p-6`}>
+          <div className={`relative rounded-xl border-2 flex flex-col h-full ${isDark ? 'border-zinc-700 bg-zinc-800/50' : 'border-zinc-200 bg-zinc-50'} p-6`}>
             <div className="mb-6">
               <div className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-4 ${isDark ? 'bg-zinc-700 text-zinc-300' : 'bg-zinc-200 text-zinc-600'}`}>
                 Best for getting started
@@ -85,14 +85,14 @@ export function PricingModal({ theme, onClose, onUpgrade, onContinueFree, isLogg
             <Button
               onClick={onContinueFree}
               variant="outline"
-              className={`w-full ${isDark ? 'border-zinc-600 hover:bg-zinc-700' : ''}`}
+              className={`w-full mt-auto ${isDark ? 'border-zinc-600 hover:bg-zinc-700' : ''}`}
             >
               Continue Free
             </Button>
           </div>
 
           {/* PRO Tier */}
-          <div className="relative rounded-xl border-2 border-purple-500 bg-gradient-to-b from-purple-500/10 to-transparent p-6 flex flex-col">
+          <div className="relative rounded-xl border-2 border-purple-500 bg-gradient-to-b from-purple-500/10 to-transparent p-6 flex flex-col h-full">
             {/* Recommended badge */}
             <div className="absolute -top-3 right-4">
               <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -133,16 +133,10 @@ export function PricingModal({ theme, onClose, onUpgrade, onContinueFree, isLogg
 
             <Button
               onClick={isLoggedIn ? onUpgrade : onSignIn}
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold"
+              className="w-full mt-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold"
             >
               {isLoggedIn ? 'Get Pro' : 'Sign In to Upgrade'}
             </Button>
-
-            {!isLoggedIn && (
-              <p className={`text-xs text-center mt-3 ${isDark ? 'text-zinc-500' : 'text-zinc-400'}`}>
-                You'll need to sign in first
-              </p>
-            )}
           </div>
         </div>
 

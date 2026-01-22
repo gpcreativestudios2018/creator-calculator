@@ -860,6 +860,37 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           <span className="text-sm font-medium">{user ? user.email?.split('@')[0] : 'Sign In / Sign Up'}</span>
         </button>
 
+        {/* Pro Status */}
+        <div className={`mb-4 p-3 rounded-lg ${isPro
+          ? 'bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30'
+          : theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'
+        }`}>
+          {isPro ? (
+            <div className="flex items-center gap-2">
+              <Crown className="w-5 h-5 text-yellow-400" />
+              <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Pro Member</p>
+            </div>
+          ) : (
+            <button
+              onClick={() => triggerUpgrade()}
+              className="w-full text-left group"
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <Crown className="w-5 h-5 text-yellow-400" />
+                <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  Upgrade to Pro
+                </p>
+              </div>
+              <p className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                Unlock AI tools, exports & more
+              </p>
+              <p className="text-xs text-purple-400 mt-1 group-hover:text-purple-300">
+                $9/month →
+              </p>
+            </button>
+          )}
+        </div>
+
         {/* Platform Selector */}
         <div className="mb-4">
           <SidebarSection
@@ -1359,37 +1390,6 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             {theme === 'dark' ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-indigo-500" />}
             {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
           </button>
-
-          {/* Pro Status */}
-          <div className={`mt-4 p-3 rounded-lg ${isPro
-            ? 'bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30'
-            : theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'
-          }`}>
-            {isPro ? (
-              <div className="flex items-center gap-2">
-                <Crown className="w-5 h-5 text-yellow-400" />
-                <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Pro Member</p>
-              </div>
-            ) : (
-              <button
-                onClick={() => setTier('pro')}
-                className="w-full text-left group"
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <Crown className="w-5 h-5 text-yellow-400" />
-                  <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                    Upgrade to Pro
-                  </p>
-                </div>
-                <p className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                  Unlock AI tools, exports & more
-                </p>
-                <p className="text-xs text-purple-400 mt-1 group-hover:text-purple-300">
-                  $9/month →
-                </p>
-              </button>
-            )}
-          </div>
 
           {/* Buy Me a Coffee */}
           <a

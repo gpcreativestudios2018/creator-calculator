@@ -156,7 +156,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showPricingModal, setShowPricingModal] = useState(false)
   const [logoTapCount, setLogoTapCount] = useState(0)
   const { theme, toggleTheme } = useTheme()
-  const { isPro, canUseFeature, triggerUpgrade, checkout } = usePro()
+  const { isPro, canUseFeature, checkout } = usePro()
   const { user } = useAuth()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -1087,7 +1087,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('export-pdf') ? setShowExport(true) : triggerUpgrade('export-pdf')}
+            onClick={() => canUseFeature('export-pdf') ? setShowExport(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1097,7 +1097,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('ai-analysis') ? setShowAIAnalysis(true) : triggerUpgrade('ai-analysis')}
+            onClick={() => canUseFeature('ai-analysis') ? setShowAIAnalysis(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1107,7 +1107,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('ai-revenue-opt') ? setShowAIRevenueOpt(true) : triggerUpgrade('ai-revenue-opt')}
+            onClick={() => canUseFeature('ai-revenue-opt') ? setShowAIRevenueOpt(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1127,7 +1127,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           defaultOpen={false}
         >
           <button
-            onClick={() => canUseFeature('media-kit') ? setShowMediaKit(true) : triggerUpgrade('media-kit')}
+            onClick={() => canUseFeature('media-kit') ? setShowMediaKit(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1137,7 +1137,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('rate-card') ? setShowRateCard(true) : triggerUpgrade('rate-card')}
+            onClick={() => canUseFeature('rate-card') ? setShowRateCard(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1147,7 +1147,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('sponsorship-calc') ? setShowSponsorshipCalc(true) : triggerUpgrade('sponsorship-calc')}
+            onClick={() => canUseFeature('sponsorship-calc') ? setShowSponsorshipCalc(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1157,7 +1157,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('brand-pitch') ? setShowBrandPitch(true) : triggerUpgrade('brand-pitch')}
+            onClick={() => canUseFeature('brand-pitch') ? setShowBrandPitch(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1167,7 +1167,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('ai-brand-pitch') ? setShowAIBrandPitch(true) : triggerUpgrade('ai-brand-pitch')}
+            onClick={() => canUseFeature('ai-brand-pitch') ? setShowAIBrandPitch(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1187,7 +1187,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           defaultOpen={false}
         >
           <button
-            onClick={() => canUseFeature('goal-tracker') ? setShowGoalTracker(true) : triggerUpgrade('goal-tracker')}
+            onClick={() => canUseFeature('goal-tracker') ? setShowGoalTracker(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1224,7 +1224,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('business-planner') ? setShowBusinessPlanner(true) : triggerUpgrade('business-planner')}
+            onClick={() => canUseFeature('business-planner') ? setShowBusinessPlanner(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1234,7 +1234,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('ai-growth-plan') ? setShowAIGrowthPlan(true) : triggerUpgrade('ai-growth-plan')}
+            onClick={() => canUseFeature('ai-growth-plan') ? setShowAIGrowthPlan(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1244,7 +1244,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('ai-content-ideas') ? setShowAIContentIdeas(true) : triggerUpgrade('ai-content-ideas')}
+            onClick={() => canUseFeature('ai-content-ideas') ? setShowAIContentIdeas(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1254,7 +1254,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('ai-focus') ? setShowAIFocus(true) : triggerUpgrade('ai-focus')}
+            onClick={() => canUseFeature('ai-focus') ? setShowAIFocus(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">
@@ -1264,7 +1264,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </span>
           </button>
           <button
-            onClick={() => canUseFeature('ai-roadmap') ? setShowAIRoadmap(true) : triggerUpgrade('ai-roadmap')}
+            onClick={() => canUseFeature('ai-roadmap') ? setShowAIRoadmap(true) : setShowPricingModal(true)}
             className={`w-full px-3 py-1.5 text-sm text-left rounded-md transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:bg-zinc-800 hover:text-white' : 'text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'}`}
           >
             <span className="flex items-center gap-2">

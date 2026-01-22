@@ -59,7 +59,7 @@ export function PricingModal({ theme, onClose, onUpgrade, onContinueFree, isLogg
         <div className="grid md:grid-cols-2 gap-6">
 
           {/* FREE Tier */}
-          <div className={`relative rounded-xl border-2 ${isDark ? 'border-zinc-700 bg-zinc-800/50' : 'border-zinc-200 bg-zinc-50'} p-6`}>
+          <div className={`relative rounded-xl border-2 flex flex-col ${isDark ? 'border-zinc-700 bg-zinc-800/50' : 'border-zinc-200 bg-zinc-50'} p-6`}>
             <div className="mb-6">
               <div className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-4 ${isDark ? 'bg-zinc-700 text-zinc-300' : 'bg-zinc-200 text-zinc-600'}`}>
                 Best for getting started
@@ -71,14 +71,16 @@ export function PricingModal({ theme, onClose, onUpgrade, onContinueFree, isLogg
               </div>
             </div>
 
-            <ul className="space-y-3 mb-8">
-              {freeFeatures.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isDark ? 'text-zinc-500' : 'text-zinc-400'}`} />
-                  <span className={`${isDark ? 'text-zinc-300' : 'text-zinc-600'}`}>{feature}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="flex-grow">
+              <ul className="space-y-3 mb-8">
+                {freeFeatures.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isDark ? 'text-zinc-500' : 'text-zinc-400'}`} />
+                    <span className={`${isDark ? 'text-zinc-300' : 'text-zinc-600'}`}>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <Button
               onClick={onContinueFree}
@@ -90,7 +92,7 @@ export function PricingModal({ theme, onClose, onUpgrade, onContinueFree, isLogg
           </div>
 
           {/* PRO Tier */}
-          <div className="relative rounded-xl border-2 border-purple-500 bg-gradient-to-b from-purple-500/10 to-transparent p-6">
+          <div className="relative rounded-xl border-2 border-purple-500 bg-gradient-to-b from-purple-500/10 to-transparent p-6 flex flex-col">
             {/* Recommended badge */}
             <div className="absolute -top-3 right-4">
               <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -116,16 +118,18 @@ export function PricingModal({ theme, onClose, onUpgrade, onContinueFree, isLogg
               </p>
             </div>
 
-            <ul className="space-y-3 mb-8">
-              {proFeatures.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${i === 0 ? 'text-purple-400' : 'text-purple-500'}`} />
-                  <span className={`${i === 0 ? (isDark ? 'text-purple-300 font-medium' : 'text-purple-600 font-medium') : (isDark ? 'text-zinc-300' : 'text-zinc-600')}`}>
-                    {feature}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <div className="flex-grow">
+              <ul className="space-y-3 mb-8">
+                {proFeatures.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <Check className={`w-5 h-5 mt-0.5 flex-shrink-0 ${i === 0 ? 'text-purple-400' : 'text-purple-500'}`} />
+                    <span className={`${i === 0 ? (isDark ? 'text-purple-300 font-medium' : 'text-purple-600 font-medium') : (isDark ? 'text-zinc-300' : 'text-zinc-600')}`}>
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <Button
               onClick={isLoggedIn ? onUpgrade : onSignIn}

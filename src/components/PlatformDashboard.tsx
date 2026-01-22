@@ -31,6 +31,7 @@ interface PlatformDashboardProps {
   selectedTimePeriod: string
   onTimePeriodChange: (period: string) => void
   timePeriods: Array<{ id: string; name: string; multiplier: number }>
+  onShowPricing?: () => void
 }
 
 export function PlatformDashboard({
@@ -43,11 +44,12 @@ export function PlatformDashboard({
   selectedTimePeriod,
   onTimePeriodChange,
   timePeriods,
+  onShowPricing,
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
 
-  const { canUseFeature: _canUseFeature, triggerUpgrade, isPro } = usePro()
+  const { canUseFeature: _canUseFeature, isPro } = usePro()
   const colors = getPlatformColors(platformId)
   const platform = platforms.find(p => p.id === platformId)
 
@@ -229,7 +231,7 @@ export function PlatformDashboard({
       {/* Upgrade to Pro Banner */}
       {!isPro && (
         <div
-          onClick={() => triggerUpgrade('pro-banner')}
+          onClick={() => onShowPricing?.()}
           className={`p-4 rounded-xl cursor-pointer transition-all hover:scale-[1.01] ${
             theme === 'dark'
               ? 'bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/30 hover:border-purple-500/50'

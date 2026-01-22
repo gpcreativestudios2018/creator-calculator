@@ -1809,6 +1809,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             selectedTimePeriod={selectedTimePeriod}
             onTimePeriodChange={setSelectedTimePeriod}
             timePeriods={timePeriods}
+            onShowPricing={() => setShowPricingModal(true)}
           />
         ) : null}
       </main>

@@ -5,32 +5,24 @@ interface FooterProps {
 
 export function Footer({ theme, onContactClick }: FooterProps) {
   return (
-    <footer className={`py-4 px-6 border-t ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'}`}>
-      <div className="flex items-center justify-center gap-1 text-sm">
-        <span className={theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}>
-          SocialStacks by
-        </span>
-        <a
-          href="https://www.gpcreativestudios.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-purple-500 hover:text-purple-400 hover:underline"
-        >
-          GP Creative Studios
-        </a>
-        <span className={theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}>
-          (
-        </span>
-        <button
-          onClick={onContactClick}
-          className="text-purple-500 hover:text-purple-400 hover:underline"
-        >
-          contact
-        </button>
-        <span className={theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}>
-          )
-        </span>
-      </div>
+    <footer className={`w-full py-3 text-center text-sm ${theme === 'dark' ? 'bg-zinc-950 text-zinc-400' : 'bg-zinc-100 text-zinc-600'}`}>
+      SocialStacks by{' '}
+      <a
+        href="https://www.gpcreativestudios.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-purple-500 hover:text-purple-400 hover:underline"
+      >
+        GP Creative Studios
+      </a>
+      {' '}({' '}
+      <button
+        onClick={onContactClick}
+        className="text-purple-500 hover:text-purple-400 hover:underline"
+      >
+        contact
+      </button>
+      {' '})
     </footer>
   )
 }

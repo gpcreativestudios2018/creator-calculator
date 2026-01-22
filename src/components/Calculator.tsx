@@ -813,7 +813,8 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
       {!showMethodology && !showGlossary && (
       <>
       <OnboardingModal onComplete={() => {}} />
-    <div className={`min-h-screen flex ${theme === 'dark' ? 'bg-zinc-950 text-white' : 'bg-gray-100 text-zinc-900'}`}>
+    <div className={`min-h-screen flex flex-col ${theme === 'dark' ? 'bg-zinc-950 text-white' : 'bg-gray-100 text-zinc-900'}`}>
+      <div className="flex flex-1">
       {/* Mobile Header */}
       <div className={`lg:hidden fixed top-0 left-0 right-0 p-4 flex items-center justify-between z-50 ${theme === 'dark' ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-white border-b border-gray-200'}`}>
         <h1 className="text-xl font-bold">SocialStacks</h1>
@@ -1784,6 +1785,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           />
         ) : null}
       </main>
+      </div>
       <Footer
         theme={theme}
         onContactClick={() => setShowContact(true)}

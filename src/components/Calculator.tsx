@@ -180,6 +180,15 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
     }
   }, [logoTapCount])
 
+  // Listen for auth modal events (from ProContext checkout)
+  useEffect(() => {
+    const handleShowAuth = () => {
+      setShowAuth(true)
+    }
+    window.addEventListener('showAuthModal', handleShowAuth)
+    return () => window.removeEventListener('showAuthModal', handleShowAuth)
+  }, [])
+
   // Handle initialPlatform prop changes
   useEffect(() => {
     if (initialPlatform && platforms.find(p => p.id === initialPlatform)) {

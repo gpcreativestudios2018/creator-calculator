@@ -46,6 +46,7 @@ import { Footer } from '@/components/Footer'
 import { StartHereGuide } from '@/components/StartHereGuide'
 import { AuthModal } from '@/components/AuthModal'
 import { SecretPromo } from '@/components/SecretPromo'
+import { PricingModal } from '@/components/PricingModal'
 import { usePro } from '@/contexts/ProContext'
 import { useAuth } from '@/contexts/AuthContext'
 import { trackPlatformSwitch } from '@/utils/analytics'
@@ -152,9 +153,10 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showStartHere, setShowStartHere] = useState(false)
   const [showAuth, setShowAuth] = useState(false)
   const [showSecretPromo, setShowSecretPromo] = useState(false)
+  const [showPricingModal, setShowPricingModal] = useState(false)
   const [logoTapCount, setLogoTapCount] = useState(0)
   const { theme, toggleTheme } = useTheme()
-  const { isPro, canUseFeature, triggerUpgrade } = usePro()
+  const { isPro, canUseFeature, triggerUpgrade, checkout } = usePro()
   const { user } = useAuth()
 
   const activePlatform = platforms.find(p => p.id === activeTab)
@@ -819,6 +821,22 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
           onClose={() => setShowSecretPromo(false)}
         />
       )}
+      {showPricingModal && (
+        <PricingModal
+          theme={theme}
+          onClose={() => setShowPricingModal(false)}
+          onUpgrade={() => {
+            setShowPricingModal(false)
+            checkout()
+          }}
+          onContinueFree={() => setShowPricingModal(false)}
+          isLoggedIn={!!user}
+          onSignIn={() => {
+            setShowPricingModal(false)
+            setShowAuth(true)
+          }}
+        />
+      )}
       {!showMethodology && !showGlossary && (
       <>
       <OnboardingModal onComplete={() => {}} />
@@ -881,7 +899,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             </div>
           ) : (
             <button
-              onClick={() => triggerUpgrade()}
+              onClick={() => setShowPricingModal(true)}
               className="w-full text-left group"
             >
               <div className="flex items-center gap-2 mb-1">

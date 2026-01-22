@@ -1,9 +1,6 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
-import Stripe from 'https://esm.sh/stripe@13.10.0?target=deno'
 
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') as string, {
-  apiVersion: '2023-10-16',
-})
+const stripeSecretKey = Deno.env.get('STRIPE_SECRET_KEY') as string
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -11,7 +8,6 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
@@ -23,43 +19,60 @@ serve(async (req) => {
       throw new Error('Missing required parameters')
     }
 
-    // Check if customer already exists
-    const customers = await stripe.customers.list({
-      email: userEmail,
-      limit: 1,
-    })
+    // Check if customer exists
+    const customerSearch = await fetch(
+      `https://api.stripe.com/v1/customers?email=${encodeURIComponent(userEmail)}&limit=1`,
+      {
+        headers: {
+          'Authorization': `Bearer ${stripeSecretKey}`,
+        },
+      }
+    )
+    const customerData = await customerSearch.json()
 
     let customerId: string
-    if (customers.data.length > 0) {
-      customerId = customers.data[0].id
+    if (customerData.data && customerData.data.length > 0) {
+      customerId = customerData.data[0].id
     } else {
-      const customer = await stripe.customers.create({
-        email: userEmail,
-        metadata: {
-          supabase_user_id: userId,
+      // Create customer
+      const createCustomer = await fetch('https://api.stripe.com/v1/customers', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${stripeSecretKey}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
+        body: new URLSearchParams({
+          email: userEmail,
+          'metadata[supabase_user_id]': userId,
+        }),
       })
-      customerId = customer.id
+      const newCustomer = await createCustomer.json()
+      customerId = newCustomer.id
     }
 
     // Create checkout session
-    const session = await stripe.checkout.sessions.create({
-      customer: customerId,
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      mode: 'subscription',
-      success_url: `${returnUrl}?success=true`,
-      cancel_url: `${returnUrl}?canceled=true`,
-      subscription_data: {
-        metadata: {
-          supabase_user_id: userId,
-        },
+    const sessionResponse = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${stripeSecretKey}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
+      body: new URLSearchParams({
+        customer: customerId,
+        'line_items[0][price]': priceId,
+        'line_items[0][quantity]': '1',
+        mode: 'subscription',
+        success_url: `${returnUrl}?success=true`,
+        cancel_url: `${returnUrl}?canceled=true`,
+        'subscription_data[metadata][supabase_user_id]': userId,
+      }),
     })
+
+    const session = await sessionResponse.json()
+
+    if (session.error) {
+      throw new Error(session.error.message)
+    }
 
     return new Response(
       JSON.stringify({ url: session.url }),

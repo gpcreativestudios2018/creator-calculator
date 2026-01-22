@@ -3,28 +3,6 @@ import { X, Crown, Sparkles, FileText, Download, Target, Zap } from 'lucide-reac
 import { Button } from '@/components/ui/button'
 import { usePro } from '@/contexts/ProContext'
 
-const FEATURE_NAMES: Record<string, string> = {
-  'ai-analysis': 'AI Analysis',
-  'ai-growth-plan': 'AI Growth Plan',
-  'ai-content-ideas': 'AI Content Ideas',
-  'ai-brand-pitch': 'AI Brand Pitch Writer',
-  'ai-revenue-opt': 'AI Revenue Optimizer',
-  'ai-focus': 'AI Focus Guide',
-  'ai-roadmap': 'AI Roadmap',
-  'export-pdf': 'PDF Export',
-  'export-csv': 'CSV Export',
-  'media-kit': 'Media Kit Generator',
-  'rate-card': 'Rate Card Generator',
-  'sponsorship-calc': 'Sponsorship Calculator',
-  'brand-pitch': 'Brand Pitch Generator',
-  'business-planner': 'Business Planner',
-  'content-roi': 'Content ROI Calculator',
-  'goal-tracker': 'Goal Tracker',
-  'screenshot-export': 'Screenshot Export',
-  'unlimited-scenarios': 'Unlimited Saved Scenarios',
-  'save-scenario': 'Save More Scenarios',
-}
-
 const PRO_BENEFITS = [
   { icon: Sparkles, text: 'All 7 AI-powered tools' },
   { icon: FileText, text: 'PDF & CSV exports' },
@@ -39,12 +17,10 @@ interface UpgradeModalProps {
 export function UpgradeModal({ theme }: UpgradeModalProps) {
   const { checkout } = usePro()
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
-  const [upgradeBlockedFeature, setUpgradeBlockedFeature] = useState<string | null>(null)
 
   // Listen for upgrade modal events
   useEffect(() => {
-    const handleShowUpgrade = (e: CustomEvent<{ feature?: string }>) => {
-      setUpgradeBlockedFeature(e.detail?.feature || null)
+    const handleShowUpgrade = () => {
       setShowUpgradeModal(true)
     }
     window.addEventListener('showUpgradeModal', handleShowUpgrade as EventListener)
@@ -52,10 +28,6 @@ export function UpgradeModal({ theme }: UpgradeModalProps) {
   }, [])
 
   if (!showUpgradeModal) return null
-
-  const featureName = upgradeBlockedFeature
-    ? FEATURE_NAMES[upgradeBlockedFeature] || upgradeBlockedFeature
-    : 'this feature'
 
   const handleUpgrade = () => {
     setShowUpgradeModal(false)
@@ -87,16 +59,6 @@ export function UpgradeModal({ theme }: UpgradeModalProps) {
 
         {/* Content */}
         <div className="p-6">
-          {/* Blocked feature callout */}
-          <div className={`mb-6 p-4 rounded-xl ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
-            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
-              You tried to access:
-            </p>
-            <p className={`text-lg font-semibold mt-1 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-              {featureName}
-            </p>
-          </div>
-
           {/* Benefits list */}
           <div className="space-y-3 mb-6">
             <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>

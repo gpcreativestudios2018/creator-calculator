@@ -141,6 +141,39 @@ export const resources: Resource[] = [
     category: 'tools',
     icon: '🎬',
   },
+  {
+    id: 'jasper-ai',
+    title: 'Jasper AI',
+    description: 'AI writing assistant for scripts, captions, blog posts, and marketing copy. Write faster with AI.',
+    url: 'https://www.jasper.ai',
+    category: 'tools',
+    icon: '🤖',
+    featured: true,
+  },
+  {
+    id: 'synthesia',
+    title: 'Synthesia',
+    description: 'Create AI-generated videos with realistic avatars. Turn text into professional videos in minutes.',
+    url: 'https://www.synthesia.io',
+    category: 'tools',
+    icon: '🎥',
+  },
+  {
+    id: 'murf-ai',
+    title: 'Murf AI',
+    description: 'AI voiceover generator with natural-sounding voices. Perfect for videos, podcasts, and presentations.',
+    url: 'https://murf.ai',
+    category: 'tools',
+    icon: '🎙️',
+  },
+  {
+    id: 'deepbrain-ai',
+    title: 'Deepbrain AI',
+    description: 'Create AI avatar videos for content, training, and marketing. No camera or studio needed.',
+    url: 'https://www.aistudios.com',
+    category: 'tools',
+    icon: '🧠',
+  },
 
   // Guides
   {

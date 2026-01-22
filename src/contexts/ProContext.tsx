@@ -124,12 +124,15 @@ export function ProProvider({ children }: { children: ReactNode }) {
 
   const checkout = async () => {
     if (!user) {
+      console.log('No user, opening auth modal')
       window.dispatchEvent(new CustomEvent('showAuthModal'))
       return
     }
 
     try {
+      console.log('Starting checkout for user:', user.id)
       const { url } = await createCheckoutSession(user.id, user.email!)
+      console.log('Checkout URL:', url)
       if (url) {
         window.location.href = url
       }

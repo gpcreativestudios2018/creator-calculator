@@ -1367,15 +1367,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             {isPro ? (
               <div className="flex items-center gap-2">
                 <Crown className="w-5 h-5 text-yellow-400" />
-                <div>
-                  <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Pro Member</p>
-                  <button
-                    onClick={() => setTier('free')}
-                    className="text-xs text-zinc-500 hover:text-zinc-400"
-                  >
-                    (Demo: Click to reset)
-                  </button>
-                </div>
+                <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Pro Member</p>
               </div>
             ) : (
               <button

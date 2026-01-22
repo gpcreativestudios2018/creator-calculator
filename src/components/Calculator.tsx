@@ -154,7 +154,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
   const [showSecretPromo, setShowSecretPromo] = useState(false)
   const [logoTapCount, setLogoTapCount] = useState(0)
   const { theme, toggleTheme } = useTheme()
-  const { isPro, setTier, canUseFeature, triggerUpgrade } = usePro()
+  const { isPro, canUseFeature, triggerUpgrade } = usePro()
   const { user } = useAuth()
 
   const activePlatform = platforms.find(p => p.id === activeTab)

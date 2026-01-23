@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { X, Rocket, Target, DollarSign, TrendingUp, Clock, CheckCircle, ChevronRight, Lightbulb, ArrowRight } from 'lucide-react'
+import { X, Rocket, Target, DollarSign, TrendingUp, Clock, CheckCircle, ChevronRight, Lightbulb, ArrowRight, Wrench } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { resources } from '@/data/resources'
 
 interface StartHereGuideProps {
   theme: 'dark' | 'light'
@@ -140,6 +141,33 @@ const steps = [
       'Use "AI Analysis" for personalized growth advice',
       'Read our "Case Studies" to learn from successful creators'
     ]
+  },
+  {
+    id: 'tools',
+    title: 'Essential Creator Tools',
+    icon: Wrench,
+    color: 'text-cyan-500',
+    bgColor: 'bg-cyan-500/10',
+    content: [
+      {
+        heading: 'The right tools make all the difference',
+        text: 'Successful creators use tools to work smarter, not harder. Here are the essential tools for video editing, design, analytics, and monetization.'
+      },
+      {
+        heading: 'Start with the basics',
+        text: 'You don\'t need every tool on day one. Start with a good editing tool and a design tool for thumbnails, then expand as you grow.'
+      },
+      {
+        heading: 'Many have free tiers',
+        text: 'Most of these tools offer free versions that are perfect for beginners. Upgrade to paid plans as your channel grows and you need more features.'
+      }
+    ],
+    tips: [
+      'TubeBuddy or vidIQ are essential for YouTube SEO',
+      'Canva makes professional thumbnails easy (no design skills needed)',
+      'Build your email list early with ConvertKit',
+      'Use Descript or Riverside for podcast/video editing'
+    ]
   }
 ]
 
@@ -268,6 +296,45 @@ export function StartHereGuide({ theme, onClose }: StartHereGuideProps) {
             </ul>
           </CardContent>
         </Card>
+
+        {/* Recommended Tools (only on tools step) */}
+        {currentStep.id === 'tools' && (
+          <Card className={`mb-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+            <CardHeader className="pb-3">
+              <CardTitle className={`text-base ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                Recommended Tools
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {resources.filter(r => r.category === 'tools').slice(0, 12).map((tool) => (
+                  <a
+                    key={tool.id}
+                    href={tool.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center gap-3 p-3 rounded-lg transition-all hover:scale-[1.02] ${
+                      theme === 'dark'
+                        ? 'bg-zinc-800 hover:bg-zinc-700 border border-zinc-700'
+                        : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
+                    }`}
+                  >
+                    <span className="text-2xl">{tool.icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className={`font-medium truncate ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                        {tool.title}
+                      </div>
+                      <div className={`text-xs truncate ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                        {tool.description.slice(0, 60)}...
+                      </div>
+                    </div>
+                    <ChevronRight className={`w-4 h-4 flex-shrink-0 ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`} />
+                  </a>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Navigation */}
         <div className="flex items-center justify-between">

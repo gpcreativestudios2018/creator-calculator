@@ -68,8 +68,13 @@ export async function callAI(prompt: string, systemPrompt?: string): Promise<AIR
       }
     }
 
+    const { data: { session } } = await supabase.auth.getSession()
+
     const { data, error } = await supabase.functions.invoke('ai-chat', {
-      body: { prompt, systemPrompt, maxTokens: 1000 }
+      body: { prompt, systemPrompt, maxTokens: 1000 },
+      headers: {
+        Authorization: `Bearer ${session?.access_token}`
+      }
     })
 
     if (error) {

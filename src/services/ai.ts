@@ -1,18 +1,7 @@
 // AI Service for Creator Calculator
-// Supports OpenAI and Claude APIs
+// Uses Supabase Edge Function to securely call OpenAI
 
-export interface AIConfig {
-  provider: 'openai' | 'claude'
-  apiKey: string
-  model: string
-}
-
-// Placeholder config - user will add their API key later
-export const aiConfig: AIConfig = {
-  provider: 'openai', // or 'claude'
-  apiKey: '', // ADD YOUR API KEY HERE
-  model: 'gpt-4o-mini', // cost-effective default
-}
+import { supabase } from '@/lib/supabase'
 
 export interface CreatorContext {
   platform: string
@@ -32,26 +21,49 @@ export interface AIResponse {
   error?: string
 }
 
-// Check if AI is configured
-export function isAIConfigured(): boolean {
-  return aiConfig.apiKey.length > 0
+// Check if user has Pro subscription
+export async function isProUser(): Promise<boolean> {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return false
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('subscription_status')
+    .eq('id', user.id)
+    .single()
+
+  return profile?.subscription_status === 'pro'
 }
 
-// Generic AI call function
+// Call AI via Supabase Edge Function
 export async function callAI(prompt: string, systemPrompt?: string): Promise<AIResponse> {
-  if (!isAIConfigured()) {
-    return {
-      success: false,
-      content: '',
-      error: 'API key not configured. Add your API key in src/services/ai.ts',
-    }
-  }
-
   try {
-    if (aiConfig.provider === 'openai') {
-      return await callOpenAI(prompt, systemPrompt)
-    } else {
-      return await callClaude(prompt, systemPrompt)
+    // Check if user is Pro
+    const isPro = await isProUser()
+    if (!isPro) {
+      return {
+        success: false,
+        content: '',
+        error: 'AI features require a Pro subscription',
+      }
+    }
+
+    const { data, error } = await supabase.functions.invoke('ai-chat', {
+      body: { prompt, systemPrompt, maxTokens: 1000 }
+    })
+
+    if (error) {
+      return {
+        success: false,
+        content: '',
+        error: error.message,
+      }
+    }
+
+    return {
+      success: data.success,
+      content: data.content || '',
+      error: data.error,
     }
   } catch (error) {
     return {
@@ -62,63 +74,12 @@ export async function callAI(prompt: string, systemPrompt?: string): Promise<AIR
   }
 }
 
-async function callOpenAI(prompt: string, systemPrompt?: string): Promise<AIResponse> {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${aiConfig.apiKey}`,
-    },
-    body: JSON.stringify({
-      model: aiConfig.model,
-      messages: [
-        ...(systemPrompt ? [{ role: 'system', content: systemPrompt }] : []),
-        { role: 'user', content: prompt },
-      ],
-      max_tokens: 1000,
-      temperature: 0.7,
-    }),
-  })
-
-  if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.status}`)
-  }
-
-  const data = await response.json()
-  return {
-    success: true,
-    content: data.choices[0]?.message?.content || '',
-  }
+// For backwards compatibility - always returns true now since we check Pro status in callAI
+export function isAIConfigured(): boolean {
+  return true
 }
 
-async function callClaude(prompt: string, systemPrompt?: string): Promise<AIResponse> {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': aiConfig.apiKey,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: aiConfig.model,
-      max_tokens: 1000,
-      ...(systemPrompt ? { system: systemPrompt } : {}),
-      messages: [{ role: 'user', content: prompt }],
-    }),
-  })
-
-  if (!response.ok) {
-    throw new Error(`Claude API error: ${response.status}`)
-  }
-
-  const data = await response.json()
-  return {
-    success: true,
-    content: data.content[0]?.text || '',
-  }
-}
-
-// Mock responses for when API key is not configured
+// Mock responses for free users or when showing previews
 export function getMockResponse(type: string, context: CreatorContext): string {
   const { platform, monthlyRevenue, followers, subscribers } = context
   const audience = followers || subscribers || 0
@@ -139,7 +100,7 @@ export function getMockResponse(type: string, context: CreatorContext): string {
 2. Engage with comments within the first hour
 3. Collaborate with creators in adjacent niches
 
-*Configure your AI API key for personalized insights.*`
+*🔒 Upgrade to Pro for personalized AI-powered insights.*`
 
     case 'growth-plan':
       return `## 90-Day Growth Plan for ${platform}
@@ -161,7 +122,7 @@ export function getMockResponse(type: string, context: CreatorContext): string {
 - Create a digital product or membership
 - Optimize your media kit
 
-*Configure your AI API key for a personalized plan.*`
+*🔒 Upgrade to Pro for a personalized plan.*`
 
     case 'content-ideas':
       return `## Content Ideas for ${platform}
@@ -179,7 +140,7 @@ Based on trending topics and your niche:
 9. **Day in the life** - Authentic lifestyle content
 10. **Myth busting** - Debunk common misconceptions
 
-*Configure your AI API key for personalized ideas based on your metrics.*`
+*🔒 Upgrade to Pro for personalized ideas based on your metrics.*`
 
     case 'optimization':
       return `## Revenue Optimization Tips
@@ -197,9 +158,29 @@ Based on trending topics and your niche:
 2. Join 2-3 affiliate programs in your niche
 3. Survey your audience on what they'd pay for
 
-*Configure your AI API key for detailed optimization strategies.*`
+*🔒 Upgrade to Pro for detailed optimization strategies.*`
+
+    case 'brand-pitch':
+      return `## Brand Pitch Template
+
+**Subject:** Partnership Opportunity - [Your Name] x [Brand]
+
+Hi [Brand Contact],
+
+I'm [Your Name], a ${platform} creator with ${audience.toLocaleString()} engaged followers in the [niche] space.
+
+I've been a fan of [Brand] and think there's a natural fit for collaboration...
+
+[Pitch details would go here]
+
+Looking forward to exploring this!
+
+Best,
+[Your Name]
+
+*🔒 Upgrade to Pro for AI-generated personalized pitches.*`
 
     default:
-      return 'Configure your AI API key for personalized insights.'
+      return '*🔒 Upgrade to Pro for AI-powered insights.*'
   }
 }

@@ -28,13 +28,23 @@ export async function isProUser(): Promise<boolean> {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return false
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('subscription_status')
-    .eq('id', user.id)
+  // Check for lifetime promo redemption first
+  const { data: promoData } = await supabase
+    .from('promo_redemptions')
+    .select('id')
+    .eq('user_id', user.id)
     .single()
 
-  return profile?.subscription_status === 'pro'
+  if (promoData) return true
+
+  // Check for active subscription in subscriptions table
+  const { data: subscription } = await supabase
+    .from('subscriptions')
+    .select('status')
+    .eq('user_id', user.id)
+    .single()
+
+  return subscription?.status === 'active'
 }
 
 // Call AI via Supabase Edge Function

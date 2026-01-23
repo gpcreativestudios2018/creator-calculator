@@ -144,7 +144,7 @@ const steps = [
   },
   {
     id: 'tools',
-    title: 'Essential Creator Tools',
+    title: 'Creator Tools',
     icon: Wrench,
     color: 'text-cyan-500',
     bgColor: 'bg-cyan-500/10',
@@ -246,7 +246,7 @@ export function StartHereGuide({ theme, onClose }: StartHereGuideProps) {
                     ? theme === 'dark' ? 'text-white' : 'text-zinc-900'
                     : theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
                 }`}>
-                  {step.title.split(' ').slice(0, 2).join(' ')}
+                  {step.title.length > 15 ? step.title.slice(0, 15) + '...' : step.title}
                 </span>
               </button>
             )

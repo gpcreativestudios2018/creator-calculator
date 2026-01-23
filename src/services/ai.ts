@@ -23,6 +23,8 @@ export interface AIResponse {
 
 // Check if user has Pro subscription
 export async function isProUser(): Promise<boolean> {
+  if (!supabase) return false
+
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return false
 
@@ -38,6 +40,14 @@ export async function isProUser(): Promise<boolean> {
 // Call AI via Supabase Edge Function
 export async function callAI(prompt: string, systemPrompt?: string): Promise<AIResponse> {
   try {
+    if (!supabase) {
+      return {
+        success: false,
+        content: '',
+        error: 'Supabase not initialized',
+      }
+    }
+
     // Check if user is Pro
     const isPro = await isProUser()
     if (!isPro) {

@@ -871,7 +871,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
             }}
             className="flex items-center cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-[1.02] p-0"
           >
-            <img src="/logo_full_transparent.png" alt="SocialStacks" className="h-56 w-auto mx-auto -mt-4" />
+            <img src="/logo_full_transparent.webp" alt="SocialStacks" className="h-56 w-auto mx-auto -mt-4" loading="eager" fetchPriority="high" />
           </button>
         </div>
 

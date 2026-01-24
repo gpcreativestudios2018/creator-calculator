@@ -25,30 +25,84 @@
     <meta name="twitter:image" content="https://www.socialstacks.app/socialstacks_pwa_512_bg.png" />
     <link rel="canonical" href="https://www.socialstacks.app/" />
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "SocialStacks",
-  "url": "https://www.socialstacks.app",
-  "description": "Free calculator to estimate your earnings across 25+ creator platforms including YouTube, TikTok, Instagram, Twitch, Patreon, and more.",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Any",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "creator": {
+[
+  {
+    "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "GP Creative Studios",
-    "url": "https://www.socialstacks.app"
+    "name": "SocialStacks",
+    "url": "https://www.socialstacks.app",
+    "logo": "https://www.socialstacks.app/socialstacks_pwa_512_bg.png",
+    "description": "Free creator revenue calculator for 25+ platforms",
+    "sameAs": []
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SocialStacks",
+    "url": "https://www.socialstacks.app",
+    "description": "Multi-platform creator revenue calculator",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.socialstacks.app/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SocialStacks",
+    "url": "https://www.socialstacks.app",
+    "description": "Free calculator to estimate your earnings across 25+ creator platforms including YouTube, TikTok, Instagram, Twitch, Patreon, and more.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "GP Creative Studios",
+      "url": "https://www.socialstacks.app"
+    }
   }
-}
+]
 </script>
   </head>
   <body>
-    <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">SocialStacks - Creator Revenue Calculator</h1>
     <div id="root"></div>
+    <noscript>
+      <div style="max-width: 800px; margin: 0 auto; padding: 40px 20px; font-family: system-ui, sans-serif;">
+        <h1>SocialStacks — Multi-Platform Creator Revenue Calculator</h1>
+        <p>Calculate your potential earnings across 25+ creator platforms including YouTube, TikTok, Instagram, Twitch, Patreon, Substack, and more. Our free calculator helps content creators estimate revenue from ads, sponsorships, memberships, and digital products.</p>
+
+        <h2>Supported Platforms</h2>
+        <ul>
+          <li><a href="/youtube-calculator">YouTube Revenue Calculator</a> — Estimate earnings from ads, memberships, and Super Chats</li>
+          <li><a href="/tiktok-calculator">TikTok Revenue Calculator</a> — Calculate Creativity Program and brand deal income</li>
+          <li><a href="/instagram-calculator">Instagram Revenue Calculator</a> — Project Reels bonuses and sponsored post rates</li>
+          <li><a href="/twitch-calculator">Twitch Revenue Calculator</a> — Subs, bits, and ad revenue estimates</li>
+          <li><a href="/patreon-calculator">Patreon Revenue Calculator</a> — Membership and patron income projections</li>
+        </ul>
+
+        <h2>Features</h2>
+        <ul>
+          <li>Revenue calculators for 25+ platforms</li>
+          <li>Region and niche adjustments for accurate estimates</li>
+          <li>Monetization threshold tracker</li>
+          <li>AI-powered growth recommendations (Pro)</li>
+          <li>Media kit and rate card generators (Pro)</li>
+          <li>Export reports as PDF (Pro)</li>
+        </ul>
+
+        <h2>How It Works</h2>
+        <p>Enter your current metrics like followers, views, and engagement rate. SocialStacks uses industry-standard formulas and real creator data to estimate your potential monthly and yearly earnings. Adjust for your region and content niche to get personalized projections.</p>
+
+        <p>Please enable JavaScript to use the full calculator application.</p>
+
+        <p><strong>Contact:</strong> <a href="mailto:support@socialstacks.app">support@socialstacks.app</a></p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
     <script>
       if ('serviceWorker' in navigator) {

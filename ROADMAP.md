@@ -324,6 +324,24 @@ Let's build it.
 
 ## 📝 SESSION LOG
 
+### January 24, 2025
+**Monetization Requirements Feature & Data Verification**
+
+- Added "How to monetize {platform}?" link to Your Metrics card
+- Created PlatformRequirementsModal component showing platform-specific requirements
+- Deep researched and verified monetization thresholds for all 25 platforms
+- Updated thresholds.ts with verified Jan 2025 data:
+  - Twitch: Lowered to 25 followers, 4 days, 4 hours (2025 update)
+  - Snapchat: Raised to 50K followers (Feb 2025 unified program)
+  - Pinterest: No direct monetization (Creator Rewards ended Nov 2022)
+  - Discord: No member minimum (US-based server owner required)
+  - Kick: Clarified Affiliate vs Partner tiers
+  - Amazon Influencer: Approval-based, no fixed minimum
+- Added helpful notes (💡) to ALL platform modals for consistent UX
+- Platforms now show contextual tips (alternative paths, restrictions, etc.)
+
+---
+
 ### January 22, 2025
 **SEO, AI Integration & Launch Polish**
 

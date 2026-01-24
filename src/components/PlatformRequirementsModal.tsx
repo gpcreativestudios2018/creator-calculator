@@ -1,4 +1,4 @@
-import { X, CheckCircle2, ExternalLink, Award } from 'lucide-react'
+import { X, CheckCircle2, Award } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { monetizationThresholds } from '@/data/thresholds'

@@ -7,6 +7,7 @@ export const monetizationThresholds = [
       { name: 'Watch Hours (yearly)', required: 4000, metric: 'watchHours' },
     ],
     benefits: ['Ad revenue sharing (55%)', 'Channel memberships', 'Super Chat & Super Thanks', 'YouTube Shopping'],
+    note: 'Alternative path: 500 subs + 3K watch hours (or 3M Shorts views) unlocks fan funding features like Super Thanks and memberships.',
   },
   {
     platformId: 'tiktok',
@@ -16,6 +17,7 @@ export const monetizationThresholds = [
       { name: 'Views (30 days)', required: 100000, metric: 'monthlyViews' },
     ],
     benefits: ['Revenue from qualifying videos', 'Higher RPM than old Creator Fund', 'Analytics access'],
+    note: 'Videos must be at least 1 minute long to qualify for the Creativity Program. Shorts under 1 min don\'t count toward monetization.',
   },
   {
     platformId: 'instagram',
@@ -24,6 +26,7 @@ export const monetizationThresholds = [
       { name: 'Followers', required: 10000, metric: 'followers' },
     ],
     benefits: ['Reels Play Bonus (invite only)', 'Badges in Live', 'Subscriptions', 'Branded content tools'],
+    note: 'Most monetization features are invite-only or region-restricted. Focus on Reels and engagement to get noticed for bonuses.',
   },
   {
     platformId: 'twitter',
@@ -43,6 +46,7 @@ export const monetizationThresholds = [
       { name: 'Watch Minutes (60 days)', required: 600000, metric: 'watchMinutes' },
     ],
     benefits: ['In-stream ads', 'Fan subscriptions', 'Stars', 'Branded content'],
+    note: 'Watch minutes are cumulative across all your videos in the past 60 days. Live videos count toward this total.',
   },
   {
     platformId: 'twitch',
@@ -54,6 +58,7 @@ export const monetizationThresholds = [
       { name: 'Hours Streamed', required: 4, metric: 'hoursStreamed' },
     ],
     benefits: ['Subscriptions (50% rev share)', 'Bits', 'Game sales commission', 'Ad revenue'],
+    note: 'Requirements were lowered in 2025. Partner tier requires 75 avg viewers and offers 70% sub revenue instead of 50%.',
   },
   {
     platformId: 'kick',

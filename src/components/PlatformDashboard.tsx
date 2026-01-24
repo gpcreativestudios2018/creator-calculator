@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Info, Camera, Crown } from 'lucide-react'
+import { PlatformRequirementsModal } from '@/components/PlatformRequirementsModal'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, LineChart, Line } from 'recharts'
 import { StatCard } from '@/components/StatCard'
 import { PreviewCard } from '@/components/PreviewCard'
@@ -48,6 +49,7 @@ export function PlatformDashboard({
 }: PlatformDashboardProps) {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
+  const [showRequirementsModal, setShowRequirementsModal] = useState(false)
 
   const { canUseFeature: _canUseFeature, isPro } = usePro()
   const colors = getPlatformColors(platformId)
@@ -338,6 +340,14 @@ export function PlatformDashboard({
               Your Metrics
             </CardTitle>
             <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowRequirementsModal(true)}
+                className={`text-sm font-medium hover:underline transition-colors ${
+                  theme === 'dark' ? 'text-purple-400 hover:text-purple-300' : 'text-purple-600 hover:text-purple-700'
+                }`}
+              >
+                How to monetize {platform.name}?
+              </button>
               {!hasCustomValues && (
                 <div className={`flex items-center gap-2 text-xs ${theme === 'dark' ? 'text-amber-400' : 'text-amber-600'}`}>
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
@@ -1245,6 +1255,15 @@ export function PlatformDashboard({
           yearlyRevenue={yearlyRevenue}
           theme={theme}
           onClose={() => setShowShareCard(false)}
+        />
+      )}
+
+      {/* Platform Requirements Modal */}
+      {showRequirementsModal && (
+        <PlatformRequirementsModal
+          platformId={platformId}
+          theme={theme}
+          onClose={() => setShowRequirementsModal(false)}
         />
       )}
     </div>

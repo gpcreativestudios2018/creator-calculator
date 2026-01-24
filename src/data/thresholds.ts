@@ -48,10 +48,10 @@ export const monetizationThresholds = [
     platformId: 'twitch',
     programName: 'Twitch Affiliate',
     requirements: [
-      { name: 'Followers', required: 50, metric: 'followers' },
+      { name: 'Followers', required: 25, metric: 'followers' },
       { name: 'Avg Viewers', required: 3, metric: 'avgViewers' },
-      { name: 'Stream Days (30 days)', required: 7, metric: 'streamDays' },
-      { name: 'Unique Broadcast Days', required: 7, metric: 'broadcastDays' },
+      { name: 'Stream Days (30 days)', required: 4, metric: 'streamDays' },
+      { name: 'Hours Streamed', required: 4, metric: 'hoursStreamed' },
     ],
     benefits: ['Subscriptions (50% rev share)', 'Bits', 'Game sales commission', 'Ad revenue'],
   },
@@ -63,24 +63,26 @@ export const monetizationThresholds = [
       { name: 'Avg Viewers', required: 5, metric: 'avgViewers' },
     ],
     benefits: ['95% subscription revenue', 'Kick tips', 'No exclusivity required'],
+    note: 'Affiliate tier shown. Partner requires 250 followers, 75 avg viewers, 30 hrs/month, 25 subs. 95/5 revenue split.',
   },
   {
     platformId: 'snapchat',
-    programName: 'Snapchat Spotlight',
+    programName: 'Snapchat Unified Monetization',
     requirements: [
-      { name: 'Followers', required: 1000, metric: 'followers' },
+      { name: 'Followers', required: 50000, metric: 'followers' },
+      { name: 'Posts per Month', required: 25, metric: 'postsPerMonth' },
     ],
     benefits: ['Spotlight rewards', 'Story ads revenue', 'Gifting'],
-    note: 'Spotlight rewards vary by performance',
+    note: 'Feb 2025 update: Also requires 10+ active days/month and either 12K watch hours, 10M Snap views, or 1M Spotlight views in 28 days. Videos must be 1+ min.',
   },
   {
     platformId: 'pinterest',
-    programName: 'Pinterest Creator Rewards',
+    programName: 'Pinterest Creator Fund',
     requirements: [
-      { name: 'Followers', required: 1000, metric: 'followers' },
+      { name: 'Followers', required: 0, metric: 'followers' },
     ],
-    benefits: ['Idea Pin rewards', 'Paid partnerships tag', 'Creator fund eligibility'],
-    note: 'Currently US creators only',
+    benefits: ['Inclusion Fund grants (invite only)', 'Affiliate marketing', 'Brand partnerships'],
+    note: 'No direct platform monetization. Creator Rewards ended Nov 2022. Monetize via affiliates and brand deals.',
   },
   {
     platformId: 'linkedin',
@@ -203,10 +205,10 @@ export const monetizationThresholds = [
     platformId: 'amazon',
     programName: 'Amazon Influencer Program',
     requirements: [
-      { name: 'Social Following', required: 1000, metric: 'followers' },
+      { name: 'Recommended Following', required: 1000, metric: 'followers' },
     ],
     benefits: ['Custom storefront', 'Commission on sales', 'Shoppable videos'],
-    note: 'Requires active social media presence',
+    note: 'No fixed minimum. ~1K followers recommended. Approval based on engagement, content quality, and social presence.',
   },
   {
     platformId: 'threads',
@@ -221,10 +223,10 @@ export const monetizationThresholds = [
     platformId: 'discord',
     programName: 'Discord Server Subscriptions',
     requirements: [
-      { name: 'Server Members', required: 500, metric: 'members' },
+      { name: 'Server Members', required: 0, metric: 'members' },
     ],
     benefits: ['Server subscriptions', '90% revenue share', 'Tiered perks'],
-    note: 'Must be 18+ and server must be active',
+    note: 'No member minimum. Must be 18+, US-based server owner, 2FA enabled, good standing.',
   },
 ]
 

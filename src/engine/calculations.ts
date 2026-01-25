@@ -49,13 +49,20 @@ export function calculateTikTok(followers: number, monthlyViews: number, engagem
 }
 
 export function calculateInstagram(followers: number, avgLikes: number, postsPerMonth: number): CalculationResult {
-  const engagementRate = (avgLikes / followers) * 100
-  const brandDealRate = followers >= 10000 ? (followers / 1000) * 10 : 0
-  const monthlyRevenue = brandDealRate * (postsPerMonth / 4) // assume 1 sponsored per 4 posts
+  // Instagram Reels Bonus: Invite-only, inconsistent, being phased out
+  // Instagram Subscriptions: 10k+ followers required, $0.99-$99.99/month tiers
+  // No reliable direct monetization for most creators
+  // This shows engagement metrics only - brand deals are external
+  const engagementRate = followers > 0 ? (avgLikes / followers) * 100 : 0
 
   return {
-    monthlyRevenue,
-    yearlyRevenue: monthlyRevenue * 12,
+    monthlyRevenue: 0,
+    yearlyRevenue: 0,
+    breakdown: {
+      'Platform Payouts': 0,
+      'Avg Likes': avgLikes,
+      'Posts/Month': postsPerMonth,
+    },
     engagementRate,
     growthRate: 5.3,
   }

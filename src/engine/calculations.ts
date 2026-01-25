@@ -246,16 +246,23 @@ export function calculateKofi(supporters: number, avgTip: number, members: numbe
 
 // Gumroad: Digital products (Gumroad takes 10% flat fee)
 export function calculateGumroad(products: number, avgPrice: number): CalculationResult {
+  // Gumroad fees: 10% flat + $0.50 per transaction + ~3% payment processing
+  // No monthly fees, no minimum sales
   const grossRevenue = products * avgPrice
   const platformFee = grossRevenue * 0.10
-  const monthlyRevenue = grossRevenue - platformFee
+  const transactionFees = products * 0.50
+  const processingFee = grossRevenue * 0.03
+  const totalFees = platformFee + transactionFees + processingFee
+  const monthlyRevenue = grossRevenue - totalFees
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
-      'Product Sales': grossRevenue,
+      'Gross Sales': grossRevenue,
       'Platform Fee (10%)': -platformFee,
+      'Transaction Fees ($0.50 each)': -transactionFees,
+      'Processing (~3%)': -processingFee,
     },
     engagementRate: products > 0 ? Math.min((products / 50) * 100, 100) : 0,
     growthRate: 4.0,

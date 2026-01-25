@@ -483,7 +483,7 @@ export function PlatformDashboard({
                   theme === 'dark' ? 'text-purple-400 hover:text-purple-300' : 'text-purple-600 hover:text-purple-700'
                 }`}
               >
-                How this is calculated
+                How is this calculated?
               </button>
             </CardTitle>
             <div className="flex items-center gap-3">
@@ -1417,7 +1417,7 @@ export function PlatformDashboard({
         <PlatformModal
           isOpen={true}
           onClose={() => setShowMethodologyModal(false)}
-          title={`How ${platform.name} Revenue Is Calculated`}
+          title={`How ${platform.name} Revenue is Calculated`}
           theme={theme}
         >
           <MethodologyContent platformId={platformId} theme={theme} />

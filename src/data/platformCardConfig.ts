@@ -65,7 +65,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
     ],
     partnerRequirements: [
       { metric: 'Subscribers', inputKey: 'subscribers', threshold: 1000, label: '1,000 subscribers' },
-      { metric: 'Watch Hours', inputKey: 'watchHours', threshold: 4000, label: '4,000 watch hours/year' },
+      { metric: 'Monthly Views', inputKey: 'monthlyViews', threshold: 48000, label: '~4,000 watch hours/year (48k views/mo)' },
     ],
     partnerProgramName: 'YouTube Partner Program',
     compareMetric: 'subscribers',
@@ -262,8 +262,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
     ],
     partnerRequirements: [
       { metric: 'Avg Viewers', inputKey: 'avgViewers', threshold: 3, label: '3 average viewers' },
-      { metric: 'Stream Hours', inputKey: 'hoursStreamed', threshold: 8, label: '8 hours streamed' },
-      { metric: 'Stream Days', inputKey: 'streamDays', threshold: 7, label: '7 unique days' },
+      { metric: 'Hours Streamed', inputKey: 'hoursStreamed', threshold: 8, label: '8 hours streamed in 30 days' },
     ],
     partnerProgramName: 'Twitch Affiliate',
     compareMetric: 'subscribers',

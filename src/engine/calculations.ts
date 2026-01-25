@@ -109,14 +109,20 @@ export function calculateSnapchat(followers: number, spotlightViews: number): Ca
 }
 
 export function calculatePinterest(followers: number, monthlyViews: number, ideaPins: number): CalculationResult {
-  const affiliateRevenue = (monthlyViews / 1000) * 0.1
-  const creatorRewards = ideaPins * 2
-  const monthlyRevenue = affiliateRevenue + creatorRewards
+  // Pinterest Creator Rewards program ENDED November 2022
+  // No direct platform monetization exists
+  // Revenue comes from affiliate links and driving traffic to external sites
+  const engagementRate = followers > 0 ? (monthlyViews / followers) * 100 : 0
 
   return {
-    monthlyRevenue,
-    yearlyRevenue: monthlyRevenue * 12,
-    engagementRate: (monthlyViews / followers) * 100,
+    monthlyRevenue: 0,
+    yearlyRevenue: 0,
+    breakdown: {
+      'Platform Payouts': 0,
+      'Monthly Views': monthlyViews,
+      'Idea Pins': ideaPins,
+    },
+    engagementRate,
     growthRate: 3.5,
   }
 }

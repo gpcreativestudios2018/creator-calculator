@@ -52,6 +52,7 @@ export function PlatformDashboard({
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
   const [showRequirementsModal, setShowRequirementsModal] = useState(false)
+  const [showMethodologyModal, setShowMethodologyModal] = useState(false)
 
   const { canUseFeature: _canUseFeature, isPro } = usePro()
   const colors = getPlatformColors(platformId)
@@ -363,9 +364,17 @@ export function PlatformDashboard({
             </CardTitle>
             <div className="flex items-center gap-3">
               <button
-                onClick={() => setShowRequirementsModal(true)}
+                onClick={() => setShowMethodologyModal(true)}
                 className={`text-sm font-medium hover:underline transition-colors ${
                   theme === 'dark' ? 'text-purple-400 hover:text-purple-300' : 'text-purple-600 hover:text-purple-700'
+                }`}
+              >
+                How this is calculated
+              </button>
+              <button
+                onClick={() => setShowRequirementsModal(true)}
+                className={`text-sm font-medium hover:underline transition-colors ${
+                  theme === 'dark' ? 'text-yellow-400 hover:text-yellow-300' : 'text-yellow-600 hover:text-yellow-700'
                 }`}
               >
                 How to monetize {platform.name}?
@@ -733,9 +742,6 @@ export function PlatformDashboard({
         </PreviewCard>
         )}
       </div>
-
-      {/* How Is This Calculated - Full Component */}
-      <HowItsCalculated platformId={platformId} />
 
       {/* Revenue Streams Modal */}
       <PlatformModal
@@ -1288,6 +1294,29 @@ export function PlatformDashboard({
           theme={theme}
           onClose={() => setShowRequirementsModal(false)}
         />
+      )}
+
+      {/* Methodology Modal */}
+      {showMethodologyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className={`relative w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-2xl ${
+            theme === 'dark' ? 'bg-zinc-900' : 'bg-white'
+          }`}>
+            <button
+              onClick={() => setShowMethodologyModal(false)}
+              className={`absolute top-4 right-4 p-2 rounded-full transition-colors ${
+                theme === 'dark' ? 'hover:bg-zinc-800 text-zinc-400' : 'hover:bg-gray-100 text-zinc-600'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="p-6">
+              <HowItsCalculated platformId={platformId} />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )

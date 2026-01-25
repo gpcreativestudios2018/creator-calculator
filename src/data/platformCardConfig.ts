@@ -56,9 +56,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
   // ========== AD-BASED PLATFORMS ==========
   youtube: {
     revenueStreams: [
-      { name: 'Ad Revenue', key: 'adRevenue', color: '#22C55E' },
-      { name: 'Memberships', key: 'membershipRevenue', color: '#3B82F6' },
-      { name: 'Super Chats', key: 'superChatRevenue', color: '#F97316' },
+      { name: 'Ad Revenue', key: 'AdSense Revenue (55% share)', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Views', multiplier: 2.0, description: 'Double your monthly views' },
@@ -76,8 +74,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   tiktok: {
     revenueStreams: [
-      { name: 'Creator Fund', key: 'creatorFund', color: '#22C55E' },
-      { name: 'Creator Rewards', key: 'creatorRewards', color: '#3B82F6' },
+      { name: 'Creator Fund', key: 'Creativity Program Revenue', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Views', multiplier: 2.0, description: 'Double your monthly views' },
@@ -95,8 +92,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   facebook: {
     revenueStreams: [
-      { name: 'In-Stream Ads', key: 'inStreamAds', color: '#22C55E' },
-      { name: 'Reels Bonus', key: 'reelsBonus', color: '#3B82F6' },
+      { name: 'In-Stream Ads', key: 'In-Stream Ad Revenue (55% share)', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Views', multiplier: 2.0, description: 'Double your video views' },
@@ -114,7 +110,8 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   twitter: {
     revenueStreams: [
-      { name: 'Ad Revenue Share', key: 'adRevenue', color: '#22C55E' },
+      { name: 'Ad Revenue', key: 'Ad Revenue Share', color: '#22C55E' },
+      { name: 'Subscriptions', key: 'Subscriptions (97% share)', color: '#3B82F6' },
     ],
     whatIfScenarios: [
       { label: '2x Impressions', multiplier: 2.0, description: 'Double your reach' },
@@ -132,7 +129,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   snapchat: {
     revenueStreams: [
-      { name: 'Spotlight Bonus', key: 'spotlightBonus', color: '#22C55E' },
+      { name: 'Spotlight', key: 'Spotlight Revenue', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Views', multiplier: 2.0, description: 'Double your Spotlight views' },
@@ -150,7 +147,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   podcast: {
     revenueStreams: [
-      { name: 'Ad Revenue', key: 'adRevenue', color: '#22C55E' },
+      { name: 'Sponsorships', key: 'Sponsorship Revenue', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Downloads', multiplier: 2.0, description: 'Double your audience' },
@@ -172,8 +169,8 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   rumble: {
     revenueStreams: [
-      { name: 'Ad Revenue', key: 'adRevenue', color: '#22C55E' },
-      { name: 'Rants Tips', key: 'rantsRevenue', color: '#3B82F6' },
+      { name: 'Ad Revenue', key: 'Ad Revenue (60% share)', color: '#22C55E' },
+      { name: 'Rants', key: 'Rants (90% payout)', color: '#3B82F6' },
     ],
     whatIfScenarios: [
       { label: '2x Views', multiplier: 2.0, description: 'Double your views' },
@@ -191,7 +188,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
   // ========== SUBSCRIPTION PLATFORMS ==========
   patreon: {
     revenueStreams: [
-      { name: 'Patron Pledges', key: 'pledgeRevenue', color: '#22C55E' },
+      { name: 'Pledges', key: 'Gross Revenue', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Patrons', multiplier: 2.0, description: 'Double your patron count' },
@@ -206,8 +203,8 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   onlyfans: {
     revenueStreams: [
-      { name: 'Subscriptions', key: 'subscriptionRevenue', color: '#22C55E' },
-      { name: 'Tips', key: 'tipRevenue', color: '#3B82F6' },
+      { name: 'Subscriptions', key: 'Subscriptions', color: '#22C55E' },
+      { name: 'Tips', key: 'Tips', color: '#3B82F6' },
     ],
     whatIfScenarios: [
       { label: '2x Subscribers', multiplier: 2.0, description: 'Double your sub count' },
@@ -222,8 +219,8 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   fansly: {
     revenueStreams: [
-      { name: 'Subscriptions', key: 'subscriptionRevenue', color: '#22C55E' },
-      { name: 'Tips', key: 'tipRevenue', color: '#3B82F6' },
+      { name: 'Subscriptions', key: 'Subscriptions', color: '#22C55E' },
+      { name: 'Tips', key: 'Tips', color: '#3B82F6' },
     ],
     whatIfScenarios: [
       { label: '2x Subscribers', multiplier: 2.0, description: 'Double your sub count' },
@@ -238,8 +235,8 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   fanvue: {
     revenueStreams: [
-      { name: 'Subscriptions', key: 'subscriptionRevenue', color: '#22C55E' },
-      { name: 'Tips', key: 'tipRevenue', color: '#3B82F6' },
+      { name: 'Subscriptions', key: 'Subscriptions', color: '#22C55E' },
+      { name: 'Tips', key: 'Tips', color: '#3B82F6' },
     ],
     whatIfScenarios: [
       { label: '2x Subscribers', multiplier: 2.0, description: 'Double your sub count' },
@@ -292,8 +289,8 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   kofi: {
     revenueStreams: [
-      { name: 'Tips', key: 'tipRevenue', color: '#22C55E' },
-      { name: 'Memberships', key: 'membershipRevenue', color: '#3B82F6' },
+      { name: 'Tips', key: 'Tips (after processing)', color: '#22C55E' },
+      { name: 'Memberships', key: 'Memberships (after 5% + processing)', color: '#3B82F6' },
     ],
     whatIfScenarios: [
       { label: '2x Supporters', multiplier: 2.0, description: 'Double your supporters' },
@@ -308,7 +305,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   discord: {
     revenueStreams: [
-      { name: 'Premium Memberships', key: 'membershipRevenue', color: '#22C55E' },
+      { name: 'Subscriptions', key: 'Gross Revenue', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Members', multiplier: 2.0, description: 'Double your paid members' },
@@ -323,7 +320,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   substack: {
     revenueStreams: [
-      { name: 'Paid Subscriptions', key: 'subscriptionRevenue', color: '#22C55E' },
+      { name: 'Paid Subscriptions', key: 'Gross Revenue', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Free Subs', multiplier: 1.5, description: 'Grow your free list' },
@@ -343,7 +340,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   newsletter: {
     revenueStreams: [
-      { name: 'Paid Subscriptions', key: 'subscriptionRevenue', color: '#22C55E' },
+      { name: 'Paid Subscriptions', key: 'Gross Revenue', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Subscribers', multiplier: 1.5, description: 'Grow your list' },
@@ -364,7 +361,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
   // ========== E-COMMERCE PLATFORMS ==========
   gumroad: {
     revenueStreams: [
-      { name: 'Product Sales', key: 'salesRevenue', color: '#22C55E' },
+      { name: 'Product Sales', key: 'Gross Sales', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Products', multiplier: 2.0, description: 'Double your product catalog' },
@@ -379,7 +376,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   etsy: {
     revenueStreams: [
-      { name: 'Product Sales', key: 'salesRevenue', color: '#22C55E' },
+      { name: 'Product Sales', key: 'Gross Sales', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Orders', multiplier: 2.0, description: 'Double your monthly orders' },
@@ -399,7 +396,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   amazon: {
     revenueStreams: [
-      { name: 'Affiliate Commissions', key: 'commissionRevenue', color: '#22C55E' },
+      { name: 'Commissions', key: 'Commission Earned', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Page Views', multiplier: 2.0, description: 'Double your traffic' },
@@ -414,7 +411,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
 
   teachable: {
     revenueStreams: [
-      { name: 'Course Sales', key: 'courseRevenue', color: '#22C55E' },
+      { name: 'Course Sales', key: 'Gross Sales', color: '#22C55E' },
     ],
     whatIfScenarios: [
       { label: '2x Students', multiplier: 2.0, description: 'Double your enrollment' },

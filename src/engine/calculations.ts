@@ -396,17 +396,29 @@ export function calculateEtsy(orders: number, avgOrder: number, productCost: num
 }
 
 // Amazon Influencer Program
-export function calculateAmazon(pageViews: number, conversionRate: number, avgCommission: number): CalculationResult {
+export function calculateAmazon(pageViews: number, conversionRate: number, avgOrderValue: number, commissionPercent: number = 4): CalculationResult {
+  // Amazon Influencer Program commission rates by category:
+  // - Amazon Games: 20%
+  // - Luxury Beauty: 10%
+  // - Digital Music/Video: 5%
+  // - Books, Kitchen, Automotive: 4.5%
+  // - Toys, Furniture, Home: 3%
+  // - Electronics, TVs: 2%
+  // - Groceries, Health: 1%
+  // No minimum follower requirement, engagement matters more
+  // Payment delay: 60 days after month end
   const conversions = pageViews * (conversionRate / 100)
-  const monthlyRevenue = conversions * avgCommission
+  const grossSales = conversions * avgOrderValue
+  const monthlyRevenue = grossSales * (commissionPercent / 100)
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
-      'Page Views': pageViews,
+      'Storefront Views': pageViews,
       'Conversions': conversions,
-      'Commission Revenue': monthlyRevenue,
+      'Gross Sales Generated': grossSales,
+      'Commission Earned': monthlyRevenue,
     },
     engagementRate: conversionRate,
     growthRate: 3.0,

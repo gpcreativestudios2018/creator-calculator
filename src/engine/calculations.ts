@@ -380,18 +380,23 @@ export function calculateDiscord(subscribers: number, subPrice: number): Calcula
 
 // Rumble (ad revenue + Rants)
 export function calculateRumble(followers: number, monthlyViews: number, rants: number): CalculationResult {
-  const adRevenue = (monthlyViews / 1000) * 2.5 // ~$2.50 CPM
-  const rantsRevenue = rants * 0.9 // 90% payout on Rants
-  const monthlyRevenue = adRevenue + rantsRevenue
+  // Rumble ad revenue: 60% to creator for exclusive content
+  // CPM range: $0.25-$5.00, using $2.50 average
+  // No minimum follower requirement for basic monetization
+  const grossAdRevenue = (monthlyViews / 1000) * 2.50
+  const creatorAdShare = grossAdRevenue * 0.60
+  const rantsRevenue = rants * 0.90
+  const monthlyRevenue = creatorAdShare + rantsRevenue
+  const engagementRate = followers > 0 ? (monthlyViews / followers) * 100 / 30 : 0
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
-      'Ad Revenue': adRevenue,
-      'Rants': rantsRevenue,
+      'Ad Revenue (60% share)': creatorAdShare,
+      'Rants (90% payout)': rantsRevenue,
     },
-    engagementRate: followers > 0 ? (monthlyViews / followers) * 100 / 30 : 0,
+    engagementRate,
     growthRate: 12.0,
   }
 }

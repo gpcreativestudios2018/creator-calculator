@@ -301,16 +301,22 @@ export function calculatePodcast(downloads: number, episodes: number, cpm: numbe
 
 // Courses (Teachable, Kajabi, etc.)
 export function calculateCourses(students: number, coursePrice: number, platformFee: number): CalculationResult {
+  // Course platforms: Teachable, Kajabi, Thinkific, etc.
+  // Platform fees vary: 0-10% depending on plan
+  // Payment processing: ~3% on all platforms (Stripe/PayPal)
   const grossRevenue = students * coursePrice
-  const fees = grossRevenue * (platformFee / 100)
-  const monthlyRevenue = grossRevenue - fees
+  const platformFees = grossRevenue * (platformFee / 100)
+  const processingFees = grossRevenue * 0.03
+  const totalFees = platformFees + processingFees
+  const monthlyRevenue = grossRevenue - totalFees
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
-      'Course Sales': grossRevenue,
-      'Platform Fees': -fees,
+      'Gross Sales': grossRevenue,
+      'Platform Fee': -platformFees,
+      'Processing (~3%)': -processingFees,
     },
     engagementRate: students > 0 ? Math.min((students / 20) * 100, 100) : 0,
     growthRate: 4.5,

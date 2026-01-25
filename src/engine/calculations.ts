@@ -366,16 +366,29 @@ export function calculateOnlyFans(subscribers: number, subPrice: number, tipsPer
 }
 
 // Etsy (profit after all costs)
-export function calculateEtsy(orders: number, avgOrder: number, profitMargin: number): CalculationResult {
+export function calculateEtsy(orders: number, avgOrder: number, productCost: number): CalculationResult {
+  // Etsy fees breakdown:
+  // - Listing fee: $0.20 per item
+  // - Transaction fee: 6.5% of order total
+  // - Payment processing: 3% + $0.25 per transaction
+  // - Offsite ads: 12-15% if >$10k/year (not included here)
   const grossRevenue = orders * avgOrder
-  const monthlyRevenue = grossRevenue * (profitMargin / 100)
+  const listingFees = orders * 0.20
+  const transactionFees = grossRevenue * 0.065
+  const processingFees = (grossRevenue * 0.03) + (orders * 0.25)
+  const totalEtsyFees = listingFees + transactionFees + processingFees
+  const totalProductCost = orders * productCost
+  const monthlyRevenue = grossRevenue - totalEtsyFees - totalProductCost
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
       'Gross Sales': grossRevenue,
-      'Net Profit': monthlyRevenue,
+      'Listing Fees ($0.20/item)': -listingFees,
+      'Transaction Fee (6.5%)': -transactionFees,
+      'Processing (3% + $0.25)': -processingFees,
+      'Product Costs': -totalProductCost,
     },
     engagementRate: orders > 0 ? Math.min((orders / 30) * 100, 100) : 0,
     growthRate: 3.5,

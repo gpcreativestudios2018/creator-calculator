@@ -15,10 +15,126 @@ import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getPlatformColors } from '@/data/platformColors'
 import { getPlatformCardConfig } from '@/data/platformCardConfig'
-import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { PlatformModal } from '@/components/PlatformModal'
 import { platforms, type PlatformInput } from '@/platforms/registry'
 import { usePro } from '@/contexts/ProContext'
+import { getMethodologyByPlatformId } from '@/data/methodology'
+
+// Inline methodology content component (always expanded)
+function MethodologyContent({ platformId, theme }: { platformId: string; theme: 'dark' | 'light' }) {
+  const methodology = getMethodologyByPlatformId(platformId)
+
+  if (!methodology) {
+    return <p className="text-zinc-400">No methodology data available for this platform.</p>
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Overview */}
+      <div>
+        <h4 className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
+          Overview
+        </h4>
+        <p className={`text-sm leading-relaxed ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+          {methodology.howItWorks}
+        </p>
+      </div>
+
+      {/* Formulas */}
+      <div>
+        <h4 className={`text-sm font-semibold mb-3 ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
+          Formulas
+        </h4>
+        <div className="space-y-3">
+          {methodology.formulas.map((formula: { name: string; formula: string; explanation: string }, index: number) => (
+            <div
+              key={index}
+              className={`rounded-lg overflow-hidden ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}
+            >
+              <div className={`px-4 py-2 border-b ${theme === 'dark' ? 'border-zinc-700 bg-zinc-800/80' : 'border-gray-200 bg-gray-50'}`}>
+                <span className={`text-sm font-medium ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`}>
+                  {formula.name}
+                </span>
+              </div>
+              <div className="px-4 py-3">
+                <code className={`block text-sm font-mono mb-2 ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                  {formula.formula}
+                </code>
+                <p className={`text-xs ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-500'}`}>
+                  {formula.explanation}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Assumptions */}
+      <div>
+        <h4 className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
+          Key Assumptions
+        </h4>
+        <ul className={`space-y-1.5 text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+          {methodology.assumptions.map((assumption: string, index: number) => (
+            <li key={index} className="flex items-start gap-2">
+              <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${theme === 'dark' ? 'bg-zinc-600' : 'bg-zinc-400'}`} />
+              <span>{assumption}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Disclaimer */}
+      <div className={`p-4 rounded-lg border ${
+        theme === 'dark'
+          ? 'bg-amber-950/20 border-amber-900/30'
+          : 'bg-amber-50 border-amber-200'
+      }`}>
+        <div className="flex items-start gap-2">
+          <span className={`text-lg ${theme === 'dark' ? 'text-amber-500' : 'text-amber-600'}`}>⚠️</span>
+          <p className={`text-sm ${theme === 'dark' ? 'text-amber-200/80' : 'text-amber-800'}`}>
+            {methodology.disclaimer}
+          </p>
+        </div>
+      </div>
+
+      {/* Sources */}
+      {methodology.sources.length > 0 && (
+        <div>
+          <h4 className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>
+            Sources
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {methodology.sources.map((source: { name: string; url: string }, index: number) => (
+              <a
+                key={index}
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white'
+                    : 'bg-gray-100 text-zinc-600 hover:bg-gray-200 hover:text-zinc-900'
+                }`}
+              >
+                {source.name}
+                <span>↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <div className={`pt-4 border-t ${theme === 'dark' ? 'border-zinc-800' : 'border-gray-200'}`}>
+        <p className={`text-xs ${theme === 'dark' ? 'text-zinc-600' : 'text-zinc-400'}`}>
+          Last updated: {methodology.lastUpdated} • Formula {methodology.version}
+        </p>
+      </div>
+    </div>
+  )
+}
+
 interface PlatformDashboardProps {
   platformId: string
   inputValues: Record<string, number>
@@ -361,16 +477,16 @@ export function PlatformDashboard({
             <CardTitle className={`flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
               <platform.icon className={`w-5 h-5 ${platform.iconColor}`} />
               Your Metrics
-            </CardTitle>
-            <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowMethodologyModal(true)}
-                className={`text-sm font-medium hover:underline transition-colors ${
+                className={`text-sm font-normal ml-2 hover:underline transition-colors ${
                   theme === 'dark' ? 'text-purple-400 hover:text-purple-300' : 'text-purple-600 hover:text-purple-700'
                 }`}
               >
                 How this is calculated
               </button>
+            </CardTitle>
+            <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowRequirementsModal(true)}
                 className={`text-sm font-medium hover:underline transition-colors ${
@@ -1296,27 +1412,16 @@ export function PlatformDashboard({
         />
       )}
 
-      {/* Methodology Modal */}
+      {/* Methodology Modal - Shows expanded content directly */}
       {showMethodologyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className={`relative w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-2xl ${
-            theme === 'dark' ? 'bg-zinc-900' : 'bg-white'
-          }`}>
-            <button
-              onClick={() => setShowMethodologyModal(false)}
-              className={`absolute top-4 right-4 p-2 rounded-full transition-colors ${
-                theme === 'dark' ? 'hover:bg-zinc-800 text-zinc-400' : 'hover:bg-gray-100 text-zinc-600'
-              }`}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <div className="p-6">
-              <HowItsCalculated platformId={platformId} />
-            </div>
-          </div>
-        </div>
+        <PlatformModal
+          isOpen={true}
+          onClose={() => setShowMethodologyModal(false)}
+          title={`How ${platform.name} Revenue Is Calculated`}
+          theme={theme}
+        >
+          <MethodologyContent platformId={platformId} theme={theme} />
+        </PlatformModal>
       )}
     </div>
   )

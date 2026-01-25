@@ -59,8 +59,8 @@ export const platforms: Platform[] = [
     gradient: 'from-red-500 to-red-700',
     description: 'Ad revenue, memberships, and sponsorships',
     inputs: [
-      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total channel subscribers' },
-      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 1000000000, defaultValue: 100000, tooltip: 'Average views per month' },
+      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000000, defaultValue: 1000, tooltip: 'Total channel subscribers (1k min for Partner Program)' },
+      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 1000000000, defaultValue: 4000, tooltip: 'Average views per month' },
       { id: 'cpm', label: 'CPM ($)', type: 'slider', min: 1, max: 15, step: 0.5, defaultValue: 4, tooltip: 'Cost per 1000 ad impressions' },
     ],
   },
@@ -73,8 +73,8 @@ export const platforms: Platform[] = [
     gradient: 'from-pink-500 to-cyan-500',
     description: 'Creator fund and brand partnerships',
     inputs: [
-      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 50000, tooltip: 'Total followers' },
-      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 1000000000, defaultValue: 500000, tooltip: 'Average views per month' },
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers (10k min for Creativity Program)' },
+      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 1000000000, defaultValue: 100000, tooltip: 'Average views per month (100k min for Creativity Program)' },
       { id: 'engagementRate', label: 'Engagement Rate (%)', type: 'slider', min: 1, max: 20, step: 0.5, defaultValue: 6, tooltip: 'Likes + comments / views' },
     ],
   },
@@ -85,10 +85,10 @@ export const platforms: Platform[] = [
     iconColor: 'text-pink-500',
     accentColor: '#ec4899',
     gradient: 'from-purple-500 via-pink-500 to-orange-500',
-    description: 'Reels, posts, and brand deals',
+    description: 'No direct ad-share (Subscriptions, Badges, Gifts only)',
     inputs: [
-      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 25000, tooltip: 'Total followers' },
-      { id: 'avgLikes', label: 'Avg Likes per Post', type: 'number', min: 0, max: 10000000, defaultValue: 1000, tooltip: 'Average likes per post' },
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers (10k+ for Subscriptions)' },
+      { id: 'avgLikes', label: 'Avg Likes per Post', type: 'number', min: 0, max: 10000000, defaultValue: 500, tooltip: 'Average likes per post' },
       { id: 'postsPerMonth', label: 'Posts per Month', type: 'slider', min: 1, max: 60, step: 1, defaultValue: 12, tooltip: 'How often you post' },
     ],
   },
@@ -101,8 +101,8 @@ export const platforms: Platform[] = [
     gradient: 'from-zinc-600 to-zinc-800',
     description: 'Creator subscriptions and ads revenue share',
     inputs: [
-      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers' },
-      { id: 'impressions', label: 'Monthly Impressions', type: 'number', min: 0, max: 1000000000, defaultValue: 500000, tooltip: 'Total monthly impressions' },
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 500, tooltip: 'Total followers (500 min for monetization)' },
+      { id: 'impressions', label: 'Monthly Impressions', type: 'number', min: 0, max: 1000000000, defaultValue: 5000000, tooltip: 'Total monthly impressions (5M in 3 months required)' },
       { id: 'subscribers', label: 'Paid Subscribers', type: 'number', min: 0, max: 1000000, defaultValue: 0, tooltip: 'X Premium subscribers' },
     ],
   },
@@ -115,8 +115,8 @@ export const platforms: Platform[] = [
     gradient: 'from-blue-600 to-blue-800',
     description: 'In-stream ads and stars',
     inputs: [
-      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 50000, tooltip: 'Page followers' },
-      { id: 'watchMinutes', label: 'Monthly Watch Minutes', type: 'number', min: 0, max: 100000000, defaultValue: 100000, tooltip: 'Total watch time per month' },
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Page followers (10k min for monetization)' },
+      { id: 'watchMinutes', label: 'Monthly Watch Minutes', type: 'number', min: 0, max: 100000000, defaultValue: 60000, tooltip: 'Total watch time per month (60k in 60 days required)' },
     ],
   },
   {
@@ -126,10 +126,10 @@ export const platforms: Platform[] = [
     iconColor: 'text-blue-400',
     accentColor: '#60a5fa',
     gradient: 'from-blue-700 to-blue-900',
-    description: 'Newsletter and consulting revenue',
+    description: 'No direct creator monetization program',
     inputs: [
-      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 10000000, defaultValue: 5000, tooltip: 'Total followers' },
-      { id: 'newsletterSubs', label: 'Newsletter Subscribers', type: 'number', min: 0, max: 1000000, defaultValue: 1000, tooltip: 'Newsletter subscribers' },
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 10000000, defaultValue: 1000, tooltip: 'Total followers (no direct monetization)' },
+      { id: 'newsletterSubs', label: 'Newsletter Subscribers', type: 'number', min: 0, max: 1000000, defaultValue: 500, tooltip: 'Newsletter subscribers (no direct monetization)' },
     ],
   },
   {
@@ -141,8 +141,8 @@ export const platforms: Platform[] = [
     gradient: 'from-yellow-400 to-yellow-500',
     description: 'Spotlight and creator programs',
     inputs: [
-      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers' },
-      { id: 'spotlightViews', label: 'Spotlight Views', type: 'number', min: 0, max: 100000000, defaultValue: 50000, tooltip: 'Monthly Spotlight views' },
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 50000, tooltip: 'Total followers (50k min for Stories monetization)' },
+      { id: 'spotlightViews', label: 'Spotlight Views', type: 'number', min: 0, max: 100000000, defaultValue: 100000, tooltip: 'Monthly Spotlight views' },
     ],
   },
   {
@@ -152,10 +152,10 @@ export const platforms: Platform[] = [
     iconColor: 'text-red-500',
     accentColor: '#ef4444',
     gradient: 'from-red-600 to-red-700',
-    description: 'Creator rewards and affiliate income',
+    description: 'No direct creator monetization (Creator Rewards ended Nov 2022)',
     inputs: [
-      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers' },
-      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 1000000000, defaultValue: 100000, tooltip: 'Monthly pin views' },
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total followers (no direct monetization)' },
+      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 1000000000, defaultValue: 100000, tooltip: 'Monthly pin views (no direct monetization)' },
       { id: 'ideaPins', label: 'Idea Pins / Month', type: 'slider', min: 1, max: 100, step: 1, defaultValue: 20, tooltip: 'Idea pins published per month' },
     ],
   },
@@ -168,8 +168,8 @@ export const platforms: Platform[] = [
     gradient: 'from-purple-600 to-purple-800',
     description: 'Subscriptions, bits, and ads',
     inputs: [
-      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 100, tooltip: 'Paid subscribers' },
-      { id: 'avgViewers', label: 'Average Viewers', type: 'number', min: 0, max: 100000, defaultValue: 50, tooltip: 'Concurrent viewers' },
+      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 50, tooltip: 'Paid subscribers (Affiliate: 50+ followers required)' },
+      { id: 'avgViewers', label: 'Average Viewers', type: 'number', min: 0, max: 100000, defaultValue: 3, tooltip: 'Concurrent viewers (Affiliate: 3+ avg required)' },
       { id: 'hoursStreamed', label: 'Hours Streamed / Month', type: 'slider', min: 1, max: 200, step: 1, defaultValue: 40, tooltip: 'Monthly streaming hours' },
     ],
   },
@@ -195,7 +195,7 @@ export const platforms: Platform[] = [
     gradient: 'from-emerald-500 to-emerald-700',
     description: 'Paid subscriptions and sponsorships',
     inputs: [
-      { id: 'subscribers', label: 'Total Subscribers', type: 'number', min: 0, max: 10000000, defaultValue: 5000, tooltip: 'Total email subscribers' },
+      { id: 'subscribers', label: 'Total Subscribers', type: 'number', min: 0, max: 10000000, defaultValue: 1000, tooltip: 'Total email subscribers' },
       { id: 'paidPercent', label: 'Paid Subscriber %', type: 'slider', min: 0, max: 20, step: 0.5, defaultValue: 5, tooltip: 'Percentage who pay' },
       { id: 'monthlyPrice', label: 'Monthly Price ($)', type: 'slider', min: 1, max: 50, step: 1, defaultValue: 10, tooltip: 'Subscription price' },
     ],
@@ -346,9 +346,9 @@ export const platforms: Platform[] = [
     iconColor: 'text-zinc-300',
     accentColor: '#d4d4d8',
     gradient: 'from-zinc-400 to-zinc-600',
-    description: 'Brand deals and sponsorships',
+    description: 'No direct monetization (bonus program ended July 2025)',
     inputs: [
-      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 10000000, defaultValue: 10000, tooltip: 'Total followers' },
+      { id: 'followers', label: 'Followers', type: 'number', min: 0, max: 10000000, defaultValue: 10000, tooltip: 'Total followers (no direct monetization)' },
       { id: 'avgLikes', label: 'Avg Likes per Post', type: 'number', min: 0, max: 1000000, defaultValue: 500, tooltip: 'Average likes per post' },
       { id: 'postsPerMonth', label: 'Posts / Month', type: 'slider', min: 1, max: 100, step: 1, defaultValue: 20, tooltip: 'Posts per month' },
     ],
@@ -389,7 +389,7 @@ export const platforms: Platform[] = [
     gradient: 'from-orange-400 to-orange-600',
     description: 'Paid newsletter subscriptions',
     inputs: [
-      { id: 'freeSubscribers', label: 'Free Subscribers', type: 'number', min: 0, max: 1000000, defaultValue: 5000, tooltip: 'Total free subscribers' },
+      { id: 'freeSubscribers', label: 'Free Subscribers', type: 'number', min: 0, max: 1000000, defaultValue: 1000, tooltip: 'Total free subscribers' },
       { id: 'paidPercent', label: 'Paid Conversion (%)', type: 'slider', min: 1, max: 20, step: 0.5, defaultValue: 5, tooltip: 'Percentage who pay' },
       { id: 'monthlyPrice', label: 'Monthly Price ($)', type: 'slider', min: 3, max: 30, step: 1, defaultValue: 10, tooltip: 'Monthly subscription price' },
     ],

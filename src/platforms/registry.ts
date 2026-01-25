@@ -168,9 +168,9 @@ export const platforms: Platform[] = [
     gradient: 'from-purple-600 to-purple-800',
     description: 'Subscriptions, bits, and ads',
     inputs: [
-      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 50, tooltip: 'Paid subscribers (Affiliate: 50+ followers required)' },
-      { id: 'avgViewers', label: 'Average Viewers', type: 'number', min: 0, max: 100000, defaultValue: 3, tooltip: 'Concurrent viewers (Affiliate: 3+ avg required)' },
-      { id: 'hoursStreamed', label: 'Hours Streamed / Month', type: 'slider', min: 1, max: 200, step: 1, defaultValue: 40, tooltip: 'Monthly streaming hours' },
+      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 0, tooltip: 'Paid subscribers' },
+      { id: 'avgViewers', label: 'Average Viewers', type: 'number', min: 0, max: 100000, defaultValue: 3, tooltip: 'Concurrent viewers' },
+      { id: 'hoursStreamed', label: 'Hours Streamed / Month', type: 'slider', min: 1, max: 200, step: 1, defaultValue: 8, tooltip: 'Monthly streaming hours' },
     ],
   },
   {
@@ -182,8 +182,8 @@ export const platforms: Platform[] = [
     gradient: 'from-green-500 to-green-700',
     description: 'Subscriptions and platform bonuses',
     inputs: [
-      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 50, tooltip: 'Paid subscribers' },
-      { id: 'avgViewers', label: 'Average Viewers', type: 'number', min: 0, max: 100000, defaultValue: 30, tooltip: 'Concurrent viewers' },
+      { id: 'subscribers', label: 'Subscribers', type: 'number', min: 0, max: 100000, defaultValue: 0, tooltip: 'Paid subscribers' },
+      { id: 'avgViewers', label: 'Average Viewers', type: 'number', min: 0, max: 100000, defaultValue: 5, tooltip: 'Concurrent viewers' },
     ],
   },
   {
@@ -238,7 +238,7 @@ export const platforms: Platform[] = [
     description: 'Digital products and courses',
     inputs: [
       { id: 'products', label: 'Products Sold / Month', type: 'number', min: 0, max: 10000, defaultValue: 50, tooltip: 'Units sold per month' },
-      { id: 'avgPrice', label: 'Average Price ($)', type: 'slider', min: 1, max: 200, step: 5, defaultValue: 25, tooltip: 'Average product price' },
+      { id: 'avgPrice', label: 'Average Price ($)', type: 'slider', min: 5, max: 200, step: 5, defaultValue: 15, tooltip: 'Average product price' },
     ],
   },
   {
@@ -375,9 +375,9 @@ export const platforms: Platform[] = [
     gradient: 'from-green-400 to-emerald-600',
     description: 'Ad revenue and Rumble Rants',
     inputs: [
-      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 100000000, defaultValue: 50000, tooltip: 'Total monthly video views' },
-      { id: 'cpm', label: 'CPM ($)', type: 'slider', min: 1, max: 15, step: 0.5, defaultValue: 3, tooltip: 'Revenue per 1000 views' },
-      { id: 'rants', label: 'Rant Supporters', type: 'number', min: 0, max: 10000, defaultValue: 10, tooltip: 'Monthly Rumble Rant supporters' },
+      { id: 'monthlyViews', label: 'Monthly Views', type: 'number', min: 0, max: 100000000, defaultValue: 10000, tooltip: 'Total monthly video views' },
+      { id: 'cpm', label: 'CPM ($)', type: 'slider', min: 0.5, max: 5, step: 0.25, defaultValue: 2.5, tooltip: 'Revenue per 1000 views' },
+      { id: 'rants', label: 'Rant Supporters', type: 'number', min: 0, max: 10000, defaultValue: 0, tooltip: 'Monthly Rumble Rant supporters' },
     ],
   },
   {

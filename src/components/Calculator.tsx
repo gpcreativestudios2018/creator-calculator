@@ -1028,9 +1028,20 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
                 </option>
               ))}
             </select>
-            <p className="text-xs text-zinc-500 mt-1">
-              {currentNiche.rpmMultiplier === 1 ? 'Average RPM' : currentNiche.rpmMultiplier > 1 ? `${Math.round(currentNiche.rpmMultiplier * 100)}% of average RPM` : `${Math.round(currentNiche.rpmMultiplier * 100)}% of average RPM`}
-            </p>
+            {/* Educational context based on platform type */}
+            {['youtube', 'tiktok', 'facebook', 'twitter', 'snapchat', 'podcast', 'rumble'].includes(activeTab) ? (
+              <div className="mt-2 p-2 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                <p className="text-xs text-emerald-400">
+                  <span className="font-medium">Niche affects this platform.</span> Advertisers pay {currentNiche.rpmMultiplier > 1 ? 'more' : currentNiche.rpmMultiplier < 1 ? 'less' : 'average'} for {currentNiche.name.toLowerCase()} audiences ({Math.round(currentNiche.rpmMultiplier * 100)}% of baseline CPM).
+                </p>
+              </div>
+            ) : (
+              <div className="mt-2 p-2 rounded-md bg-zinc-500/10 border border-zinc-500/20">
+                <p className="text-xs text-zinc-400">
+                  <span className="font-medium">Niche doesn't affect this platform.</span> Subscription and tip-based revenue is the same regardless of content niche.
+                </p>
+              </div>
+            )}
           </SidebarSection>
         </div>
 

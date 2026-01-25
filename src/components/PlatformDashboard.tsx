@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getPlatformColors } from '@/data/platformColors'
+import { getPlatformCardConfig } from '@/data/platformCardConfig'
 import { HowItsCalculated } from '@/components/HowItsCalculated'
 import { PlatformModal } from '@/components/PlatformModal'
 import { platforms, type PlatformInput } from '@/platforms/registry'
@@ -26,6 +27,7 @@ interface PlatformDashboardProps {
     monthlyRevenue: number
     yearlyRevenue: number
     engagementRate?: number
+    breakdown?: Record<string, number>
   }
   theme: 'dark' | 'light'
   formatCurrency: (value: number) => string
@@ -57,6 +59,9 @@ export function PlatformDashboard({
 
   if (!platform) return null
 
+  // Get platform-specific card configuration
+  const cardConfig = getPlatformCardConfig(platformId)
+
   // Get current time period for revenue display
   const currentTimePeriod = timePeriods.find(t => t.id === selectedTimePeriod) || timePeriods[0]
 
@@ -75,18 +80,14 @@ export function PlatformDashboard({
   const subscribers = inputValues.subscribers || 0
   const growthRate = subscribers > 0 ? Math.min(((subscribers / 10000) * 5), 25) : 0
 
-  // Revenue breakdown data for charts
-  const adRevenue = ((inputValues.monthlyViews || 0) / 1000) * (inputValues.cpm || 4) * 0.55
-  const sponsorRevenue = (inputValues.subscribers || 0) >= 100000
-    ? (inputValues.subscribers || 0) * 0.1
-    : (inputValues.subscribers || 0) * 0.05
-  const membershipRevenue = (inputValues.subscribers || 0) * 0.02
-
-  const revenueStreamsData = [
-    { name: 'Ad Revenue', value: adRevenue, color: '#22C55E' },
-    { name: 'Sponsorships', value: sponsorRevenue, color: '#3B82F6' },
-    { name: 'Memberships', value: membershipRevenue, color: '#F97316' },
-  ].filter(item => item.value > 0)
+  // Revenue breakdown data from calculation results (platform-specific)
+  const revenueStreamsData = cardConfig.revenueStreams
+    .map(stream => ({
+      name: stream.name,
+      value: results.breakdown?.[stream.key] || 0,
+      color: stream.color,
+    }))
+    .filter(item => item.value > 0 && item.name !== 'No Direct Revenue')
 
   const earningsByPeriodData = [
     { name: 'Daily', value: monthlyRevenue / 30 },
@@ -116,20 +117,38 @@ export function PlatformDashboard({
   const hoursPerMonth = 40 // Default assumption
   const hourlyRate = monthlyRevenue > 0 ? monthlyRevenue / hoursPerMonth : 0
 
-  // Scenario Analysis data
+  // Scenario Analysis data (keep as-is, simple worst/expected/best)
   const scenarioData = [
     { name: 'Worst', value: monthlyRevenue * 0.7, color: '#EF4444' },
     { name: 'Expected', value: monthlyRevenue, color: '#3B82F6' },
     { name: 'Best', value: monthlyRevenue * 1.5, color: '#22C55E' },
   ]
 
-  // Partner Program thresholds
-  const monthlyViews = inputValues.monthlyViews || 0
-  const watchHours = (monthlyViews * 4) / 60 // Rough estimate: 4 min avg watch time
-  const yearlyWatchHours = watchHours * 12
-  const subsProgress = Math.min((subscribers / 1000) * 100, 100)
-  const watchProgress = Math.min((yearlyWatchHours / 4000) * 100, 100)
-  const isMonetized = subscribers >= 1000 && yearlyWatchHours >= 4000
+  // What If scenarios from platform config
+  const whatIfData = cardConfig.whatIfScenarios.map(scenario => ({
+    label: scenario.label,
+    value: monthlyRevenue * scenario.multiplier,
+    description: scenario.description,
+  }))
+
+  // Partner Program thresholds (platform-specific)
+  const partnerProgress = cardConfig.partnerRequirements.map(req => {
+    const currentValue = inputValues[req.inputKey] || 0
+    const progress = Math.min((currentValue / req.threshold) * 100, 100)
+    return {
+      ...req,
+      currentValue,
+      progress,
+      met: currentValue >= req.threshold,
+    }
+  })
+  const isMonetized = cardConfig.partnerRequirements.length === 0 ||
+    partnerProgress.every(req => req.met)
+
+  // How You Compare metric
+  const compareValue = inputValues[cardConfig.compareMetric] || inputValues.subscribers || inputValues.followers || 0
+  const currentMilestone = cardConfig.compareMilestones.find(m => compareValue < m.value) ||
+    cardConfig.compareMilestones[cardConfig.compareMilestones.length - 1]
 
   const renderInput = (input: PlatformInput) => {
     const value = inputValues[input.id] ?? input.defaultValue
@@ -551,17 +570,17 @@ export function PlatformDashboard({
         {/* How You Compare - Benchmark Display */}
         <PreviewCard
           title="How You Compare"
-          tooltip="See how you stack up against other YouTube creators"
+          tooltip={`See how you stack up against other ${platform.name} creators`}
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('benchmark')}
           theme={theme}
         >
           <div className="h-full flex flex-col items-center justify-center">
-            {(inputValues.subscribers || 0) > 0 ? (
+            {compareValue > 0 ? (
               <>
                 <p className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                  Top {inputValues.subscribers >= 100000 ? '5%' : inputValues.subscribers >= 10000 ? '20%' : '50%'}
+                  {currentMilestone?.percentile || 'Top 50%'}
                 </p>
                 <p className="text-sm text-zinc-400 mt-1">of creators</p>
                 <div className="w-full mt-3 px-4">
@@ -569,7 +588,7 @@ export function PlatformDashboard({
                     <div
                       className="h-full rounded-full"
                       style={{
-                        width: `${inputValues.subscribers >= 100000 ? 95 : inputValues.subscribers >= 10000 ? 80 : 50}%`,
+                        width: `${Math.min((compareValue / (currentMilestone?.value || 100000)) * 100, 100)}%`,
                         background: `linear-gradient(90deg, ${colors.light}, ${colors.dark})`
                       }}
                     />
@@ -577,7 +596,7 @@ export function PlatformDashboard({
                 </div>
               </>
             ) : (
-              <div className="text-zinc-400 text-sm">Enter subscribers to compare</div>
+              <div className="text-zinc-400 text-sm">Enter metrics to compare</div>
             )}
           </div>
         </PreviewCard>
@@ -624,24 +643,14 @@ export function PlatformDashboard({
           theme={theme}
         >
           <div className="h-full flex flex-col justify-center space-y-2 px-2">
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-zinc-400">2x Views</span>
-              <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                ${Math.round(monthlyRevenue * 1.8).toLocaleString()}
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-zinc-400">2x Subs</span>
-              <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                ${Math.round(monthlyRevenue * 1.3).toLocaleString()}
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-zinc-400">+$2 CPM</span>
-              <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                ${Math.round(monthlyRevenue * 1.4).toLocaleString()}
-              </span>
-            </div>
+            {whatIfData.map((scenario, index) => (
+              <div key={index} className="flex justify-between items-center">
+                <span className="text-xs text-zinc-400">{scenario.label}</span>
+                <span className={`text-sm font-bold ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  ${Math.round(scenario.value).toLocaleString()}
+                </span>
+              </div>
+            ))}
           </div>
         </PreviewCard>
 
@@ -655,47 +664,39 @@ export function PlatformDashboard({
           theme={theme}
         >
           <div className="h-full flex flex-col justify-center px-2">
-            {isMonetized ? (
+            {cardConfig.partnerRequirements.length === 0 ? (
+              <div className="text-center">
+                <div className="text-3xl mb-2">✓</div>
+                <p className={`font-bold text-xs ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                  No minimum requirements
+                </p>
+              </div>
+            ) : isMonetized ? (
               <div className="text-center">
                 <div className="text-3xl mb-2">✓</div>
                 <p className={`font-bold ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'}`}>Eligible!</p>
               </div>
             ) : (
               <div className="space-y-3">
-                <div>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-zinc-400">Subscribers</span>
-                    <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
-                      {subscribers.toLocaleString()} / 1,000
-                    </span>
+                {partnerProgress.slice(0, 2).map((req, index) => (
+                  <div key={index}>
+                    <div className="flex justify-between text-xs mb-1">
+                      <span className="text-zinc-400">{req.metric}</span>
+                      <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                        {req.currentValue.toLocaleString()} / {req.threshold.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{
+                          width: `${req.progress}%`,
+                          backgroundColor: req.met ? '#22C55E' : colors.light
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{
-                        width: `${subsProgress}%`,
-                        backgroundColor: subsProgress >= 100 ? '#22C55E' : colors.light
-                      }}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-zinc-400">Watch Hours</span>
-                    <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
-                      {Math.round(yearlyWatchHours).toLocaleString()} / 4,000
-                    </span>
-                  </div>
-                  <div className={`h-2 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{
-                        width: `${watchProgress}%`,
-                        backgroundColor: watchProgress >= 100 ? '#22C55E' : colors.dark
-                      }}
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             )}
           </div>
@@ -1165,7 +1166,7 @@ export function PlatformDashboard({
         <PlatformModal
           isOpen={true}
           onClose={() => setActiveModal(null)}
-          title="Partner Program Status"
+          title={`${cardConfig.partnerProgramName} Status`}
           platformId={platformId}
         >
           <div className="space-y-6">
@@ -1173,14 +1174,24 @@ export function PlatformDashboard({
               Track your progress toward {platform.name} monetization requirements.
             </p>
 
-            {isMonetized ? (
+            {cardConfig.partnerRequirements.length === 0 ? (
+              <div className={`text-center p-8 rounded-xl ${theme === 'dark' ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-emerald-50 border border-emerald-200'}`}>
+                <div className="text-5xl mb-4">✓</div>
+                <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                  No Minimum Requirements
+                </p>
+                <p className={`mt-2 ${theme === 'dark' ? 'text-emerald-400/70' : 'text-emerald-600'}`}>
+                  {platform.name} allows anyone to start earning immediately.
+                </p>
+              </div>
+            ) : isMonetized ? (
               <div className={`text-center p-8 rounded-xl ${theme === 'dark' ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-emerald-50 border border-emerald-200'}`}>
                 <div className="text-5xl mb-4">🎉</div>
                 <p className={`text-2xl font-bold ${theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'}`}>
                   You're Eligible!
                 </p>
                 <p className={`mt-2 ${theme === 'dark' ? 'text-emerald-400/70' : 'text-emerald-600'}`}>
-                  You meet the requirements for {platform.name} monetization.
+                  You meet the requirements for {cardConfig.partnerProgramName}.
                 </p>
               </div>
             ) : (
@@ -1190,58 +1201,39 @@ export function PlatformDashboard({
                     Keep Growing!
                   </p>
                   <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-amber-400/70' : 'text-amber-600'}`}>
-                    You're on your way to monetization eligibility.
+                    You're on your way to {cardConfig.partnerProgramName} eligibility.
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-zinc-500">Subscribers</span>
-                      <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
-                        {subscribers.toLocaleString()} / 1,000
-                      </span>
+                  {partnerProgress.map((req, index) => (
+                    <div key={index}>
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="text-zinc-500">{req.metric}</span>
+                        <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
+                          {req.currentValue.toLocaleString()} / {req.threshold.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className={`h-4 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
+                        <div
+                          className="h-full rounded-full transition-all"
+                          style={{
+                            width: `${req.progress}%`,
+                            backgroundColor: req.met ? '#22C55E' : colors.light
+                          }}
+                        />
+                      </div>
+                      <p className={`text-xs mt-1 ${req.met ? 'text-emerald-500' : 'text-zinc-500'}`}>
+                        {req.met ? '✓ Complete!' : `${(req.threshold - req.currentValue).toLocaleString()} more needed`}
+                      </p>
                     </div>
-                    <div className={`h-4 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
-                      <div
-                        className="h-full rounded-full transition-all"
-                        style={{
-                          width: `${subsProgress}%`,
-                          backgroundColor: subsProgress >= 100 ? '#22C55E' : colors.light
-                        }}
-                      />
-                    </div>
-                    <p className={`text-xs mt-1 ${subsProgress >= 100 ? 'text-emerald-500' : 'text-zinc-500'}`}>
-                      {subsProgress >= 100 ? '✓ Complete!' : `${(1000 - subscribers).toLocaleString()} more needed`}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-zinc-500">Watch Hours (yearly)</span>
-                      <span className={theme === 'dark' ? 'text-white' : 'text-zinc-900'}>
-                        {Math.round(yearlyWatchHours).toLocaleString()} / 4,000
-                      </span>
-                    </div>
-                    <div className={`h-4 rounded-full ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'}`}>
-                      <div
-                        className="h-full rounded-full transition-all"
-                        style={{
-                          width: `${watchProgress}%`,
-                          backgroundColor: watchProgress >= 100 ? '#22C55E' : colors.dark
-                        }}
-                      />
-                    </div>
-                    <p className={`text-xs mt-1 ${watchProgress >= 100 ? 'text-emerald-500' : 'text-zinc-500'}`}>
-                      {watchProgress >= 100 ? '✓ Complete!' : `${(4000 - yearlyWatchHours).toLocaleString()} more needed`}
-                    </p>
-                  </div>
+                  ))}
                 </div>
               </>
             )}
 
             <p className={`text-xs ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>
-              * Requirements shown are for YouTube Partner Program. Other platforms have different thresholds.
+              * Requirements shown are for {cardConfig.partnerProgramName}.
             </p>
           </div>
         </PlatformModal>

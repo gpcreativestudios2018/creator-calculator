@@ -238,18 +238,26 @@ export function calculatePatreon(patrons: number, avgPledge: number): Calculatio
 
 // Ko-fi: Tips + Memberships (Ko-fi takes 0% on tips for free tier, 5% on memberships)
 export function calculateKofi(supporters: number, avgTip: number, members: number, memberPrice: number): CalculationResult {
-  const tipRevenue = supporters * avgTip
+  // Ko-fi: 0% platform fee on tips (free tier), 5% on memberships
+  // Payment processing: ~3% on everything (PayPal/Stripe)
+  // No minimum payout
+  const tipGross = supporters * avgTip
+  const tipProcessing = tipGross * 0.03
+  const tipRevenue = tipGross - tipProcessing
+
   const membershipGross = members * memberPrice
   const membershipFee = membershipGross * 0.05
-  const membershipRevenue = membershipGross - membershipFee
+  const membershipProcessing = membershipGross * 0.03
+  const membershipRevenue = membershipGross - membershipFee - membershipProcessing
+
   const monthlyRevenue = tipRevenue + membershipRevenue
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
-      'Tips': tipRevenue,
-      'Memberships': membershipRevenue,
+      'Tips (after processing)': tipRevenue,
+      'Memberships (after 5% + processing)': membershipRevenue,
     },
     engagementRate: (supporters + members) > 0 ? Math.min(((supporters + members) / 100) * 10, 100) : 0,
     growthRate: 2.5,

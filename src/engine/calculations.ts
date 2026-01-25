@@ -366,19 +366,20 @@ export function calculateOnlyFans(subscribers: number, subPrice: number, tipsPer
 }
 
 // Etsy (profit after all costs)
-export function calculateEtsy(orders: number, avgOrder: number, productCost: number): CalculationResult {
+export function calculateEtsy(orders: number, avgOrder: number, profitMargin: number): CalculationResult {
   // Etsy fees breakdown:
   // - Listing fee: $0.20 per item
   // - Transaction fee: 6.5% of order total
   // - Payment processing: 3% + $0.25 per transaction
-  // - Offsite ads: 12-15% if >$10k/year (not included here)
+  // User inputs their profit margin AFTER all costs
   const grossRevenue = orders * avgOrder
   const listingFees = orders * 0.20
   const transactionFees = grossRevenue * 0.065
   const processingFees = (grossRevenue * 0.03) + (orders * 0.25)
   const totalEtsyFees = listingFees + transactionFees + processingFees
-  const totalProductCost = orders * productCost
-  const monthlyRevenue = grossRevenue - totalEtsyFees - totalProductCost
+  const revenueAfterFees = grossRevenue - totalEtsyFees
+  // Apply user's profit margin (accounts for product costs, shipping, etc.)
+  const monthlyRevenue = revenueAfterFees * (profitMargin / 100)
 
   return {
     monthlyRevenue,
@@ -388,7 +389,7 @@ export function calculateEtsy(orders: number, avgOrder: number, productCost: num
       'Listing Fees ($0.20/item)': -listingFees,
       'Transaction Fee (6.5%)': -transactionFees,
       'Processing (3% + $0.25)': -processingFees,
-      'Product Costs': -totalProductCost,
+      'Your Profit': monthlyRevenue,
     },
     engagementRate: orders > 0 ? Math.min((orders / 30) * 100, 100) : 0,
     growthRate: 3.5,
@@ -396,20 +397,13 @@ export function calculateEtsy(orders: number, avgOrder: number, productCost: num
 }
 
 // Amazon Influencer Program
-export function calculateAmazon(pageViews: number, conversionRate: number, avgOrderValue: number, commissionPercent: number = 4): CalculationResult {
-  // Amazon Influencer Program commission rates by category:
-  // - Amazon Games: 20%
-  // - Luxury Beauty: 10%
-  // - Digital Music/Video: 5%
-  // - Books, Kitchen, Automotive: 4.5%
-  // - Toys, Furniture, Home: 3%
-  // - Electronics, TVs: 2%
-  // - Groceries, Health: 1%
-  // No minimum follower requirement, engagement matters more
+export function calculateAmazon(pageViews: number, conversionRate: number, avgCommission: number): CalculationResult {
+  // Amazon Influencer Program
+  // User inputs their average commission per sale (varies by category 1-10%)
+  // No minimum follower requirement
   // Payment delay: 60 days after month end
   const conversions = pageViews * (conversionRate / 100)
-  const grossSales = conversions * avgOrderValue
-  const monthlyRevenue = grossSales * (commissionPercent / 100)
+  const monthlyRevenue = conversions * avgCommission
 
   return {
     monthlyRevenue,
@@ -417,7 +411,6 @@ export function calculateAmazon(pageViews: number, conversionRate: number, avgOr
     breakdown: {
       'Storefront Views': pageViews,
       'Conversions': conversions,
-      'Gross Sales Generated': grossSales,
       'Commission Earned': monthlyRevenue,
     },
     engagementRate: conversionRate,
@@ -492,15 +485,14 @@ export function calculateDiscord(subscribers: number, subPrice: number): Calcula
 }
 
 // Rumble (ad revenue + Rants)
-export function calculateRumble(followers: number, monthlyViews: number, rants: number): CalculationResult {
+export function calculateRumble(monthlyViews: number, cpm: number, rants: number): CalculationResult {
   // Rumble ad revenue: 60% to creator for exclusive content
-  // CPM range: $0.25-$5.00, using $2.50 average
+  // CPM range: $0.25-$5.00, user inputs their CPM
   // No minimum follower requirement for basic monetization
-  const grossAdRevenue = (monthlyViews / 1000) * 2.50
+  const grossAdRevenue = (monthlyViews / 1000) * cpm
   const creatorAdShare = grossAdRevenue * 0.60
-  const rantsRevenue = rants * 0.90
+  const rantsRevenue = rants * 5 * 0.90 // $5 avg rant, 90% to creator
   const monthlyRevenue = creatorAdShare + rantsRevenue
-  const engagementRate = followers > 0 ? (monthlyViews / followers) * 100 / 30 : 0
 
   return {
     monthlyRevenue,
@@ -509,7 +501,7 @@ export function calculateRumble(followers: number, monthlyViews: number, rants: 
       'Ad Revenue (60% share)': creatorAdShare,
       'Rants (90% payout)': rantsRevenue,
     },
-    engagementRate,
+    engagementRate: 0,
     growthRate: 12.0,
   }
 }

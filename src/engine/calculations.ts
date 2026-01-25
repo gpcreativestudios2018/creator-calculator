@@ -176,27 +176,42 @@ export function calculatePinterest(followers: number, monthlyViews: number, idea
 }
 
 export function calculateTwitch(subscribers: number, avgViewers: number, hoursStreamed: number): CalculationResult {
-  const subRevenue = subscribers * 2.5 // $2.50 per sub avg
-  const adRevenue = avgViewers * hoursStreamed * 0.02
-  const bitsRevenue = avgViewers * 0.5
+  // Twitch Affiliate requirements: 50 followers, 3 avg viewers, 8 hrs streamed, 7 unique days
+  // Subscription split: 50% for affiliates, up to 70% for partners
+  // Bits: Creator gets $0.01 per bit
+  // Ads: ~$3.50 CPM, varies by viewer count
+  const subRevenue = subscribers * 2.50 // $5 sub * 50% affiliate cut
+  const adRevenue = avgViewers * hoursStreamed * 0.02 // ~$3.50 CPM equivalent
+  const bitsRevenue = avgViewers * 0.50 // Estimate based on viewer engagement
   const monthlyRevenue = subRevenue + adRevenue + bitsRevenue
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
-    engagementRate: (avgViewers / subscribers) * 100,
+    breakdown: {
+      'subRevenue': subRevenue,
+      'adRevenue': adRevenue,
+      'bitsRevenue': bitsRevenue,
+    },
+    engagementRate: subscribers > 0 ? (avgViewers / subscribers) * 100 : 0,
     growthRate: 7.8,
   }
 }
 
 export function calculateKick(subscribers: number, avgViewers: number): CalculationResult {
-  const subRevenue = subscribers * 4.5 // 95% payout
+  // Kick: 95% subscription payout (best in industry)
+  // $4.99 subscription * 95% = $4.74 per sub
+  // No ad revenue share currently
+  const subRevenue = subscribers * 4.74
   const monthlyRevenue = subRevenue
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
-    engagementRate: (avgViewers / (subscribers || 1)) * 100,
+    breakdown: {
+      'subRevenue': subRevenue,
+    },
+    engagementRate: subscribers > 0 ? (avgViewers / subscribers) * 100 : 0,
     growthRate: 15.2,
   }
 }

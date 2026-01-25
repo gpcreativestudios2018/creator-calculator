@@ -97,13 +97,22 @@ export function calculateLinkedIn(followers: number, newsletterSubs: number): Ca
 }
 
 export function calculateSnapchat(followers: number, spotlightViews: number): CalculationResult {
-  const spotlightRevenue = (spotlightViews / 1000) * 0.05
-  const monthlyRevenue = spotlightRevenue
+  // Snapchat Spotlight requirements: 50k followers, 25M monthly Snap views, 18+
+  // Actual RPM varies: ~$0.10-$0.50 per 1k views (using $0.25 average)
+  const qualifiesForSpotlight = followers >= 50000
+  const spotlightRevenue = qualifiesForSpotlight
+    ? (spotlightViews / 1000) * 0.25
+    : 0
+  const engagementRate = followers > 0 ? (spotlightViews / followers) * 100 : 0
 
   return {
-    monthlyRevenue,
-    yearlyRevenue: monthlyRevenue * 12,
-    engagementRate: (spotlightViews / followers) * 100,
+    monthlyRevenue: spotlightRevenue,
+    yearlyRevenue: spotlightRevenue * 12,
+    breakdown: {
+      'Spotlight Revenue': spotlightRevenue,
+      'Meets 50k Requirement': qualifiesForSpotlight ? 1 : 0,
+    },
+    engagementRate,
     growthRate: 4.2,
   }
 }

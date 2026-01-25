@@ -34,6 +34,9 @@ export interface PlatformCardConfig {
   // How You Compare - which metric to use
   compareMetric: 'subscribers' | 'followers' | 'patrons' | 'supporters' | 'members' | 'students' | 'downloads'
   compareMilestones: { value: number; percentile: string }[]
+
+  // Cards to hide for this platform (for no-monetization platforms)
+  hiddenCards?: string[]
 }
 
 // Default milestones for follower-based platforms
@@ -442,6 +445,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
     partnerProgramName: 'Instagram Creator',
     compareMetric: 'followers',
     compareMilestones: defaultFollowerMilestones,
+    hiddenCards: ['revenue-streams', 'earnings-period', 'projection', 'take-home', 'hourly-rate', 'scenario', 'what-if', 'partner-program'],
   },
 
   linkedin: {
@@ -457,6 +461,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
     partnerProgramName: 'LinkedIn Creator',
     compareMetric: 'followers',
     compareMilestones: defaultFollowerMilestones,
+    hiddenCards: ['revenue-streams', 'earnings-period', 'projection', 'take-home', 'hourly-rate', 'scenario', 'what-if', 'partner-program'],
   },
 
   pinterest: {
@@ -472,6 +477,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
     partnerProgramName: 'Pinterest Creator',
     compareMetric: 'followers',
     compareMilestones: defaultFollowerMilestones,
+    hiddenCards: ['revenue-streams', 'earnings-period', 'projection', 'take-home', 'hourly-rate', 'scenario', 'what-if', 'partner-program'],
   },
 
   threads: {
@@ -487,6 +493,7 @@ export const platformCardConfigs: Record<string, PlatformCardConfig> = {
     partnerProgramName: 'Threads Creator',
     compareMetric: 'followers',
     compareMilestones: defaultFollowerMilestones,
+    hiddenCards: ['revenue-streams', 'earnings-period', 'projection', 'take-home', 'hourly-rate', 'scenario', 'what-if', 'partner-program'],
   },
 }
 

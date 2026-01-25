@@ -463,17 +463,25 @@ export function calculateRumble(followers: number, monthlyViews: number, rants: 
 
 // Substack (10% platform fee on paid subscriptions)
 export function calculateSubstack(subscribers: number, paidPercent: number, monthlyPrice: number): CalculationResult {
+  // Substack: 10% platform fee + Stripe processing (~2.9% + $0.30) + 0.7% billing
+  // Total fees: ~13%, creator keeps ~87%
+  // Minimum subscription: $5/month
   const paidSubs = Math.floor(subscribers * (paidPercent / 100))
   const grossRevenue = paidSubs * monthlyPrice
   const platformFee = grossRevenue * 0.10
-  const monthlyRevenue = grossRevenue - platformFee
+  const stripeFee = (grossRevenue * 0.029) + (paidSubs * 0.30)
+  const billingFee = grossRevenue * 0.007
+  const totalFees = platformFee + stripeFee + billingFee
+  const monthlyRevenue = grossRevenue - totalFees
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
-      'Paid Subscriptions': grossRevenue,
-      'Platform Fee (10%)': -platformFee,
+      'Gross Revenue': grossRevenue,
+      'Substack Fee (10%)': -platformFee,
+      'Stripe Processing': -stripeFee,
+      'Billing Fee (0.7%)': -billingFee,
     },
     engagementRate: paidPercent,
     growthRate: 8.5,

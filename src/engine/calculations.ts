@@ -21,13 +21,20 @@ export function calculateYouTube(subscribers: number, monthlyViews: number, cpm:
 }
 
 export function calculateTikTok(followers: number, monthlyViews: number, engagementRate: number): CalculationResult {
-  const creatorFund = monthlyViews * 0.02 // $0.02 per 1000 views
-  const brandDeals = followers >= 10000 ? followers * 0.015 : 0
-  const monthlyRevenue = creatorFund + brandDeals
+  // TikTok Creativity Program: ~$0.50-$1.00 RPM (using $0.70 average)
+  // Requirements: 10k followers, 100k views in 30 days, 18+, US/UK/EU/BR
+  const qualifiesForProgram = followers >= 10000 && monthlyViews >= 100000
+  const creativityProgramRevenue = qualifiesForProgram
+    ? (monthlyViews / 1000) * 0.70
+    : 0
 
   return {
-    monthlyRevenue,
-    yearlyRevenue: monthlyRevenue * 12,
+    monthlyRevenue: creativityProgramRevenue,
+    yearlyRevenue: creativityProgramRevenue * 12,
+    breakdown: {
+      'Creativity Program Revenue': creativityProgramRevenue,
+      'Meets Requirements': qualifiesForProgram ? 1 : 0,
+    },
     engagementRate,
     growthRate: 12.5,
   }

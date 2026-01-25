@@ -422,16 +422,23 @@ export function calculateThreads(followers: number, avgLikes: number, postsPerMo
 
 // Discord (server subscriptions, 10% platform fee)
 export function calculateDiscord(subscribers: number, subPrice: number): CalculationResult {
+  // Discord Server Subscriptions: 10% platform fee + Stripe processing (~3%)
+  // US-only, requires 18+, good standing
+  // Subscription range: $2.99-$199.99/month
+  // Minimum payout: $100 first, $25 after
   const grossRevenue = subscribers * subPrice
   const platformFee = grossRevenue * 0.10
-  const monthlyRevenue = grossRevenue - platformFee
+  const processingFee = grossRevenue * 0.03
+  const totalFees = platformFee + processingFee
+  const monthlyRevenue = grossRevenue - totalFees
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
-      'Subscriptions': grossRevenue,
+      'Gross Revenue': grossRevenue,
       'Platform Fee (10%)': -platformFee,
+      'Processing (~3%)': -processingFee,
     },
     engagementRate: subscribers > 0 ? Math.min((subscribers / 100) * 10, 100) : 0,
     growthRate: 5.0,

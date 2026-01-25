@@ -339,79 +339,79 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
     let baseResult: CalculationResult
     switch (activeTab) {
       case 'youtube':
-        baseResult = calculateYouTube(v.subscribers || 0, v.monthlyViews || 0, v.cpm || 4)
+        baseResult = calculateYouTube(v.subscribers ?? 0, v.monthlyViews ?? 0, v.cpm ?? 4)
         break
       case 'tiktok':
-        baseResult = calculateTikTok(v.followers || 0, v.monthlyViews || 0, v.engagementRate || 6)
+        baseResult = calculateTikTok(v.followers ?? 0, v.monthlyViews ?? 0, v.engagementRate ?? 6)
         break
       case 'instagram':
-        baseResult = calculateInstagram(v.followers || 0, v.avgLikes || 0, v.postsPerMonth || 12)
+        baseResult = calculateInstagram(v.followers ?? 0, v.avgLikes ?? 0, v.postsPerMonth ?? 12)
         break
       case 'twitter':
-        baseResult = calculateTwitter(v.followers || 0, v.impressions || 0, v.subscribers || 0)
+        baseResult = calculateTwitter(v.followers ?? 0, v.impressions ?? 0, v.subscribers ?? 0)
         break
       case 'facebook':
-        baseResult = calculateFacebook(v.followers || 0, v.watchMinutes || 0)
+        baseResult = calculateFacebook(v.followers ?? 0, v.watchMinutes ?? 0)
         break
       case 'linkedin':
-        baseResult = calculateLinkedIn(v.followers || 0, v.newsletterSubs || 0)
+        baseResult = calculateLinkedIn(v.followers ?? 0, v.newsletterSubs ?? 0)
         break
       case 'snapchat':
-        baseResult = calculateSnapchat(v.followers || 0, v.spotlightViews || 0)
+        baseResult = calculateSnapchat(v.followers ?? 0, v.spotlightViews ?? 0)
         break
       case 'pinterest':
-        baseResult = calculatePinterest(v.followers || 0, v.monthlyViews || 0, v.ideaPins || 20)
+        baseResult = calculatePinterest(v.followers ?? 0, v.monthlyViews ?? 0, v.ideaPins ?? 20)
         break
       case 'twitch':
-        baseResult = calculateTwitch(v.subscribers || 0, v.avgViewers || 0, v.hoursStreamed || 40)
+        baseResult = calculateTwitch(v.subscribers ?? 0, v.avgViewers ?? 0, v.hoursStreamed ?? 40)
         break
       case 'kick':
-        baseResult = calculateKick(v.subscribers || 0, v.avgViewers || 0)
+        baseResult = calculateKick(v.subscribers ?? 0, v.avgViewers ?? 0)
         break
       case 'newsletter':
-        baseResult = calculateNewsletter(v.subscribers || 0, v.paidPercent || 5, v.monthlyPrice || 10)
+        baseResult = calculateNewsletter(v.subscribers ?? 0, v.paidPercent ?? 5, v.monthlyPrice ?? 10)
         break
       case 'patreon':
-        baseResult = calculatePatreon(v.patrons || 0, v.avgPledge || 5)
+        baseResult = calculatePatreon(v.patrons ?? 0, v.avgPledge ?? 5)
         break
       case 'kofi':
-        baseResult = calculateKofi(v.supporters || 0, v.avgTip || 5, v.members || 0, v.memberPrice || 5)
+        baseResult = calculateKofi(v.supporters ?? 0, v.avgTip ?? 5, v.members ?? 0, v.memberPrice ?? 5)
         break
       case 'gumroad':
-        baseResult = calculateGumroad(v.products || 0, v.avgPrice || 25)
+        baseResult = calculateGumroad(v.products ?? 0, v.avgPrice ?? 25)
         break
       case 'podcast':
-        baseResult = calculatePodcast(v.downloads || 0, v.episodes || 4, v.cpm || 25)
+        baseResult = calculatePodcast(v.downloads ?? 0, v.episodes ?? 4, v.cpm ?? 25)
         break
       case 'teachable':
-        baseResult = calculateCourses(v.students || 0, v.coursePrice || 100, v.platformFee || 5)
+        baseResult = calculateCourses(v.students ?? 0, v.coursePrice ?? 100, v.platformFee ?? 5)
         break
       case 'onlyfans':
-        baseResult = calculateOnlyFans(v.subscribers || 0, v.subPrice || 10, v.tipsPercent || 20)
+        baseResult = calculateOnlyFans(v.subscribers ?? 0, v.subPrice ?? 10, v.tipsPercent ?? 20)
         break
       case 'etsy':
-        baseResult = calculateEtsy(v.orders || 0, v.avgOrder || 25, v.profitMargin || 50)
+        baseResult = calculateEtsy(v.orders ?? 0, v.avgOrder ?? 25, v.profitMargin ?? 50)
         break
       case 'amazon':
-        baseResult = calculateAmazon(v.pageViews || 0, v.conversionRate || 3, v.avgCommission || 4)
+        baseResult = calculateAmazon(v.pageViews ?? 0, v.conversionRate ?? 3, v.avgCommission ?? 4)
         break
       case 'fansly':
-        baseResult = calculateFansly(v.subscribers || 0, v.subPrice || 10, v.tipsPercent || 20)
+        baseResult = calculateFansly(v.subscribers ?? 0, v.subPrice ?? 10, v.tipsPercent ?? 20)
         break
       case 'fanvue':
-        baseResult = calculateFanvue(v.subscribers || 0, v.subPrice || 10, v.tipsPercent || 20)
+        baseResult = calculateFanvue(v.subscribers ?? 0, v.subPrice ?? 10, v.tipsPercent ?? 20)
         break
       case 'threads':
-        baseResult = calculateThreads(v.followers || 0, v.avgLikes || 0, v.postsPerMonth || 20)
+        baseResult = calculateThreads(v.followers ?? 0, v.avgLikes ?? 0, v.postsPerMonth ?? 20)
         break
       case 'discord':
-        baseResult = calculateDiscord(v.members || 0, v.avgPrice || 5)
+        baseResult = calculateDiscord(v.members ?? 0, v.avgPrice ?? 5)
         break
       case 'rumble':
-        baseResult = calculateRumble(v.monthlyViews || 0, v.cpm || 3, v.rants || 0)
+        baseResult = calculateRumble(v.monthlyViews ?? 0, v.cpm ?? 3, v.rants ?? 0)
         break
       case 'substack':
-        baseResult = calculateSubstack(v.freeSubscribers || 0, v.paidPercent || 5, v.monthlyPrice || 10)
+        baseResult = calculateSubstack(v.freeSubscribers ?? 0, v.paidPercent ?? 5, v.monthlyPrice ?? 10)
         break
       default:
         baseResult = { monthlyRevenue: 0, yearlyRevenue: 0 }

@@ -371,15 +371,18 @@ export function calculateFansly(subscribers: number, subPrice: number, tipsPerce
 
 // Threads (brand deals based on engagement)
 export function calculateThreads(followers: number, avgLikes: number, postsPerMonth: number): CalculationResult {
+  // Threads creator bonus program ENDED July 2025
+  // No direct platform monetization exists
+  // Revenue comes from brand deals, affiliates, driving traffic (all external)
   const engagementRate = followers > 0 ? (avgLikes / followers) * 100 : 0
-  const brandDealRate = followers >= 10000 ? (followers / 1000) * 8 : 0
-  const monthlyRevenue = brandDealRate * (postsPerMonth / 8) // assume 1 sponsored per 8 posts
 
   return {
-    monthlyRevenue,
-    yearlyRevenue: monthlyRevenue * 12,
+    monthlyRevenue: 0,
+    yearlyRevenue: 0,
     breakdown: {
-      'Brand Deals': monthlyRevenue,
+      'Platform Payouts': 0,
+      'Avg Likes': avgLikes,
+      'Posts/Month': postsPerMonth,
     },
     engagementRate,
     growthRate: 15.0,

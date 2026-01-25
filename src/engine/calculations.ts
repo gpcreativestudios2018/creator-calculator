@@ -7,16 +7,24 @@ export interface CalculationResult {
 }
 
 export function calculateYouTube(subscribers: number, monthlyViews: number, cpm: number): CalculationResult {
-  const adRevenue = (monthlyViews / 1000) * cpm * 0.55 // 55% creator share
-  const sponsorRate = subscribers >= 100000 ? 0.1 : 0.05
-  const sponsorRevenue = subscribers * sponsorRate
-  const monthlyRevenue = adRevenue + sponsorRevenue
+  // YouTube Partner Program requirements: 1k subs + 4k watch hours (or 10M Shorts views)
+  // AdSense revenue: 55% to creator
+  // CPM varies by niche: $1-$30, finance/tech highest
+  const qualifiesForPartner = subscribers >= 1000
+  const adRevenue = qualifiesForPartner
+    ? (monthlyViews / 1000) * cpm * 0.55
+    : 0
+  const engagementRate = subscribers > 0 ? (monthlyViews / subscribers) * 100 / 30 : 0
 
   return {
-    monthlyRevenue,
-    yearlyRevenue: monthlyRevenue * 12,
-    engagementRate: (monthlyViews / subscribers) * 100 / 30, // daily view rate
-    growthRate: 8.2, // placeholder
+    monthlyRevenue: adRevenue,
+    yearlyRevenue: adRevenue * 12,
+    breakdown: {
+      'AdSense Revenue (55% share)': adRevenue,
+      'Meets 1k Sub Requirement': qualifiesForPartner ? 1 : 0,
+    },
+    engagementRate,
+    growthRate: 8.2,
   }
 }
 

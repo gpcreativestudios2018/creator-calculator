@@ -451,10 +451,13 @@ export function calculateSubstack(subscribers: number, paidPercent: number, mont
 
 // Fanvue (takes 15% platform fee - better than OnlyFans/Fansly)
 export function calculateFanvue(subscribers: number, subPrice: number, tipsPercent: number): CalculationResult {
+  // Fanvue fees: 15% first 30 days (promo), then 20% ongoing
+  // Using 20% for realistic ongoing earnings estimate
+  // Subscription range: $5-$50/month
   const subRevenue = subscribers * subPrice
   const tipRevenue = subRevenue * (tipsPercent / 100)
   const grossRevenue = subRevenue + tipRevenue
-  const platformFee = grossRevenue * 0.15
+  const platformFee = grossRevenue * 0.20
   const monthlyRevenue = grossRevenue - platformFee
 
   return {
@@ -463,7 +466,7 @@ export function calculateFanvue(subscribers: number, subPrice: number, tipsPerce
     breakdown: {
       'Subscriptions': subRevenue,
       'Tips': tipRevenue,
-      'Platform Fee (15%)': -platformFee,
+      'Platform Fee (20%)': -platformFee,
     },
     engagementRate: subscribers > 0 ? Math.min((tipsPercent / 20) * 100, 100) : 0,
     growthRate: 10.0,

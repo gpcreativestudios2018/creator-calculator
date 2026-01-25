@@ -62,6 +62,9 @@ export function PlatformDashboard({
   // Get platform-specific card configuration
   const cardConfig = getPlatformCardConfig(platformId)
 
+  // Helper to check if a card should be shown
+  const shouldShowCard = (cardId: string) => !cardConfig.hiddenCards?.includes(cardId)
+
   // Get current time period for revenue display
   const currentTimePeriod = timePeriods.find(t => t.id === selectedTimePeriod) || timePeriods[0]
 
@@ -405,9 +408,10 @@ export function PlatformDashboard({
       {/* 3x3 Preview Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Revenue Streams - Donut Chart */}
+        {shouldShowCard('revenue-streams') && (
         <PreviewCard
           title="Revenue Streams"
-          tooltip="Breakdown of your YouTube income sources"
+          tooltip={`Breakdown of your ${platform.name} income sources`}
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('revenue-streams')}
@@ -437,8 +441,10 @@ export function PlatformDashboard({
             </div>
           )}
         </PreviewCard>
+        )}
 
         {/* Earnings by Period - Bar Chart */}
+        {shouldShowCard('earnings-period') && (
         <PreviewCard
           title="Earnings by Period"
           tooltip="Your revenue across different time periods"
@@ -472,8 +478,10 @@ export function PlatformDashboard({
             </div>
           )}
         </PreviewCard>
+        )}
 
         {/* 12-Month Projection - Line Chart */}
+        {shouldShowCard('projection') && (
         <PreviewCard
           title="12-Month Projection"
           tooltip="Projected revenue growth over the next year"
@@ -507,8 +515,10 @@ export function PlatformDashboard({
             </div>
           )}
         </PreviewCard>
+        )}
 
         {/* Take-Home Estimate - Donut Chart */}
+        {shouldShowCard('take-home') && (
         <PreviewCard
           title="Take-Home Estimate"
           tooltip="Your estimated earnings after taxes and expenses"
@@ -548,8 +558,10 @@ export function PlatformDashboard({
             </div>
           )}
         </PreviewCard>
+        )}
 
         {/* Hourly Rate - Big Number Display */}
+        {shouldShowCard('hourly-rate') && (
         <PreviewCard
           title="Your Hourly Rate"
           tooltip="What you're effectively earning per hour of work"
@@ -566,8 +578,9 @@ export function PlatformDashboard({
             <p className="text-xs text-zinc-400 mt-2">(based on 40 hrs/month)</p>
           </div>
         </PreviewCard>
+        )}
 
-        {/* How You Compare - Benchmark Display */}
+        {/* How You Compare - Always show */}
         <PreviewCard
           title="How You Compare"
           tooltip={`See how you stack up against other ${platform.name} creators`}
@@ -602,6 +615,7 @@ export function PlatformDashboard({
         </PreviewCard>
 
         {/* Scenario Analysis - Bar Chart */}
+        {shouldShowCard('scenario') && (
         <PreviewCard
           title="Scenario Analysis"
           tooltip="Best, expected, and worst case revenue scenarios"
@@ -632,8 +646,10 @@ export function PlatformDashboard({
             </div>
           )}
         </PreviewCard>
+        )}
 
         {/* What If Analysis - Multiplier Display */}
+        {shouldShowCard('what-if') && (
         <PreviewCard
           title="What If Analysis"
           tooltip="See how changes would affect your revenue"
@@ -653,11 +669,13 @@ export function PlatformDashboard({
             ))}
           </div>
         </PreviewCard>
+        )}
 
         {/* Partner Program - Progress Display */}
+        {shouldShowCard('partner-program') && (
         <PreviewCard
           title="Partner Program"
-          tooltip="YouTube Partner Program eligibility status"
+          tooltip={`${cardConfig.partnerProgramName} eligibility status`}
           colorLight={colors.light}
           colorDark={colors.dark}
           onClick={() => setActiveModal('partner-program')}
@@ -701,6 +719,7 @@ export function PlatformDashboard({
             )}
           </div>
         </PreviewCard>
+        )}
       </div>
 
       {/* How Is This Calculated - Full Component */}

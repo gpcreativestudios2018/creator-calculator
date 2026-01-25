@@ -323,13 +323,20 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
     }))
   }
 
-  // Helper function to apply region and niche multipliers to calculation results
-  const applyMultipliers = (result: CalculationResult, regionMultiplier: number, nicheMultiplier: number): CalculationResult => {
-    const combinedMultiplier = regionMultiplier * nicheMultiplier
+  // Platforms where niche affects ad CPM rates
+  const AD_BASED_PLATFORMS = ['youtube', 'tiktok', 'facebook', 'twitter', 'snapchat', 'podcast', 'rumble']
+
+  const applyMultipliers = (result: CalculationResult, regionMultiplier: number, nicheMultiplier: number, platformId: string): CalculationResult => {
+    // Niche only affects ad-based platforms (CPM varies by advertiser demand)
+    // Subscription/tip platforms pay the same regardless of niche
+    const effectiveNicheMultiplier = AD_BASED_PLATFORMS.includes(platformId) ? nicheMultiplier : 1.0
+    const combinedMultiplier = regionMultiplier * effectiveNicheMultiplier
     return {
       ...result,
       monthlyRevenue: result.monthlyRevenue * combinedMultiplier,
       yearlyRevenue: result.yearlyRevenue * combinedMultiplier,
+      // Add flag so UI can show educational context
+      nicheApplied: AD_BASED_PLATFORMS.includes(platformId),
     }
   }
 
@@ -416,7 +423,7 @@ export function Calculator({ initialPlatform }: CalculatorProps) {
       default:
         baseResult = { monthlyRevenue: 0, yearlyRevenue: 0 }
     }
-    return applyMultipliers(baseResult, currentRegion.revenueMultiplier, currentNiche.rpmMultiplier)
+    return applyMultipliers(baseResult, currentRegion.revenueMultiplier, currentNiche.rpmMultiplier, activeTab)
   }, [activeTab, currentValues, currentRegion, currentNiche])
 
   const handleLoadScenario = (platformId: string, scenarioInputValues: Record<string, number>) => {

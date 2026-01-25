@@ -4,6 +4,7 @@ export interface CalculationResult {
   breakdown?: Record<string, number>
   engagementRate?: number
   growthRate?: number
+  nicheApplied?: boolean
 }
 
 export function calculateYouTube(subscribers: number, monthlyViews: number, cpm: number): CalculationResult {

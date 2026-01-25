@@ -202,16 +202,22 @@ export function calculateNewsletter(subscribers: number, paidPercent: number, mo
 
 // Patreon: Memberships (Patreon takes ~8-12% fee, we'll use 10%)
 export function calculatePatreon(patrons: number, avgPledge: number): CalculationResult {
+  // Patreon fees: 8-12% platform fee (using 10%) + ~5% payment processing
+  // Total fees: ~15%, creator keeps ~85%
+  // No minimum patron requirement
   const grossRevenue = patrons * avgPledge
   const platformFee = grossRevenue * 0.10
-  const monthlyRevenue = grossRevenue - platformFee
+  const processingFee = grossRevenue * 0.05
+  const totalFees = platformFee + processingFee
+  const monthlyRevenue = grossRevenue - totalFees
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
     breakdown: {
-      'Membership Revenue': grossRevenue,
+      'Gross Revenue': grossRevenue,
       'Platform Fee (10%)': -platformFee,
+      'Processing Fee (~5%)': -processingFee,
     },
     engagementRate: patrons > 0 ? Math.min((avgPledge / 5) * 100, 100) : 0,
     growthRate: 3.0,

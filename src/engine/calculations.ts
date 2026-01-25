@@ -200,13 +200,26 @@ export function calculateKick(subscribers: number, avgViewers: number): Calculat
   }
 }
 
-export function calculateNewsletter(subscribers: number, paidPercent: number, monthlyPrice: number): CalculationResult {
+export function calculateNewsletter(subscribers: number, paidPercent: number, monthlyPrice: number, platformFee: number = 10): CalculationResult {
+  // Generic newsletter calculator for any platform
+  // Common platforms: Substack (10%), Beehiiv (0-3%), Ghost (0%), ConvertKit (0-3%)
+  // User inputs their platform fee % (default 10%)
+  // Processing fees (~3%) added on top
   const paidSubs = Math.floor(subscribers * (paidPercent / 100))
-  const monthlyRevenue = paidSubs * monthlyPrice * 0.9 // 10% platform fee
+  const grossRevenue = paidSubs * monthlyPrice
+  const platformFees = grossRevenue * (platformFee / 100)
+  const processingFees = grossRevenue * 0.03
+  const totalFees = platformFees + processingFees
+  const monthlyRevenue = grossRevenue - totalFees
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
+    breakdown: {
+      'Gross Revenue': grossRevenue,
+      'Platform Fee': -platformFees,
+      'Processing (~3%)': -processingFees,
+    },
     engagementRate: paidPercent,
     growthRate: 9.1,
   }

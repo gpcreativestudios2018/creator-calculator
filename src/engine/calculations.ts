@@ -69,14 +69,26 @@ export function calculateInstagram(followers: number, avgLikes: number, postsPer
 }
 
 export function calculateTwitter(followers: number, impressions: number, subscribers: number): CalculationResult {
-  const adRevenue = (impressions / 1000) * 0.5 // rough ad share estimate
-  const subRevenue = subscribers * 3 // ~$3/sub avg after cut
+  // X/Twitter Ad Revenue Share requirements: X Premium subscriber, 500+ followers, 5M impressions in 3 months
+  // RPM: ~$0.15-$0.25 per 1k impressions (using $0.20)
+  // Subscriptions: Creator keeps ~97% after X's 3% cut
+  const qualifiesForAds = followers >= 500 && impressions >= 1666667 // ~5M / 3 months
+  const adRevenue = qualifiesForAds
+    ? (impressions / 1000) * 0.20
+    : 0
+  const subRevenue = subscribers * 2.91 // $2.99 sub * 97% creator share
   const monthlyRevenue = adRevenue + subRevenue
+  const engagementRate = followers > 0 ? (impressions / followers) * 100 / 30 : 0
 
   return {
     monthlyRevenue,
     yearlyRevenue: monthlyRevenue * 12,
-    engagementRate: (impressions / followers) * 100 / 30,
+    breakdown: {
+      'Ad Revenue Share': adRevenue,
+      'Subscriptions (97% share)': subRevenue,
+      'Meets Ad Requirements': qualifiesForAds ? 1 : 0,
+    },
+    engagementRate,
     growthRate: 3.1,
   }
 }

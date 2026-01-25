@@ -79,13 +79,19 @@ export function calculateFacebook(followers: number, watchMinutes: number): Calc
 }
 
 export function calculateLinkedIn(followers: number, newsletterSubs: number): CalculationResult {
-  const consultingLeads = Math.floor(newsletterSubs * 0.01) // 1% become leads
-  const monthlyRevenue = consultingLeads * 500 // $500 avg consulting value
+  // LinkedIn has NO direct creator monetization program
+  // This calculator shows potential reach metrics only
+  // Revenue must come from external sources (consulting, courses, jobs)
+  const engagementRate = followers > 0 ? (newsletterSubs / followers) * 100 : 0
 
   return {
-    monthlyRevenue,
-    yearlyRevenue: monthlyRevenue * 12,
-    engagementRate: (newsletterSubs / followers) * 100,
+    monthlyRevenue: 0,
+    yearlyRevenue: 0,
+    breakdown: {
+      'Platform Payouts': 0,
+      'Newsletter Subscribers': newsletterSubs,
+    },
+    engagementRate,
     growthRate: 6.7,
   }
 }

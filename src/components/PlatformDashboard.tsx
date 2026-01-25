@@ -418,23 +418,35 @@ export function PlatformDashboard({
           theme={theme}
         >
           {revenueStreamsData.length > 0 ? (
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={revenueStreamsData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius="40%"
-                  outerRadius="70%"
-                  dataKey="value"
-                  stroke="none"
-                >
-                  {revenueStreamsData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
+            <div className="h-full flex flex-col">
+              <div className="flex-1 min-h-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={revenueStreamsData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius="35%"
+                      outerRadius="60%"
+                      dataKey="value"
+                      stroke="none"
+                    >
+                      {revenueStreamsData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 pt-1">
+                {revenueStreamsData.slice(0, 3).map((stream, index) => (
+                  <div key={index} className="flex items-center gap-1">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: stream.color }} />
+                    <span className="text-[10px] text-zinc-400">{stream.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : (
             <div className="flex items-center justify-center h-full text-zinc-400 text-sm">
               Enter metrics to see breakdown

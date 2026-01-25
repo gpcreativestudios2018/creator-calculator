@@ -74,14 +74,25 @@ export function calculateTwitter(followers: number, impressions: number, subscri
   }
 }
 
-export function calculateFacebook(followers: number, watchMinutes: number): CalculationResult {
-  const adRevenue = (watchMinutes / 1000) * 1.5 // $1.50 per 1000 watch minutes
-  const monthlyRevenue = adRevenue
+export function calculateFacebook(followers: number, monthlyViews: number): CalculationResult {
+  // Facebook In-Stream Ads requirements: 10k followers + 600k watch minutes (past 60 days)
+  // Pays per 1,000 ad views (CPM), not watch minutes
+  // CPM range: $1-$3, using $2.00 average
+  // Creator gets 55% of ad revenue
+  const qualifiesForAds = followers >= 10000
+  const adRevenue = qualifiesForAds
+    ? (monthlyViews / 1000) * 2.00 * 0.55
+    : 0
+  const engagementRate = followers > 0 ? (monthlyViews / followers) * 100 : 0
 
   return {
-    monthlyRevenue,
-    yearlyRevenue: monthlyRevenue * 12,
-    engagementRate: (watchMinutes / followers) / 10,
+    monthlyRevenue: adRevenue,
+    yearlyRevenue: adRevenue * 12,
+    breakdown: {
+      'In-Stream Ad Revenue (55% share)': adRevenue,
+      'Meets 10k Follower Requirement': qualifiesForAds ? 1 : 0,
+    },
+    engagementRate,
     growthRate: 2.8,
   }
 }

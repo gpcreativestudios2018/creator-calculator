@@ -19,6 +19,7 @@ creator-calculator/
 ├── .vscode/                # VS Code settings
 ├── package.json
 ├── vite.config.ts
+├── vercel.json              # Vercel deployment config (SPA rewrites)
 ├── vitest.config.ts        # Testing config
 ├── tsconfig.json
 ├── tailwind.config.js      # Note: .js not .ts
@@ -71,3 +72,7 @@ creator-calculator/
 ### February 26, 2026
 - What was done: Created claude.md by scanning project
 - What's next: Continue remaining roadmap phases
+
+### March 13, 2026
+- What was done: Added vercel.json with SPA rewrite rules to fix 404 errors on all calculator subpages (/youtube-calculator, /tiktok-calculator, /instagram-calculator, /twitch-calculator, /patreon-calculator, etc.). The root cause was that Vercel had no rewrite configuration, so direct navigation to any route other than / returned 404 because there was no actual file at that path. The fix is a single catch-all rewrite rule that serves index.html for all routes, letting the React SPA router in App.tsx handle routing via window.location.pathname.
+- What's next: Verify deployed routes load correctly on socialstacks.app
